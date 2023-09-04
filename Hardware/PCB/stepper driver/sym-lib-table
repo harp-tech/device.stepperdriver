@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "stepper driver lib")(type "KiCad")(uri "${KIPRJMOD}/stepper driver lib.kicad_sym")(options "")(descr ""))
+)
