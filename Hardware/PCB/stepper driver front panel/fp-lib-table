@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "stepperdriver front panel")(type "KiCad")(uri "${KIPRJMOD}/stepperdriver front panel.pretty")(options "")(descr ""))
+)
