@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Atmel Studio Solution File, Format Version 11.00
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "StepperDriver", "StepperDriver\StepperDriver.cproj", "{07D859B3-5DEC-45E3-AF27-8A430BF51D6F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{07D859B3-5DEC-45E3-AF27-8A430BF51D6F}.Debug|AVR.ActiveCfg = Debug|AVR
+		{07D859B3-5DEC-45E3-AF27-8A430BF51D6F}.Debug|AVR.Build.0 = Debug|AVR
+		{07D859B3-5DEC-45E3-AF27-8A430BF51D6F}.Release|AVR.ActiveCfg = Release|AVR
+		{07D859B3-5DEC-45E3-AF27-8A430BF51D6F}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
