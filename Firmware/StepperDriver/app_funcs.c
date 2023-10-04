@@ -2,6 +2,7 @@
 #include "app_ios_and_regs.h"
 #include "hwbp_core.h"
 
+#include "i2c.h"
 
 /************************************************************************/
 /* Create pointers to functions                                         */
@@ -1447,70 +1448,73 @@ bool app_write_REG_RESERVED3(void *a)
 /************************************************************************/
 /* REG_RESERVED4                                                        */
 /************************************************************************/
-void app_read_REG_RESERVED4(void)
-{
-	//app_regs.REG_RESERVED4 = 0;
+i2c_dev_t digi_pot_M0_M1;
+i2c_dev_t digi_pot_M2_M3;
 
-}
-
+void app_read_REG_RESERVED4(void) {}
 bool app_write_REG_RESERVED4(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
+	
+	digi_pot_M0_M1.reg = 0x00;		// Pot 1
+	digi_pot_M0_M1.reg_val = reg;
+	
+	bool ok = i2c0_wReg(&digi_pot_M0_M1);
 
 	app_regs.REG_RESERVED4 = reg;
-	return true;
+	return ok;
 }
 
 
 /************************************************************************/
 /* REG_RESERVED5                                                        */
 /************************************************************************/
-void app_read_REG_RESERVED5(void)
-{
-	//app_regs.REG_RESERVED5 = 0;
-
-}
-
+void app_read_REG_RESERVED5(void) {}
 bool app_write_REG_RESERVED5(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
+	
+	digi_pot_M0_M1.reg = 0x80;		// Pot 2
+	digi_pot_M0_M1.reg_val = reg;
+	
+	bool ok = i2c0_wReg(&digi_pot_M0_M1);
 
 	app_regs.REG_RESERVED5 = reg;
-	return true;
+	return ok;
 }
 
 
 /************************************************************************/
 /* REG_RESERVED6                                                        */
 /************************************************************************/
-void app_read_REG_RESERVED6(void)
-{
-	//app_regs.REG_RESERVED6 = 0;
-
-}
-
+void app_read_REG_RESERVED6(void) {}
 bool app_write_REG_RESERVED6(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
+	
+	digi_pot_M2_M3.reg = 0x00;		// Pot 1
+	digi_pot_M2_M3.reg_val = reg;
+	
+	bool ok = i2c0_wReg(&digi_pot_M2_M3);
 
 	app_regs.REG_RESERVED6 = reg;
-	return true;
+	return ok;
 }
 
 
 /************************************************************************/
 /* REG_RESERVED7                                                        */
 /************************************************************************/
-void app_read_REG_RESERVED7(void)
-{
-	//app_regs.REG_RESERVED7 = 0;
-
-}
-
+void app_read_REG_RESERVED7(void) {}
 bool app_write_REG_RESERVED7(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
+	
+	digi_pot_M2_M3.reg = 0x80;		// Pot 2
+	digi_pot_M2_M3.reg_val = reg;
+	
+	bool ok = i2c0_wReg(&digi_pot_M2_M3);
 
 	app_regs.REG_RESERVED7 = reg;
-	return true;
+	return ok;
 }

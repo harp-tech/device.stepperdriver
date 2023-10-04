@@ -9,8 +9,7 @@
 #define F_CPU 32000000
 #include <util/delay.h>
 
-#include "AD5048A.h"
-#include "PAA5100JE.h"
+#include "i2c.h"
 
 /************************************************************************/
 /* Declare application registers                                        */
@@ -76,6 +75,11 @@ void core_callback_define_clock_default(void) {}
 #define T_STARTUP_ON  100
 #define T_STARTUP_OFF 0
 
+extern i2c_dev_t digi_pot_M0_M1;
+extern i2c_dev_t digi_pot_M2_M3;
+
+uint8_t i2c_test;
+
 void core_callback_initialize_hardware(void)
 {
 	/* Initialize IOs */
@@ -115,6 +119,11 @@ void core_callback_initialize_hardware(void)
 	
 	_delay_ms(500);
 	set_LED_POWER;
+	
+	/* Initialize I2C */
+	i2c0_init();
+	digi_pot_M0_M1.add = 0x2C;
+	digi_pot_M2_M3.add = 0x2D;
 }
 
 void core_callback_reset_registers(void)
