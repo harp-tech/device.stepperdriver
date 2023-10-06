@@ -90,7 +90,7 @@ registers:
 
   Motor0_MaximumCurrentRms: &maxcurrent
     address: 46
-    minValue: 0.17
+    minValue: 0.139
     maxValue: 2.1
     defaultValue: 0.2
     type: Float
