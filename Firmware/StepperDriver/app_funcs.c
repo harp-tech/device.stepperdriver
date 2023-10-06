@@ -1301,8 +1301,6 @@ bool app_write_REG_MOTOR3_MIN_STEPS_INTEGRATION(void *a)
 /************************************************************************/
 /* REG_MOTOR0_IMMEDIATE_STEPS                                           */
 /************************************************************************/
-bool is_immediate_mode_M0 = false;
-
 void app_read_REG_MOTOR0_IMMEDIATE_STEPS(void)
 {
 	//app_regs.REG_MOTOR0_IMMEDIATE_STEPS = 0;
@@ -1313,21 +1311,16 @@ bool app_write_REG_MOTOR0_IMMEDIATE_STEPS(void *a)
 {
 	int32_t reg = *((int32_t*)a);
 	
-	is_immediate_mode_M0 = true;
-	
-	if (reg < 10 || reg > -10)
+	if (reg > -10 && reg < 10)
 	{
 		reg = 0;
 	}
 	
 	if (reg == 0)
 	{
-		is_immediate_mode_M0 = false;
-		
 		timer_type0_stop(&TCC0);
-	}
-	
-	if (TCC0_CTRLA == 0)
+	}	
+	else if (TCC0_CTRLA == 0)
 	{
 		if (reg > 0)
 			set_DIR_M0;
