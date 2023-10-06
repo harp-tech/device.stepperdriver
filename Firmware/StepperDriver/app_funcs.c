@@ -238,6 +238,8 @@ void app_read_REG_ENABLE_MOTORS(void)
 bool app_write_REG_ENABLE_MOTORS(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
+	
+	if (reg & B_MOTOR0) set_DRIVE_ENABLE_M0;
 
 	app_regs.REG_ENABLE_MOTORS = reg;
 	return true;
@@ -256,6 +258,8 @@ void app_read_REG_DISABLE_MOTORS(void)
 bool app_write_REG_DISABLE_MOTORS(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
+	
+	if (reg & B_MOTOR0) clr_DRIVE_ENABLE_M0;
 
 	app_regs.REG_DISABLE_MOTORS = reg;
 	return true;
