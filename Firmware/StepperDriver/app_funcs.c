@@ -29,7 +29,7 @@ uint8_t calculate_max_current_configuration_data (uint8_t *cfg_2_and_3, float rm
 	float digi_pot_value;
 	
 	/* Calculate current peak */
-	IFS = app_regs.REG_MOTOR0_MAXIMUM_CURRENT_RMS * 1.414213562373095 /* sqrt(2) */;
+	IFS = rms * 1.414213562373095 /* sqrt(2) */;
 	
 	/* Apply boundaries */
 	if (IFS < KIFS_1_AMP_PEAK/MAX_RREF_VALUE) IFS = KIFS_1_AMP_PEAK/MAX_RREF_VALUE;
