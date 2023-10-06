@@ -9,6 +9,66 @@
 /************************************************************************/
 extern AppRegs app_regs;
 
+// https://www.amci.com/industrial-automation-resources/plc-automation-tutorials/stepper-motor-drivers-rms-or-peak-current/
+
+#define MIN_RREF_VALUE 12.0
+#define MAX_RREF_VALUE 60.0
+
+#define KIFS_3_AMP_PEAK 36.0
+#define KIFS_2_AMP_PEAK 24.0
+#define KIFS_1_AMP_PEAK 11.75
+
+#define RREF_HW_OFFSET 12.0
+
+uint8_t calculate_max_current_configuration_data (uint8_t *cfg_2_and_3, float rms)
+{
+	float KFIS;
+	float IFS;
+	float RREF;
+	
+	float digi_pot_value;
+	
+	/* Calculate current peak */
+	IFS = app_regs.REG_MOTOR0_MAXIMUM_CURRENT_RMS * 1.414213562373095 /* sqrt(2) */;
+	
+	/* Apply boundaries */
+	if (IFS < KIFS_1_AMP_PEAK/MAX_RREF_VALUE) IFS = KIFS_1_AMP_PEAK/MAX_RREF_VALUE;
+	if (IFS > KIFS_3_AMP_PEAK/MIN_RREF_VALUE) IFS = KIFS_3_AMP_PEAK/MIN_RREF_VALUE;
+	
+	/* Find KFIS and set CFG2 and CFG3 */
+	if (IFS < 0.95)
+	{
+		KFIS = KIFS_1_AMP_PEAK;
+		*cfg_2_and_3 = 0;
+	}
+	else if (IFS < 1.95)
+	{
+		KFIS = KIFS_2_AMP_PEAK;
+		*cfg_2_and_3 = 1;
+	}
+	else
+	{
+		KFIS = KIFS_3_AMP_PEAK;		
+		*cfg_2_and_3 = 2;
+	}
+	
+	/* Calculate external resistor RREF value */
+	RREF = KFIS / IFS;
+	
+	/* Apply boundaries */
+	if (RREF < MIN_RREF_VALUE) RREF = MIN_RREF_VALUE;
+	if (RREF > MAX_RREF_VALUE) RREF = MAX_RREF_VALUE;
+	
+	/* Calculate digital word to be written to digital potentiometer */
+	digi_pot_value = (RREF - RREF_HW_OFFSET) * 5.12 - 1.6384;
+	
+	/* Apply boundaries */
+	if (digi_pot_value < 0)   digi_pot_value = 0;
+	if (digi_pot_value > 255) digi_pot_value = 255;
+	
+	return (uint8_t) digi_pot_value;
+}
+
 void (*app_func_rd_pointer[])(void) = {
 	&app_read_REG_ENABLE_MOTORS,
 	&app_read_REG_DISABLE_MOTORS,
@@ -277,15 +337,14 @@ bool app_write_REG_DISABLE_INPUTS(void *a)
 /************************************************************************/
 /* REG_MOTOR0_OPERATION_MODE                                            */
 /************************************************************************/
-void app_read_REG_MOTOR0_OPERATION_MODE(void)
-{
-	//app_regs.REG_MOTOR0_OPERATION_MODE = 0;
-
-}
-
+void app_read_REG_MOTOR0_OPERATION_MODE(void) {}
 bool app_write_REG_MOTOR0_OPERATION_MODE(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
+	
+	if (reg == GM_QUIET_MODE) set_CFG5_M0;
+	else if (reg == GM_DYNAMIC_MOVEMENTS) clr_CFG5_M0;
+	else return false;
 
 	app_regs.REG_MOTOR0_OPERATION_MODE = reg;
 	return true;
@@ -349,15 +408,16 @@ bool app_write_REG_MOTOR3_OPERATION_MODE(void *a)
 /************************************************************************/
 /* REG_MOTOR0_MICROSTEP_RESOLUTION                                      */
 /************************************************************************/
-void app_read_REG_MOTOR0_MICROSTEP_RESOLUTION(void)
-{
-	//app_regs.REG_MOTOR0_MICROSTEP_RESOLUTION = 0;
-
-}
-
+void app_read_REG_MOTOR0_MICROSTEP_RESOLUTION(void) {}
 bool app_write_REG_MOTOR0_MICROSTEP_RESOLUTION(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
+	
+	if (reg == GM_MICROSTEPS_8) {clr_CFG0_M0; clr_CFG1_M0;}
+	else if (reg == GM_MICROSTEPS_16) {set_CFG0_M0; clr_CFG1_M0;}
+	else if (reg == GM_MICROSTEPS_32) {clr_CFG0_M0; set_CFG1_M0;}
+	else if (reg == GM_MICROSTEPS_64) {set_CFG0_M0; set_CFG1_M0;}
+	else return false;
 
 	app_regs.REG_MOTOR0_MICROSTEP_RESOLUTION = reg;
 	return true;
@@ -421,15 +481,20 @@ bool app_write_REG_MOTOR3_MICROSTEP_RESOLUTION(void *a)
 /************************************************************************/
 /* REG_MOTOR0_MAXIMUM_CURRENT_RMS                                       */
 /************************************************************************/
-void app_read_REG_MOTOR0_MAXIMUM_CURRENT_RMS(void)
-{
-	//app_regs.REG_MOTOR0_MAXIMUM_CURRENT_RMS = 0;
-
-}
-
+void app_read_REG_MOTOR0_MAXIMUM_CURRENT_RMS(void) {}
 bool app_write_REG_MOTOR0_MAXIMUM_CURRENT_RMS(void *a)
 {
 	float reg = *((float*)a);
+	
+	uint8_t cfg_2_and_3;
+	uint8_t digital_pot;
+	
+	digital_pot = calculate_max_current_configuration_data (&cfg_2_and_3, reg);
+	
+	if (cfg_2_and_3 & 1) set_CFG2_M0; else clr_CFG2_M0;
+	if (cfg_2_and_3 & 2) set_CFG3_M0; else clr_CFG3_M0;	
+
+	app_write_REG_RESERVED4(&digital_pot);
 
 	app_regs.REG_MOTOR0_MAXIMUM_CURRENT_RMS = reg;
 	return true;
@@ -1232,6 +1297,8 @@ bool app_write_REG_MOTOR3_MIN_STEPS_INTEGRATION(void *a)
 /************************************************************************/
 /* REG_MOTOR0_IMMEDIATE_STEPS                                           */
 /************************************************************************/
+bool is_immediate_mode_M0 = false;
+
 void app_read_REG_MOTOR0_IMMEDIATE_STEPS(void)
 {
 	//app_regs.REG_MOTOR0_IMMEDIATE_STEPS = 0;
@@ -1241,6 +1308,53 @@ void app_read_REG_MOTOR0_IMMEDIATE_STEPS(void)
 bool app_write_REG_MOTOR0_IMMEDIATE_STEPS(void *a)
 {
 	int32_t reg = *((int32_t*)a);
+	
+	is_immediate_mode_M0 = true;
+	
+	if (reg < 10 || reg > -10)
+	{
+		reg = 0;
+	}
+	
+	if (reg == 0)
+	{
+		is_immediate_mode_M0 = false;
+		
+		timer_type0_stop(&TCC0);
+	}
+	
+	if (TCC0_CTRLA == 0)
+	{
+		if (reg > 0)
+			set_DIR_M0;
+		else
+			clr_DIR_M0;
+			
+		if (reg < 0)
+		{
+			reg = -reg;
+		}
+			
+		timer_type0_pwm(&TCC0, TIMER_PRESCALER_DIV64, reg >> 1, 3, INT_LEVEL_OFF, INT_LEVEL_OFF);
+	}
+	else
+	{
+		if (TCC0_INTCTRLB |= 0)
+		{
+			/* If running in normal mode, disable timer interrupts */
+			TCC0_INTCTRLA = 0;
+			TCC0_INTCTRLB = 0;			
+		}
+		
+		if (reg > 0)
+			set_DIR_M0;
+		else
+			clr_DIR_M0;
+			
+		if (reg < 0) reg = -reg;
+		
+		TCC0_PER = (reg >> 1) - 1;
+	}
 
 	app_regs.REG_MOTOR0_IMMEDIATE_STEPS = reg;
 	return true;
@@ -1376,15 +1490,30 @@ bool app_write_REG_RESET_ENCODERS(void *a)
 /************************************************************************/
 /* REG_RESERVED0                                                        */
 /************************************************************************/
-void app_read_REG_RESERVED0(void)
+void app_read_REG_RESERVED0(void) 
 {
-	//app_regs.REG_RESERVED0 = 0;
-
+	app_regs.REG_RESERVED0 = 0;
+	app_regs.REG_RESERVED0 |= (read_CFG0_M0) ? 1 : 0;
+	app_regs.REG_RESERVED0 |= (read_CFG1_M0) ? 2 : 0;
+	app_regs.REG_RESERVED0 |= (read_CFG2_M0) ? 4 : 0;
+	app_regs.REG_RESERVED0 |= (read_CFG3_M0) ? 8 : 0;
+	app_regs.REG_RESERVED0 |= 16;
+	app_regs.REG_RESERVED0 |= (read_CFG5_M0) ? 32 : 0;
+	app_regs.REG_RESERVED0 |= (read_CFG6_M0) ? 64 : 0;
+	app_regs.REG_RESERVED0 |= (read_CFG7_M0) ? 128 : 0;
 }
 
 bool app_write_REG_RESERVED0(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
+	
+	if (reg & 1)   set_CFG0_M0; else clr_CFG0_M0;
+	if (reg & 2)   set_CFG1_M0; else set_CFG1_M0;
+	if (reg & 4)   set_CFG2_M0; else set_CFG2_M0;
+	if (reg & 8)   set_CFG3_M0; else set_CFG3_M0;
+	if (reg & 32)  set_CFG5_M0; else set_CFG5_M0;
+	if (reg & 64)  set_CFG6_M0; else set_CFG6_M0;
+	if (reg & 128) set_CFG7_M0; else set_CFG7_M0;	
 
 	app_regs.REG_RESERVED0 = reg;
 	return true;

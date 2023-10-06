@@ -23,6 +23,22 @@ void init_ios(void)
 	io_pin2out(&PORTH, 4, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // LED_M1
 	io_pin2out(&PORTJ, 0, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // LED_M2
 	//io_pin2out(&PORTQ, 1, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // LED_M3
+	io_pin2out(&PORTC, 0, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // STEP_M0
+	io_pin2out(&PORTD, 0, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // STEP_M1
+	io_pin2out(&PORTE, 0, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // STEP_M2
+	io_pin2out(&PORTF, 0, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // STEP_M3
+	io_pin2out(&PORTC, 1, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // DIR_M0
+	io_pin2out(&PORTD, 1, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // DIR_M1
+	io_pin2out(&PORTE, 1, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // DIR_M2
+	io_pin2out(&PORTF, 1, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // DIR_M3
+	io_pin2out(&PORTA, 0, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CFG0_M0
+	io_pin2out(&PORTA, 1, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CFG1_M0
+	io_pin2out(&PORTA, 2, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CFG2_M0
+	io_pin2out(&PORTA, 3, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CFG3_M0
+	io_pin2out(&PORTA, 5, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CFG5_M0
+	io_pin2out(&PORTA, 7, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CFG6_M0
+	io_pin2out(&PORTC, 4, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CFG7_M0
+	io_pin2out(&PORTC, 3, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // DRIVE_ENABLE_M0
 
 	/* Initialize output pins */
 	clr_LED_STATE;
@@ -30,7 +46,23 @@ void init_ios(void)
 	clr_LED_M0;
 	clr_LED_M1;
 	clr_LED_M2;
-	//clr_LED_M3;
+	clr_LED_M3;
+	clr_STEP_M0;
+	clr_STEP_M1;
+	clr_STEP_M2;
+	clr_STEP_M3;
+	clr_DIR_M0;
+	clr_DIR_M1;
+	clr_DIR_M2;
+	clr_DIR_M3;
+	clr_CFG0_M0;
+	clr_CFG1_M0;
+	clr_CFG2_M0;
+	clr_CFG3_M0;
+	set_CFG5_M0;
+	clr_CFG6_M0;
+	clr_CFG7_M0;
+	clr_DRIVE_ENABLE_M0;
 }
 
 /************************************************************************/

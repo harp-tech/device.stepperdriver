@@ -29,6 +29,22 @@ void init_ios(void);
 // LED_M1                 Description: Motor 1 LED
 // LED_M2                 Description: Motor 2 LED
 // LED_M3                 Description: Motor 3 LED (DON'T USE YET)
+// STEP_M0                Description: Motor 0 step control
+// STEP_M1                Description: Motor 1 step control
+// STEP_M2                Description: Motor 2 step control
+// STEP_M3                Description: Motor 3 step control
+// DIR_M0                 Description: Motor 0 direction control
+// DIR_M1                 Description: Motor 1 direction control
+// DIR_M2                 Description: Motor 2 direction control
+// DIR_M3                 Description: Motor 3 direction control
+// CFG0_M0                Description: Motor 0 configuration pin 0
+// CFG1_M0                Description: Motor 0 configuration pin 1
+// CFG2_M0                Description: Motor 0 configuration pin 2
+// CFG3_M0                Description: Motor 0 configuration pin 3
+// CFG5_M0                Description: Motor 0 configuration pin 5
+// CFG6_M0                Description: Motor 0 configuration pin 6
+// CFG7_M0                Description: Motor 0 configuration pin 7
+// DRIVE_ENABLE_M0        Description: Motor 0 drive enable
 
 /* LED_STATE */
 #define set_LED_STATE set_io(PORTA, 6)
@@ -65,6 +81,102 @@ void init_ios(void);
 #define clr_LED_M3 clear_io(PORTQ, 1)
 #define tgl_LED_M3 toggle_io(PORTQ, 1)
 #define read_LED_M3 read_io(PORTQ, 1)
+
+/* STEP_M0 */
+#define set_STEP_M0 set_io(PORTC, 0)
+#define clr_STEP_M0 clear_io(PORTC, 0)
+#define tgl_STEP_M0 toggle_io(PORTC, 0)
+#define read_STEP_M0 read_io(PORTC, 0)
+
+/* STEP_M1 */
+#define set_STEP_M1 set_io(PORTD, 0)
+#define clr_STEP_M1 clear_io(PORTD, 0)
+#define tgl_STEP_M1 toggle_io(PORTD, 0)
+#define read_STEP_M1 read_io(PORTD, 0)
+
+/* STEP_M2 */
+#define set_STEP_M2 set_io(PORTE, 0)
+#define clr_STEP_M2 clear_io(PORTE, 0)
+#define tgl_STEP_M2 toggle_io(PORTE, 0)
+#define read_STEP_M2 read_io(PORTE, 0)
+
+/* STEP_M3 */
+#define set_STEP_M3 set_io(PORTF, 0)
+#define clr_STEP_M3 clear_io(PORTF, 0)
+#define tgl_STEP_M3 toggle_io(PORTF, 0)
+#define read_STEP_M3 read_io(PORTF, 0)
+
+/* DIR_M0 */
+#define set_DIR_M0 set_io(PORTC, 1)
+#define clr_DIR_M0 clear_io(PORTC, 1)
+#define tgl_DIR_M0 toggle_io(PORTC, 1)
+#define read_DIR_M0 read_io(PORTC, 1)
+
+/* DIR_M1 */
+#define set_DIR_M1 set_io(PORTD, 1)
+#define clr_DIR_M1 clear_io(PORTD, 1)
+#define tgl_DIR_M1 toggle_io(PORTD, 1)
+#define read_DIR_M1 read_io(PORTD, 1)
+
+/* DIR_M2 */
+#define set_DIR_M2 set_io(PORTE, 1)
+#define clr_DIR_M2 clear_io(PORTE, 1)
+#define tgl_DIR_M2 toggle_io(PORTE, 1)
+#define read_DIR_M2 read_io(PORTE, 1)
+
+/* DIR_M3 */
+#define set_DIR_M3 set_io(PORTF, 1)
+#define clr_DIR_M3 clear_io(PORTF, 1)
+#define tgl_DIR_M3 toggle_io(PORTF, 1)
+#define read_DIR_M3 read_io(PORTF, 1)
+
+/* CFG0_M0 */
+#define set_CFG0_M0 set_io(PORTA, 0)
+#define clr_CFG0_M0 clear_io(PORTA, 0)
+#define tgl_CFG0_M0 toggle_io(PORTA, 0)
+#define read_CFG0_M0 read_io(PORTA, 0)
+
+/* CFG1_M0 */
+#define set_CFG1_M0 set_io(PORTA, 1)
+#define clr_CFG1_M0 clear_io(PORTA, 1)
+#define tgl_CFG1_M0 toggle_io(PORTA, 1)
+#define read_CFG1_M0 read_io(PORTA, 1)
+
+/* CFG2_M0 */
+#define set_CFG2_M0 set_io(PORTA, 2)
+#define clr_CFG2_M0 clear_io(PORTA, 2)
+#define tgl_CFG2_M0 toggle_io(PORTA, 2)
+#define read_CFG2_M0 read_io(PORTA, 2)
+
+/* CFG3_M0 */
+#define set_CFG3_M0 set_io(PORTA, 3)
+#define clr_CFG3_M0 clear_io(PORTA, 3)
+#define tgl_CFG3_M0 toggle_io(PORTA, 3)
+#define read_CFG3_M0 read_io(PORTA, 3)
+
+/* CFG5_M0 */
+#define set_CFG5_M0 set_io(PORTA, 5)
+#define clr_CFG5_M0 clear_io(PORTA, 5)
+#define tgl_CFG5_M0 toggle_io(PORTA, 5)
+#define read_CFG5_M0 read_io(PORTA, 5)
+
+/* CFG6_M0 */
+#define set_CFG6_M0 set_io(PORTA, 7)
+#define clr_CFG6_M0 clear_io(PORTA, 7)
+#define tgl_CFG6_M0 toggle_io(PORTA, 7)
+#define read_CFG6_M0 read_io(PORTA, 7)
+
+/* CFG7_M0 */
+#define set_CFG7_M0 set_io(PORTC, 4)
+#define clr_CFG7_M0 clear_io(PORTC, 4)
+#define tgl_CFG7_M0 toggle_io(PORTC, 4)
+#define read_CFG7_M0 read_io(PORTC, 4)
+
+/* DRIVE_ENABLE_M0 */
+#define set_DRIVE_ENABLE_M0 clear_io(PORTC, 3)
+#define clr_DRIVE_ENABLE_M0 set_io(PORTC, 3)
+#define tgl_DRIVE_ENABLE_M0 toggle_io(PORTC, 3)
+#define read_DRIVE_ENABLE_M0 read_io(PORTC, 3)
 
 
 /************************************************************************/
