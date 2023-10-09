@@ -355,6 +355,7 @@ typedef struct
 /************************************************************************/
 /* Registers' bits                                                      */
 /************************************************************************/
+#define B_MOTOR0                           (1<<0)       // Index of motor 0
 #define B_MOTOR1                           (1<<1)       // Index of motor 1
 #define B_MOTOR2                           (1<<2)       // Index of motor 2
 #define B_MOTOR3                           (1<<3)       // Index of motor 3

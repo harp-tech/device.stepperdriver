@@ -39,6 +39,9 @@ void init_ios(void)
 	io_pin2out(&PORTA, 7, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CFG6_M0
 	io_pin2out(&PORTC, 4, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CFG7_M0
 	io_pin2out(&PORTC, 3, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // DRIVE_ENABLE_M0
+	
+	io_pin2out(&PORTC, 2, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // SLEEP
+	set_io(PORTC, 2);
 
 	/* Initialize output pins */
 	clr_LED_STATE;
@@ -59,7 +62,7 @@ void init_ios(void)
 	clr_CFG1_M0;
 	clr_CFG2_M0;
 	clr_CFG3_M0;
-	set_CFG5_M0;
+	clr_CFG5_M0;
 	clr_CFG6_M0;
 	clr_CFG7_M0;
 	clr_DRIVE_ENABLE_M0;
