@@ -87,6 +87,8 @@ void core_callback_initialize_hardware(void)
 	init_ios();
 	
 	/* Initialize hardware */
+	
+	/* LED startup sequence */
 	for (uint8_t i = 0; i < 4; i++)
 	{
 		set_LED_M0;  _delay_ms(T_STARTUP_ON); clr_LED_M0;  _delay_ms(T_STARTUP_OFF);
@@ -128,12 +130,21 @@ void core_callback_initialize_hardware(void)
 
 void core_callback_reset_registers(void)
 {
-	/* Initialize registers */		
+	/* Initialize registers */
+	app_regs.REG_MOTOR0_OPERATION_MODE = GM_QUIET_MODE;
+	app_regs.REG_MOTOR0_MICROSTEP_RESOLUTION = GM_MICROSTEPS_8;
+	app_regs.REG_MOTOR0_MAXIMUM_CURRENT_RMS = 0.2;
 }
 
 void core_callback_registers_were_reinitialized(void)
-{
+{	
 	/* Update registers if needed */
+	
+	app_write_REG_ENABLE_MOTORS(&app_regs.REG_ENABLE_MOTORS);	// Motors are disabled by io default
+	
+	app_write_REG_MOTOR0_OPERATION_MODE(&app_regs.REG_MOTOR0_OPERATION_MODE);
+	app_write_REG_MOTOR0_MICROSTEP_RESOLUTION(&app_regs.REG_MOTOR0_MICROSTEP_RESOLUTION);
+	app_write_REG_MOTOR0_MAXIMUM_CURRENT_RMS(&app_regs.REG_MOTOR0_MAXIMUM_CURRENT_RMS);
 }
 
 /************************************************************************/
