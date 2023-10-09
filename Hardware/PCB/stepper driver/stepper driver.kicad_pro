@@ -40,12 +40,12 @@
         },
         "silk_line_width": 0.09999999999999999,
         "silk_text_italic": false,
-        "silk_text_size_h": 1.0,
-        "silk_text_size_v": 1.0,
-        "silk_text_thickness": 0.09999999999999999,
+        "silk_text_size_h": 0.7999999999999999,
+        "silk_text_size_v": 0.7999999999999999,
+        "silk_text_thickness": 0.15,
         "silk_text_upright": false,
         "zones": {
-          "min_clearance": 0.0
+          "min_clearance": 0.19999999999999998
         }
       },
       "diff_pair_dimensions": [
@@ -82,7 +82,7 @@
         "items_not_allowed": "error",
         "length_out_of_range": "error",
         "lib_footprint_issues": "warning",
-        "lib_footprint_mismatch": "warning",
+        "lib_footprint_mismatch": "ignore",
         "malformed_courtyard": "error",
         "microvia_drill_out_of_range": "error",
         "missing_courtyard": "ignore",
@@ -173,6 +173,7 @@
       "track_widths": [
         0.0,
         0.2032,
+        0.21,
         0.254,
         0.3048,
         0.4064,
@@ -425,7 +426,9 @@
     }
   },
   "libraries": {
-    "pinned_footprint_libs": [],
+    "pinned_footprint_libs": [
+      "Resistor_SMD"
+    ],
     "pinned_symbol_libs": []
   },
   "meta": {
@@ -465,7 +468,7 @@
       "idf": "",
       "netlist": "",
       "specctra_dsn": "",
-      "step": "",
+      "step": "stepper driver.step",
       "vrml": ""
     },
     "page_layout_descr_file": ""
