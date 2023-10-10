@@ -1,0 +1,4 @@
+FR4 temperature > 145 ºC
+124.4 x 80.4 mm
+1.6 mm
+1 oz for all layers
