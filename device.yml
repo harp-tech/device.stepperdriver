@@ -50,45 +50,45 @@ registers:
 ##################################
 # Configuration
 ##################################
-  OperationModeMotor0: &opmode
+  Motor0OperationMode: &opmode
     address: 38
     type: U8
     access: Write
     maskType: MotorOperationMode
     description: Configures the operation mode for motor 0.
-  OperationModeMotor1:
+  Motor1OperationMode:
     <<: *opmode
     address: 39
     description: Configures the operation mode for motor 1.
-  OperationModeMotor2:
+  Motor2OperationMode:
     <<: *opmode
     address: 40
     description: Configures the operation mode for motor 2.
-  OperationModeMotor3:
+  Motor3OperationMode:
     <<: *opmode
     address: 41
     description: Configures the operation mode for motor 3.
 
-  MicrostepResolutionMotor0: &microstep_resolution
+  Motor0MicrostepResolution: &microstep_resolution
     address: 42
     type: U8
     access: Write
     maskType: MicrostepResolution
     description: Configures the microstep resolution for motor 0.  
-  MicrostepResolutionMotor1:
+  Motor1MicrostepResolution:
     <<: *microstep_resolution
     address: 43
     description: Configures the microstep resolution for motor 1.
-  MicrostepResolutionMotor2:
+  Motor2MicrostepResolution:
     <<: *microstep_resolution
     address: 44
     description: Configures the microstep resolution for motor 2.
-  MicrostepResolutionMotor3:
+  Motor3MicrostepResolution:
     <<: *microstep_resolution
     address: 45
     description: Configures the microstep resolution for motor 3.
 
-  MaximumCurrentRmsMotor0: &maxcurrent
+  Motor0MaximumCurrentRms: &maxcurrent
     address: 46
     minValue: 0.139
     maxValue: 2.1
@@ -96,20 +96,20 @@ registers:
     type: Float
     access: Write
     description: Configures the maximum RMS current per phase for motor 0.
-  MaximumCurrentRmsMotor1:
+  Motor1MaximumCurrentRms:
     <<: *maxcurrent
     address: 47
     description: Configures the maximum RMS current per phase for motor 1.
-  MaximumCurrentRmsMotor2:
+  Motor2MaximumCurrentRms:
     <<: *maxcurrent
     address: 48
     description: Configures the maximum RMS current per phase for motor 2.
-  MaximumCurrentRmsMotor3:
+  Motor3MaximumCurrentRms:
     <<: *maxcurrent
     address: 49
     description: Configures the maximum RMS current per phase for motor 3.
 
-  NominalStepIntervalMotor0: &nominalinterval
+  Motor0NominalStepInterval: &nominalinterval
     address: 50
     minValue: 100
     maxValue: 20000
@@ -117,20 +117,20 @@ registers:
     type: U16
     access: Write
     description: Configures the time between step motor pulses when running at nominal speed for motor 0.
-  NominalStepIntervalMotor1:
+  Motor1NominalStepInterval:
     <<: *nominalinterval
     address: 51
     description: Configures the time between step motor pulses when running at nominal speed for motor 1.
-  NominalStepIntervalMotor2:
+  Motor2NominalStepInterval:
     <<: *nominalinterval
     address: 52
     description: Configures the time between step motor pulses when running at nominal speed for motor 2.
-  NominalStepIntervalMotor3:
+  Motor3NominalStepInterval:
     <<: *nominalinterval
     address: 53
     description: Configures the time between step motor pulses when running at nominal speed for motor 3.
 
-  MaximumStepIntervalMotor0: &maxinterval
+  Motor0MaximumStepInterval: &maxinterval
     address: 54
     minValue: 100
     maxValue: 20000
@@ -138,20 +138,20 @@ registers:
     type: U16
     access: Write
     description: Configures the time between step motor pulses used when starting or stopping a movement for motor 0.
-  MaximumStepIntervalMotor1:
+  Motor1MaximumStepInterval:
     <<: *maxinterval
     address: 55
     description: Configures the time between step motor pulses used when starting or stopping a movement for motor 1.
-  MaximumStepIntervalMotor2:
+  Motor2MaximumStepInterval:
     <<: *maxinterval
     address: 56
     description: Configures the time between step motor pulses used when starting or stopping a movement for motor 2.
-  MaximumStepIntervalMotor3:
+  Motor3MaximumStepInterval:
     <<: *maxinterval
     address: 57
     description: Configures the time between step motor pulses used when starting or stopping a movement for motor 3.
 
-  StepAccelerationIntervalMotor0: &accperiod
+  Motor0StepAccelerationInterval: &accperiod
     address: 58
     minValue: 2
     maxValue: 2000
@@ -159,15 +159,15 @@ registers:
     type: U16
     access: Write
     description: Configures the acceleration for motor 0. The time between step pulses is decreased by this value when accelerating and increased when decelerating.
-  StepAccelerationIntervalMotor1:
+  Motor1StepAccelerationInterval:
     <<: *accperiod
     address: 59
     description: Configures the acceleration for motor 1. The time between step pulses is decreased by this value when accelerating and increased when decelerating.
-  StepAccelerationIntervalMotor2:
+  Motor2StepAccelerationInterval:
     <<: *accperiod
     address: 60
     description: Configures the acceleration for motor 2. The time between step pulses is decreased by this value when accelerating and increased when decelerating.
-  StepAccelerationIntervalMotor3:
+  Motor3StepAccelerationInterval:
     <<: *accperiod
     address: 61
     description: Configures the acceleration for motor 3. The time between step pulses is decreased by this value when accelerating and increased when decelerating.
@@ -185,40 +185,40 @@ registers:
     maskType: EncoderRateConfig
     description: Configures the reading rate of the encoders' event.
   
-  OperationModeInput0: &input_mode
+  Input0OperationMode: &input_mode
     address: 64
     type: U8
     access: Write
     maskType: InputOperationMode
     description: Configures the operation mode for digital input 0.
-  OperationModeInput1:
+  Input1OperationMode:
     <<: *input_mode
     address: 65
     description: Configures the operation mode for digital input 1.
-  OperationModeInput2:
+  Input2OperationMode:
     <<: *input_mode
     address: 66
     description: Configures the operation mode for digital input 2.
-  OperationModeInput3:
+  Input3OperationMode:
     <<: *input_mode
     address: 67
     description: Configures the operation mode for digital input 3.
 
-  TriggerModeInput0: &trig_mode
+  Input0TriggerMode: &trig_mode
     address: 68
     type: U8
     access: Write
     maskType: TriggerMode
     description: Configures the sense mode for digital input 0.
-  TriggerModeInput1:
+  Input1TriggerMode:
     <<: *trig_mode
     address: 69
     description: Configures the sense mode for digital input 1.
-  TriggerModeInput2:
+  Input2TriggerMode:
     <<: *trig_mode
     address: 70
     description: Configures the sense mode for digital input 2.
-  TriggerModeInput3:
+  Input3TriggerMode:
     <<: *trig_mode
     address: 71
     description: Configures the sense mode for digital input 3.
@@ -286,74 +286,74 @@ registers:
 ##################################
 # Movement control
 ##################################
-  StepsMotor0: &motorsteps
+  Motor0Steps: &motorsteps
     address: 79
     type: S32
     access: Write
     description: Moves motor 0 by the number of steps written in this register and set the direction according to the value's signal.    
-  StepsMotor1:
+  Motor1Steps:
     <<: *motorsteps
     address: 80
     description: Moves motor 1 by the number of steps written in this register and set the direction according to the value's signal.
-  StepsMotor2:
+  Motor2Steps:
     <<: *motorsteps
     address: 81
     description: Moves motor 2 by the number of steps written in this register and set the direction according to the value's signal.
-  StepsMotor3:
+  Motor3Steps:
     <<: *motorsteps
     address: 82
     description: Moves motor 3 by the number of steps written in this register and set the direction according to the value's signal.
   
-  MaximumStepsIntegrationMotor0: &motorsmaxsteps
+  Motor0MaximumStepsIntegration: &motorsmaxsteps
     address: 83
     type: U32
     access: Write
     description: Specifies the limit of the accumulated steps for the positive movement of motor 0. The device will not let the motor move further than this value.
-  MaximumStepsIntegrationMotor1:
+  Motor1MaximumStepsIntegration:
     <<: *motorsmaxsteps
     address: 84
     description: Specifies the limit of the accumulated steps for the positive movement of motor 1. The device will not let the motor move further than this value.
-  MaximumStepsIntegrationMotor2:
+  Motor2MaximumStepsIntegration:
     <<: *motorsmaxsteps
     address: 85
     description: Specifies the limit of the accumulated steps for the positive movement of motor 2. The device will not let the motor move further than this value.
-  MaximumStepsIntegrationMotor3:
+  Motor3MaximumStepsIntegration:
     <<: *motorsmaxsteps
     address: 86
     description: Specifies the limit of the accumulated steps for the positive movement of motor 3. The device will not let the motor move further than this value.
 
-  MinimumStepsIntegrationMotor0: &motorsminsteps
+  Motor0MinimumStepsIntegration: &motorsminsteps
     address: 87
     type: U32
     access: Write
     description: Specifies the limit of the accumulated steps for the negative movement of motor 0. The device will not let the motor move further than this value.
-  MinimumStepsIntegrationMotor1:
+  Motor1MinimumStepsIntegration:
     <<: *motorsminsteps
     address: 88
     description: Specifies the limit of the accumulated steps for the negative movement of motor 1. The device will not let the motor move further than this value.
-  MinimumStepsIntegrationMotor2:
+  Motor2MinimumStepsIntegration:
     <<: *motorsminsteps
     address: 89
     description: Specifies the limit of the accumulated steps for the negative movement of motor 2. The device will not let the motor move further than this value.
-  MinimumStepsIntegrationMotor3:
+  Motor3MinimumStepsIntegration:
     <<: *motorsminsteps
     address: 90
     description: Specifies the limit of the accumulated steps for the negative movement of motor 3. The device will not let the motor move further than this value.
   
-  ImmediateStepsMotor0: &immediatesteps
+  Motor0ImmediateSteps: &immediatesteps
     address: 91
     type: S32
     access: Write
     description: Starts the movement of motor 0 with the step interval defined by this register. The sign of the value specifies the direction.
-  ImmediateStepsMotor1:
+  Motor1ImmediateSteps:
     <<: *immediatesteps
     address: 92
     description: Starts the movement of motor 1 with the step interval defined by this register. The sign of the value specifies the direction.
-  ImmediateStepsMotor2:
+  Motor2ImmediateSteps:
     <<: *immediatesteps
     address: 93
     description: Starts the movement of motor 2 with the step interval defined by this register. The sign of the value specifies the direction.
-  ImmediateStepsMotor3:
+  Motor3ImmediateSteps:
     <<: *immediatesteps
     address: 94
     description: Starts the movement of motor 3 with the step interval defined by this register. The sign of the value specifies the direction.
