@@ -170,6 +170,9 @@
     <Compile Include="app_ios_and_regs.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="i2c.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="interrupts.c">
       <SubType>compile</SubType>
     </Compile>

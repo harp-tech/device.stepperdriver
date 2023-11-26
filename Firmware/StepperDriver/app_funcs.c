@@ -88,6 +88,10 @@ void (*app_func_rd_pointer[])(void) = {
 	&app_read_REG_MOTOR1_MAXIMUM_CURRENT_RMS,
 	&app_read_REG_MOTOR2_MAXIMUM_CURRENT_RMS,
 	&app_read_REG_MOTOR3_MAXIMUM_CURRENT_RMS,
+	&app_read_REG_MOTOR0_HOLD_CURRENT_REDUCTION,
+	&app_read_REG_MOTOR1_HOLD_CURRENT_REDUCTION,
+	&app_read_REG_MOTOR2_HOLD_CURRENT_REDUCTION,
+	&app_read_REG_MOTOR3_HOLD_CURRENT_REDUCTION,
 	&app_read_REG_MOTOR0_NOMINAL_STEP_INTERVAL,
 	&app_read_REG_MOTOR1_NOMINAL_STEP_INTERVAL,
 	&app_read_REG_MOTOR2_NOMINAL_STEP_INTERVAL,
@@ -166,6 +170,10 @@ bool (*app_func_wr_pointer[])(void*) = {
 	&app_write_REG_MOTOR1_MAXIMUM_CURRENT_RMS,
 	&app_write_REG_MOTOR2_MAXIMUM_CURRENT_RMS,
 	&app_write_REG_MOTOR3_MAXIMUM_CURRENT_RMS,
+	&app_write_REG_MOTOR0_HOLD_CURRENT_REDUCTION,
+	&app_write_REG_MOTOR1_HOLD_CURRENT_REDUCTION,
+	&app_write_REG_MOTOR2_HOLD_CURRENT_REDUCTION,
+	&app_write_REG_MOTOR3_HOLD_CURRENT_REDUCTION,
 	&app_write_REG_MOTOR0_NOMINAL_STEP_INTERVAL,
 	&app_write_REG_MOTOR1_NOMINAL_STEP_INTERVAL,
 	&app_write_REG_MOTOR2_NOMINAL_STEP_INTERVAL,
@@ -555,6 +563,78 @@ bool app_write_REG_MOTOR3_MAXIMUM_CURRENT_RMS(void *a)
 	float reg = *((float*)a);
 
 	app_regs.REG_MOTOR3_MAXIMUM_CURRENT_RMS = reg;
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_MOTOR0_HOLD_CURRENT_REDUCTION                                    */
+/************************************************************************/
+void app_read_REG_MOTOR0_HOLD_CURRENT_REDUCTION(void)
+{
+	//app_regs.REG_MOTOR0_HOLD_CURRENT_REDUCTION = 0;
+
+}
+
+bool app_write_REG_MOTOR0_HOLD_CURRENT_REDUCTION(void *a)
+{
+	uint8_t reg = *((uint8_t*)a);
+
+	app_regs.REG_MOTOR0_HOLD_CURRENT_REDUCTION = reg;
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_MOTOR1_HOLD_CURRENT_REDUCTION                                    */
+/************************************************************************/
+void app_read_REG_MOTOR1_HOLD_CURRENT_REDUCTION(void)
+{
+	//app_regs.REG_MOTOR1_HOLD_CURRENT_REDUCTION = 0;
+
+}
+
+bool app_write_REG_MOTOR1_HOLD_CURRENT_REDUCTION(void *a)
+{
+	uint8_t reg = *((uint8_t*)a);
+
+	app_regs.REG_MOTOR1_HOLD_CURRENT_REDUCTION = reg;
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_MOTOR2_HOLD_CURRENT_REDUCTION                                    */
+/************************************************************************/
+void app_read_REG_MOTOR2_HOLD_CURRENT_REDUCTION(void)
+{
+	//app_regs.REG_MOTOR2_HOLD_CURRENT_REDUCTION = 0;
+
+}
+
+bool app_write_REG_MOTOR2_HOLD_CURRENT_REDUCTION(void *a)
+{
+	uint8_t reg = *((uint8_t*)a);
+
+	app_regs.REG_MOTOR2_HOLD_CURRENT_REDUCTION = reg;
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_MOTOR3_HOLD_CURRENT_REDUCTION                                    */
+/************************************************************************/
+void app_read_REG_MOTOR3_HOLD_CURRENT_REDUCTION(void)
+{
+	//app_regs.REG_MOTOR3_HOLD_CURRENT_REDUCTION = 0;
+
+}
+
+bool app_write_REG_MOTOR3_HOLD_CURRENT_REDUCTION(void *a)
+{
+	uint8_t reg = *((uint8_t*)a);
+
+	app_regs.REG_MOTOR3_HOLD_CURRENT_REDUCTION = reg;
 	return true;
 }
 

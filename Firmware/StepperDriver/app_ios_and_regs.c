@@ -22,7 +22,7 @@ void init_ios(void)
 	io_pin2out(&PORTH, 3, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // LED_M0
 	io_pin2out(&PORTH, 4, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // LED_M1
 	io_pin2out(&PORTJ, 0, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // LED_M2
-	//io_pin2out(&PORTQ, 1, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // LED_M3
+	io_pin2out(&PORTQ, 1, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // LED_M3
 	io_pin2out(&PORTC, 0, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // STEP_M0
 	io_pin2out(&PORTD, 0, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // STEP_M1
 	io_pin2out(&PORTE, 0, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // STEP_M2
@@ -39,9 +39,6 @@ void init_ios(void)
 	io_pin2out(&PORTA, 7, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CFG6_M0
 	io_pin2out(&PORTC, 4, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CFG7_M0
 	io_pin2out(&PORTC, 3, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // DRIVE_ENABLE_M0
-	
-	io_pin2out(&PORTC, 2, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // SLEEP
-	set_io(PORTC, 2);
 
 	/* Initialize output pins */
 	clr_LED_STATE;
@@ -92,6 +89,10 @@ uint8_t app_regs_type[] = {
 	TYPE_FLOAT,
 	TYPE_FLOAT,
 	TYPE_FLOAT,
+	TYPE_U8,
+	TYPE_U8,
+	TYPE_U8,
+	TYPE_U8,
 	TYPE_U16,
 	TYPE_U16,
 	TYPE_U16,
@@ -125,14 +126,14 @@ uint8_t app_regs_type[] = {
 	TYPE_I32,
 	TYPE_I32,
 	TYPE_I32,
-	TYPE_U32,
-	TYPE_U32,
-	TYPE_U32,
-	TYPE_U32,
-	TYPE_U32,
-	TYPE_U32,
-	TYPE_U32,
-	TYPE_U32,
+	TYPE_I32,
+	TYPE_I32,
+	TYPE_I32,
+	TYPE_I32,
+	TYPE_I32,
+	TYPE_I32,
+	TYPE_I32,
+	TYPE_I32,
 	TYPE_I32,
 	TYPE_I32,
 	TYPE_I32,
@@ -152,6 +153,10 @@ uint8_t app_regs_type[] = {
 };
 
 uint16_t app_regs_n_elements[] = {
+	1,
+	1,
+	1,
+	1,
 	1,
 	1,
 	1,
@@ -248,6 +253,10 @@ uint8_t *app_regs_pointer[] = {
 	(uint8_t*)(&app_regs.REG_MOTOR1_MAXIMUM_CURRENT_RMS),
 	(uint8_t*)(&app_regs.REG_MOTOR2_MAXIMUM_CURRENT_RMS),
 	(uint8_t*)(&app_regs.REG_MOTOR3_MAXIMUM_CURRENT_RMS),
+	(uint8_t*)(&app_regs.REG_MOTOR0_HOLD_CURRENT_REDUCTION),
+	(uint8_t*)(&app_regs.REG_MOTOR1_HOLD_CURRENT_REDUCTION),
+	(uint8_t*)(&app_regs.REG_MOTOR2_HOLD_CURRENT_REDUCTION),
+	(uint8_t*)(&app_regs.REG_MOTOR3_HOLD_CURRENT_REDUCTION),
 	(uint8_t*)(&app_regs.REG_MOTOR0_NOMINAL_STEP_INTERVAL),
 	(uint8_t*)(&app_regs.REG_MOTOR1_NOMINAL_STEP_INTERVAL),
 	(uint8_t*)(&app_regs.REG_MOTOR2_NOMINAL_STEP_INTERVAL),
