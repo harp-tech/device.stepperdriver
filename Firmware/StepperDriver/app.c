@@ -56,10 +56,31 @@ void hwbp_app_initialize(void)
 /************************************************************************/
 void core_callback_catastrophic_error_detected(void)
 {
+	/* Stop all motors */
+	timer_type0_stop(&TCC0);
+	timer_type0_stop(&TCD0);
+	timer_type0_stop(&TCE0);
+	timer_type0_stop(&TCF0);
+	
+	/* Disable motor drivers */
+	clr_DRIVE_ENABLE_M0;
+	clr_DRIVE_ENABLE_M1;
+	clr_DRIVE_ENABLE_M2;
+	clr_DRIVE_ENABLE_M3;
+	
+	/* Turn LEDs off */
 	clr_LED_M0;
 	clr_LED_M1;
 	clr_LED_M2;
 	clr_LED_M3;
+	set_LED_POWER;
+	
+	/* Blink State LED forever in case of catastrophic error */
+	while(1)
+	{
+		tgl_LED_STATE;
+		_delay_ms(50*2);
+	}
 }
 
 /************************************************************************/
@@ -72,7 +93,7 @@ void core_callback_catastrophic_error_detected(void)
 /************************************************************************/
 void core_callback_define_clock_default(void) {}
 
-#define T_STARTUP_ON  100
+#define T_STARTUP_ON  50
 #define T_STARTUP_OFF 0
 
 extern i2c_dev_t digi_pot_M0_M1;
@@ -108,7 +129,7 @@ void core_callback_initialize_hardware(void)
 		set_LED_M3;
 		set_LED_POWER;
 		set_LED_STATE;
-		_delay_ms(T_STARTUP_ON);
+		_delay_ms(T_STARTUP_ON*2);
 		
 		clr_LED_M0;
 		clr_LED_M1;
@@ -116,7 +137,7 @@ void core_callback_initialize_hardware(void)
 		clr_LED_M3;
 		clr_LED_POWER;
 		clr_LED_STATE;
-		_delay_ms(T_STARTUP_ON);
+		_delay_ms(T_STARTUP_ON*2);
 	}
 	
 	_delay_ms(500);

@@ -12,6 +12,15 @@ void init_ios(void);
 // ENCODER1_B             Description: Encoder 1 B
 // ENCODER2_A             Description: Encoder 2 A
 // ENCODER2_B             Description: Encoder 3 B
+// INPUT0                 Description: Digital input 0
+// INPUT1                 Description: Digital input 1
+// INPUT2                 Description: Digital input 2
+// INPUT3                 Description: Digital input 3
+// ERROR_M0               Description: Error report for motor 0
+// ERROR_M1               Description: Error report for motor 1
+// ERROR_M2               Description: Error report for motor 2
+// ERROR_M3               Description: Error report for motor 3
+// EMERGENCY              Description: Emergency input
 
 #define read_ENCODER0_A read_io(PORTD, 4)       // ENCODER0_A
 #define read_ENCODER0_B read_io(PORTD, 5)       // ENCODER0_B
@@ -19,6 +28,15 @@ void init_ios(void);
 #define read_ENCODER1_B read_io(PORTE, 5)       // ENCODER1_B
 #define read_ENCODER2_A read_io(PORTF, 4)       // ENCODER2_A
 #define read_ENCODER2_B read_io(PORTF, 5)       // ENCODER2_B
+#define read_INPUT0 read_io(PORTK, 5)           // INPUT0
+#define read_INPUT1 read_io(PORTQ, 2)           // INPUT1
+#define read_INPUT2 read_io(PORTC, 5)           // INPUT2
+#define read_INPUT3 read_io(PORTH, 7)           // INPUT3
+#define read_ERROR_M0 read_io(PORTC, 2)         // ERROR_M0
+#define read_ERROR_M1 read_io(PORTD, 2)         // ERROR_M1
+#define read_ERROR_M2 read_io(PORTE, 2)         // ERROR_M2
+#define read_ERROR_M3 read_io(PORTJ, 5)         // ERROR_M3
+#define read_EMERGENCY read_io(PORTQ, 0)        // EMERGENCY
 
 /************************************************************************/
 /* Definition of output pins                                            */
@@ -45,6 +63,30 @@ void init_ios(void);
 // CFG6_M0                Description: Motor 0 configuration pin 6
 // CFG7_M0                Description: Motor 0 configuration pin 7
 // DRIVE_ENABLE_M0        Description: Motor 0 drive enable
+// CFG0_M1                Description: Motor 1 configuration pin 0
+// CFG1_M1                Description: Motor 1 configuration pin 1
+// CFG2_M1                Description: Motor 1 configuration pin 2
+// CFG3_M1                Description: Motor 1 configuration pin 3
+// CFG5_M1                Description: Motor 1 configuration pin 5
+// CFG6_M1                Description: Motor 1 configuration pin 6
+// CFG7_M1                Description: Motor 1 configuration pin 7
+// DRIVE_ENABLE_M1        Description: Motor 1 drive enable
+// CFG0_M2                Description: Motor 2 configuration pin 0
+// CFG1_M2                Description: Motor 2 configuration pin 1
+// CFG2_M2                Description: Motor 2 configuration pin 2
+// CFG3_M2                Description: Motor 2 configuration pin 3
+// CFG5_M2                Description: Motor 2 configuration pin 5
+// CFG6_M2                Description: Motor 2 configuration pin 6
+// CFG7_M2                Description: Motor 2 configuration pin 7
+// DRIVE_ENABLE_M2        Description: Motor 2 drive enable
+// CFG0_M3                Description: Motor 3 configuration pin 0
+// CFG1_M3                Description: Motor 3 configuration pin 1
+// CFG2_M3                Description: Motor 3 configuration pin 2
+// CFG3_M3                Description: Motor 3 configuration pin 3
+// CFG5_M3                Description: Motor 3 configuration pin 5
+// CFG6_M3                Description: Motor 3 configuration pin 6
+// CFG7_M3                Description: Motor 3 configuration pin 7
+// DRIVE_ENABLE_M3        Description: Motor 3 drive enable
 
 /* LED_STATE */
 #define set_LED_STATE set_io(PORTA, 6)
@@ -177,6 +219,150 @@ void init_ios(void);
 #define clr_DRIVE_ENABLE_M0 set_io(PORTC, 3)
 #define tgl_DRIVE_ENABLE_M0 toggle_io(PORTC, 3)
 #define read_DRIVE_ENABLE_M0 read_io(PORTC, 3)
+
+/* CFG0_M1 */
+#define set_CFG0_M1 set_io(PORTB, 0)
+#define clr_CFG0_M1 clear_io(PORTB, 0)
+#define tgl_CFG0_M1 toggle_io(PORTB, 0)
+#define read_CFG0_M1 read_io(PORTB, 0)
+
+/* CFG1_M1 */
+#define set_CFG1_M1 set_io(PORTB, 1)
+#define clr_CFG1_M1 clear_io(PORTB, 1)
+#define tgl_CFG1_M1 toggle_io(PORTB, 1)
+#define read_CFG1_M1 read_io(PORTB, 1)
+
+/* CFG2_M1 */
+#define set_CFG2_M1 set_io(PORTB, 2)
+#define clr_CFG2_M1 clear_io(PORTB, 2)
+#define tgl_CFG2_M1 toggle_io(PORTB, 2)
+#define read_CFG2_M1 read_io(PORTB, 2)
+
+/* CFG3_M1 */
+#define set_CFG3_M1 set_io(PORTB, 3)
+#define clr_CFG3_M1 clear_io(PORTB, 3)
+#define tgl_CFG3_M1 toggle_io(PORTB, 3)
+#define read_CFG3_M1 read_io(PORTB, 3)
+
+/* CFG5_M1 */
+#define set_CFG5_M1 set_io(PORTB, 5)
+#define clr_CFG5_M1 clear_io(PORTB, 5)
+#define tgl_CFG5_M1 toggle_io(PORTB, 5)
+#define read_CFG5_M1 read_io(PORTB, 5)
+
+/* CFG6_M1 */
+#define set_CFG6_M1 set_io(PORTB, 6)
+#define clr_CFG6_M1 clear_io(PORTB, 6)
+#define tgl_CFG6_M1 toggle_io(PORTB, 6)
+#define read_CFG6_M1 read_io(PORTB, 6)
+
+/* CFG7_M1 */
+#define set_CFG7_M1 set_io(PORTB, 7)
+#define clr_CFG7_M1 clear_io(PORTB, 7)
+#define tgl_CFG7_M1 toggle_io(PORTB, 7)
+#define read_CFG7_M1 read_io(PORTB, 7)
+
+/* DRIVE_ENABLE_M1 */
+#define set_DRIVE_ENABLE_M1 clear_io(PORTD, 3)
+#define clr_DRIVE_ENABLE_M1 set_io(PORTD, 3)
+#define tgl_DRIVE_ENABLE_M1 toggle_io(PORTD, 3)
+#define read_DRIVE_ENABLE_M1 read_io(PORTD, 3)
+
+/* CFG0_M2 */
+#define set_CFG0_M2 set_io(PORTD, 6)
+#define clr_CFG0_M2 clear_io(PORTD, 6)
+#define tgl_CFG0_M2 toggle_io(PORTD, 6)
+#define read_CFG0_M2 read_io(PORTD, 6)
+
+/* CFG1_M2 */
+#define set_CFG1_M2 set_io(PORTD, 7)
+#define clr_CFG1_M2 clear_io(PORTD, 7)
+#define tgl_CFG1_M2 toggle_io(PORTD, 7)
+#define read_CFG1_M2 read_io(PORTD, 7)
+
+/* CFG2_M2 */
+#define set_CFG2_M2 set_io(PORTE, 6)
+#define clr_CFG2_M2 clear_io(PORTE, 6)
+#define tgl_CFG2_M2 toggle_io(PORTE, 6)
+#define read_CFG2_M2 read_io(PORTE, 6)
+
+/* CFG3_M2 */
+#define set_CFG3_M2 set_io(PORTE, 7)
+#define clr_CFG3_M2 clear_io(PORTE, 7)
+#define tgl_CFG3_M2 toggle_io(PORTE, 7)
+#define read_CFG3_M2 read_io(PORTE, 7)
+
+/* CFG5_M2 */
+#define set_CFG5_M2 set_io(PORTH, 1)
+#define clr_CFG5_M2 clear_io(PORTH, 1)
+#define tgl_CFG5_M2 toggle_io(PORTH, 1)
+#define read_CFG5_M2 read_io(PORTH, 1)
+
+/* CFG6_M2 */
+#define set_CFG6_M2 set_io(PORTH, 2)
+#define clr_CFG6_M2 clear_io(PORTH, 2)
+#define tgl_CFG6_M2 toggle_io(PORTH, 2)
+#define read_CFG6_M2 read_io(PORTH, 2)
+
+/* CFG7_M2 */
+#define set_CFG7_M2 set_io(PORTH, 5)
+#define clr_CFG7_M2 clear_io(PORTH, 5)
+#define tgl_CFG7_M2 toggle_io(PORTH, 5)
+#define read_CFG7_M2 read_io(PORTH, 5)
+
+/* DRIVE_ENABLE_M2 */
+#define set_DRIVE_ENABLE_M2 clear_io(PORTE, 3)
+#define clr_DRIVE_ENABLE_M2 set_io(PORTE, 3)
+#define tgl_DRIVE_ENABLE_M2 toggle_io(PORTE, 3)
+#define read_DRIVE_ENABLE_M2 read_io(PORTE, 3)
+
+/* CFG0_M3 */
+#define set_CFG0_M3 set_io(PORTH, 6)
+#define clr_CFG0_M3 clear_io(PORTH, 6)
+#define tgl_CFG0_M3 toggle_io(PORTH, 6)
+#define read_CFG0_M3 read_io(PORTH, 6)
+
+/* CFG1_M3 */
+#define set_CFG1_M3 set_io(PORTJ, 1)
+#define clr_CFG1_M3 clear_io(PORTJ, 1)
+#define tgl_CFG1_M3 toggle_io(PORTJ, 1)
+#define read_CFG1_M3 read_io(PORTJ, 1)
+
+/* CFG2_M3 */
+#define set_CFG2_M3 set_io(PORTJ, 3)
+#define clr_CFG2_M3 clear_io(PORTJ, 3)
+#define tgl_CFG2_M3 toggle_io(PORTJ, 3)
+#define read_CFG2_M3 read_io(PORTJ, 3)
+
+/* CFG3_M3 */
+#define set_CFG3_M3 set_io(PORTJ, 4)
+#define clr_CFG3_M3 clear_io(PORTJ, 4)
+#define tgl_CFG3_M3 toggle_io(PORTJ, 4)
+#define read_CFG3_M3 read_io(PORTJ, 4)
+
+/* CFG5_M3 */
+#define set_CFG5_M3 set_io(PORTJ, 7)
+#define clr_CFG5_M3 clear_io(PORTJ, 7)
+#define tgl_CFG5_M3 toggle_io(PORTJ, 7)
+#define read_CFG5_M3 read_io(PORTJ, 7)
+
+/* CFG6_M3 */
+#define set_CFG6_M3 set_io(PORTK, 3)
+#define clr_CFG6_M3 clear_io(PORTK, 3)
+#define tgl_CFG6_M3 toggle_io(PORTK, 3)
+#define read_CFG6_M3 read_io(PORTK, 3)
+
+/* CFG7_M3 */
+#define set_CFG7_M3 set_io(PORTK, 4)
+#define clr_CFG7_M3 clear_io(PORTK, 4)
+#define tgl_CFG7_M3 toggle_io(PORTK, 4)
+#define read_CFG7_M3 read_io(PORTK, 4)
+
+/* DRIVE_ENABLE_M3 */
+#define set_DRIVE_ENABLE_M3 clear_io(PORTF, 7)
+#define clr_DRIVE_ENABLE_M3 set_io(PORTF, 7)
+#define tgl_DRIVE_ENABLE_M3 toggle_io(PORTF, 7)
+#define read_DRIVE_ENABLE_M3 read_io(PORTF, 7)
 
 
 /************************************************************************/

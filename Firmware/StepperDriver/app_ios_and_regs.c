@@ -13,8 +13,26 @@ void init_ios(void)
 	io_pin2in(&PORTE, 5, PULL_IO_UP, SENSE_IO_EDGES_BOTH);               // ENCODER1_B
 	io_pin2in(&PORTF, 4, PULL_IO_UP, SENSE_IO_EDGES_BOTH);               // ENCODER2_A
 	io_pin2in(&PORTF, 5, PULL_IO_UP, SENSE_IO_EDGES_BOTH);               // ENCODER2_B
+	io_pin2in(&PORTK, 5, PULL_IO_UP, SENSE_IO_EDGES_BOTH);               // INPUT0
+	io_pin2in(&PORTQ, 2, PULL_IO_UP, SENSE_IO_EDGES_BOTH);               // INPUT1
+	io_pin2in(&PORTC, 5, PULL_IO_UP, SENSE_IO_EDGES_BOTH);               // INPUT2
+	io_pin2in(&PORTH, 7, PULL_IO_UP, SENSE_IO_EDGES_BOTH);               // INPUT3
+	io_pin2in(&PORTC, 2, PULL_IO_UP, SENSE_IO_EDGES_BOTH);               // ERROR_M0
+	io_pin2in(&PORTD, 2, PULL_IO_UP, SENSE_IO_EDGES_BOTH);               // ERROR_M1
+	io_pin2in(&PORTE, 2, PULL_IO_UP, SENSE_IO_EDGES_BOTH);               // ERROR_M2
+	io_pin2in(&PORTJ, 5, PULL_IO_UP, SENSE_IO_EDGES_BOTH);               // ERROR_M3
+	io_pin2in(&PORTQ, 0, PULL_IO_UP, SENSE_IO_EDGES_BOTH);               // EMERGENCY
 
 	/* Configure input interrupts */
+	io_set_int(&PORTK, INT_LEVEL_LOW, 0, (1<<5), false);                 // INPUT0
+	io_set_int(&PORTQ, INT_LEVEL_LOW, 0, (1<<2), false);                 // INPUT1
+	io_set_int(&PORTC, INT_LEVEL_LOW, 0, (1<<5), false);                 // INPUT2
+	io_set_int(&PORTH, INT_LEVEL_LOW, 0, (1<<7), false);                 // INPUT3
+	io_set_int(&PORTC, INT_LEVEL_LOW, 1, (1<<2), false);                 // ERROR_M0
+	io_set_int(&PORTD, INT_LEVEL_LOW, 1, (1<<2), false);                 // ERROR_M1
+	io_set_int(&PORTE, INT_LEVEL_LOW, 1, (1<<2), false);                 // ERROR_M2
+	io_set_int(&PORTJ, INT_LEVEL_LOW, 1, (1<<5), false);                 // ERROR_M3
+	io_set_int(&PORTQ, INT_LEVEL_LOW, 1, (1<<0), false);                 // EMERGENCY
 
 	/* Configure output pins */
 	io_pin2out(&PORTA, 6, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // LED_STATE
@@ -39,6 +57,30 @@ void init_ios(void)
 	io_pin2out(&PORTA, 7, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CFG6_M0
 	io_pin2out(&PORTC, 4, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CFG7_M0
 	io_pin2out(&PORTC, 3, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // DRIVE_ENABLE_M0
+	io_pin2out(&PORTB, 0, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CFG0_M1
+	io_pin2out(&PORTB, 1, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CFG1_M1
+	io_pin2out(&PORTB, 2, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CFG2_M1
+	io_pin2out(&PORTB, 3, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CFG3_M1
+	io_pin2out(&PORTB, 5, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CFG5_M1
+	io_pin2out(&PORTB, 6, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CFG6_M1
+	io_pin2out(&PORTB, 7, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CFG7_M1
+	io_pin2out(&PORTD, 3, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // DRIVE_ENABLE_M1
+	io_pin2out(&PORTD, 6, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CFG0_M2
+	io_pin2out(&PORTD, 7, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CFG1_M2
+	io_pin2out(&PORTE, 6, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CFG2_M2
+	io_pin2out(&PORTE, 7, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CFG3_M2
+	io_pin2out(&PORTH, 1, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CFG5_M2
+	io_pin2out(&PORTH, 2, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CFG6_M2
+	io_pin2out(&PORTH, 5, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CFG7_M2
+	io_pin2out(&PORTE, 3, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // DRIVE_ENABLE_M2
+	io_pin2out(&PORTH, 6, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CFG0_M3
+	io_pin2out(&PORTJ, 1, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CFG1_M3
+	io_pin2out(&PORTJ, 3, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CFG2_M3
+	io_pin2out(&PORTJ, 4, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CFG3_M3
+	io_pin2out(&PORTJ, 7, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CFG5_M3
+	io_pin2out(&PORTK, 3, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CFG6_M3
+	io_pin2out(&PORTK, 4, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // CFG7_M3
+	io_pin2out(&PORTF, 7, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // DRIVE_ENABLE_M3
 
 	/* Initialize output pins */
 	clr_LED_STATE;
@@ -63,6 +105,30 @@ void init_ios(void)
 	clr_CFG6_M0;
 	clr_CFG7_M0;
 	clr_DRIVE_ENABLE_M0;
+	clr_CFG0_M1;
+	clr_CFG1_M1;
+	clr_CFG2_M1;
+	clr_CFG3_M1;
+	clr_CFG5_M1;
+	clr_CFG6_M1;
+	clr_CFG7_M1;
+	clr_DRIVE_ENABLE_M1;
+	clr_CFG0_M2;
+	clr_CFG1_M2;
+	clr_CFG2_M2;
+	clr_CFG3_M2;
+	clr_CFG5_M2;
+	clr_CFG6_M2;
+	clr_CFG7_M2;
+	clr_DRIVE_ENABLE_M2;
+	clr_CFG0_M3;
+	clr_CFG1_M3;
+	clr_CFG2_M3;
+	clr_CFG3_M3;
+	clr_CFG5_M3;
+	clr_CFG6_M3;
+	clr_CFG7_M3;
+	clr_DRIVE_ENABLE_M3;
 }
 
 /************************************************************************/
