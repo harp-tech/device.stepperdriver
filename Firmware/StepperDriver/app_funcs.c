@@ -601,15 +601,16 @@ bool app_write_REG_MOTOR3_MAXIMUM_CURRENT_RMS(void *a)
 /************************************************************************/
 /* REG_MOTOR0_HOLD_CURRENT_REDUCTION                                    */
 /************************************************************************/
-void app_read_REG_MOTOR0_HOLD_CURRENT_REDUCTION(void)
-{
-	//app_regs.REG_MOTOR0_HOLD_CURRENT_REDUCTION = 0;
-
-}
-
+void app_read_REG_MOTOR0_HOLD_CURRENT_REDUCTION(void) {}
 bool app_write_REG_MOTOR0_HOLD_CURRENT_REDUCTION(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
+	
+	if (reg == GM_NO_REDUCTION) {clr_CFG6_M0; clr_CFG7_M0;}
+	else if (reg == GM_REDUCTION_TO_50PCT) {set_CFG6_M0; clr_CFG7_M0;}
+	else if (reg == GM_REDUCTION_TO_25PCT) {clr_CFG6_M0; set_CFG7_M0;}
+	else if (reg == GM_REDUCTION_TO_12PCT) {set_CFG6_M0; set_CFG7_M0;}
+	else return false;
 
 	app_regs.REG_MOTOR0_HOLD_CURRENT_REDUCTION = reg;
 	return true;
@@ -619,15 +620,16 @@ bool app_write_REG_MOTOR0_HOLD_CURRENT_REDUCTION(void *a)
 /************************************************************************/
 /* REG_MOTOR1_HOLD_CURRENT_REDUCTION                                    */
 /************************************************************************/
-void app_read_REG_MOTOR1_HOLD_CURRENT_REDUCTION(void)
-{
-	//app_regs.REG_MOTOR1_HOLD_CURRENT_REDUCTION = 0;
-
-}
-
+void app_read_REG_MOTOR1_HOLD_CURRENT_REDUCTION(void) {}
 bool app_write_REG_MOTOR1_HOLD_CURRENT_REDUCTION(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
+	
+	if (reg == GM_NO_REDUCTION) {clr_CFG6_M1; clr_CFG7_M1;}
+	else if (reg == GM_REDUCTION_TO_50PCT) {set_CFG6_M1; clr_CFG7_M1;}
+	else if (reg == GM_REDUCTION_TO_25PCT) {clr_CFG6_M1; set_CFG7_M1;}
+	else if (reg == GM_REDUCTION_TO_12PCT) {set_CFG6_M1; set_CFG7_M1;}
+	else return false;
 
 	app_regs.REG_MOTOR1_HOLD_CURRENT_REDUCTION = reg;
 	return true;
@@ -637,15 +639,16 @@ bool app_write_REG_MOTOR1_HOLD_CURRENT_REDUCTION(void *a)
 /************************************************************************/
 /* REG_MOTOR2_HOLD_CURRENT_REDUCTION                                    */
 /************************************************************************/
-void app_read_REG_MOTOR2_HOLD_CURRENT_REDUCTION(void)
-{
-	//app_regs.REG_MOTOR2_HOLD_CURRENT_REDUCTION = 0;
-
-}
-
+void app_read_REG_MOTOR2_HOLD_CURRENT_REDUCTION(void) {}
 bool app_write_REG_MOTOR2_HOLD_CURRENT_REDUCTION(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
+	
+	if (reg == GM_NO_REDUCTION) {clr_CFG6_M2; clr_CFG7_M2;}
+	else if (reg == GM_REDUCTION_TO_50PCT) {set_CFG6_M2; clr_CFG7_M2;}
+	else if (reg == GM_REDUCTION_TO_25PCT) {clr_CFG6_M2; set_CFG7_M2;}
+	else if (reg == GM_REDUCTION_TO_12PCT) {set_CFG6_M2; set_CFG7_M2;}
+	else return false;
 
 	app_regs.REG_MOTOR2_HOLD_CURRENT_REDUCTION = reg;
 	return true;
@@ -655,15 +658,16 @@ bool app_write_REG_MOTOR2_HOLD_CURRENT_REDUCTION(void *a)
 /************************************************************************/
 /* REG_MOTOR3_HOLD_CURRENT_REDUCTION                                    */
 /************************************************************************/
-void app_read_REG_MOTOR3_HOLD_CURRENT_REDUCTION(void)
-{
-	//app_regs.REG_MOTOR3_HOLD_CURRENT_REDUCTION = 0;
-
-}
-
+void app_read_REG_MOTOR3_HOLD_CURRENT_REDUCTION(void) {}
 bool app_write_REG_MOTOR3_HOLD_CURRENT_REDUCTION(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
+	
+	if (reg == GM_NO_REDUCTION) {clr_CFG6_M3; clr_CFG7_M3;}
+	else if (reg == GM_REDUCTION_TO_50PCT) {set_CFG6_M3; clr_CFG7_M3;}
+	else if (reg == GM_REDUCTION_TO_25PCT) {clr_CFG6_M3; set_CFG7_M3;}
+	else if (reg == GM_REDUCTION_TO_12PCT) {set_CFG6_M3; set_CFG7_M3;}
+	else return false;
 
 	app_regs.REG_MOTOR3_HOLD_CURRENT_REDUCTION = reg;
 	return true;
