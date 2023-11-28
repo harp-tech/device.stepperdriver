@@ -1162,16 +1162,16 @@ bool app_write_REG_ENCODERS(void *a)
 /************************************************************************/
 void app_read_REG_DIGITAL_INPUTS_STATE(void)
 {
-	//app_regs.REG_DIGITAL_INPUTS_STATE = 0;
-
+	app_regs.REG_DIGITAL_INPUTS_STATE = 0;
+	app_regs.REG_DIGITAL_INPUTS_STATE |= (read_INPUT0) ? 1 : 0;
+	app_regs.REG_DIGITAL_INPUTS_STATE |= (read_INPUT1) ? 2 : 0;
+	app_regs.REG_DIGITAL_INPUTS_STATE |= (read_INPUT2) ? 4 : 0;
+	app_regs.REG_DIGITAL_INPUTS_STATE |= (read_INPUT3) ? 8 : 0;
 }
 
 bool app_write_REG_DIGITAL_INPUTS_STATE(void *a)
 {
-	uint8_t reg = *((uint8_t*)a);
-
-	app_regs.REG_DIGITAL_INPUTS_STATE = reg;
-	return true;
+	return false;
 }
 
 
@@ -1180,16 +1180,13 @@ bool app_write_REG_DIGITAL_INPUTS_STATE(void *a)
 /************************************************************************/
 void app_read_REG_EMERGENCY_DETECTION(void)
 {
-	//app_regs.REG_EMERGENCY_DETECTION = 0;
-
+	app_regs.REG_EMERGENCY_DETECTION = 0;
+	app_regs.REG_EMERGENCY_DETECTION |= (read_EMERGENCY) ? 1 : 0;
 }
 
 bool app_write_REG_EMERGENCY_DETECTION(void *a)
 {
-	uint8_t reg = *((uint8_t*)a);
-
-	app_regs.REG_EMERGENCY_DETECTION = reg;
-	return true;
+	return false;
 }
 
 
