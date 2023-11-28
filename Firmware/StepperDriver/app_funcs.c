@@ -280,10 +280,29 @@ bool app_write_REG_DISABLE_MOTORS(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
 	
-	if (reg & B_MOTOR0) clr_DRIVE_ENABLE_M0;
-	if (reg & B_MOTOR1) clr_DRIVE_ENABLE_M1;
-	if (reg & B_MOTOR2) clr_DRIVE_ENABLE_M2;
-	if (reg & B_MOTOR3) clr_DRIVE_ENABLE_M3;
+	if (reg & B_MOTOR0)
+	{
+		clr_DRIVE_ENABLE_M0;
+		clr_LED_M0;
+		timer_type0_stop(&TCC0);
+	}
+	if (reg & B_MOTOR1)
+	{
+		clr_DRIVE_ENABLE_M1;
+		clr_LED_M1;
+		timer_type0_stop(&TCD0);
+	}
+	if (reg & B_MOTOR2)
+	{
+		clr_DRIVE_ENABLE_M2;
+		clr_LED_M2;
+		timer_type0_stop(&TCE0);
+	}
+	if (reg & B_MOTOR3)
+	{	clr_DRIVE_ENABLE_M3;
+		clr_LED_M3;
+		timer_type0_stop(&TCF0);
+	}
 
 	app_regs.REG_DISABLE_MOTORS = reg;
 	return true;
@@ -601,15 +620,16 @@ bool app_write_REG_MOTOR3_MAXIMUM_CURRENT_RMS(void *a)
 /************************************************************************/
 /* REG_MOTOR0_HOLD_CURRENT_REDUCTION                                    */
 /************************************************************************/
-void app_read_REG_MOTOR0_HOLD_CURRENT_REDUCTION(void)
-{
-	//app_regs.REG_MOTOR0_HOLD_CURRENT_REDUCTION = 0;
-
-}
-
+void app_read_REG_MOTOR0_HOLD_CURRENT_REDUCTION(void) {}
 bool app_write_REG_MOTOR0_HOLD_CURRENT_REDUCTION(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
+	
+	if (reg == GM_NO_REDUCTION) {clr_CFG6_M0; clr_CFG7_M0;}
+	else if (reg == GM_REDUCTION_TO_50PCT) {set_CFG6_M0; clr_CFG7_M0;}
+	else if (reg == GM_REDUCTION_TO_25PCT) {clr_CFG6_M0; set_CFG7_M0;}
+	else if (reg == GM_REDUCTION_TO_12PCT) {set_CFG6_M0; set_CFG7_M0;}
+	else return false;
 
 	app_regs.REG_MOTOR0_HOLD_CURRENT_REDUCTION = reg;
 	return true;
@@ -619,15 +639,16 @@ bool app_write_REG_MOTOR0_HOLD_CURRENT_REDUCTION(void *a)
 /************************************************************************/
 /* REG_MOTOR1_HOLD_CURRENT_REDUCTION                                    */
 /************************************************************************/
-void app_read_REG_MOTOR1_HOLD_CURRENT_REDUCTION(void)
-{
-	//app_regs.REG_MOTOR1_HOLD_CURRENT_REDUCTION = 0;
-
-}
-
+void app_read_REG_MOTOR1_HOLD_CURRENT_REDUCTION(void) {}
 bool app_write_REG_MOTOR1_HOLD_CURRENT_REDUCTION(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
+	
+	if (reg == GM_NO_REDUCTION) {clr_CFG6_M1; clr_CFG7_M1;}
+	else if (reg == GM_REDUCTION_TO_50PCT) {set_CFG6_M1; clr_CFG7_M1;}
+	else if (reg == GM_REDUCTION_TO_25PCT) {clr_CFG6_M1; set_CFG7_M1;}
+	else if (reg == GM_REDUCTION_TO_12PCT) {set_CFG6_M1; set_CFG7_M1;}
+	else return false;
 
 	app_regs.REG_MOTOR1_HOLD_CURRENT_REDUCTION = reg;
 	return true;
@@ -637,15 +658,16 @@ bool app_write_REG_MOTOR1_HOLD_CURRENT_REDUCTION(void *a)
 /************************************************************************/
 /* REG_MOTOR2_HOLD_CURRENT_REDUCTION                                    */
 /************************************************************************/
-void app_read_REG_MOTOR2_HOLD_CURRENT_REDUCTION(void)
-{
-	//app_regs.REG_MOTOR2_HOLD_CURRENT_REDUCTION = 0;
-
-}
-
+void app_read_REG_MOTOR2_HOLD_CURRENT_REDUCTION(void) {}
 bool app_write_REG_MOTOR2_HOLD_CURRENT_REDUCTION(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
+	
+	if (reg == GM_NO_REDUCTION) {clr_CFG6_M2; clr_CFG7_M2;}
+	else if (reg == GM_REDUCTION_TO_50PCT) {set_CFG6_M2; clr_CFG7_M2;}
+	else if (reg == GM_REDUCTION_TO_25PCT) {clr_CFG6_M2; set_CFG7_M2;}
+	else if (reg == GM_REDUCTION_TO_12PCT) {set_CFG6_M2; set_CFG7_M2;}
+	else return false;
 
 	app_regs.REG_MOTOR2_HOLD_CURRENT_REDUCTION = reg;
 	return true;
@@ -655,15 +677,16 @@ bool app_write_REG_MOTOR2_HOLD_CURRENT_REDUCTION(void *a)
 /************************************************************************/
 /* REG_MOTOR3_HOLD_CURRENT_REDUCTION                                    */
 /************************************************************************/
-void app_read_REG_MOTOR3_HOLD_CURRENT_REDUCTION(void)
-{
-	//app_regs.REG_MOTOR3_HOLD_CURRENT_REDUCTION = 0;
-
-}
-
+void app_read_REG_MOTOR3_HOLD_CURRENT_REDUCTION(void) {}
 bool app_write_REG_MOTOR3_HOLD_CURRENT_REDUCTION(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
+	
+	if (reg == GM_NO_REDUCTION) {clr_CFG6_M3; clr_CFG7_M3;}
+	else if (reg == GM_REDUCTION_TO_50PCT) {set_CFG6_M3; clr_CFG7_M3;}
+	else if (reg == GM_REDUCTION_TO_25PCT) {clr_CFG6_M3; set_CFG7_M3;}
+	else if (reg == GM_REDUCTION_TO_12PCT) {set_CFG6_M3; set_CFG7_M3;}
+	else return false;
 
 	app_regs.REG_MOTOR3_HOLD_CURRENT_REDUCTION = reg;
 	return true;
@@ -1494,6 +1517,9 @@ bool app_write_REG_MOTOR0_IMMEDIATE_STEPS(void *a)
 {
 	int32_t reg = *((int32_t*)a);
 	
+	if (read_DRIVE_ENABLE_M0)
+		return false;
+	
 	if (reg > -10 && reg < 10)
 	{
 		reg = 0;
@@ -1502,6 +1528,7 @@ bool app_write_REG_MOTOR0_IMMEDIATE_STEPS(void *a)
 	if (reg == 0)
 	{
 		timer_type0_stop(&TCC0);
+		clr_LED_M0;
 	}	
 	else if (TCC0_CTRLA == 0)
 	{
@@ -1516,6 +1543,9 @@ bool app_write_REG_MOTOR0_IMMEDIATE_STEPS(void *a)
 		}
 			
 		timer_type0_pwm(&TCC0, TIMER_PRESCALER_DIV64, reg >> 1, 3, INT_LEVEL_OFF, INT_LEVEL_OFF);
+		
+		if (core_bool_is_visual_enabled())
+			set_LED_M0;
 	}
 	else
 	{
@@ -1554,6 +1584,9 @@ bool app_write_REG_MOTOR1_IMMEDIATE_STEPS(void *a)
 {
 	int32_t reg = *((int32_t*)a);
 	
+	if (read_DRIVE_ENABLE_M1)
+		return false;
+	
 	if (reg > -10 && reg < 10)
 	{
 		reg = 0;
@@ -1562,6 +1595,7 @@ bool app_write_REG_MOTOR1_IMMEDIATE_STEPS(void *a)
 	if (reg == 0)
 	{
 		timer_type0_stop(&TCD0);
+		clr_LED_M1;
 	}
 	else if (TCD0_CTRLA == 0)
 	{
@@ -1576,6 +1610,9 @@ bool app_write_REG_MOTOR1_IMMEDIATE_STEPS(void *a)
 		}
 		
 		timer_type0_pwm(&TCD0, TIMER_PRESCALER_DIV64, reg >> 1, 3, INT_LEVEL_OFF, INT_LEVEL_OFF);
+		
+		if (core_bool_is_visual_enabled())
+			set_LED_M1;
 	}
 	else
 	{
@@ -1614,6 +1651,9 @@ bool app_write_REG_MOTOR2_IMMEDIATE_STEPS(void *a)
 {
 	int32_t reg = *((int32_t*)a);
 	
+	if (read_DRIVE_ENABLE_M2)
+		return false;
+	
 	if (reg > -10 && reg < 10)
 	{
 		reg = 0;
@@ -1622,6 +1662,7 @@ bool app_write_REG_MOTOR2_IMMEDIATE_STEPS(void *a)
 	if (reg == 0)
 	{
 		timer_type0_stop(&TCE0);
+		clr_LED_M2;
 	}
 	else if (TCE0_CTRLA == 0)
 	{
@@ -1636,6 +1677,9 @@ bool app_write_REG_MOTOR2_IMMEDIATE_STEPS(void *a)
 		}
 		
 		timer_type0_pwm(&TCE0, TIMER_PRESCALER_DIV64, reg >> 1, 3, INT_LEVEL_OFF, INT_LEVEL_OFF);
+		
+		if (core_bool_is_visual_enabled())
+			set_LED_M2;
 	}
 	else
 	{
@@ -1674,6 +1718,9 @@ bool app_write_REG_MOTOR3_IMMEDIATE_STEPS(void *a)
 {
 	int32_t reg = *((int32_t*)a);
 	
+	if (read_DRIVE_ENABLE_M3)
+		return false;
+	
 	if (reg > -10 && reg < 10)
 	{
 		reg = 0;
@@ -1682,6 +1729,7 @@ bool app_write_REG_MOTOR3_IMMEDIATE_STEPS(void *a)
 	if (reg == 0)
 	{
 		timer_type0_stop(&TCF0);
+		clr_LED_M3;
 	}
 	else if (TCF0_CTRLA == 0)
 	{
@@ -1696,6 +1744,9 @@ bool app_write_REG_MOTOR3_IMMEDIATE_STEPS(void *a)
 		}
 		
 		timer_type0_pwm(&TCF0, TIMER_PRESCALER_DIV64, reg >> 1, 3, INT_LEVEL_OFF, INT_LEVEL_OFF);
+		
+		if (core_bool_is_visual_enabled())
+			set_LED_M3;
 	}
 	else
 	{
