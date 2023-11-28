@@ -147,6 +147,36 @@ void core_callback_initialize_hardware(void)
 	i2c0_init();
 	digi_pot_M0_M1.add = 0x2C;
 	digi_pot_M2_M3.add = 0x2D;
+	
+	/* Initialize encoders */
+	/* Set up quadrature decoding event */
+	EVSYS_CH0MUX = EVSYS_CHMUX_PORTD_PIN4_gc;
+	EVSYS_CH1MUX = EVSYS_CHMUX_PORTE_PIN4_gc;
+	EVSYS_CH2MUX = EVSYS_CHMUX_PORTF_PIN4_gc;
+	EVSYS_CH0CTRL = EVSYS_QDEN_bm | EVSYS_DIGFILT_2SAMPLES_gc;
+	EVSYS_CH1CTRL = EVSYS_QDEN_bm | EVSYS_DIGFILT_2SAMPLES_gc;
+	EVSYS_CH2CTRL = EVSYS_QDEN_bm | EVSYS_DIGFILT_2SAMPLES_gc;			
+	/* Stop and reset timer */
+	TCD1_CTRLA = TC_CLKSEL_OFF_gc;
+	TCE1_CTRLA = TC_CLKSEL_OFF_gc;
+	TCF1_CTRLA = TC_CLKSEL_OFF_gc;
+	TCD1_CTRLFSET = TC_CMD_RESET_gc;
+	TCE1_CTRLFSET = TC_CMD_RESET_gc;
+	TCF1_CTRLFSET = TC_CMD_RESET_gc;			
+	/* Configure timer */
+	TCD1_CTRLD = TC_EVACT_QDEC_gc | TC_EVSEL_CH0_gc;
+	TCE1_CTRLD = TC_EVACT_QDEC_gc | TC_EVSEL_CH1_gc;
+	TCF1_CTRLD = TC_EVACT_QDEC_gc | TC_EVSEL_CH2_gc;
+	TCD1_PER = 0xFFFF;
+	TCE1_PER = 0xFFFF;
+	TCF1_PER = 0xFFFF;
+	TCD1_CNT = 0x8000;
+	TCE1_CNT = 0x8000;
+	TCF1_CNT = 0x8000;			
+	/* Start timer */
+	TCD1_CTRLA = TC_CLKSEL_DIV1_gc;
+	TCE1_CTRLA = TC_CLKSEL_DIV1_gc;
+	TCF1_CTRLA = TC_CLKSEL_DIV1_gc;
 }
 
 void core_callback_reset_registers(void)
