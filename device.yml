@@ -242,12 +242,12 @@ registers:
     address: 75
     description: Configures the sense mode for digital input 3.
 
-  EmergencyStopMode:
+  DeviceEnableMode:
     address: 76
     type: U8
     access: Write
-    maskType: TriggerMode
-    description: Configures the edge detection mode for the emergency external button.
+    maskType: EnableMode
+    description: Configures the external connector state required to the device.
 
 ##################################
 # Events
@@ -295,12 +295,12 @@ registers:
     maskType: DigitalInputs
     description: Reflects the state of the digital input lines.
 
-  EmergencyStop:
+  DeviceState:
     address: 82
     type: U8
     access: Event
-    maskType: EmergencyStopState
-    description: Contains the state of the external emergency button.
+    maskType: DeviceState
+    description: Contains the state of the device.
 
 ##################################
 # Movement control
@@ -540,8 +540,13 @@ groupMasks:
     values:
       RisingEdge: 0
       FallingEdge: 1
-  EmergencyStopState:
-    description: Specifies the state of the external emergency button.
+  EnableMode:
+    description: Specifies the external connector state that enables the device.
     values:
-      NoEmergency: 0
-      EmergencyDetected: 1
+      Closed: 0
+      Open: 1
+  DeviceState:
+    description: Specifies the current state of the device.
+    values:
+      Disabled: 0
+      Enabled: 1

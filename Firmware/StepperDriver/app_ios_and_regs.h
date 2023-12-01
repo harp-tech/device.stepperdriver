@@ -591,5 +591,9 @@ typedef struct
 #define GM_EVENT_AND_STOP_MOTOR3           0x04         // Specifies the inputs operation mode to send event and stop motor 3
 #define GM_RAISING_EDGE                    0x00         // Specifies the inputs sense mode to raising edge
 #define GM_FALLING_EDGE                    0x01         // Specifies the inputs sense mode to falling edge
+#define GM_CLOSED                          0x00         // 
+#define GM_OPEN                            0x01         // 
+#define GM_DISABLED                        0x00         // 
+#define GM_ENABLED                         0x01         // 
 
 #endif /* _APP_REGS_H_ */
