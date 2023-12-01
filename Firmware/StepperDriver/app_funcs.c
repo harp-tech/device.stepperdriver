@@ -245,23 +245,26 @@ bool (*app_func_wr_pointer[])(void*) = {
 /************************************************************************/
 /* REG_ENABLE_MOTORS                                                    */
 /************************************************************************/
+uint8_t motors_enabled_mask = 0;
+
 void app_read_REG_ENABLE_MOTORS(void)
 {
-	app_regs.REG_ENABLE_MOTORS = 0;
-	app_regs.REG_ENABLE_MOTORS |= (read_DRIVE_ENABLE_M0) ? 1 : 0;
-	app_regs.REG_ENABLE_MOTORS |= (read_DRIVE_ENABLE_M1) ? 2 : 0;
-	app_regs.REG_ENABLE_MOTORS |= (read_DRIVE_ENABLE_M2) ? 4 : 0;
-	app_regs.REG_ENABLE_MOTORS |= (read_DRIVE_ENABLE_M3) ? 8 : 0;
+	app_regs.REG_ENABLE_MOTORS = motors_enabled_mask;
 }
 
 bool app_write_REG_ENABLE_MOTORS(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
 	
-	if (reg & B_MOTOR0) set_DRIVE_ENABLE_M0;
-	if (reg & B_MOTOR1) set_DRIVE_ENABLE_M1;
-	if (reg & B_MOTOR2) set_DRIVE_ENABLE_M2;
-	if (reg & B_MOTOR3) set_DRIVE_ENABLE_M3;
+	if ((app_regs.REG_EMERGENCY_DETECTION_MODE == GM_CLOSED && read_EMERGENCY == false) || (app_regs.REG_EMERGENCY_DETECTION_MODE == GM_OPEN && read_EMERGENCY == true))
+	{
+		if (reg & B_MOTOR0) set_DRIVE_ENABLE_M0;
+		if (reg & B_MOTOR1) set_DRIVE_ENABLE_M1;
+		if (reg & B_MOTOR2) set_DRIVE_ENABLE_M2;
+		if (reg & B_MOTOR3) set_DRIVE_ENABLE_M3;
+	}
+	
+	motors_enabled_mask |= reg;
 
 	app_regs.REG_ENABLE_MOTORS = reg;
 	return true;
@@ -285,23 +288,27 @@ bool app_write_REG_DISABLE_MOTORS(void *a)
 		clr_DRIVE_ENABLE_M0;
 		clr_LED_M0;
 		timer_type0_stop(&TCC0);
+		motors_enabled_mask &= ~B_MOTOR0;
 	}
 	if (reg & B_MOTOR1)
 	{
 		clr_DRIVE_ENABLE_M1;
 		clr_LED_M1;
 		timer_type0_stop(&TCD0);
+		motors_enabled_mask &= ~B_MOTOR1;
 	}
 	if (reg & B_MOTOR2)
 	{
 		clr_DRIVE_ENABLE_M2;
 		clr_LED_M2;
 		timer_type0_stop(&TCE0);
+		motors_enabled_mask &= ~B_MOTOR2;
 	}
 	if (reg & B_MOTOR3)
 	{	clr_DRIVE_ENABLE_M3;
 		clr_LED_M3;
 		timer_type0_stop(&TCF0);
+		motors_enabled_mask &= ~B_MOTOR3;
 	}
 
 	app_regs.REG_DISABLE_MOTORS = reg;
@@ -1092,15 +1099,13 @@ bool app_write_REG_INPUT3_SENSE_MODE(void *a)
 /************************************************************************/
 /* REG_EMERGENCY_DETECTION_MODE                                         */
 /************************************************************************/
-void app_read_REG_EMERGENCY_DETECTION_MODE(void)
-{
-	//app_regs.REG_EMERGENCY_DETECTION_MODE = 0;
-
-}
-
+void app_read_REG_EMERGENCY_DETECTION_MODE(void) {}
 bool app_write_REG_EMERGENCY_DETECTION_MODE(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
+	
+	if (reg & ~(GM_CLOSED | GM_OPEN))
+		return false;
 
 	app_regs.REG_EMERGENCY_DETECTION_MODE = reg;
 	return true;
@@ -1203,8 +1208,14 @@ bool app_write_REG_DIGITAL_INPUTS_STATE(void *a)
 /************************************************************************/
 void app_read_REG_EMERGENCY_DETECTION(void)
 {
-	app_regs.REG_EMERGENCY_DETECTION = 0;
-	app_regs.REG_EMERGENCY_DETECTION |= (read_EMERGENCY) ? 1 : 0;
+	if (app_regs.REG_EMERGENCY_DETECTION_MODE == GM_CLOSED)
+	{
+		app_regs.REG_EMERGENCY_DETECTION = (read_EMERGENCY) ? GM_DISABLED: GM_ENABLED;
+	}
+	else
+	{
+		app_regs.REG_EMERGENCY_DETECTION = (read_EMERGENCY) ? GM_ENABLED: GM_DISABLED;
+	}
 }
 
 bool app_write_REG_EMERGENCY_DETECTION(void *a)
