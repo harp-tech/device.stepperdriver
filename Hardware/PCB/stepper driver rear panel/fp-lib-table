@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "stepper driver rear panel")(type "KiCad")(uri "$(KIPRJMOD)/stepper driver rear panel.pretty")(options "")(descr ""))
+)
