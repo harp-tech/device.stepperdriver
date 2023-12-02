@@ -222,8 +222,8 @@ void core_callback_device_to_speed(void) {}
 /************************************************************************/
 /* Callbacks: 1 ms timer                                                */
 /************************************************************************/
-#define MOTOR_ENABLED_OULSE_DURATION_MS 50
 #define ENABLE_DEVICE_DEBOUCE_PERIOD_MS 2000
+#define MOTOR_ENABLED_LED_PULSE_DURATION_MS 50
 
 uint16_t acquisition_counter = 0;
 
@@ -296,7 +296,7 @@ void core_callback_t_before_exec(void)
 			if (read_DRIVE_ENABLE_M3 == false) set_LED_M3;
 		}
 		
-		if (acquisition_counter == 2 + MOTOR_ENABLED_OULSE_DURATION_MS / 2)
+		if (acquisition_counter == 2 + MOTOR_ENABLED_LED_PULSE_DURATION_MS / 2)
 		{
 			if (read_DRIVE_ENABLE_M0 == false && TCC0_CTRLA == 0) clr_LED_M0;
 			if (read_DRIVE_ENABLE_M1 == false && TCD0_CTRLA == 0) clr_LED_M1;
