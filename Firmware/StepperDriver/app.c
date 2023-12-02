@@ -222,8 +222,8 @@ void core_callback_device_to_speed(void) {}
 /************************************************************************/
 /* Callbacks: 1 ms timer                                                */
 /************************************************************************/
-#define ENABLE_DEVICE_DEBOUCE_PERIOD_MS 2000
 #define MOTOR_ENABLED_LED_PULSE_DURATION_MS 50
+#define ENABLE_DEVICE_DEBOUCE_PERIOD_MS 250
 
 uint16_t acquisition_counter = 0;
 
