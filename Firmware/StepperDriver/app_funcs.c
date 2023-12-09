@@ -703,15 +703,15 @@ bool app_write_REG_MOTOR3_HOLD_CURRENT_REDUCTION(void *a)
 /************************************************************************/
 /* REG_MOTOR0_NOMINAL_STEP_INTERVAL                                     */
 /************************************************************************/
-void app_read_REG_MOTOR0_NOMINAL_STEP_INTERVAL(void)
-{
-	//app_regs.REG_MOTOR0_NOMINAL_STEP_INTERVAL = 0;
-
-}
-
+void app_read_REG_MOTOR0_NOMINAL_STEP_INTERVAL(void) {}
 bool app_write_REG_MOTOR0_NOMINAL_STEP_INTERVAL(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
+	
+	if (reg < 100) return false;
+	if (reg > 20000) return false;
+	
+	if (TCC0.CTRLA) return false;
 
 	app_regs.REG_MOTOR0_NOMINAL_STEP_INTERVAL = reg;
 	return true;
@@ -721,15 +721,15 @@ bool app_write_REG_MOTOR0_NOMINAL_STEP_INTERVAL(void *a)
 /************************************************************************/
 /* REG_MOTOR1_NOMINAL_STEP_INTERVAL                                     */
 /************************************************************************/
-void app_read_REG_MOTOR1_NOMINAL_STEP_INTERVAL(void)
-{
-	//app_regs.REG_MOTOR1_NOMINAL_STEP_INTERVAL = 0;
-
-}
-
+void app_read_REG_MOTOR1_NOMINAL_STEP_INTERVAL(void) {}
 bool app_write_REG_MOTOR1_NOMINAL_STEP_INTERVAL(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
+	
+	if (reg < 100) return false;
+	if (reg > 20000) return false;
+	
+	if (TCC0.CTRLA) return false;
 
 	app_regs.REG_MOTOR1_NOMINAL_STEP_INTERVAL = reg;
 	return true;
@@ -739,15 +739,15 @@ bool app_write_REG_MOTOR1_NOMINAL_STEP_INTERVAL(void *a)
 /************************************************************************/
 /* REG_MOTOR2_NOMINAL_STEP_INTERVAL                                     */
 /************************************************************************/
-void app_read_REG_MOTOR2_NOMINAL_STEP_INTERVAL(void)
-{
-	//app_regs.REG_MOTOR2_NOMINAL_STEP_INTERVAL = 0;
-
-}
-
+void app_read_REG_MOTOR2_NOMINAL_STEP_INTERVAL(void) {}
 bool app_write_REG_MOTOR2_NOMINAL_STEP_INTERVAL(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
+	
+	if (reg < 100) return false;
+	if (reg > 20000) return false;
+	
+	if (TCC0.CTRLA) return false;
 
 	app_regs.REG_MOTOR2_NOMINAL_STEP_INTERVAL = reg;
 	return true;
@@ -757,15 +757,15 @@ bool app_write_REG_MOTOR2_NOMINAL_STEP_INTERVAL(void *a)
 /************************************************************************/
 /* REG_MOTOR3_NOMINAL_STEP_INTERVAL                                     */
 /************************************************************************/
-void app_read_REG_MOTOR3_NOMINAL_STEP_INTERVAL(void)
-{
-	//app_regs.REG_MOTOR3_NOMINAL_STEP_INTERVAL = 0;
-
-}
-
+void app_read_REG_MOTOR3_NOMINAL_STEP_INTERVAL(void) {}
 bool app_write_REG_MOTOR3_NOMINAL_STEP_INTERVAL(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
+	
+	if (reg < 100) return false;
+	if (reg > 20000) return false;
+	
+	if (TCC0.CTRLA) return false;
 
 	app_regs.REG_MOTOR3_NOMINAL_STEP_INTERVAL = reg;
 	return true;
@@ -775,15 +775,15 @@ bool app_write_REG_MOTOR3_NOMINAL_STEP_INTERVAL(void *a)
 /************************************************************************/
 /* REG_MOTOR0_MAXIMUM_STEP_INTERVAL                                     */
 /************************************************************************/
-void app_read_REG_MOTOR0_MAXIMUM_STEP_INTERVAL(void)
-{
-	//app_regs.REG_MOTOR0_MAXIMUM_STEP_INTERVAL = 0;
-
-}
-
+void app_read_REG_MOTOR0_MAXIMUM_STEP_INTERVAL(void) {}
 bool app_write_REG_MOTOR0_MAXIMUM_STEP_INTERVAL(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
+	
+	if (reg < 100) return false;
+	if (reg > 20000) return false;
+	
+	if (TCC0.CTRLA) return false;
 
 	app_regs.REG_MOTOR0_MAXIMUM_STEP_INTERVAL = reg;
 	return true;
@@ -793,15 +793,15 @@ bool app_write_REG_MOTOR0_MAXIMUM_STEP_INTERVAL(void *a)
 /************************************************************************/
 /* REG_MOTOR1_MAXIMUM_STEP_INTERVAL                                     */
 /************************************************************************/
-void app_read_REG_MOTOR1_MAXIMUM_STEP_INTERVAL(void)
-{
-	//app_regs.REG_MOTOR1_MAXIMUM_STEP_INTERVAL = 0;
-
-}
-
+void app_read_REG_MOTOR1_MAXIMUM_STEP_INTERVAL(void) {}
 bool app_write_REG_MOTOR1_MAXIMUM_STEP_INTERVAL(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
+	
+	if (reg < 100) return false;
+	if (reg > 20000) return false;
+	
+	if (TCC0.CTRLA) return false;
 
 	app_regs.REG_MOTOR1_MAXIMUM_STEP_INTERVAL = reg;
 	return true;
@@ -811,15 +811,15 @@ bool app_write_REG_MOTOR1_MAXIMUM_STEP_INTERVAL(void *a)
 /************************************************************************/
 /* REG_MOTOR2_MAXIMUM_STEP_INTERVAL                                     */
 /************************************************************************/
-void app_read_REG_MOTOR2_MAXIMUM_STEP_INTERVAL(void)
-{
-	//app_regs.REG_MOTOR2_MAXIMUM_STEP_INTERVAL = 0;
-
-}
-
+void app_read_REG_MOTOR2_MAXIMUM_STEP_INTERVAL(void) {}
 bool app_write_REG_MOTOR2_MAXIMUM_STEP_INTERVAL(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
+	
+	if (reg < 100) return false;
+	if (reg > 20000) return false;
+	
+	if (TCC0.CTRLA) return false;
 
 	app_regs.REG_MOTOR2_MAXIMUM_STEP_INTERVAL = reg;
 	return true;
@@ -829,15 +829,15 @@ bool app_write_REG_MOTOR2_MAXIMUM_STEP_INTERVAL(void *a)
 /************************************************************************/
 /* REG_MOTOR3_MAXIMUM_STEP_INTERVAL                                     */
 /************************************************************************/
-void app_read_REG_MOTOR3_MAXIMUM_STEP_INTERVAL(void)
-{
-	//app_regs.REG_MOTOR3_MAXIMUM_STEP_INTERVAL = 0;
-
-}
-
+void app_read_REG_MOTOR3_MAXIMUM_STEP_INTERVAL(void) {}
 bool app_write_REG_MOTOR3_MAXIMUM_STEP_INTERVAL(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
+	
+	if (reg < 100) return false;
+	if (reg > 20000) return false;
+	
+	if (TCC0.CTRLA) return false;
 
 	app_regs.REG_MOTOR3_MAXIMUM_STEP_INTERVAL = reg;
 	return true;
@@ -847,15 +847,15 @@ bool app_write_REG_MOTOR3_MAXIMUM_STEP_INTERVAL(void *a)
 /************************************************************************/
 /* REG_MOTOR0_STEP_ACCELERATION_INTERVAL                                */
 /************************************************************************/
-void app_read_REG_MOTOR0_STEP_ACCELERATION_INTERVAL(void)
-{
-	//app_regs.REG_MOTOR0_STEP_ACCELERATION_INTERVAL = 0;
-
-}
-
+void app_read_REG_MOTOR0_STEP_ACCELERATION_INTERVAL(void) {}
 bool app_write_REG_MOTOR0_STEP_ACCELERATION_INTERVAL(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
+	
+	if (reg < 2) return false;
+	if (reg > 2000) return false;
+	
+	if (TCC0.CTRLA) return false;
 
 	app_regs.REG_MOTOR0_STEP_ACCELERATION_INTERVAL = reg;
 	return true;
@@ -865,15 +865,15 @@ bool app_write_REG_MOTOR0_STEP_ACCELERATION_INTERVAL(void *a)
 /************************************************************************/
 /* REG_MOTOR1_STEP_ACCELERATION_INTERVAL                                */
 /************************************************************************/
-void app_read_REG_MOTOR1_STEP_ACCELERATION_INTERVAL(void)
-{
-	//app_regs.REG_MOTOR1_STEP_ACCELERATION_INTERVAL = 0;
-
-}
-
+void app_read_REG_MOTOR1_STEP_ACCELERATION_INTERVAL(void) {}
 bool app_write_REG_MOTOR1_STEP_ACCELERATION_INTERVAL(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
+	
+	if (reg < 2) return false;
+	if (reg > 2000) return false;
+	
+	if (TCC0.CTRLA) return false;
 
 	app_regs.REG_MOTOR1_STEP_ACCELERATION_INTERVAL = reg;
 	return true;
@@ -883,15 +883,15 @@ bool app_write_REG_MOTOR1_STEP_ACCELERATION_INTERVAL(void *a)
 /************************************************************************/
 /* REG_MOTOR2_STEP_ACCELERATION_INTERVAL                                */
 /************************************************************************/
-void app_read_REG_MOTOR2_STEP_ACCELERATION_INTERVAL(void)
-{
-	//app_regs.REG_MOTOR2_STEP_ACCELERATION_INTERVAL = 0;
-
-}
-
+void app_read_REG_MOTOR2_STEP_ACCELERATION_INTERVAL(void) {}
 bool app_write_REG_MOTOR2_STEP_ACCELERATION_INTERVAL(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
+	
+	if (reg < 2) return false;
+	if (reg > 2000) return false;
+	
+	if (TCC0.CTRLA) return false;
 
 	app_regs.REG_MOTOR2_STEP_ACCELERATION_INTERVAL = reg;
 	return true;
@@ -901,15 +901,15 @@ bool app_write_REG_MOTOR2_STEP_ACCELERATION_INTERVAL(void *a)
 /************************************************************************/
 /* REG_MOTOR3_STEP_ACCELERATION_INTERVAL                                */
 /************************************************************************/
-void app_read_REG_MOTOR3_STEP_ACCELERATION_INTERVAL(void)
-{
-	//app_regs.REG_MOTOR3_STEP_ACCELERATION_INTERVAL = 0;
-
-}
-
+void app_read_REG_MOTOR3_STEP_ACCELERATION_INTERVAL(void) {}
 bool app_write_REG_MOTOR3_STEP_ACCELERATION_INTERVAL(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
+	
+	if (reg < 2) return false;
+	if (reg > 2000) return false;
+	
+	if (TCC0.CTRLA) return false;
 
 	app_regs.REG_MOTOR3_STEP_ACCELERATION_INTERVAL = reg;
 	return true;
