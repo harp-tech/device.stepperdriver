@@ -240,35 +240,48 @@ extern void enable_motors (void);
 extern int32_t user_requested_steps[];
 extern bool send_motor_stopped_notification[];
 
+extern uint8_t encoders_enabled_mask;
+
 void core_callback_t_before_exec(void)
 {
 	acquisition_counter++;
 	
-	if (app_regs.REG_ENABLE_ENCODERS)
+	if (encoders_enabled_mask)
 	{
 		if ((app_regs.REG_ENCODERS_UPDATE_RATE == GM_RATE_500HZ && ((acquisition_counter & 3) == 0)) ||
 			(app_regs.REG_ENCODERS_UPDATE_RATE == GM_RATE_250HZ && ((acquisition_counter & 7) == 0)) ||
 			(app_regs.REG_ENCODERS_UPDATE_RATE == GM_RATE_200HZ && ((acquisition_counter % 10) == 0)) ||
 			(app_regs.REG_ENCODERS_UPDATE_RATE == GM_RATE_100HZ && ((acquisition_counter % 20) == 0)))
 		{
-			int16_t timer_tcd1_cnt = TCD1_CNT;
-			int16_t timer_tce1_cnt = TCE1_CNT;
-			int16_t timer_tcf1_cnt = TCF1_CNT;
+			if (encoders_enabled_mask & B_ENCODER2)
+			{
+				int16_t timer_tcd1_cnt = TCD1_CNT;
+				
+				if (timer_tcd1_cnt > 32768)
+					app_regs.REG_ENCODERS[2] = 0xFFFF - timer_tcd1_cnt;
+				else
+					app_regs.REG_ENCODERS[2] = (32768 - timer_tcd1_cnt) * -1;
+			}
 			
-			if (timer_tcd1_cnt > 32768)
-				app_regs.REG_ENCODERS[2] = 0xFFFF - timer_tcd1_cnt;
-			else
-				app_regs.REG_ENCODERS[2] = (32768 - timer_tcd1_cnt) * -1;
+			if (encoders_enabled_mask & B_ENCODER0)			
+			{
+				int16_t timer_tce1_cnt = TCE1_CNT;
+				
+				if (timer_tce1_cnt > 32768)
+					app_regs.REG_ENCODERS[0] = 0xFFFF - timer_tce1_cnt;
+				else
+					app_regs.REG_ENCODERS[0] = (32768 - timer_tce1_cnt) * -1;
+			}			
 			
-			if (timer_tce1_cnt > 32768)
-				app_regs.REG_ENCODERS[0] = 0xFFFF - timer_tce1_cnt;
-			else
-				app_regs.REG_ENCODERS[0] = (32768 - timer_tce1_cnt) * -1;
-			
-			if (timer_tcf1_cnt > 32768)
-				app_regs.REG_ENCODERS[1] = 0xFFFF - timer_tcf1_cnt;
-			else
-				app_regs.REG_ENCODERS[1] = (32768 - timer_tcf1_cnt) * -1;
+			if (encoders_enabled_mask & B_ENCODER1)
+			{			
+				int16_t timer_tcf1_cnt = TCF1_CNT;
+				
+				if (timer_tcf1_cnt > 32768)
+					app_regs.REG_ENCODERS[1] = 0xFFFF - timer_tcf1_cnt;
+				else
+					app_regs.REG_ENCODERS[1] = (32768 - timer_tcf1_cnt) * -1;
+			}
 			
 			core_func_send_event(ADD_REG_ENCODERS, true);
 		}
