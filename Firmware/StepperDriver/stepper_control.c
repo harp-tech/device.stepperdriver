@@ -1,16 +1,21 @@
 #include "stepper_control.h"
 #include "app_ios_and_regs.h"
+#include "hwbp_core.h"
 
 
 /************************************************************************/
 /* User mandatory definitions                                           */
 /************************************************************************/
 // Define direction port and pin
-PORT_t* motor_peripherals_dir_port[MOTORS_QUANTITY] = {&PORTC, &PORTD, &PORTE};
+PORT_t* motor_peripherals_dir_port[MOTORS_QUANTITY] = {&PORTC, &PORTD, &PORTE, &PORTF};
 const uint8_t motor_peripherals_dir_pin_index[MOTORS_QUANTITY] = {1, 1, 1, 1};
 
 // Define timer used (only timer type 0 are accepted)
 TC0_t* motor_peripherals_timer[MOTORS_QUANTITY] = {&TCC0, &TCD0, &TCE0, &TCF0};
+
+// Define direction port and pin
+PORT_t* motor_peripherals_led_port[MOTORS_QUANTITY] = {&PORTH, &PORTH, &PORTJ, &PORTQ};
+const uint8_t motor_peripherals_led_pin_index[MOTORS_QUANTITY] = {3, 4, 0, 1};
 
 /************************************************************************/
 /* Global electrical pulse parameters                                   */
@@ -145,12 +150,19 @@ void start_rotation (int32_t requested_steps, uint8_t motor_index)
 	
 	/* Start the generation of pulses */
 	timer_type0_pwm(motor_peripherals_timer[motor_index], TIMER_PRESCALER_DIV64, m_max_pulse_interval_us[motor_index], m_pulse_period_us[motor_index], INT_LEVEL_MED, INT_LEVEL_MED);
+	
+	if (core_bool_is_visual_enabled())
+	{
+		motor_peripherals_led_port[motor_index]->OUTSET = (1<<motor_peripherals_led_pin_index[motor_index]);
+	}
 }
 
 void stop_rotation (uint8_t motor_index)
 {
  	timer_type0_stop(motor_peripherals_timer[motor_index]);
  	motor_is_running[motor_index] = false;
+	
+	motor_peripherals_led_port[motor_index]->OUTCLR = (1<<motor_peripherals_led_pin_index[motor_index]);
 }
 
 void reduce_until_stop_rotation (uint8_t motor_index)
@@ -273,31 +285,31 @@ void manage_step_boundaries (uint8_t motor_index)
 {
 	if (motor_peripherals_dir_port[motor_index]->IN & (1<<motor_peripherals_dir_pin_index[motor_index]))
 	{
-		app_regs.REG_MOTOR0_ACCUMULATED_STEPS++;
+		*((&app_regs.REG_MOTOR0_ACCUMULATED_STEPS) + motor_index) += 1;
 		
-		if (app_regs.REG_MOTOR0_MAX_STEPS_INTEGRATION != 0)
+		if (*((&app_regs.REG_MOTOR0_MAX_STEPS_INTEGRATION) + motor_index) != 0)
 		{
-			if (app_regs.REG_MOTOR0_ACCUMULATED_STEPS >= app_regs.REG_MOTOR0_MAX_STEPS_INTEGRATION)
+			if (*((&app_regs.REG_MOTOR0_ACCUMULATED_STEPS) + motor_index) >= *((&app_regs.REG_MOTOR0_MAX_STEPS_INTEGRATION) + motor_index))
 			{
 				stop_rotation(motor_index);
 				
 				/* Since this is used at MID level interrupts, send an event from here can happen in the middle of other event */
-				send_motor_stopped_notification[0] = true;
+				send_motor_stopped_notification[motor_index] = true;
 			}
 		}
 	}
 	else
 	{
-		app_regs.REG_MOTOR0_ACCUMULATED_STEPS--;
+		*((&app_regs.REG_MOTOR0_ACCUMULATED_STEPS) + motor_index) -= 1;
 		
-		if (app_regs.REG_MOTOR0_MIN_STEPS_INTEGRATION != 0)
+		if (*((&app_regs.REG_MOTOR0_MIN_STEPS_INTEGRATION) + motor_index) != 0)
 		{
-			if (app_regs.REG_MOTOR0_ACCUMULATED_STEPS <= app_regs.REG_MOTOR0_MIN_STEPS_INTEGRATION)
+			if (*((&app_regs.REG_MOTOR0_ACCUMULATED_STEPS) + motor_index) <= *((&app_regs.REG_MOTOR0_MIN_STEPS_INTEGRATION) + motor_index))
 			{
 				stop_rotation(motor_index);
 				
 				/* Since this is used at MID level interrupts, send an event from here can happen in the middle of other event */
-				send_motor_stopped_notification[0] = true;
+				send_motor_stopped_notification[motor_index] = true;
 			}
 		}
 	}
@@ -336,7 +348,7 @@ void timer_ovf_routine (uint8_t motor_index)
 	}
 	else
 	{
-		decreasing_speed[0] = false;
+		decreasing_speed[motor_index] = false;
 		
 		/* Increase motor speed */
 		if (motor_peripherals_timer[motor_index]->PER > m_min_pulse_interval_us[motor_index])

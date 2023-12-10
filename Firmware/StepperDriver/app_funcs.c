@@ -1846,10 +1846,10 @@ bool app_write_REG_STOP_MOTORS_SUDENTLY(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
 	
-	if (B_MOTOR0) stop_rotation (0);
-	if (B_MOTOR1) stop_rotation (1);
-	if (B_MOTOR2) stop_rotation (2);
-	if (B_MOTOR3) stop_rotation (3);
+	if (reg & B_MOTOR0) stop_rotation (0);
+	if (reg & B_MOTOR1) stop_rotation (1);
+	if (reg & B_MOTOR2) stop_rotation (2);
+	if (reg & B_MOTOR3) stop_rotation (3);
 
 	app_regs.REG_STOP_MOTORS_SUDENTLY = reg;
 	return true;
