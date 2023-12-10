@@ -367,6 +367,33 @@ void core_callback_t_1ms(void)
 		/* Re-enable all interrupt levels */
 		PMIC_CTRL = PMIC_RREN_bm | PMIC_LOLVLEN_bm | PMIC_MEDLVLEN_bm | PMIC_HILVLEN_bm;
 	}
+	
+	if (user_requested_steps[1] != 0)
+	{
+		PMIC_CTRL = PMIC_RREN_bm | PMIC_LOLVLEN_bm;
+		
+		user_requested_steps[1] = user_sent_request(user_requested_steps[1], 1);
+		
+		PMIC_CTRL = PMIC_RREN_bm | PMIC_LOLVLEN_bm | PMIC_MEDLVLEN_bm | PMIC_HILVLEN_bm;
+	}
+	
+	if (user_requested_steps[2] != 0)
+	{
+		PMIC_CTRL = PMIC_RREN_bm | PMIC_LOLVLEN_bm;
+		
+		user_requested_steps[2] = user_sent_request(user_requested_steps[2], 2);
+		
+		PMIC_CTRL = PMIC_RREN_bm | PMIC_LOLVLEN_bm | PMIC_MEDLVLEN_bm | PMIC_HILVLEN_bm;
+	}
+	
+	if (user_requested_steps[3] != 0)
+	{
+		PMIC_CTRL = PMIC_RREN_bm | PMIC_LOLVLEN_bm;
+		
+		user_requested_steps[3] = user_sent_request(user_requested_steps[3], 3);
+		
+		PMIC_CTRL = PMIC_RREN_bm | PMIC_LOLVLEN_bm | PMIC_MEDLVLEN_bm | PMIC_HILVLEN_bm;
+	}
 }
 
 /************************************************************************/
