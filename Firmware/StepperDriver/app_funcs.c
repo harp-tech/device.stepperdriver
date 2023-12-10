@@ -267,12 +267,23 @@ bool app_write_REG_ENABLE_MOTORS(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
 	
+	app_read_REG_MOTORS_ERROR_DETECTTION();
+	
 	if ((app_regs.REG_EMERGENCY_DETECTION_MODE == GM_CLOSED && read_EMERGENCY == false) || (app_regs.REG_EMERGENCY_DETECTION_MODE == GM_OPEN && read_EMERGENCY == true))
-	{
+	{		
+		if ((reg & B_MOTOR0) && (app_regs.REG_MOTORS_ERROR_DETECTTION & B_MOTOR0)) return false;
+		if ((reg & B_MOTOR1) && (app_regs.REG_MOTORS_ERROR_DETECTTION & B_MOTOR1)) return false;
+		if ((reg & B_MOTOR2) && (app_regs.REG_MOTORS_ERROR_DETECTTION & B_MOTOR2)) return false;
+		if ((reg & B_MOTOR3) && (app_regs.REG_MOTORS_ERROR_DETECTTION & B_MOTOR3)) return false;		
+		
 		if (reg & B_MOTOR0) set_DRIVE_ENABLE_M0;
 		if (reg & B_MOTOR1) set_DRIVE_ENABLE_M1;
 		if (reg & B_MOTOR2) set_DRIVE_ENABLE_M2;
 		if (reg & B_MOTOR3) set_DRIVE_ENABLE_M3;
+	}
+	else
+	{
+		return false;
 	}
 	
 	motors_enabled_mask |= reg;
@@ -1218,17 +1229,15 @@ bool app_write_REG_MOTORS_OVERVOLTAGE_DETECTION(void *a)
 /************************************************************************/
 void app_read_REG_MOTORS_ERROR_DETECTTION(void)
 {
-	//app_regs.REG_MOTORS_ERROR_DETECTTION = 0;
-
+	/* This register only goes up, it's sticky.                   */
+	/* Once an error is found, only a power cycle can recover it. */
+	app_regs.REG_MOTORS_ERROR_DETECTTION |= (!read_ERROR_M0) ? B_MOTOR0 : 0;
+	app_regs.REG_MOTORS_ERROR_DETECTTION |= (!read_ERROR_M1) ? B_MOTOR1 : 0;
+	app_regs.REG_MOTORS_ERROR_DETECTTION |= (!read_ERROR_M2) ? B_MOTOR2 : 0;
+	app_regs.REG_MOTORS_ERROR_DETECTTION |= (!read_ERROR_M0) ? B_MOTOR3 : 0;
 }
 
-bool app_write_REG_MOTORS_ERROR_DETECTTION(void *a)
-{
-	uint8_t reg = *((uint8_t*)a);
-
-	app_regs.REG_MOTORS_ERROR_DETECTTION = reg;
-	return true;
-}
+bool app_write_REG_MOTORS_ERROR_DETECTTION(void *a) { return false; }
 
 
 /************************************************************************/
