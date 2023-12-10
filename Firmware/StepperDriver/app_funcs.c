@@ -3,6 +3,7 @@
 #include "hwbp_core.h"
 
 #include "i2c.h"
+#include "stepper_control.h"
 
 /************************************************************************/
 /* Create pointers to functions                                         */
@@ -69,6 +70,16 @@ uint8_t calculate_max_current_configuration_data (uint8_t *cfg_2_and_3, float rm
 	return (uint8_t) digi_pot_value;
 }
 
+/************************************************************************/
+/* Globals                                                              */
+/************************************************************************/
+extern int32_t user_requested_steps[];
+
+extern TC0_t* motor_peripherals_timer[];
+
+/************************************************************************/
+/* Registers                                                            */
+/************************************************************************/
 void (*app_func_rd_pointer[])(void) = {
 	&app_read_REG_ENABLE_MOTORS,
 	&app_read_REG_DISABLE_MOTORS,
@@ -287,27 +298,27 @@ bool app_write_REG_DISABLE_MOTORS(void *a)
 	{
 		clr_DRIVE_ENABLE_M0;
 		clr_LED_M0;
-		timer_type0_stop(&TCC0);
+		stop_rotation(0);
 		motors_enabled_mask &= ~B_MOTOR0;
 	}
 	if (reg & B_MOTOR1)
 	{
 		clr_DRIVE_ENABLE_M1;
 		clr_LED_M1;
-		timer_type0_stop(&TCD0);
+		stop_rotation(1);
 		motors_enabled_mask &= ~B_MOTOR1;
 	}
 	if (reg & B_MOTOR2)
 	{
 		clr_DRIVE_ENABLE_M2;
 		clr_LED_M2;
-		timer_type0_stop(&TCE0);
+		stop_rotation(2);
 		motors_enabled_mask &= ~B_MOTOR2;
 	}
 	if (reg & B_MOTOR3)
 	{	clr_DRIVE_ENABLE_M3;
 		clr_LED_M3;
-		timer_type0_stop(&TCF0);
+		stop_rotation(3);
 		motors_enabled_mask &= ~B_MOTOR3;
 	}
 
@@ -355,15 +366,50 @@ bool app_write_REG_DISABLE_ENCODERS(void *a)
 /************************************************************************/
 /* REG_ENABLE_INPUTS                                                    */
 /************************************************************************/
-void app_read_REG_ENABLE_INPUTS(void)
-{
-	//app_regs.REG_ENABLE_INPUTS = 0;
-
-}
-
+void app_read_REG_ENABLE_INPUTS(void) {}
 bool app_write_REG_ENABLE_INPUTS(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
+	
+	if (reg & B_INPUT0)
+	{
+		if (app_regs.REG_INPUT0_SENSE_MODE == GM_RISING_EDGE)
+			io_pin2in(&PORTK, 5, PULL_IO_UP, SENSE_IO_EDGE_RISING);
+		else
+			io_pin2in(&PORTK, 5, PULL_IO_UP, SENSE_IO_EDGE_FALLING);
+		
+		io_set_int(&PORTK, INT_LEVEL_LOW, 0, (1<<5), false);
+	}
+	
+	if (reg & B_INPUT1)
+	{
+		if (app_regs.REG_INPUT0_SENSE_MODE == GM_RISING_EDGE)
+			io_pin2in(&PORTQ, 2, PULL_IO_UP, SENSE_IO_EDGE_RISING);
+		else
+			io_pin2in(&PORTQ, 2, PULL_IO_UP, SENSE_IO_EDGE_FALLING);
+		
+		io_set_int(&PORTQ, INT_LEVEL_LOW, 0, (1<<2), false);
+	}
+	
+	if (reg & B_INPUT2)
+	{
+		if (app_regs.REG_INPUT0_SENSE_MODE == GM_RISING_EDGE)
+			io_pin2in(&PORTC, 5, PULL_IO_UP, SENSE_IO_EDGE_RISING);
+		else
+			io_pin2in(&PORTC, 5, PULL_IO_UP, SENSE_IO_EDGE_FALLING);
+		
+		io_set_int(&PORTC, INT_LEVEL_LOW, 0, (1<<5), false);
+	}
+	
+	if (reg & B_INPUT3)
+	{
+		if (app_regs.REG_INPUT0_SENSE_MODE == GM_RISING_EDGE)
+			io_pin2in(&PORTH, 7, PULL_IO_UP, SENSE_IO_EDGE_RISING);
+		else
+			io_pin2in(&PORTH, 7, PULL_IO_UP, SENSE_IO_EDGE_FALLING);
+		
+		io_set_int(&PORTH, INT_LEVEL_LOW, 0, (1<<7), false);
+	}
 
 	app_regs.REG_ENABLE_INPUTS = reg;
 	return true;
@@ -373,15 +419,34 @@ bool app_write_REG_ENABLE_INPUTS(void *a)
 /************************************************************************/
 /* REG_DISABLE_INPUTS                                                   */
 /************************************************************************/
-void app_read_REG_DISABLE_INPUTS(void)
-{
-	//app_regs.REG_DISABLE_INPUTS = 0;
-
-}
-
+void app_read_REG_DISABLE_INPUTS(void) {}
 bool app_write_REG_DISABLE_INPUTS(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
+	
+	if (reg & B_INPUT0)
+	{
+		io_pin2in(&PORTK, 5, PULL_IO_UP, SENSE_IO_NO_INT_USED);
+		io_set_int(&PORTK, INT_LEVEL_OFF, 0, (1<<5), false);
+	}
+	
+	if (reg & B_INPUT1)
+	{
+		io_set_int(&PORTK, INT_LEVEL_OFF, 0, (1<<5), false);
+		io_set_int(&PORTQ, INT_LEVEL_OFF, 0, (1<<2), false);
+	}
+	
+	if (reg & B_INPUT2)
+	{
+		io_pin2in(&PORTC, 5, PULL_IO_UP, SENSE_IO_NO_INT_USED);
+		io_set_int(&PORTC, INT_LEVEL_OFF, 0, (1<<5), false);
+	}
+	
+	if (reg & B_INPUT3)
+	{
+		io_pin2in(&PORTH, 7, PULL_IO_UP, SENSE_IO_NO_INT_USED);
+		io_set_int(&PORTH, INT_LEVEL_OFF, 0, (1<<7), false);
+	}
 
 	app_regs.REG_DISABLE_INPUTS = reg;
 	return true;
@@ -713,6 +778,8 @@ bool app_write_REG_MOTOR0_NOMINAL_STEP_INTERVAL(void *a)
 	
 	if (TCC0.CTRLA) return false;
 
+	if (update_nominal_pulse_interval(reg, 0) == false) return false;
+
 	app_regs.REG_MOTOR0_NOMINAL_STEP_INTERVAL = reg;
 	return true;
 }
@@ -730,6 +797,8 @@ bool app_write_REG_MOTOR1_NOMINAL_STEP_INTERVAL(void *a)
 	if (reg > 20000) return false;
 	
 	if (TCC0.CTRLA) return false;
+
+	if (update_nominal_pulse_interval(reg, 1) == false) return false;
 
 	app_regs.REG_MOTOR1_NOMINAL_STEP_INTERVAL = reg;
 	return true;
@@ -749,6 +818,8 @@ bool app_write_REG_MOTOR2_NOMINAL_STEP_INTERVAL(void *a)
 	
 	if (TCC0.CTRLA) return false;
 
+	if (update_nominal_pulse_interval(reg, 2) == false) return false;
+
 	app_regs.REG_MOTOR2_NOMINAL_STEP_INTERVAL = reg;
 	return true;
 }
@@ -767,6 +838,8 @@ bool app_write_REG_MOTOR3_NOMINAL_STEP_INTERVAL(void *a)
 	
 	if (TCC0.CTRLA) return false;
 
+	if (update_nominal_pulse_interval(reg, 3) == false) return false;
+
 	app_regs.REG_MOTOR3_NOMINAL_STEP_INTERVAL = reg;
 	return true;
 }
@@ -784,6 +857,8 @@ bool app_write_REG_MOTOR0_MAXIMUM_STEP_INTERVAL(void *a)
 	if (reg > 20000) return false;
 	
 	if (TCC0.CTRLA) return false;
+	
+	if (update_initial_pulse_interval(reg, 0) == false) return false;
 
 	app_regs.REG_MOTOR0_MAXIMUM_STEP_INTERVAL = reg;
 	return true;
@@ -802,6 +877,8 @@ bool app_write_REG_MOTOR1_MAXIMUM_STEP_INTERVAL(void *a)
 	if (reg > 20000) return false;
 	
 	if (TCC0.CTRLA) return false;
+	
+	if (update_initial_pulse_interval(reg, 1) == false) return false;
 
 	app_regs.REG_MOTOR1_MAXIMUM_STEP_INTERVAL = reg;
 	return true;
@@ -820,7 +897,9 @@ bool app_write_REG_MOTOR2_MAXIMUM_STEP_INTERVAL(void *a)
 	if (reg > 20000) return false;
 	
 	if (TCC0.CTRLA) return false;
-
+	
+	if (update_initial_pulse_interval(reg, 2) == false) return false;
+	
 	app_regs.REG_MOTOR2_MAXIMUM_STEP_INTERVAL = reg;
 	return true;
 }
@@ -838,7 +917,9 @@ bool app_write_REG_MOTOR3_MAXIMUM_STEP_INTERVAL(void *a)
 	if (reg > 20000) return false;
 	
 	if (TCC0.CTRLA) return false;
-
+	
+	if (update_initial_pulse_interval(reg, 3) == false) return false;
+	
 	app_regs.REG_MOTOR3_MAXIMUM_STEP_INTERVAL = reg;
 	return true;
 }
@@ -856,6 +937,8 @@ bool app_write_REG_MOTOR0_STEP_ACCELERATION_INTERVAL(void *a)
 	if (reg > 2000) return false;
 	
 	if (TCC0.CTRLA) return false;
+	
+	if (update_pulse_step_interval(reg, 0) == false) return false;
 
 	app_regs.REG_MOTOR0_STEP_ACCELERATION_INTERVAL = reg;
 	return true;
@@ -874,6 +957,8 @@ bool app_write_REG_MOTOR1_STEP_ACCELERATION_INTERVAL(void *a)
 	if (reg > 2000) return false;
 	
 	if (TCC0.CTRLA) return false;
+	
+	if (update_pulse_step_interval(reg, 1) == false) return false;
 
 	app_regs.REG_MOTOR1_STEP_ACCELERATION_INTERVAL = reg;
 	return true;
@@ -892,6 +977,8 @@ bool app_write_REG_MOTOR2_STEP_ACCELERATION_INTERVAL(void *a)
 	if (reg > 2000) return false;
 	
 	if (TCC0.CTRLA) return false;
+	
+	if (update_pulse_step_interval(reg, 2) == false) return false;
 
 	app_regs.REG_MOTOR2_STEP_ACCELERATION_INTERVAL = reg;
 	return true;
@@ -910,6 +997,8 @@ bool app_write_REG_MOTOR3_STEP_ACCELERATION_INTERVAL(void *a)
 	if (reg > 2000) return false;
 	
 	if (TCC0.CTRLA) return false;
+	
+	if (update_pulse_step_interval(reg, 3) == false) return false;
 
 	app_regs.REG_MOTOR3_STEP_ACCELERATION_INTERVAL = reg;
 	return true;
@@ -955,15 +1044,12 @@ bool app_write_REG_ENCODERS_UPDATE_RATE(void *a)
 /************************************************************************/
 /* REG_INPUT0_OPERATION_MODE                                            */
 /************************************************************************/
-void app_read_REG_INPUT0_OPERATION_MODE(void)
-{
-	//app_regs.REG_INPUT0_OPERATION_MODE = 0;
-
-}
-
+void app_read_REG_INPUT0_OPERATION_MODE(void) {}
 bool app_write_REG_INPUT0_OPERATION_MODE(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
+	
+	app_write_REG_ENABLE_INPUTS(&app_regs.REG_ENABLE_INPUTS);
 
 	app_regs.REG_INPUT0_OPERATION_MODE = reg;
 	return true;
@@ -973,15 +1059,12 @@ bool app_write_REG_INPUT0_OPERATION_MODE(void *a)
 /************************************************************************/
 /* REG_INPUT1_OPERATION_MODE                                            */
 /************************************************************************/
-void app_read_REG_INPUT1_OPERATION_MODE(void)
-{
-	//app_regs.REG_INPUT1_OPERATION_MODE = 0;
-
-}
-
+void app_read_REG_INPUT1_OPERATION_MODE(void) {}
 bool app_write_REG_INPUT1_OPERATION_MODE(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
+	
+	app_write_REG_ENABLE_INPUTS(&app_regs.REG_ENABLE_INPUTS);
 
 	app_regs.REG_INPUT1_OPERATION_MODE = reg;
 	return true;
@@ -991,15 +1074,12 @@ bool app_write_REG_INPUT1_OPERATION_MODE(void *a)
 /************************************************************************/
 /* REG_INPUT2_OPERATION_MODE                                            */
 /************************************************************************/
-void app_read_REG_INPUT2_OPERATION_MODE(void)
-{
-	//app_regs.REG_INPUT2_OPERATION_MODE = 0;
-
-}
-
+void app_read_REG_INPUT2_OPERATION_MODE(void) {}
 bool app_write_REG_INPUT2_OPERATION_MODE(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
+	
+	app_write_REG_ENABLE_INPUTS(&app_regs.REG_ENABLE_INPUTS);
 
 	app_regs.REG_INPUT2_OPERATION_MODE = reg;
 	return true;
@@ -1009,15 +1089,12 @@ bool app_write_REG_INPUT2_OPERATION_MODE(void *a)
 /************************************************************************/
 /* REG_INPUT3_OPERATION_MODE                                            */
 /************************************************************************/
-void app_read_REG_INPUT3_OPERATION_MODE(void)
-{
-	//app_regs.REG_INPUT3_OPERATION_MODE = 0;
-
-}
-
+void app_read_REG_INPUT3_OPERATION_MODE(void) {}
 bool app_write_REG_INPUT3_OPERATION_MODE(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
+	
+	app_write_REG_ENABLE_INPUTS(&app_regs.REG_ENABLE_INPUTS);
 
 	app_regs.REG_INPUT3_OPERATION_MODE = reg;
 	return true;
@@ -1027,15 +1104,12 @@ bool app_write_REG_INPUT3_OPERATION_MODE(void *a)
 /************************************************************************/
 /* REG_INPUT0_SENSE_MODE                                                */
 /************************************************************************/
-void app_read_REG_INPUT0_SENSE_MODE(void)
-{
-	//app_regs.REG_INPUT0_SENSE_MODE = 0;
-
-}
-
+void app_read_REG_INPUT0_SENSE_MODE(void) {}
 bool app_write_REG_INPUT0_SENSE_MODE(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
+	
+	app_write_REG_ENABLE_INPUTS(&app_regs.REG_ENABLE_INPUTS);
 
 	app_regs.REG_INPUT0_SENSE_MODE = reg;
 	return true;
@@ -1045,15 +1119,12 @@ bool app_write_REG_INPUT0_SENSE_MODE(void *a)
 /************************************************************************/
 /* REG_INPUT1_SENSE_MODE                                                */
 /************************************************************************/
-void app_read_REG_INPUT1_SENSE_MODE(void)
-{
-	//app_regs.REG_INPUT1_SENSE_MODE = 0;
-
-}
-
+void app_read_REG_INPUT1_SENSE_MODE(void) {}
 bool app_write_REG_INPUT1_SENSE_MODE(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
+	
+	app_write_REG_ENABLE_INPUTS(&app_regs.REG_ENABLE_INPUTS);
 
 	app_regs.REG_INPUT1_SENSE_MODE = reg;
 	return true;
@@ -1063,15 +1134,12 @@ bool app_write_REG_INPUT1_SENSE_MODE(void *a)
 /************************************************************************/
 /* REG_INPUT2_SENSE_MODE                                                */
 /************************************************************************/
-void app_read_REG_INPUT2_SENSE_MODE(void)
-{
-	//app_regs.REG_INPUT2_SENSE_MODE = 0;
-
-}
-
+void app_read_REG_INPUT2_SENSE_MODE(void) {}
 bool app_write_REG_INPUT2_SENSE_MODE(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
+	
+	app_write_REG_ENABLE_INPUTS(&app_regs.REG_ENABLE_INPUTS);
 
 	app_regs.REG_INPUT2_SENSE_MODE = reg;
 	return true;
@@ -1081,15 +1149,12 @@ bool app_write_REG_INPUT2_SENSE_MODE(void *a)
 /************************************************************************/
 /* REG_INPUT3_SENSE_MODE                                                */
 /************************************************************************/
-void app_read_REG_INPUT3_SENSE_MODE(void)
-{
-	//app_regs.REG_INPUT3_SENSE_MODE = 0;
-
-}
-
+void app_read_REG_INPUT3_SENSE_MODE(void) {}
 bool app_write_REG_INPUT3_SENSE_MODE(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
+	
+	app_write_REG_ENABLE_INPUTS(&app_regs.REG_ENABLE_INPUTS);
 
 	app_regs.REG_INPUT3_SENSE_MODE = reg;
 	return true;
@@ -1227,15 +1292,22 @@ bool app_write_REG_EMERGENCY_DETECTION(void *a)
 /************************************************************************/
 /* REG_MOTOR0_STEPS                                                     */
 /************************************************************************/
-void app_read_REG_MOTOR0_STEPS(void)
-{
-	//app_regs.REG_MOTOR0_STEPS = 0;
-
-}
-
+void app_read_REG_MOTOR0_STEPS(void) {}
 bool app_write_REG_MOTOR0_STEPS(void *a)
 {
 	int32_t reg = *((int32_t*)a);
+
+	if (read_DRIVE_ENABLE_M0)
+	{
+		return false;
+	}
+	
+	if (is_timer_ready(0) == false)
+	{
+		return false;
+	}
+	
+	user_requested_steps[0] += reg;
 
 	app_regs.REG_MOTOR0_STEPS = reg;
 	return true;
@@ -1245,15 +1317,22 @@ bool app_write_REG_MOTOR0_STEPS(void *a)
 /************************************************************************/
 /* REG_MOTOR1_STEPS                                                     */
 /************************************************************************/
-void app_read_REG_MOTOR1_STEPS(void)
-{
-	//app_regs.REG_MOTOR1_STEPS = 0;
-
-}
-
+void app_read_REG_MOTOR1_STEPS(void) {}
 bool app_write_REG_MOTOR1_STEPS(void *a)
 {
 	int32_t reg = *((int32_t*)a);
+
+	if (read_DRIVE_ENABLE_M1)
+	{
+		return false;
+	}
+	
+	if (is_timer_ready(1) == false)
+	{
+		return false;
+	}
+	
+	user_requested_steps[1] += reg;
 
 	app_regs.REG_MOTOR1_STEPS = reg;
 	return true;
@@ -1263,15 +1342,22 @@ bool app_write_REG_MOTOR1_STEPS(void *a)
 /************************************************************************/
 /* REG_MOTOR2_STEPS                                                     */
 /************************************************************************/
-void app_read_REG_MOTOR2_STEPS(void)
-{
-	//app_regs.REG_MOTOR2_STEPS = 0;
-
-}
-
+void app_read_REG_MOTOR2_STEPS(void) {}
 bool app_write_REG_MOTOR2_STEPS(void *a)
 {
 	int32_t reg = *((int32_t*)a);
+
+	if (read_DRIVE_ENABLE_M2)
+	{
+		return false;
+	}	
+	
+	if (is_timer_ready(2) == false)
+	{
+		return false;
+	}
+	
+	user_requested_steps[2] += reg;
 
 	app_regs.REG_MOTOR2_STEPS = reg;
 	return true;
@@ -1281,15 +1367,22 @@ bool app_write_REG_MOTOR2_STEPS(void *a)
 /************************************************************************/
 /* REG_MOTOR3_STEPS                                                     */
 /************************************************************************/
-void app_read_REG_MOTOR3_STEPS(void)
-{
-	//app_regs.REG_MOTOR3_STEPS = 0;
-
-}
-
+void app_read_REG_MOTOR3_STEPS(void) {}
 bool app_write_REG_MOTOR3_STEPS(void *a)
 {
 	int32_t reg = *((int32_t*)a);
+
+	if (read_DRIVE_ENABLE_M3)
+	{
+		return false;
+	}	
+	
+	if (is_timer_ready(3) == false)
+	{
+		return false;
+	}
+	
+	user_requested_steps[3] += reg;
 
 	app_regs.REG_MOTOR3_STEPS = reg;
 	return true;
@@ -1371,15 +1464,12 @@ bool app_write_REG_MOTOR3_ACCUMULATED_STEPS(void *a)
 /************************************************************************/
 /* REG_MOTOR0_MAX_STEPS_INTEGRATION                                     */
 /************************************************************************/
-void app_read_REG_MOTOR0_MAX_STEPS_INTEGRATION(void)
-{
-	//app_regs.REG_MOTOR0_MAX_STEPS_INTEGRATION = 0;
-
-}
-
+void app_read_REG_MOTOR0_MAX_STEPS_INTEGRATION(void) {}
 bool app_write_REG_MOTOR0_MAX_STEPS_INTEGRATION(void *a)
 {
-	uint32_t reg = *((uint32_t*)a);
+	int32_t reg = *((int32_t*)a);
+	
+	if (reg < 0) return false;
 
 	app_regs.REG_MOTOR0_MAX_STEPS_INTEGRATION = reg;
 	return true;
@@ -1389,15 +1479,12 @@ bool app_write_REG_MOTOR0_MAX_STEPS_INTEGRATION(void *a)
 /************************************************************************/
 /* REG_MOTOR1_MAX_STEPS_INTEGRATION                                     */
 /************************************************************************/
-void app_read_REG_MOTOR1_MAX_STEPS_INTEGRATION(void)
-{
-	//app_regs.REG_MOTOR1_MAX_STEPS_INTEGRATION = 0;
-
-}
-
+void app_read_REG_MOTOR1_MAX_STEPS_INTEGRATION(void) {}
 bool app_write_REG_MOTOR1_MAX_STEPS_INTEGRATION(void *a)
 {
-	uint32_t reg = *((uint32_t*)a);
+	int32_t reg = *((int32_t*)a);
+	
+	if (reg < 0) return false;
 
 	app_regs.REG_MOTOR1_MAX_STEPS_INTEGRATION = reg;
 	return true;
@@ -1407,15 +1494,12 @@ bool app_write_REG_MOTOR1_MAX_STEPS_INTEGRATION(void *a)
 /************************************************************************/
 /* REG_MOTOR2_MAX_STEPS_INTEGRATION                                     */
 /************************************************************************/
-void app_read_REG_MOTOR2_MAX_STEPS_INTEGRATION(void)
-{
-	//app_regs.REG_MOTOR2_MAX_STEPS_INTEGRATION = 0;
-
-}
-
+void app_read_REG_MOTOR2_MAX_STEPS_INTEGRATION(void) {}
 bool app_write_REG_MOTOR2_MAX_STEPS_INTEGRATION(void *a)
 {
-	uint32_t reg = *((uint32_t*)a);
+	int32_t reg = *((int32_t*)a);
+	
+	if (reg < 0) return false;
 
 	app_regs.REG_MOTOR2_MAX_STEPS_INTEGRATION = reg;
 	return true;
@@ -1425,15 +1509,12 @@ bool app_write_REG_MOTOR2_MAX_STEPS_INTEGRATION(void *a)
 /************************************************************************/
 /* REG_MOTOR3_MAX_STEPS_INTEGRATION                                     */
 /************************************************************************/
-void app_read_REG_MOTOR3_MAX_STEPS_INTEGRATION(void)
-{
-	//app_regs.REG_MOTOR3_MAX_STEPS_INTEGRATION = 0;
-
-}
-
+void app_read_REG_MOTOR3_MAX_STEPS_INTEGRATION(void) {}
 bool app_write_REG_MOTOR3_MAX_STEPS_INTEGRATION(void *a)
 {
-	uint32_t reg = *((uint32_t*)a);
+	int32_t reg = *((int32_t*)a);
+	
+	if (reg < 0) return false;
 
 	app_regs.REG_MOTOR3_MAX_STEPS_INTEGRATION = reg;
 	return true;
@@ -1443,15 +1524,12 @@ bool app_write_REG_MOTOR3_MAX_STEPS_INTEGRATION(void *a)
 /************************************************************************/
 /* REG_MOTOR0_MIN_STEPS_INTEGRATION                                     */
 /************************************************************************/
-void app_read_REG_MOTOR0_MIN_STEPS_INTEGRATION(void)
-{
-	//app_regs.REG_MOTOR0_MIN_STEPS_INTEGRATION = 0;
-
-}
-
+void app_read_REG_MOTOR0_MIN_STEPS_INTEGRATION(void) {}
 bool app_write_REG_MOTOR0_MIN_STEPS_INTEGRATION(void *a)
 {
-	uint32_t reg = *((uint32_t*)a);
+	int32_t reg = *((int32_t*)a);
+	
+	if (reg > 0) return false;
 
 	app_regs.REG_MOTOR0_MIN_STEPS_INTEGRATION = reg;
 	return true;
@@ -1461,15 +1539,12 @@ bool app_write_REG_MOTOR0_MIN_STEPS_INTEGRATION(void *a)
 /************************************************************************/
 /* REG_MOTOR1_MIN_STEPS_INTEGRATION                                     */
 /************************************************************************/
-void app_read_REG_MOTOR1_MIN_STEPS_INTEGRATION(void)
-{
-	//app_regs.REG_MOTOR1_MIN_STEPS_INTEGRATION = 0;
-
-}
-
+void app_read_REG_MOTOR1_MIN_STEPS_INTEGRATION(void) {}
 bool app_write_REG_MOTOR1_MIN_STEPS_INTEGRATION(void *a)
 {
-	uint32_t reg = *((uint32_t*)a);
+	int32_t reg = *((int32_t*)a);
+	
+	if (reg > 0) return false;
 
 	app_regs.REG_MOTOR1_MIN_STEPS_INTEGRATION = reg;
 	return true;
@@ -1479,15 +1554,12 @@ bool app_write_REG_MOTOR1_MIN_STEPS_INTEGRATION(void *a)
 /************************************************************************/
 /* REG_MOTOR2_MIN_STEPS_INTEGRATION                                     */
 /************************************************************************/
-void app_read_REG_MOTOR2_MIN_STEPS_INTEGRATION(void)
-{
-	//app_regs.REG_MOTOR2_MIN_STEPS_INTEGRATION = 0;
-
-}
-
+void app_read_REG_MOTOR2_MIN_STEPS_INTEGRATION(void) {}
 bool app_write_REG_MOTOR2_MIN_STEPS_INTEGRATION(void *a)
 {
-	uint32_t reg = *((uint32_t*)a);
+	int32_t reg = *((int32_t*)a);
+	
+	if (reg > 0) return false;
 
 	app_regs.REG_MOTOR2_MIN_STEPS_INTEGRATION = reg;
 	return true;
@@ -1497,15 +1569,12 @@ bool app_write_REG_MOTOR2_MIN_STEPS_INTEGRATION(void *a)
 /************************************************************************/
 /* REG_MOTOR3_MIN_STEPS_INTEGRATION                                     */
 /************************************************************************/
-void app_read_REG_MOTOR3_MIN_STEPS_INTEGRATION(void)
-{
-	//app_regs.REG_MOTOR3_MIN_STEPS_INTEGRATION = 0;
-
-}
-
+void app_read_REG_MOTOR3_MIN_STEPS_INTEGRATION(void) {}
 bool app_write_REG_MOTOR3_MIN_STEPS_INTEGRATION(void *a)
 {
-	uint32_t reg = *((uint32_t*)a);
+	int32_t reg = *((int32_t*)a);
+	
+	if (reg > 0) return false;
 
 	app_regs.REG_MOTOR3_MIN_STEPS_INTEGRATION = reg;
 	return true;
@@ -1515,12 +1584,7 @@ bool app_write_REG_MOTOR3_MIN_STEPS_INTEGRATION(void *a)
 /************************************************************************/
 /* REG_MOTOR0_IMMEDIATE_STEPS                                           */
 /************************************************************************/
-void app_read_REG_MOTOR0_IMMEDIATE_STEPS(void)
-{
-	//app_regs.REG_MOTOR0_IMMEDIATE_STEPS = 0;
-
-}
-
+void app_read_REG_MOTOR0_IMMEDIATE_STEPS(void) {}
 bool app_write_REG_MOTOR0_IMMEDIATE_STEPS(void *a)
 {
 	int32_t reg = *((int32_t*)a);
@@ -1528,7 +1592,7 @@ bool app_write_REG_MOTOR0_IMMEDIATE_STEPS(void *a)
 	if (read_DRIVE_ENABLE_M0)
 		return false;
 	
-	if (reg > -10 && reg < 10)
+	if (reg > -100 && reg < 100)
 	{
 		reg = 0;
 	}
@@ -1550,7 +1614,7 @@ bool app_write_REG_MOTOR0_IMMEDIATE_STEPS(void *a)
 			reg = -reg;
 		}
 			
-		timer_type0_pwm(&TCC0, TIMER_PRESCALER_DIV64, reg >> 1, 3, INT_LEVEL_OFF, INT_LEVEL_OFF);
+		timer_type0_pwm(&TCC0, TIMER_PRESCALER_DIV64, reg >> 1, 3, INT_LEVEL_LOW, INT_LEVEL_OFF);
 		
 		if (core_bool_is_visual_enabled())
 			set_LED_M0;
@@ -1559,9 +1623,8 @@ bool app_write_REG_MOTOR0_IMMEDIATE_STEPS(void *a)
 	{
 		if (TCC0_INTCTRLB |= 0)
 		{
-			/* If running in normal mode, disable timer interrupts */
-			TCC0_INTCTRLA = 0;
-			TCC0_INTCTRLB = 0;			
+			/* If running in normal mode, disable CCA interrupt */
+			TCC0_INTCTRLB = 0;
 		}
 		
 		if (reg > 0)
@@ -1572,6 +1635,7 @@ bool app_write_REG_MOTOR0_IMMEDIATE_STEPS(void *a)
 		if (reg < 0) reg = -reg;
 		
 		TCC0_PER = (reg >> 1) - 1;
+		TCC0_CCA = 3;
 	}
 
 	app_regs.REG_MOTOR0_IMMEDIATE_STEPS = *((int32_t*)a);
@@ -1582,12 +1646,7 @@ bool app_write_REG_MOTOR0_IMMEDIATE_STEPS(void *a)
 /************************************************************************/
 /* REG_MOTOR1_IMMEDIATE_STEPS                                           */
 /************************************************************************/
-void app_read_REG_MOTOR1_IMMEDIATE_STEPS(void)
-{
-	//app_regs.REG_MOTOR1_IMMEDIATE_STEPS = 0;
-
-}
-
+void app_read_REG_MOTOR1_IMMEDIATE_STEPS(void) {}
 bool app_write_REG_MOTOR1_IMMEDIATE_STEPS(void *a)
 {
 	int32_t reg = *((int32_t*)a);
@@ -1595,7 +1654,7 @@ bool app_write_REG_MOTOR1_IMMEDIATE_STEPS(void *a)
 	if (read_DRIVE_ENABLE_M1)
 		return false;
 	
-	if (reg > -10 && reg < 10)
+	if (reg > -100 && reg < 100)
 	{
 		reg = 0;
 	}
@@ -1617,7 +1676,7 @@ bool app_write_REG_MOTOR1_IMMEDIATE_STEPS(void *a)
 			reg = -reg;
 		}
 		
-		timer_type0_pwm(&TCD0, TIMER_PRESCALER_DIV64, reg >> 1, 3, INT_LEVEL_OFF, INT_LEVEL_OFF);
+		timer_type0_pwm(&TCD0, TIMER_PRESCALER_DIV64, reg >> 1, 3, INT_LEVEL_LOW, INT_LEVEL_OFF);
 		
 		if (core_bool_is_visual_enabled())
 			set_LED_M1;
@@ -1626,9 +1685,8 @@ bool app_write_REG_MOTOR1_IMMEDIATE_STEPS(void *a)
 	{
 		if (TCD0_INTCTRLB |= 0)
 		{
-			/* If running in normal mode, disable timer interrupts */
-			TCD0_INTCTRLA = 0;
-			TCD0_INTCTRLB = 0;
+			/* If running in normal mode, disable CCA interrupt */
+			TCC0_INTCTRLB = 0;
 		}
 		
 		if (reg > 0)
@@ -1639,6 +1697,7 @@ bool app_write_REG_MOTOR1_IMMEDIATE_STEPS(void *a)
 		if (reg < 0) reg = -reg;
 		
 		TCD0_PER = (reg >> 1) - 1;
+		TCC0_CCA = 3;
 	}
 
 	app_regs.REG_MOTOR1_IMMEDIATE_STEPS = *((int32_t*)a);
@@ -1649,12 +1708,7 @@ bool app_write_REG_MOTOR1_IMMEDIATE_STEPS(void *a)
 /************************************************************************/
 /* REG_MOTOR2_IMMEDIATE_STEPS                                           */
 /************************************************************************/
-void app_read_REG_MOTOR2_IMMEDIATE_STEPS(void)
-{
-	//app_regs.REG_MOTOR2_IMMEDIATE_STEPS = 0;
-
-}
-
+void app_read_REG_MOTOR2_IMMEDIATE_STEPS(void) {}
 bool app_write_REG_MOTOR2_IMMEDIATE_STEPS(void *a)
 {
 	int32_t reg = *((int32_t*)a);
@@ -1662,7 +1716,7 @@ bool app_write_REG_MOTOR2_IMMEDIATE_STEPS(void *a)
 	if (read_DRIVE_ENABLE_M2)
 		return false;
 	
-	if (reg > -10 && reg < 10)
+	if (reg > -100 && reg < 100)
 	{
 		reg = 0;
 	}
@@ -1684,7 +1738,7 @@ bool app_write_REG_MOTOR2_IMMEDIATE_STEPS(void *a)
 			reg = -reg;
 		}
 		
-		timer_type0_pwm(&TCE0, TIMER_PRESCALER_DIV64, reg >> 1, 3, INT_LEVEL_OFF, INT_LEVEL_OFF);
+		timer_type0_pwm(&TCE0, TIMER_PRESCALER_DIV64, reg >> 1, 3, INT_LEVEL_LOW, INT_LEVEL_OFF);
 		
 		if (core_bool_is_visual_enabled())
 			set_LED_M2;
@@ -1693,9 +1747,8 @@ bool app_write_REG_MOTOR2_IMMEDIATE_STEPS(void *a)
 	{
 		if (TCE0_INTCTRLB |= 0)
 		{
-			/* If running in normal mode, disable timer interrupts */
-			TCE0_INTCTRLA = 0;
-			TCE0_INTCTRLB = 0;
+			/* If running in normal mode, disable CCA interrupt */
+			TCC0_INTCTRLB = 0;
 		}
 		
 		if (reg > 0)
@@ -1706,6 +1759,7 @@ bool app_write_REG_MOTOR2_IMMEDIATE_STEPS(void *a)
 		if (reg < 0) reg = -reg;
 		
 		TCE0_PER = (reg >> 1) - 1;
+		TCC0_CCA = 3;
 	}
 
 	app_regs.REG_MOTOR2_IMMEDIATE_STEPS = *((int32_t*)a);
@@ -1716,12 +1770,7 @@ bool app_write_REG_MOTOR2_IMMEDIATE_STEPS(void *a)
 /************************************************************************/
 /* REG_MOTOR3_IMMEDIATE_STEPS                                           */
 /************************************************************************/
-void app_read_REG_MOTOR3_IMMEDIATE_STEPS(void)
-{
-	//app_regs.REG_MOTOR3_IMMEDIATE_STEPS = 0;
-
-}
-
+void app_read_REG_MOTOR3_IMMEDIATE_STEPS(void) {}
 bool app_write_REG_MOTOR3_IMMEDIATE_STEPS(void *a)
 {
 	int32_t reg = *((int32_t*)a);
@@ -1729,7 +1778,7 @@ bool app_write_REG_MOTOR3_IMMEDIATE_STEPS(void *a)
 	if (read_DRIVE_ENABLE_M3)
 		return false;
 	
-	if (reg > -10 && reg < 10)
+	if (reg > -100 && reg < 100)
 	{
 		reg = 0;
 	}
@@ -1751,7 +1800,7 @@ bool app_write_REG_MOTOR3_IMMEDIATE_STEPS(void *a)
 			reg = -reg;
 		}
 		
-		timer_type0_pwm(&TCF0, TIMER_PRESCALER_DIV64, reg >> 1, 3, INT_LEVEL_OFF, INT_LEVEL_OFF);
+		timer_type0_pwm(&TCF0, TIMER_PRESCALER_DIV64, reg >> 1, 3, INT_LEVEL_LOW, INT_LEVEL_OFF);
 		
 		if (core_bool_is_visual_enabled())
 			set_LED_M3;
@@ -1760,9 +1809,8 @@ bool app_write_REG_MOTOR3_IMMEDIATE_STEPS(void *a)
 	{
 		if (TCF0_INTCTRLB |= 0)
 		{
-			/* If running in normal mode, disable timer interrupts */
-			TCF0_INTCTRLA = 0;
-			TCF0_INTCTRLB = 0;
+			/* If running in normal mode, disable CCA interrupt */
+			TCC0_INTCTRLB = 0;
 		}
 		
 		if (reg > 0)
@@ -1773,6 +1821,7 @@ bool app_write_REG_MOTOR3_IMMEDIATE_STEPS(void *a)
 		if (reg < 0) reg = -reg;
 		
 		TCF0_PER = (reg >> 1) - 1;
+		TCC0_CCA = 3;
 	}
 
 	app_regs.REG_MOTOR3_IMMEDIATE_STEPS = *((int32_t*)a);
@@ -1783,15 +1832,15 @@ bool app_write_REG_MOTOR3_IMMEDIATE_STEPS(void *a)
 /************************************************************************/
 /* REG_STOP_MOTORS_SUDENTLY                                             */
 /************************************************************************/
-void app_read_REG_STOP_MOTORS_SUDENTLY(void)
-{
-	//app_regs.REG_STOP_MOTORS_SUDENTLY = 0;
-
-}
-
+void app_read_REG_STOP_MOTORS_SUDENTLY(void) {}
 bool app_write_REG_STOP_MOTORS_SUDENTLY(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
+	
+	if (B_MOTOR0) stop_rotation (0);
+	if (B_MOTOR1) stop_rotation (1);
+	if (B_MOTOR2) stop_rotation (2);
+	if (B_MOTOR3) stop_rotation (3);
 
 	app_regs.REG_STOP_MOTORS_SUDENTLY = reg;
 	return true;
@@ -1801,15 +1850,17 @@ bool app_write_REG_STOP_MOTORS_SUDENTLY(void *a)
 /************************************************************************/
 /* REG_STOP_MOTORS_BY_DECELERATION                                      */
 /************************************************************************/
-void app_read_REG_STOP_MOTORS_BY_DECELERATION(void)
-{
-	//app_regs.REG_STOP_MOTORS_BY_DECELERATION = 0;
-
-}
-
+void app_read_REG_STOP_MOTORS_BY_DECELERATION(void) {}
 bool app_write_REG_STOP_MOTORS_BY_DECELERATION(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
+	
+	/* This register is not implemented yet             */
+	/* It will stop as it was the STOP_MOTORS_SUDDENTLY */	
+	if (B_MOTOR0) reduce_until_stop_rotation (0);
+	if (B_MOTOR1) reduce_until_stop_rotation (1);
+	if (B_MOTOR2) reduce_until_stop_rotation (2);
+	if (B_MOTOR3) reduce_until_stop_rotation (3);
 
 	app_regs.REG_STOP_MOTORS_BY_DECELERATION = reg;
 	return true;

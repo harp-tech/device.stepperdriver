@@ -4,6 +4,8 @@
 #include "app_funcs.h"
 #include "hwbp_core.h"
 
+#include "stepper_control.h"
+
 /************************************************************************/
 /* Declare application registers                                        */
 /************************************************************************/
@@ -26,11 +28,48 @@ extern AppRegs app_regs;
 // 
 // ISR(TCD1_CCA_vect, ISR_NAKED)
 
+
+/************************************************************************/ 
+/* General function for input handling                                  */
+/************************************************************************/
+void stop_motor_and_send_events (uint8_t operation_mode, uint8_t input_bit_maks)
+{
+	uint8_t motor_stopped_mask = 0;
+	
+	switch (operation_mode)
+	{
+		case GM_EVENT_AND_STOP_MOTOR0:
+			motor_stopped_mask = (if_moving_stop_rotation(0)) ? B_MOTOR0 : 0;
+			break;
+		case GM_EVENT_AND_STOP_MOTOR1:
+			motor_stopped_mask = (if_moving_stop_rotation(1)) ? B_MOTOR1 : 1;
+			break;
+		case GM_EVENT_AND_STOP_MOTOR2:
+			motor_stopped_mask = (if_moving_stop_rotation(2)) ? B_MOTOR2 : 2;
+			break;
+		case GM_EVENT_AND_STOP_MOTOR3:
+			motor_stopped_mask = (if_moving_stop_rotation(3)) ? B_MOTOR3 : 3;
+			break;
+	}
+	
+	app_regs.REG_DIGITAL_INPUTS_STATE = input_bit_maks;
+	core_func_send_event(ADD_REG_DIGITAL_INPUTS_STATE, true);
+	
+	if (motor_stopped_mask)	
+	{
+		app_regs.REG_MOTORS_STOPPED = motor_stopped_mask;
+		core_func_send_event(ADD_REG_MOTORS_STOPPED, true);
+	}
+}
+
+
 /************************************************************************/ 
 /* INPUT0                                                               */
 /************************************************************************/
 ISR(PORTK_INT0_vect, ISR_NAKED)
 {
+	stop_motor_and_send_events(app_regs.REG_INPUT0_OPERATION_MODE, B_INPUT0);
+	
 	reti();
 }
 
@@ -39,6 +78,8 @@ ISR(PORTK_INT0_vect, ISR_NAKED)
 /************************************************************************/
 ISR(PORTQ_INT0_vect, ISR_NAKED)
 {
+	stop_motor_and_send_events(app_regs.REG_INPUT1_OPERATION_MODE, B_INPUT1);
+	
 	reti();
 }
 
@@ -47,6 +88,8 @@ ISR(PORTQ_INT0_vect, ISR_NAKED)
 /************************************************************************/
 ISR(PORTC_INT0_vect, ISR_NAKED)
 {
+	stop_motor_and_send_events(app_regs.REG_INPUT2_OPERATION_MODE, B_INPUT2);
+	
 	reti();
 }
 
@@ -55,6 +98,8 @@ ISR(PORTC_INT0_vect, ISR_NAKED)
 /************************************************************************/
 ISR(PORTH_INT0_vect, ISR_NAKED)
 {
+	stop_motor_and_send_events(app_regs.REG_INPUT3_OPERATION_MODE, B_INPUT3);
+	
 	reti();
 }
 
@@ -124,10 +169,10 @@ ISR(PORTQ_INT1_vect, ISR_NAKED)
 			{
 				enable_counter = 1;
 				
-				clr_DRIVE_ENABLE_M0; timer_type0_stop(&TCC0); clr_LED_M0;
-				clr_DRIVE_ENABLE_M1; timer_type0_stop(&TCD0); clr_LED_M1;
-				clr_DRIVE_ENABLE_M2; timer_type0_stop(&TCE0); clr_LED_M2;
-				clr_DRIVE_ENABLE_M3; timer_type0_stop(&TCF0); clr_LED_M3;
+				clr_DRIVE_ENABLE_M0; stop_rotation(0); clr_LED_M0;
+				clr_DRIVE_ENABLE_M1; stop_rotation(1);; clr_LED_M1;
+				clr_DRIVE_ENABLE_M2; stop_rotation(2);; clr_LED_M2;
+				clr_DRIVE_ENABLE_M3; stop_rotation(3);; clr_LED_M3;
 				
 				app_regs.REG_EMERGENCY_DETECTION = GM_DISABLED;
 				core_func_send_event(ADD_REG_EMERGENCY_DETECTION, true);
@@ -148,10 +193,10 @@ ISR(PORTQ_INT1_vect, ISR_NAKED)
 			{
 				enable_counter = 1;
 				
-				clr_DRIVE_ENABLE_M0; timer_type0_stop(&TCC0); clr_LED_M0;
-				clr_DRIVE_ENABLE_M1; timer_type0_stop(&TCD0); clr_LED_M1;
-				clr_DRIVE_ENABLE_M2; timer_type0_stop(&TCE0); clr_LED_M2;
-				clr_DRIVE_ENABLE_M3; timer_type0_stop(&TCF0); clr_LED_M3;
+				clr_DRIVE_ENABLE_M0; stop_rotation(0); clr_LED_M0;
+				clr_DRIVE_ENABLE_M1; stop_rotation(1); clr_LED_M1;
+				clr_DRIVE_ENABLE_M2; stop_rotation(2); clr_LED_M2;
+				clr_DRIVE_ENABLE_M3; stop_rotation(3); clr_LED_M3;
 				
 				app_regs.REG_EMERGENCY_DETECTION = GM_DISABLED;
 				core_func_send_event(ADD_REG_EMERGENCY_DETECTION, true);

@@ -3,8 +3,8 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/harp-tech/reflex-generator/main/schema/device.json
 device: StepperDriver
 whoAmI: 1130
-firmwareVersion: "0.1"
-hardwareTargets: "0.1"
+firmwareVersion: "0.2"
+hardwareTargets: "0.2"
 registers:
 
 ##################################
@@ -408,8 +408,9 @@ registers:
     address: 104
     type: U8
     access: Write
+    visibility: private
     maskType: StepperMotors
-    description: Decelerate the motors until they stop according to configured intervals.
+    description: Decelerate the motors until they stop according to configured intervals (not implemented).
   ResetMotor:
     address: 105
     type: U8
@@ -523,10 +524,10 @@ groupMasks:
   HoldCurrentReduction:
     description: Specifies the hold current reduction.
     values:
-      NoReduction: 0
-      ReductionTo50Percent: 1
-      ReductionTo25Percent: 2
-      ReductionTo12Percent: 3
+      ReductionTo50Percent: 0
+      ReductionTo25Percent: 1
+      ReductionTo12Percent: 2
+      NoReduction: 3
   InputOperationMode:
     description: Specifies the inputs operation mode.
     values:
@@ -538,8 +539,8 @@ groupMasks:
   TriggerMode:
     description: Specifies the input trigger mode.
     values:
-      RisingEdge: 0
-      FallingEdge: 1
+      FallingEdge: 0
+      RisingEdge: 1
   EnableMode:
     description: Specifies the external connector state that enables the device.
     values:

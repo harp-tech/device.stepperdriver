@@ -574,10 +574,10 @@ typedef struct
 #define GM_MICROSTEPS_16                   0x01         // Specifies the inputs operation mode to 16 microsteps
 #define GM_MICROSTEPS_32                   0x02         // Specifies the inputs operation mode to 32 microsteps
 #define GM_MICROSTEPS_64                   0x03         // Specifies the inputs operation mode to 64 microsteps
-#define GM_NO_REDUCTION                    0x00         // No hold current reduction.
-#define GM_REDUCTION_TO_50PCT              0x01         // Hold current reduction to 50 %
-#define GM_REDUCTION_TO_25PCT              0x02         // Hold current reduction to 25 %
-#define GM_REDUCTION_TO_12PCT              0x03         // Hold current reduction to 12.5 %
+#define GM_REDUCTION_TO_50PCT              0x00         // Hold current reduction to 50 %
+#define GM_REDUCTION_TO_25PCT              0x01         // Hold current reduction to 25 %
+#define GM_REDUCTION_TO_12PCT              0x02         // Hold current reduction to 12.5 %
+#define GM_NO_REDUCTION                    0x03         // No hold current reduction.
 #define GM_POSITION                        0x00         // Specifies the quadrature encoders reading to be Position
 #define GM_DISPLACEMENT                    0x01         // Specifies the quadrature encoders reading to be Displacement
 #define GM_RATE_100HZ                      0x00         // Specifies the quadrature encoders update rate to 100 Hz
@@ -589,8 +589,8 @@ typedef struct
 #define GM_EVENT_AND_STOP_MOTOR1           0x02         // Specifies the inputs operation mode to send event and stop motor 1
 #define GM_EVENT_AND_STOP_MOTOR2           0x03         // Specifies the inputs operation mode to send event and stop motor 2
 #define GM_EVENT_AND_STOP_MOTOR3           0x04         // Specifies the inputs operation mode to send event and stop motor 3
-#define GM_RAISING_EDGE                    0x00         // Specifies the inputs sense mode to raising edge
-#define GM_FALLING_EDGE                    0x01         // Specifies the inputs sense mode to falling edge
+#define GM_FALLING_EDGE                    0x00         // Specifies the inputs sense mode to falling edge
+#define GM_RISING_EDGE                     0x01         // Specifies the inputs sense mode to rising edge
 #define GM_CLOSED                          0x00         // 
 #define GM_OPEN                            0x01         // 
 #define GM_DISABLED                        0x00         // 
