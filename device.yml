@@ -262,8 +262,9 @@ registers:
     address: 78
     type: U8
     access: Event
+    visibility: private
     maskType: StepperMotors
-    description: Contains a bit mask specifying the motor where the overvoltage detection and protection mechanism occurred, which can happen when the there's a quick deceleration from a high velocity or when the motor stalls.
+    description: Contains a bit mask specifying the motor where the overvoltage detection and protection mechanism occurred, which can happen when the there's a quick deceleration from a high velocity or when the motor stalls (not implemented).
   MotorErrorDetection:
     address: 79
     type: U8
@@ -415,8 +416,9 @@ registers:
     address: 105
     type: U8
     access: Write
+    visibility: private
     maskType: StepperMotors
-    description: Resets the internal motor driver which also clears any eventual error.
+    description: Resets the internal motor driver which also clears any eventual error (not implemented).
   
   ResetEncoder:
     address: 106
