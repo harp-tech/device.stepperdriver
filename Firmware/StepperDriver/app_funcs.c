@@ -341,15 +341,20 @@ bool app_write_REG_DISABLE_MOTORS(void *a)
 /************************************************************************/
 /* REG_ENABLE_ENCODERS                                                  */
 /************************************************************************/
+uint8_t encoders_enabled_mask = 0;
+
 void app_read_REG_ENABLE_ENCODERS(void)
 {
-	//app_regs.REG_ENABLE_ENCODERS = 0;
-
+	app_regs.REG_ENABLE_ENCODERS = encoders_enabled_mask;
 }
 
 bool app_write_REG_ENABLE_ENCODERS(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
+	
+	if (reg & B_ENCODER0) encoders_enabled_mask |= B_ENCODER0;
+	if (reg & B_ENCODER1) encoders_enabled_mask |= B_ENCODER1;
+	if (reg & B_ENCODER2) encoders_enabled_mask |= B_ENCODER2;
 
 	app_regs.REG_ENABLE_ENCODERS = reg;
 	return true;
@@ -361,13 +366,16 @@ bool app_write_REG_ENABLE_ENCODERS(void *a)
 /************************************************************************/
 void app_read_REG_DISABLE_ENCODERS(void)
 {
-	//app_regs.REG_DISABLE_ENCODERS = 0;
-
+	app_regs.REG_DISABLE_ENCODERS = 0;
 }
 
 bool app_write_REG_DISABLE_ENCODERS(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
+	
+	if (reg & B_ENCODER0) encoders_enabled_mask &= ~B_ENCODER0;
+	if (reg & B_ENCODER1) encoders_enabled_mask &= ~B_ENCODER1;
+	if (reg & B_ENCODER2) encoders_enabled_mask &= ~B_ENCODER2;
 
 	app_regs.REG_DISABLE_ENCODERS = reg;
 	return true;
@@ -430,7 +438,11 @@ bool app_write_REG_ENABLE_INPUTS(void *a)
 /************************************************************************/
 /* REG_DISABLE_INPUTS                                                   */
 /************************************************************************/
-void app_read_REG_DISABLE_INPUTS(void) {}
+void app_read_REG_DISABLE_INPUTS(void)
+{
+	app_regs.REG_DISABLE_INPUTS = 0;
+}
+
 bool app_write_REG_DISABLE_INPUTS(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
@@ -1037,12 +1049,7 @@ bool app_write_REG_ENCODERS_MODE(void *a)
 /************************************************************************/
 /* REG_ENCODERS_UPDATE_RATE                                             */
 /************************************************************************/
-void app_read_REG_ENCODERS_UPDATE_RATE(void)
-{
-	//app_regs.REG_ENCODERS_UPDATE_RATE = 0;
-
-}
-
+void app_read_REG_ENCODERS_UPDATE_RATE(void) {}
 bool app_write_REG_ENCODERS_UPDATE_RATE(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
@@ -1899,13 +1906,16 @@ bool app_write_REG_RESET_MOTORS_ERROR_DETECTION(void *a)
 /************************************************************************/
 void app_read_REG_RESET_ENCODERS(void)
 {
-	//app_regs.REG_RESET_ENCODERS = 0;
-
+	app_regs.REG_RESET_ENCODERS = 0;
 }
 
 bool app_write_REG_RESET_ENCODERS(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
+	
+	if (reg & B_ENCODER0) TCE1_CNT = 0x8000;
+	if (reg & B_ENCODER1) TCF1_CNT = 0x8000;
+	if (reg & B_ENCODER2) TCD1_CNT = 0x8000;
 
 	app_regs.REG_RESET_ENCODERS = reg;
 	return true;
