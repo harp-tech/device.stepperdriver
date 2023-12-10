@@ -10,6 +10,7 @@
 #include <util/delay.h>
 
 #include "i2c.h"
+#include "stepper_control.h"
 
 /************************************************************************/
 /* Declare application registers                                        */
@@ -32,7 +33,7 @@ void hwbp_app_initialize(void)
     uint8_t hwH = 0;
     uint8_t hwL = 2;
     uint8_t fwH = 0;
-    uint8_t fwL = 1;
+    uint8_t fwL = 2;
     uint8_t ass = 0;
     
    	/* Start core */
@@ -148,6 +149,27 @@ void core_callback_initialize_hardware(void)
 	digi_pot_M0_M1.add = 0x2C;
 	digi_pot_M2_M3.add = 0x2D;
 	
+	/* Initialize motor control */
+	if (initialize_motors() == false)
+	{
+		while (1)
+		{
+			_delay_ms(100);
+			tgl_LED_STATE;
+		}
+	}
+	
+	/* Remove interrupts from inputs */
+	/* The registers will configure accordingly */
+	io_pin2in(&PORTK, 5, PULL_IO_UP, SENSE_IO_NO_INT_USED);              // INPUT0
+	io_pin2in(&PORTQ, 2, PULL_IO_UP, SENSE_IO_NO_INT_USED);              // INPUT1
+	io_pin2in(&PORTC, 5, PULL_IO_UP, SENSE_IO_NO_INT_USED);              // INPUT2
+	io_pin2in(&PORTH, 7, PULL_IO_UP, SENSE_IO_NO_INT_USED);              // INPUT3	
+	io_set_int(&PORTK, INT_LEVEL_OFF, 0, (1<<5), false);                 // INPUT0
+	io_set_int(&PORTQ, INT_LEVEL_OFF, 0, (1<<2), false);                 // INPUT1
+	io_set_int(&PORTC, INT_LEVEL_OFF, 0, (1<<5), false);                 // INPUT2
+	io_set_int(&PORTH, INT_LEVEL_OFF, 0, (1<<7), false);                 // INPUT3
+	
 	/* Initialize encoders */
 	/* Set up quadrature decoding event */
 	EVSYS_CH0MUX = EVSYS_CHMUX_PORTD_PIN4_gc;
@@ -179,24 +201,9 @@ void core_callback_initialize_hardware(void)
 	TCF1_CTRLA = TC_CLKSEL_DIV1_gc;
 }
 
-void core_callback_reset_registers(void)
-{
-	/* Initialize registers */
-	app_regs.REG_MOTOR0_OPERATION_MODE = GM_QUIET_MODE;
-	app_regs.REG_MOTOR0_MICROSTEP_RESOLUTION = GM_MICROSTEPS_8;
-	app_regs.REG_MOTOR0_MAXIMUM_CURRENT_RMS = 0.2;
-}
-
-void core_callback_registers_were_reinitialized(void)
-{	
-	/* Update registers if needed */
-	
-	app_write_REG_ENABLE_MOTORS(&app_regs.REG_ENABLE_MOTORS);	// Motors are disabled by io default
-	
-	app_write_REG_MOTOR0_OPERATION_MODE(&app_regs.REG_MOTOR0_OPERATION_MODE);
-	app_write_REG_MOTOR0_MICROSTEP_RESOLUTION(&app_regs.REG_MOTOR0_MICROSTEP_RESOLUTION);
-	app_write_REG_MOTOR0_MAXIMUM_CURRENT_RMS(&app_regs.REG_MOTOR0_MAXIMUM_CURRENT_RMS);
-}
+/* Functions core_callback_reset_registers(void) and
+   core_callback_registers_were_reinitialized(void) moved to file regs_reset_and_init.c
+*/
 
 /************************************************************************/
 /* Callbacks: Visualization                                             */
@@ -229,6 +236,9 @@ uint16_t acquisition_counter = 0;
 
 extern uint8_t enable_counter;
 extern void enable_motors (void);
+
+extern int32_t user_requested_steps[];
+extern bool send_motor_stopped_notification[];
 
 void core_callback_t_before_exec(void)
 {
@@ -286,7 +296,28 @@ void core_callback_t_before_exec(void)
 		}
 	}
 	
-	if (core_bool_is_visual_enabled)
+	/* Notify that motor is stopped */
+	uint8_t motors_mask = 0;	
+	for (uint8_t i = 0; i < MOTORS_QUANTITY; i++)
+	{
+		
+		
+		if (send_motor_stopped_notification[i])
+		{
+			send_motor_stopped_notification[i] = false;
+			
+			motors_mask |= (1<<i);
+		}		
+	}	
+	if (motors_mask)
+	{		
+		app_regs.REG_MOTORS_STOPPED = motors_mask;
+		core_func_send_event(ADD_REG_MOTORS_STOPPED, true);
+	}
+	
+
+	
+	if (core_bool_is_visual_enabled())
 	{
 		if (acquisition_counter == 2)
 		{
@@ -311,7 +342,34 @@ void core_callback_t_new_second(void)
 	acquisition_counter = 0;
 }
 void core_callback_t_500us(void) {}
-void core_callback_t_1ms(void) {}
+void core_callback_t_1ms(void)
+{
+// 	if ((app_regs.REG_CONTROL & B_ENABLE_MOTOR) == false)
+// 	{
+// 		/* Disable medium and high level interrupts */
+// 		/* Medium are enough but we can win some precious cpu time here */
+// 		PMIC_CTRL = PMIC_RREN_bm | PMIC_LOLVLEN_bm;
+// 		
+// 		/* Stop motor */
+// 		stop_rotation();
+// 		
+// 		/* Re-enable all interrupt levels */
+// 		PMIC_CTRL = PMIC_RREN_bm | PMIC_LOLVLEN_bm | PMIC_MEDLVLEN_bm | PMIC_HILVLEN_bm;
+// 	}
+	
+	if (user_requested_steps[0] != 0)
+	{
+		/* Disable medium and high level interrupts */
+		/* Medium are enough but we can win some precious cpu time here */
+		PMIC_CTRL = PMIC_RREN_bm | PMIC_LOLVLEN_bm;
+		
+		/* Update steps with the user request */
+		user_requested_steps[0] = user_sent_request(user_requested_steps[0], 0);
+		
+		/* Re-enable all interrupt levels */
+		PMIC_CTRL = PMIC_RREN_bm | PMIC_LOLVLEN_bm | PMIC_MEDLVLEN_bm | PMIC_HILVLEN_bm;
+	}
+}
 
 /************************************************************************/
 /* Callbacks: clock control                                             */

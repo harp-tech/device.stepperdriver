@@ -142,7 +142,7 @@
   <avrgcc.linker.libraries.Libraries>
     <ListValues>
       <Value>libm</Value>
-      <Value>libATxmega128A1U-1.13.a</Value>
+      <Value>libATxmega128A1U-1.14-preview.a</Value>
     </ListValues>
   </avrgcc.linker.libraries.Libraries>
   <avrgcc.linker.libraries.LibrarySearchPaths>
@@ -177,6 +177,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="regs_reset_and_init.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="stepper_control.c">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
