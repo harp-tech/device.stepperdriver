@@ -315,8 +315,6 @@ void core_callback_t_before_exec(void)
 		core_func_send_event(ADD_REG_MOTORS_STOPPED, true);
 	}
 	
-
-	
 	if (core_bool_is_visual_enabled())
 	{
 		if (acquisition_counter == 2)
@@ -326,14 +324,14 @@ void core_callback_t_before_exec(void)
 			if (read_DRIVE_ENABLE_M2 == false) set_LED_M2;
 			if (read_DRIVE_ENABLE_M3 == false) set_LED_M3;
 		}
+	}
 		
-		if (acquisition_counter == 2 + MOTOR_ENABLED_LED_PULSE_DURATION_MS / 2)
-		{
-			if (read_DRIVE_ENABLE_M0 == false && TCC0_CTRLA == 0) clr_LED_M0;
-			if (read_DRIVE_ENABLE_M1 == false && TCD0_CTRLA == 0) clr_LED_M1;
-			if (read_DRIVE_ENABLE_M2 == false && TCE0_CTRLA == 0) clr_LED_M2;
-			if (read_DRIVE_ENABLE_M3 == false && TCF0_CTRLA == 0) clr_LED_M3;
-		}
+	if (acquisition_counter == 2 + MOTOR_ENABLED_LED_PULSE_DURATION_MS / 2)
+	{
+		if (read_DRIVE_ENABLE_M0 == false && TCC0_CTRLA == 0) clr_LED_M0;
+		if (read_DRIVE_ENABLE_M1 == false && TCD0_CTRLA == 0) clr_LED_M1;
+		if (read_DRIVE_ENABLE_M2 == false && TCE0_CTRLA == 0) clr_LED_M2;
+		if (read_DRIVE_ENABLE_M3 == false && TCF0_CTRLA == 0) clr_LED_M3;
 	}
 }
 void core_callback_t_after_exec(void) {}
