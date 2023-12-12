@@ -81,13 +81,13 @@ namespace Harp.StepperDriver
             { 73, typeof(Input1TriggerMode) },
             { 74, typeof(Input2TriggerMode) },
             { 75, typeof(Input3TriggerMode) },
-            { 76, typeof(EmergencyStopMode) },
+            { 76, typeof(DeviceEnableMode) },
             { 77, typeof(MotorStopped) },
             { 78, typeof(MotorOvervoltageDetection) },
             { 79, typeof(MotorErrorDetection) },
             { 80, typeof(Encoders) },
             { 81, typeof(DigitalInputState) },
-            { 82, typeof(EmergencyStop) },
+            { 82, typeof(DeviceState) },
             { 83, typeof(Motor0Steps) },
             { 84, typeof(Motor1Steps) },
             { 85, typeof(Motor2Steps) },
@@ -192,13 +192,12 @@ namespace Harp.StepperDriver
     /// <seealso cref="Input1TriggerMode"/>
     /// <seealso cref="Input2TriggerMode"/>
     /// <seealso cref="Input3TriggerMode"/>
-    /// <seealso cref="EmergencyStopMode"/>
+    /// <seealso cref="DeviceEnableMode"/>
     /// <seealso cref="MotorStopped"/>
-    /// <seealso cref="MotorOvervoltageDetection"/>
     /// <seealso cref="MotorErrorDetection"/>
     /// <seealso cref="Encoders"/>
     /// <seealso cref="DigitalInputState"/>
-    /// <seealso cref="EmergencyStop"/>
+    /// <seealso cref="DeviceState"/>
     /// <seealso cref="Motor0Steps"/>
     /// <seealso cref="Motor1Steps"/>
     /// <seealso cref="Motor2Steps"/>
@@ -220,8 +219,6 @@ namespace Harp.StepperDriver
     /// <seealso cref="Motor2ImmediateSteps"/>
     /// <seealso cref="Motor3ImmediateSteps"/>
     /// <seealso cref="StopMotorSuddenly"/>
-    /// <seealso cref="StopMotorSmoothly"/>
-    /// <seealso cref="ResetMotor"/>
     /// <seealso cref="ResetEncoder"/>
     [XmlInclude(typeof(EnableMotors))]
     [XmlInclude(typeof(DisableMotors))]
@@ -267,13 +264,12 @@ namespace Harp.StepperDriver
     [XmlInclude(typeof(Input1TriggerMode))]
     [XmlInclude(typeof(Input2TriggerMode))]
     [XmlInclude(typeof(Input3TriggerMode))]
-    [XmlInclude(typeof(EmergencyStopMode))]
+    [XmlInclude(typeof(DeviceEnableMode))]
     [XmlInclude(typeof(MotorStopped))]
-    [XmlInclude(typeof(MotorOvervoltageDetection))]
     [XmlInclude(typeof(MotorErrorDetection))]
     [XmlInclude(typeof(Encoders))]
     [XmlInclude(typeof(DigitalInputState))]
-    [XmlInclude(typeof(EmergencyStop))]
+    [XmlInclude(typeof(DeviceState))]
     [XmlInclude(typeof(Motor0Steps))]
     [XmlInclude(typeof(Motor1Steps))]
     [XmlInclude(typeof(Motor2Steps))]
@@ -295,8 +291,6 @@ namespace Harp.StepperDriver
     [XmlInclude(typeof(Motor2ImmediateSteps))]
     [XmlInclude(typeof(Motor3ImmediateSteps))]
     [XmlInclude(typeof(StopMotorSuddenly))]
-    [XmlInclude(typeof(StopMotorSmoothly))]
-    [XmlInclude(typeof(ResetMotor))]
     [XmlInclude(typeof(ResetEncoder))]
     [Description("Filters register-specific messages reported by the StepperDriver device.")]
     public class FilterRegister : FilterRegisterBuilder, INamedElement
@@ -363,13 +357,12 @@ namespace Harp.StepperDriver
     /// <seealso cref="Input1TriggerMode"/>
     /// <seealso cref="Input2TriggerMode"/>
     /// <seealso cref="Input3TriggerMode"/>
-    /// <seealso cref="EmergencyStopMode"/>
+    /// <seealso cref="DeviceEnableMode"/>
     /// <seealso cref="MotorStopped"/>
-    /// <seealso cref="MotorOvervoltageDetection"/>
     /// <seealso cref="MotorErrorDetection"/>
     /// <seealso cref="Encoders"/>
     /// <seealso cref="DigitalInputState"/>
-    /// <seealso cref="EmergencyStop"/>
+    /// <seealso cref="DeviceState"/>
     /// <seealso cref="Motor0Steps"/>
     /// <seealso cref="Motor1Steps"/>
     /// <seealso cref="Motor2Steps"/>
@@ -391,8 +384,6 @@ namespace Harp.StepperDriver
     /// <seealso cref="Motor2ImmediateSteps"/>
     /// <seealso cref="Motor3ImmediateSteps"/>
     /// <seealso cref="StopMotorSuddenly"/>
-    /// <seealso cref="StopMotorSmoothly"/>
-    /// <seealso cref="ResetMotor"/>
     /// <seealso cref="ResetEncoder"/>
     [XmlInclude(typeof(EnableMotors))]
     [XmlInclude(typeof(DisableMotors))]
@@ -438,13 +429,12 @@ namespace Harp.StepperDriver
     [XmlInclude(typeof(Input1TriggerMode))]
     [XmlInclude(typeof(Input2TriggerMode))]
     [XmlInclude(typeof(Input3TriggerMode))]
-    [XmlInclude(typeof(EmergencyStopMode))]
+    [XmlInclude(typeof(DeviceEnableMode))]
     [XmlInclude(typeof(MotorStopped))]
-    [XmlInclude(typeof(MotorOvervoltageDetection))]
     [XmlInclude(typeof(MotorErrorDetection))]
     [XmlInclude(typeof(Encoders))]
     [XmlInclude(typeof(DigitalInputState))]
-    [XmlInclude(typeof(EmergencyStop))]
+    [XmlInclude(typeof(DeviceState))]
     [XmlInclude(typeof(Motor0Steps))]
     [XmlInclude(typeof(Motor1Steps))]
     [XmlInclude(typeof(Motor2Steps))]
@@ -466,8 +456,6 @@ namespace Harp.StepperDriver
     [XmlInclude(typeof(Motor2ImmediateSteps))]
     [XmlInclude(typeof(Motor3ImmediateSteps))]
     [XmlInclude(typeof(StopMotorSuddenly))]
-    [XmlInclude(typeof(StopMotorSmoothly))]
-    [XmlInclude(typeof(ResetMotor))]
     [XmlInclude(typeof(ResetEncoder))]
     [XmlInclude(typeof(TimestampedEnableMotors))]
     [XmlInclude(typeof(TimestampedDisableMotors))]
@@ -513,13 +501,12 @@ namespace Harp.StepperDriver
     [XmlInclude(typeof(TimestampedInput1TriggerMode))]
     [XmlInclude(typeof(TimestampedInput2TriggerMode))]
     [XmlInclude(typeof(TimestampedInput3TriggerMode))]
-    [XmlInclude(typeof(TimestampedEmergencyStopMode))]
+    [XmlInclude(typeof(TimestampedDeviceEnableMode))]
     [XmlInclude(typeof(TimestampedMotorStopped))]
-    [XmlInclude(typeof(TimestampedMotorOvervoltageDetection))]
     [XmlInclude(typeof(TimestampedMotorErrorDetection))]
     [XmlInclude(typeof(TimestampedEncoders))]
     [XmlInclude(typeof(TimestampedDigitalInputState))]
-    [XmlInclude(typeof(TimestampedEmergencyStop))]
+    [XmlInclude(typeof(TimestampedDeviceState))]
     [XmlInclude(typeof(TimestampedMotor0Steps))]
     [XmlInclude(typeof(TimestampedMotor1Steps))]
     [XmlInclude(typeof(TimestampedMotor2Steps))]
@@ -541,8 +528,6 @@ namespace Harp.StepperDriver
     [XmlInclude(typeof(TimestampedMotor2ImmediateSteps))]
     [XmlInclude(typeof(TimestampedMotor3ImmediateSteps))]
     [XmlInclude(typeof(TimestampedStopMotorSuddenly))]
-    [XmlInclude(typeof(TimestampedStopMotorSmoothly))]
-    [XmlInclude(typeof(TimestampedResetMotor))]
     [XmlInclude(typeof(TimestampedResetEncoder))]
     [Description("Filters and selects specific messages reported by the StepperDriver device.")]
     public partial class Parse : ParseBuilder, INamedElement
@@ -606,13 +591,12 @@ namespace Harp.StepperDriver
     /// <seealso cref="Input1TriggerMode"/>
     /// <seealso cref="Input2TriggerMode"/>
     /// <seealso cref="Input3TriggerMode"/>
-    /// <seealso cref="EmergencyStopMode"/>
+    /// <seealso cref="DeviceEnableMode"/>
     /// <seealso cref="MotorStopped"/>
-    /// <seealso cref="MotorOvervoltageDetection"/>
     /// <seealso cref="MotorErrorDetection"/>
     /// <seealso cref="Encoders"/>
     /// <seealso cref="DigitalInputState"/>
-    /// <seealso cref="EmergencyStop"/>
+    /// <seealso cref="DeviceState"/>
     /// <seealso cref="Motor0Steps"/>
     /// <seealso cref="Motor1Steps"/>
     /// <seealso cref="Motor2Steps"/>
@@ -634,8 +618,6 @@ namespace Harp.StepperDriver
     /// <seealso cref="Motor2ImmediateSteps"/>
     /// <seealso cref="Motor3ImmediateSteps"/>
     /// <seealso cref="StopMotorSuddenly"/>
-    /// <seealso cref="StopMotorSmoothly"/>
-    /// <seealso cref="ResetMotor"/>
     /// <seealso cref="ResetEncoder"/>
     [XmlInclude(typeof(EnableMotors))]
     [XmlInclude(typeof(DisableMotors))]
@@ -681,13 +663,12 @@ namespace Harp.StepperDriver
     [XmlInclude(typeof(Input1TriggerMode))]
     [XmlInclude(typeof(Input2TriggerMode))]
     [XmlInclude(typeof(Input3TriggerMode))]
-    [XmlInclude(typeof(EmergencyStopMode))]
+    [XmlInclude(typeof(DeviceEnableMode))]
     [XmlInclude(typeof(MotorStopped))]
-    [XmlInclude(typeof(MotorOvervoltageDetection))]
     [XmlInclude(typeof(MotorErrorDetection))]
     [XmlInclude(typeof(Encoders))]
     [XmlInclude(typeof(DigitalInputState))]
-    [XmlInclude(typeof(EmergencyStop))]
+    [XmlInclude(typeof(DeviceState))]
     [XmlInclude(typeof(Motor0Steps))]
     [XmlInclude(typeof(Motor1Steps))]
     [XmlInclude(typeof(Motor2Steps))]
@@ -709,8 +690,6 @@ namespace Harp.StepperDriver
     [XmlInclude(typeof(Motor2ImmediateSteps))]
     [XmlInclude(typeof(Motor3ImmediateSteps))]
     [XmlInclude(typeof(StopMotorSuddenly))]
-    [XmlInclude(typeof(StopMotorSmoothly))]
-    [XmlInclude(typeof(ResetMotor))]
     [XmlInclude(typeof(ResetEncoder))]
     [Description("Formats a sequence of values as specific StepperDriver register messages.")]
     public partial class Format : FormatBuilder, INamedElement
@@ -4979,73 +4958,73 @@ namespace Harp.StepperDriver
     }
 
     /// <summary>
-    /// Represents a register that configures the edge detection mode for the emergency external button.
+    /// Represents a register that configures the external connector state required to the device.
     /// </summary>
-    [Description("Configures the edge detection mode for the emergency external button.")]
-    public partial class EmergencyStopMode
+    [Description("Configures the external connector state required to the device.")]
+    public partial class DeviceEnableMode
     {
         /// <summary>
-        /// Represents the address of the <see cref="EmergencyStopMode"/> register. This field is constant.
+        /// Represents the address of the <see cref="DeviceEnableMode"/> register. This field is constant.
         /// </summary>
         public const int Address = 76;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="EmergencyStopMode"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="DeviceEnableMode"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.U8;
 
         /// <summary>
-        /// Represents the length of the <see cref="EmergencyStopMode"/> register. This field is constant.
+        /// Represents the length of the <see cref="DeviceEnableMode"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 1;
 
         /// <summary>
-        /// Returns the payload data for <see cref="EmergencyStopMode"/> register messages.
+        /// Returns the payload data for <see cref="DeviceEnableMode"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
-        public static TriggerMode GetPayload(HarpMessage message)
+        public static EnableMode GetPayload(HarpMessage message)
         {
-            return (TriggerMode)message.GetPayloadByte();
+            return (EnableMode)message.GetPayloadByte();
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="EmergencyStopMode"/> register messages.
+        /// Returns the timestamped payload data for <see cref="DeviceEnableMode"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<TriggerMode> GetTimestampedPayload(HarpMessage message)
+        public static Timestamped<EnableMode> GetTimestampedPayload(HarpMessage message)
         {
             var payload = message.GetTimestampedPayloadByte();
-            return Timestamped.Create((TriggerMode)payload.Value, payload.Seconds);
+            return Timestamped.Create((EnableMode)payload.Value, payload.Seconds);
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="EmergencyStopMode"/> register.
+        /// Returns a Harp message for the <see cref="DeviceEnableMode"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="EmergencyStopMode"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="DeviceEnableMode"/> register
         /// with the specified message type and payload.
         /// </returns>
-        public static HarpMessage FromPayload(MessageType messageType, TriggerMode value)
+        public static HarpMessage FromPayload(MessageType messageType, EnableMode value)
         {
             return HarpMessage.FromByte(Address, messageType, (byte)value);
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="EmergencyStopMode"/>
+        /// Returns a timestamped Harp message for the <see cref="DeviceEnableMode"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="EmergencyStopMode"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="DeviceEnableMode"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
-        public static HarpMessage FromPayload(double timestamp, MessageType messageType, TriggerMode value)
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, EnableMode value)
         {
             return HarpMessage.FromByte(Address, timestamp, messageType, (byte)value);
         }
@@ -5053,25 +5032,25 @@ namespace Harp.StepperDriver
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// EmergencyStopMode register.
+    /// DeviceEnableMode register.
     /// </summary>
-    /// <seealso cref="EmergencyStopMode"/>
-    [Description("Filters and selects timestamped messages from the EmergencyStopMode register.")]
-    public partial class TimestampedEmergencyStopMode
+    /// <seealso cref="DeviceEnableMode"/>
+    [Description("Filters and selects timestamped messages from the DeviceEnableMode register.")]
+    public partial class TimestampedDeviceEnableMode
     {
         /// <summary>
-        /// Represents the address of the <see cref="EmergencyStopMode"/> register. This field is constant.
+        /// Represents the address of the <see cref="DeviceEnableMode"/> register. This field is constant.
         /// </summary>
-        public const int Address = EmergencyStopMode.Address;
+        public const int Address = DeviceEnableMode.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="EmergencyStopMode"/> register messages.
+        /// Returns timestamped payload data for <see cref="DeviceEnableMode"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<TriggerMode> GetPayload(HarpMessage message)
+        public static Timestamped<EnableMode> GetPayload(HarpMessage message)
         {
-            return EmergencyStopMode.GetTimestampedPayload(message);
+            return DeviceEnableMode.GetTimestampedPayload(message);
         }
     }
 
@@ -5173,10 +5152,10 @@ namespace Harp.StepperDriver
     }
 
     /// <summary>
-    /// Represents a register that contains a bit mask specifying the motor where the overvoltage detection and protection mechanism occurred, which can happen when the there's a quick deceleration from a high velocity or when the motor stalls.
+    /// Represents a register that contains a bit mask specifying the motor where the overvoltage detection and protection mechanism occurred, which can happen when the there's a quick deceleration from a high velocity or when the motor stalls (not implemented).
     /// </summary>
-    [Description("Contains a bit mask specifying the motor where the overvoltage detection and protection mechanism occurred, which can happen when the there's a quick deceleration from a high velocity or when the motor stalls.")]
-    public partial class MotorOvervoltageDetection
+    [Description("Contains a bit mask specifying the motor where the overvoltage detection and protection mechanism occurred, which can happen when the there's a quick deceleration from a high velocity or when the motor stalls (not implemented).")]
+    internal partial class MotorOvervoltageDetection
     {
         /// <summary>
         /// Represents the address of the <see cref="MotorOvervoltageDetection"/> register. This field is constant.
@@ -5192,81 +5171,6 @@ namespace Harp.StepperDriver
         /// Represents the length of the <see cref="MotorOvervoltageDetection"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 1;
-
-        /// <summary>
-        /// Returns the payload data for <see cref="MotorOvervoltageDetection"/> register messages.
-        /// </summary>
-        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
-        /// <returns>A value representing the message payload.</returns>
-        public static StepperMotors GetPayload(HarpMessage message)
-        {
-            return (StepperMotors)message.GetPayloadByte();
-        }
-
-        /// <summary>
-        /// Returns the timestamped payload data for <see cref="MotorOvervoltageDetection"/> register messages.
-        /// </summary>
-        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
-        /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<StepperMotors> GetTimestampedPayload(HarpMessage message)
-        {
-            var payload = message.GetTimestampedPayloadByte();
-            return Timestamped.Create((StepperMotors)payload.Value, payload.Seconds);
-        }
-
-        /// <summary>
-        /// Returns a Harp message for the <see cref="MotorOvervoltageDetection"/> register.
-        /// </summary>
-        /// <param name="messageType">The type of the Harp message.</param>
-        /// <param name="value">The value to be stored in the message payload.</param>
-        /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="MotorOvervoltageDetection"/> register
-        /// with the specified message type and payload.
-        /// </returns>
-        public static HarpMessage FromPayload(MessageType messageType, StepperMotors value)
-        {
-            return HarpMessage.FromByte(Address, messageType, (byte)value);
-        }
-
-        /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="MotorOvervoltageDetection"/>
-        /// register.
-        /// </summary>
-        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
-        /// <param name="messageType">The type of the Harp message.</param>
-        /// <param name="value">The value to be stored in the message payload.</param>
-        /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="MotorOvervoltageDetection"/> register
-        /// with the specified message type, timestamp, and payload.
-        /// </returns>
-        public static HarpMessage FromPayload(double timestamp, MessageType messageType, StepperMotors value)
-        {
-            return HarpMessage.FromByte(Address, timestamp, messageType, (byte)value);
-        }
-    }
-
-    /// <summary>
-    /// Provides methods for manipulating timestamped messages from the
-    /// MotorOvervoltageDetection register.
-    /// </summary>
-    /// <seealso cref="MotorOvervoltageDetection"/>
-    [Description("Filters and selects timestamped messages from the MotorOvervoltageDetection register.")]
-    public partial class TimestampedMotorOvervoltageDetection
-    {
-        /// <summary>
-        /// Represents the address of the <see cref="MotorOvervoltageDetection"/> register. This field is constant.
-        /// </summary>
-        public const int Address = MotorOvervoltageDetection.Address;
-
-        /// <summary>
-        /// Returns timestamped payload data for <see cref="MotorOvervoltageDetection"/> register messages.
-        /// </summary>
-        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
-        /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<StepperMotors> GetPayload(HarpMessage message)
-        {
-            return MotorOvervoltageDetection.GetTimestampedPayload(message);
-        }
     }
 
     /// <summary>
@@ -5580,73 +5484,73 @@ namespace Harp.StepperDriver
     }
 
     /// <summary>
-    /// Represents a register that contains the state of the external emergency button.
+    /// Represents a register that contains the state of the device.
     /// </summary>
-    [Description("Contains the state of the external emergency button.")]
-    public partial class EmergencyStop
+    [Description("Contains the state of the device.")]
+    public partial class DeviceState
     {
         /// <summary>
-        /// Represents the address of the <see cref="EmergencyStop"/> register. This field is constant.
+        /// Represents the address of the <see cref="DeviceState"/> register. This field is constant.
         /// </summary>
         public const int Address = 82;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="EmergencyStop"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="DeviceState"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.U8;
 
         /// <summary>
-        /// Represents the length of the <see cref="EmergencyStop"/> register. This field is constant.
+        /// Represents the length of the <see cref="DeviceState"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 1;
 
         /// <summary>
-        /// Returns the payload data for <see cref="EmergencyStop"/> register messages.
+        /// Returns the payload data for <see cref="DeviceState"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
-        public static EmergencyStopState GetPayload(HarpMessage message)
+        public static DeviceStateMode GetPayload(HarpMessage message)
         {
-            return (EmergencyStopState)message.GetPayloadByte();
+            return (DeviceStateMode)message.GetPayloadByte();
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="EmergencyStop"/> register messages.
+        /// Returns the timestamped payload data for <see cref="DeviceState"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<EmergencyStopState> GetTimestampedPayload(HarpMessage message)
+        public static Timestamped<DeviceStateMode> GetTimestampedPayload(HarpMessage message)
         {
             var payload = message.GetTimestampedPayloadByte();
-            return Timestamped.Create((EmergencyStopState)payload.Value, payload.Seconds);
+            return Timestamped.Create((DeviceStateMode)payload.Value, payload.Seconds);
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="EmergencyStop"/> register.
+        /// Returns a Harp message for the <see cref="DeviceState"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="EmergencyStop"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="DeviceState"/> register
         /// with the specified message type and payload.
         /// </returns>
-        public static HarpMessage FromPayload(MessageType messageType, EmergencyStopState value)
+        public static HarpMessage FromPayload(MessageType messageType, DeviceStateMode value)
         {
             return HarpMessage.FromByte(Address, messageType, (byte)value);
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="EmergencyStop"/>
+        /// Returns a timestamped Harp message for the <see cref="DeviceState"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="EmergencyStop"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="DeviceState"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
-        public static HarpMessage FromPayload(double timestamp, MessageType messageType, EmergencyStopState value)
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, DeviceStateMode value)
         {
             return HarpMessage.FromByte(Address, timestamp, messageType, (byte)value);
         }
@@ -5654,25 +5558,25 @@ namespace Harp.StepperDriver
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// EmergencyStop register.
+    /// DeviceState register.
     /// </summary>
-    /// <seealso cref="EmergencyStop"/>
-    [Description("Filters and selects timestamped messages from the EmergencyStop register.")]
-    public partial class TimestampedEmergencyStop
+    /// <seealso cref="DeviceState"/>
+    [Description("Filters and selects timestamped messages from the DeviceState register.")]
+    public partial class TimestampedDeviceState
     {
         /// <summary>
-        /// Represents the address of the <see cref="EmergencyStop"/> register. This field is constant.
+        /// Represents the address of the <see cref="DeviceState"/> register. This field is constant.
         /// </summary>
-        public const int Address = EmergencyStop.Address;
+        public const int Address = DeviceState.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="EmergencyStop"/> register messages.
+        /// Returns timestamped payload data for <see cref="DeviceState"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<EmergencyStopState> GetPayload(HarpMessage message)
+        public static Timestamped<DeviceStateMode> GetPayload(HarpMessage message)
         {
-            return EmergencyStop.GetTimestampedPayload(message);
+            return DeviceState.GetTimestampedPayload(message);
         }
     }
 
@@ -7694,10 +7598,10 @@ namespace Harp.StepperDriver
     }
 
     /// <summary>
-    /// Represents a register that decelerate the motors until they stop according to configured intervals.
+    /// Represents a register that decelerate the motors until they stop according to configured intervals (not implemented).
     /// </summary>
-    [Description("Decelerate the motors until they stop according to configured intervals.")]
-    public partial class StopMotorSmoothly
+    [Description("Decelerate the motors until they stop according to configured intervals (not implemented).")]
+    internal partial class StopMotorSmoothly
     {
         /// <summary>
         /// Represents the address of the <see cref="StopMotorSmoothly"/> register. This field is constant.
@@ -7713,88 +7617,13 @@ namespace Harp.StepperDriver
         /// Represents the length of the <see cref="StopMotorSmoothly"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 1;
-
-        /// <summary>
-        /// Returns the payload data for <see cref="StopMotorSmoothly"/> register messages.
-        /// </summary>
-        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
-        /// <returns>A value representing the message payload.</returns>
-        public static StepperMotors GetPayload(HarpMessage message)
-        {
-            return (StepperMotors)message.GetPayloadByte();
-        }
-
-        /// <summary>
-        /// Returns the timestamped payload data for <see cref="StopMotorSmoothly"/> register messages.
-        /// </summary>
-        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
-        /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<StepperMotors> GetTimestampedPayload(HarpMessage message)
-        {
-            var payload = message.GetTimestampedPayloadByte();
-            return Timestamped.Create((StepperMotors)payload.Value, payload.Seconds);
-        }
-
-        /// <summary>
-        /// Returns a Harp message for the <see cref="StopMotorSmoothly"/> register.
-        /// </summary>
-        /// <param name="messageType">The type of the Harp message.</param>
-        /// <param name="value">The value to be stored in the message payload.</param>
-        /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="StopMotorSmoothly"/> register
-        /// with the specified message type and payload.
-        /// </returns>
-        public static HarpMessage FromPayload(MessageType messageType, StepperMotors value)
-        {
-            return HarpMessage.FromByte(Address, messageType, (byte)value);
-        }
-
-        /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="StopMotorSmoothly"/>
-        /// register.
-        /// </summary>
-        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
-        /// <param name="messageType">The type of the Harp message.</param>
-        /// <param name="value">The value to be stored in the message payload.</param>
-        /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="StopMotorSmoothly"/> register
-        /// with the specified message type, timestamp, and payload.
-        /// </returns>
-        public static HarpMessage FromPayload(double timestamp, MessageType messageType, StepperMotors value)
-        {
-            return HarpMessage.FromByte(Address, timestamp, messageType, (byte)value);
-        }
     }
 
     /// <summary>
-    /// Provides methods for manipulating timestamped messages from the
-    /// StopMotorSmoothly register.
+    /// Represents a register that resets the internal motor driver which also clears any eventual error (not implemented).
     /// </summary>
-    /// <seealso cref="StopMotorSmoothly"/>
-    [Description("Filters and selects timestamped messages from the StopMotorSmoothly register.")]
-    public partial class TimestampedStopMotorSmoothly
-    {
-        /// <summary>
-        /// Represents the address of the <see cref="StopMotorSmoothly"/> register. This field is constant.
-        /// </summary>
-        public const int Address = StopMotorSmoothly.Address;
-
-        /// <summary>
-        /// Returns timestamped payload data for <see cref="StopMotorSmoothly"/> register messages.
-        /// </summary>
-        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
-        /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<StepperMotors> GetPayload(HarpMessage message)
-        {
-            return StopMotorSmoothly.GetTimestampedPayload(message);
-        }
-    }
-
-    /// <summary>
-    /// Represents a register that resets the internal motor driver which also clears any eventual error.
-    /// </summary>
-    [Description("Resets the internal motor driver which also clears any eventual error.")]
-    public partial class ResetMotor
+    [Description("Resets the internal motor driver which also clears any eventual error (not implemented).")]
+    internal partial class ResetMotor
     {
         /// <summary>
         /// Represents the address of the <see cref="ResetMotor"/> register. This field is constant.
@@ -7810,81 +7639,6 @@ namespace Harp.StepperDriver
         /// Represents the length of the <see cref="ResetMotor"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 1;
-
-        /// <summary>
-        /// Returns the payload data for <see cref="ResetMotor"/> register messages.
-        /// </summary>
-        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
-        /// <returns>A value representing the message payload.</returns>
-        public static StepperMotors GetPayload(HarpMessage message)
-        {
-            return (StepperMotors)message.GetPayloadByte();
-        }
-
-        /// <summary>
-        /// Returns the timestamped payload data for <see cref="ResetMotor"/> register messages.
-        /// </summary>
-        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
-        /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<StepperMotors> GetTimestampedPayload(HarpMessage message)
-        {
-            var payload = message.GetTimestampedPayloadByte();
-            return Timestamped.Create((StepperMotors)payload.Value, payload.Seconds);
-        }
-
-        /// <summary>
-        /// Returns a Harp message for the <see cref="ResetMotor"/> register.
-        /// </summary>
-        /// <param name="messageType">The type of the Harp message.</param>
-        /// <param name="value">The value to be stored in the message payload.</param>
-        /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="ResetMotor"/> register
-        /// with the specified message type and payload.
-        /// </returns>
-        public static HarpMessage FromPayload(MessageType messageType, StepperMotors value)
-        {
-            return HarpMessage.FromByte(Address, messageType, (byte)value);
-        }
-
-        /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="ResetMotor"/>
-        /// register.
-        /// </summary>
-        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
-        /// <param name="messageType">The type of the Harp message.</param>
-        /// <param name="value">The value to be stored in the message payload.</param>
-        /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="ResetMotor"/> register
-        /// with the specified message type, timestamp, and payload.
-        /// </returns>
-        public static HarpMessage FromPayload(double timestamp, MessageType messageType, StepperMotors value)
-        {
-            return HarpMessage.FromByte(Address, timestamp, messageType, (byte)value);
-        }
-    }
-
-    /// <summary>
-    /// Provides methods for manipulating timestamped messages from the
-    /// ResetMotor register.
-    /// </summary>
-    /// <seealso cref="ResetMotor"/>
-    [Description("Filters and selects timestamped messages from the ResetMotor register.")]
-    public partial class TimestampedResetMotor
-    {
-        /// <summary>
-        /// Represents the address of the <see cref="ResetMotor"/> register. This field is constant.
-        /// </summary>
-        public const int Address = ResetMotor.Address;
-
-        /// <summary>
-        /// Returns timestamped payload data for <see cref="ResetMotor"/> register messages.
-        /// </summary>
-        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
-        /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<StepperMotors> GetPayload(HarpMessage message)
-        {
-            return ResetMotor.GetTimestampedPayload(message);
-        }
     }
 
     /// <summary>
@@ -8208,13 +7962,12 @@ namespace Harp.StepperDriver
     /// <seealso cref="CreateInput1TriggerModePayload"/>
     /// <seealso cref="CreateInput2TriggerModePayload"/>
     /// <seealso cref="CreateInput3TriggerModePayload"/>
-    /// <seealso cref="CreateEmergencyStopModePayload"/>
+    /// <seealso cref="CreateDeviceEnableModePayload"/>
     /// <seealso cref="CreateMotorStoppedPayload"/>
-    /// <seealso cref="CreateMotorOvervoltageDetectionPayload"/>
     /// <seealso cref="CreateMotorErrorDetectionPayload"/>
     /// <seealso cref="CreateEncodersPayload"/>
     /// <seealso cref="CreateDigitalInputStatePayload"/>
-    /// <seealso cref="CreateEmergencyStopPayload"/>
+    /// <seealso cref="CreateDeviceStatePayload"/>
     /// <seealso cref="CreateMotor0StepsPayload"/>
     /// <seealso cref="CreateMotor1StepsPayload"/>
     /// <seealso cref="CreateMotor2StepsPayload"/>
@@ -8236,8 +7989,6 @@ namespace Harp.StepperDriver
     /// <seealso cref="CreateMotor2ImmediateStepsPayload"/>
     /// <seealso cref="CreateMotor3ImmediateStepsPayload"/>
     /// <seealso cref="CreateStopMotorSuddenlyPayload"/>
-    /// <seealso cref="CreateStopMotorSmoothlyPayload"/>
-    /// <seealso cref="CreateResetMotorPayload"/>
     /// <seealso cref="CreateResetEncoderPayload"/>
     [XmlInclude(typeof(CreateEnableMotorsPayload))]
     [XmlInclude(typeof(CreateDisableMotorsPayload))]
@@ -8283,13 +8034,12 @@ namespace Harp.StepperDriver
     [XmlInclude(typeof(CreateInput1TriggerModePayload))]
     [XmlInclude(typeof(CreateInput2TriggerModePayload))]
     [XmlInclude(typeof(CreateInput3TriggerModePayload))]
-    [XmlInclude(typeof(CreateEmergencyStopModePayload))]
+    [XmlInclude(typeof(CreateDeviceEnableModePayload))]
     [XmlInclude(typeof(CreateMotorStoppedPayload))]
-    [XmlInclude(typeof(CreateMotorOvervoltageDetectionPayload))]
     [XmlInclude(typeof(CreateMotorErrorDetectionPayload))]
     [XmlInclude(typeof(CreateEncodersPayload))]
     [XmlInclude(typeof(CreateDigitalInputStatePayload))]
-    [XmlInclude(typeof(CreateEmergencyStopPayload))]
+    [XmlInclude(typeof(CreateDeviceStatePayload))]
     [XmlInclude(typeof(CreateMotor0StepsPayload))]
     [XmlInclude(typeof(CreateMotor1StepsPayload))]
     [XmlInclude(typeof(CreateMotor2StepsPayload))]
@@ -8311,8 +8061,6 @@ namespace Harp.StepperDriver
     [XmlInclude(typeof(CreateMotor2ImmediateStepsPayload))]
     [XmlInclude(typeof(CreateMotor3ImmediateStepsPayload))]
     [XmlInclude(typeof(CreateStopMotorSuddenlyPayload))]
-    [XmlInclude(typeof(CreateStopMotorSmoothlyPayload))]
-    [XmlInclude(typeof(CreateResetMotorPayload))]
     [XmlInclude(typeof(CreateResetEncoderPayload))]
     [XmlInclude(typeof(CreateTimestampedEnableMotorsPayload))]
     [XmlInclude(typeof(CreateTimestampedDisableMotorsPayload))]
@@ -8358,13 +8106,12 @@ namespace Harp.StepperDriver
     [XmlInclude(typeof(CreateTimestampedInput1TriggerModePayload))]
     [XmlInclude(typeof(CreateTimestampedInput2TriggerModePayload))]
     [XmlInclude(typeof(CreateTimestampedInput3TriggerModePayload))]
-    [XmlInclude(typeof(CreateTimestampedEmergencyStopModePayload))]
+    [XmlInclude(typeof(CreateTimestampedDeviceEnableModePayload))]
     [XmlInclude(typeof(CreateTimestampedMotorStoppedPayload))]
-    [XmlInclude(typeof(CreateTimestampedMotorOvervoltageDetectionPayload))]
     [XmlInclude(typeof(CreateTimestampedMotorErrorDetectionPayload))]
     [XmlInclude(typeof(CreateTimestampedEncodersPayload))]
     [XmlInclude(typeof(CreateTimestampedDigitalInputStatePayload))]
-    [XmlInclude(typeof(CreateTimestampedEmergencyStopPayload))]
+    [XmlInclude(typeof(CreateTimestampedDeviceStatePayload))]
     [XmlInclude(typeof(CreateTimestampedMotor0StepsPayload))]
     [XmlInclude(typeof(CreateTimestampedMotor1StepsPayload))]
     [XmlInclude(typeof(CreateTimestampedMotor2StepsPayload))]
@@ -8386,8 +8133,6 @@ namespace Harp.StepperDriver
     [XmlInclude(typeof(CreateTimestampedMotor2ImmediateStepsPayload))]
     [XmlInclude(typeof(CreateTimestampedMotor3ImmediateStepsPayload))]
     [XmlInclude(typeof(CreateTimestampedStopMotorSuddenlyPayload))]
-    [XmlInclude(typeof(CreateTimestampedStopMotorSmoothlyPayload))]
-    [XmlInclude(typeof(CreateTimestampedResetMotorPayload))]
     [XmlInclude(typeof(CreateTimestampedResetEncoderPayload))]
     [Description("Creates standard message payloads for the StepperDriver device.")]
     public partial class CreateMessage : CreateMessageBuilder, INamedElement
@@ -10813,55 +10558,55 @@ namespace Harp.StepperDriver
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that configures the edge detection mode for the emergency external button.
+    /// that configures the external connector state required to the device.
     /// </summary>
-    [DisplayName("EmergencyStopModePayload")]
-    [Description("Creates a message payload that configures the edge detection mode for the emergency external button.")]
-    public partial class CreateEmergencyStopModePayload
+    [DisplayName("DeviceEnableModePayload")]
+    [Description("Creates a message payload that configures the external connector state required to the device.")]
+    public partial class CreateDeviceEnableModePayload
     {
         /// <summary>
-        /// Gets or sets the value that configures the edge detection mode for the emergency external button.
+        /// Gets or sets the value that configures the external connector state required to the device.
         /// </summary>
-        [Description("The value that configures the edge detection mode for the emergency external button.")]
-        public TriggerMode EmergencyStopMode { get; set; }
+        [Description("The value that configures the external connector state required to the device.")]
+        public EnableMode DeviceEnableMode { get; set; }
 
         /// <summary>
-        /// Creates a message payload for the EmergencyStopMode register.
+        /// Creates a message payload for the DeviceEnableMode register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
-        public TriggerMode GetPayload()
+        public EnableMode GetPayload()
         {
-            return EmergencyStopMode;
+            return DeviceEnableMode;
         }
 
         /// <summary>
-        /// Creates a message that configures the edge detection mode for the emergency external button.
+        /// Creates a message that configures the external connector state required to the device.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the EmergencyStopMode register.</returns>
+        /// <returns>A new message for the DeviceEnableMode register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return Harp.StepperDriver.EmergencyStopMode.FromPayload(messageType, GetPayload());
+            return Harp.StepperDriver.DeviceEnableMode.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that configures the edge detection mode for the emergency external button.
+    /// that configures the external connector state required to the device.
     /// </summary>
-    [DisplayName("TimestampedEmergencyStopModePayload")]
-    [Description("Creates a timestamped message payload that configures the edge detection mode for the emergency external button.")]
-    public partial class CreateTimestampedEmergencyStopModePayload : CreateEmergencyStopModePayload
+    [DisplayName("TimestampedDeviceEnableModePayload")]
+    [Description("Creates a timestamped message payload that configures the external connector state required to the device.")]
+    public partial class CreateTimestampedDeviceEnableModePayload : CreateDeviceEnableModePayload
     {
         /// <summary>
-        /// Creates a timestamped message that configures the edge detection mode for the emergency external button.
+        /// Creates a timestamped message that configures the external connector state required to the device.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the EmergencyStopMode register.</returns>
+        /// <returns>A new timestamped message for the DeviceEnableMode register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return Harp.StepperDriver.EmergencyStopMode.FromPayload(timestamp, messageType, GetPayload());
+            return Harp.StepperDriver.DeviceEnableMode.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
@@ -10916,60 +10661,6 @@ namespace Harp.StepperDriver
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
             return Harp.StepperDriver.MotorStopped.FromPayload(timestamp, messageType, GetPayload());
-        }
-    }
-
-    /// <summary>
-    /// Represents an operator that creates a message payload
-    /// that contains a bit mask specifying the motor where the overvoltage detection and protection mechanism occurred, which can happen when the there's a quick deceleration from a high velocity or when the motor stalls.
-    /// </summary>
-    [DisplayName("MotorOvervoltageDetectionPayload")]
-    [Description("Creates a message payload that contains a bit mask specifying the motor where the overvoltage detection and protection mechanism occurred, which can happen when the there's a quick deceleration from a high velocity or when the motor stalls.")]
-    public partial class CreateMotorOvervoltageDetectionPayload
-    {
-        /// <summary>
-        /// Gets or sets the value that contains a bit mask specifying the motor where the overvoltage detection and protection mechanism occurred, which can happen when the there's a quick deceleration from a high velocity or when the motor stalls.
-        /// </summary>
-        [Description("The value that contains a bit mask specifying the motor where the overvoltage detection and protection mechanism occurred, which can happen when the there's a quick deceleration from a high velocity or when the motor stalls.")]
-        public StepperMotors MotorOvervoltageDetection { get; set; }
-
-        /// <summary>
-        /// Creates a message payload for the MotorOvervoltageDetection register.
-        /// </summary>
-        /// <returns>The created message payload value.</returns>
-        public StepperMotors GetPayload()
-        {
-            return MotorOvervoltageDetection;
-        }
-
-        /// <summary>
-        /// Creates a message that contains a bit mask specifying the motor where the overvoltage detection and protection mechanism occurred, which can happen when the there's a quick deceleration from a high velocity or when the motor stalls.
-        /// </summary>
-        /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the MotorOvervoltageDetection register.</returns>
-        public HarpMessage GetMessage(MessageType messageType)
-        {
-            return Harp.StepperDriver.MotorOvervoltageDetection.FromPayload(messageType, GetPayload());
-        }
-    }
-
-    /// <summary>
-    /// Represents an operator that creates a timestamped message payload
-    /// that contains a bit mask specifying the motor where the overvoltage detection and protection mechanism occurred, which can happen when the there's a quick deceleration from a high velocity or when the motor stalls.
-    /// </summary>
-    [DisplayName("TimestampedMotorOvervoltageDetectionPayload")]
-    [Description("Creates a timestamped message payload that contains a bit mask specifying the motor where the overvoltage detection and protection mechanism occurred, which can happen when the there's a quick deceleration from a high velocity or when the motor stalls.")]
-    public partial class CreateTimestampedMotorOvervoltageDetectionPayload : CreateMotorOvervoltageDetectionPayload
-    {
-        /// <summary>
-        /// Creates a timestamped message that contains a bit mask specifying the motor where the overvoltage detection and protection mechanism occurred, which can happen when the there's a quick deceleration from a high velocity or when the motor stalls.
-        /// </summary>
-        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
-        /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the MotorOvervoltageDetection register.</returns>
-        public HarpMessage GetMessage(double timestamp, MessageType messageType)
-        {
-            return Harp.StepperDriver.MotorOvervoltageDetection.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
@@ -11153,55 +10844,55 @@ namespace Harp.StepperDriver
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that contains the state of the external emergency button.
+    /// that contains the state of the device.
     /// </summary>
-    [DisplayName("EmergencyStopPayload")]
-    [Description("Creates a message payload that contains the state of the external emergency button.")]
-    public partial class CreateEmergencyStopPayload
+    [DisplayName("DeviceStatePayload")]
+    [Description("Creates a message payload that contains the state of the device.")]
+    public partial class CreateDeviceStatePayload
     {
         /// <summary>
-        /// Gets or sets the value that contains the state of the external emergency button.
+        /// Gets or sets the value that contains the state of the device.
         /// </summary>
-        [Description("The value that contains the state of the external emergency button.")]
-        public EmergencyStopState EmergencyStop { get; set; }
+        [Description("The value that contains the state of the device.")]
+        public DeviceStateMode DeviceState { get; set; }
 
         /// <summary>
-        /// Creates a message payload for the EmergencyStop register.
+        /// Creates a message payload for the DeviceState register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
-        public EmergencyStopState GetPayload()
+        public DeviceStateMode GetPayload()
         {
-            return EmergencyStop;
+            return DeviceState;
         }
 
         /// <summary>
-        /// Creates a message that contains the state of the external emergency button.
+        /// Creates a message that contains the state of the device.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the EmergencyStop register.</returns>
+        /// <returns>A new message for the DeviceState register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return Harp.StepperDriver.EmergencyStop.FromPayload(messageType, GetPayload());
+            return Harp.StepperDriver.DeviceState.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that contains the state of the external emergency button.
+    /// that contains the state of the device.
     /// </summary>
-    [DisplayName("TimestampedEmergencyStopPayload")]
-    [Description("Creates a timestamped message payload that contains the state of the external emergency button.")]
-    public partial class CreateTimestampedEmergencyStopPayload : CreateEmergencyStopPayload
+    [DisplayName("TimestampedDeviceStatePayload")]
+    [Description("Creates a timestamped message payload that contains the state of the device.")]
+    public partial class CreateTimestampedDeviceStatePayload : CreateDeviceStatePayload
     {
         /// <summary>
-        /// Creates a timestamped message that contains the state of the external emergency button.
+        /// Creates a timestamped message that contains the state of the device.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the EmergencyStop register.</returns>
+        /// <returns>A new timestamped message for the DeviceState register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return Harp.StepperDriver.EmergencyStop.FromPayload(timestamp, messageType, GetPayload());
+            return Harp.StepperDriver.DeviceState.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
@@ -12341,114 +12032,6 @@ namespace Harp.StepperDriver
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that decelerate the motors until they stop according to configured intervals.
-    /// </summary>
-    [DisplayName("StopMotorSmoothlyPayload")]
-    [Description("Creates a message payload that decelerate the motors until they stop according to configured intervals.")]
-    public partial class CreateStopMotorSmoothlyPayload
-    {
-        /// <summary>
-        /// Gets or sets the value that decelerate the motors until they stop according to configured intervals.
-        /// </summary>
-        [Description("The value that decelerate the motors until they stop according to configured intervals.")]
-        public StepperMotors StopMotorSmoothly { get; set; }
-
-        /// <summary>
-        /// Creates a message payload for the StopMotorSmoothly register.
-        /// </summary>
-        /// <returns>The created message payload value.</returns>
-        public StepperMotors GetPayload()
-        {
-            return StopMotorSmoothly;
-        }
-
-        /// <summary>
-        /// Creates a message that decelerate the motors until they stop according to configured intervals.
-        /// </summary>
-        /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the StopMotorSmoothly register.</returns>
-        public HarpMessage GetMessage(MessageType messageType)
-        {
-            return Harp.StepperDriver.StopMotorSmoothly.FromPayload(messageType, GetPayload());
-        }
-    }
-
-    /// <summary>
-    /// Represents an operator that creates a timestamped message payload
-    /// that decelerate the motors until they stop according to configured intervals.
-    /// </summary>
-    [DisplayName("TimestampedStopMotorSmoothlyPayload")]
-    [Description("Creates a timestamped message payload that decelerate the motors until they stop according to configured intervals.")]
-    public partial class CreateTimestampedStopMotorSmoothlyPayload : CreateStopMotorSmoothlyPayload
-    {
-        /// <summary>
-        /// Creates a timestamped message that decelerate the motors until they stop according to configured intervals.
-        /// </summary>
-        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
-        /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the StopMotorSmoothly register.</returns>
-        public HarpMessage GetMessage(double timestamp, MessageType messageType)
-        {
-            return Harp.StepperDriver.StopMotorSmoothly.FromPayload(timestamp, messageType, GetPayload());
-        }
-    }
-
-    /// <summary>
-    /// Represents an operator that creates a message payload
-    /// that resets the internal motor driver which also clears any eventual error.
-    /// </summary>
-    [DisplayName("ResetMotorPayload")]
-    [Description("Creates a message payload that resets the internal motor driver which also clears any eventual error.")]
-    public partial class CreateResetMotorPayload
-    {
-        /// <summary>
-        /// Gets or sets the value that resets the internal motor driver which also clears any eventual error.
-        /// </summary>
-        [Description("The value that resets the internal motor driver which also clears any eventual error.")]
-        public StepperMotors ResetMotor { get; set; }
-
-        /// <summary>
-        /// Creates a message payload for the ResetMotor register.
-        /// </summary>
-        /// <returns>The created message payload value.</returns>
-        public StepperMotors GetPayload()
-        {
-            return ResetMotor;
-        }
-
-        /// <summary>
-        /// Creates a message that resets the internal motor driver which also clears any eventual error.
-        /// </summary>
-        /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the ResetMotor register.</returns>
-        public HarpMessage GetMessage(MessageType messageType)
-        {
-            return Harp.StepperDriver.ResetMotor.FromPayload(messageType, GetPayload());
-        }
-    }
-
-    /// <summary>
-    /// Represents an operator that creates a timestamped message payload
-    /// that resets the internal motor driver which also clears any eventual error.
-    /// </summary>
-    [DisplayName("TimestampedResetMotorPayload")]
-    [Description("Creates a timestamped message payload that resets the internal motor driver which also clears any eventual error.")]
-    public partial class CreateTimestampedResetMotorPayload : CreateResetMotorPayload
-    {
-        /// <summary>
-        /// Creates a timestamped message that resets the internal motor driver which also clears any eventual error.
-        /// </summary>
-        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
-        /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the ResetMotor register.</returns>
-        public HarpMessage GetMessage(double timestamp, MessageType messageType)
-        {
-            return Harp.StepperDriver.ResetMotor.FromPayload(timestamp, messageType, GetPayload());
-        }
-    }
-
-    /// <summary>
-    /// Represents an operator that creates a message payload
     /// that resets the encoder.
     /// </summary>
     [DisplayName("ResetEncoderPayload")]
@@ -12621,10 +12204,10 @@ namespace Harp.StepperDriver
     /// </summary>
     public enum HoldCurrentReduction : byte
     {
-        NoReduction = 0,
-        ReductionTo50Percent = 1,
-        ReductionTo25Percent = 2,
-        ReductionTo12Percent = 3
+        ReductionTo50Percent = 0,
+        ReductionTo25Percent = 1,
+        ReductionTo12Percent = 2,
+        NoReduction = 3
     }
 
     /// <summary>
@@ -12644,16 +12227,25 @@ namespace Harp.StepperDriver
     /// </summary>
     public enum TriggerMode : byte
     {
-        RisingEdge = 0,
-        FallingEdge = 1
+        FallingEdge = 0,
+        RisingEdge = 1
     }
 
     /// <summary>
-    /// Specifies the state of the external emergency button.
+    /// Specifies the external connector state that enables the device.
     /// </summary>
-    public enum EmergencyStopState : byte
+    public enum EnableMode : byte
     {
-        NoEmergency = 0,
-        EmergencyDetected = 1
+        Closed = 0,
+        Open = 1
+    }
+
+    /// <summary>
+    /// Specifies the current state of the device.
+    /// </summary>
+    public enum DeviceStateMode : byte
+    {
+        Disabled = 0,
+        Enabled = 1
     }
 }
