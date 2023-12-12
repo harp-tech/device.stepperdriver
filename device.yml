@@ -300,7 +300,7 @@ registers:
     address: 82
     type: U8
     access: Event
-    maskType: DeviceState
+    maskType: DeviceStateMode
     description: Contains the state of the device.
 
 ##################################
@@ -548,7 +548,7 @@ groupMasks:
     values:
       Closed: 0
       Open: 1
-  DeviceState:
+  DeviceStateMode:
     description: Specifies the current state of the device.
     values:
       Disabled: 0

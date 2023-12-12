@@ -2070,7 +2070,7 @@ namespace Harp.StepperDriver
         }
 
         /// <summary>
-        /// Asynchronously reads the contents of the EmergencyStopMode register.
+        /// Asynchronously reads the contents of the DeviceEnableMode register.
         /// </summary>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
@@ -2079,14 +2079,14 @@ namespace Harp.StepperDriver
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the register payload.
         /// </returns>
-        public async Task<TriggerMode> ReadEmergencyStopModeAsync(CancellationToken cancellationToken = default)
+        public async Task<EnableMode> ReadDeviceEnableModeAsync(CancellationToken cancellationToken = default)
         {
-            var reply = await CommandAsync(HarpCommand.ReadByte(EmergencyStopMode.Address), cancellationToken);
-            return EmergencyStopMode.GetPayload(reply);
+            var reply = await CommandAsync(HarpCommand.ReadByte(DeviceEnableMode.Address), cancellationToken);
+            return DeviceEnableMode.GetPayload(reply);
         }
 
         /// <summary>
-        /// Asynchronously reads the timestamped contents of the EmergencyStopMode register.
+        /// Asynchronously reads the timestamped contents of the DeviceEnableMode register.
         /// </summary>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
@@ -2095,23 +2095,23 @@ namespace Harp.StepperDriver
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the timestamped register payload.
         /// </returns>
-        public async Task<Timestamped<TriggerMode>> ReadTimestampedEmergencyStopModeAsync(CancellationToken cancellationToken = default)
+        public async Task<Timestamped<EnableMode>> ReadTimestampedDeviceEnableModeAsync(CancellationToken cancellationToken = default)
         {
-            var reply = await CommandAsync(HarpCommand.ReadByte(EmergencyStopMode.Address), cancellationToken);
-            return EmergencyStopMode.GetTimestampedPayload(reply);
+            var reply = await CommandAsync(HarpCommand.ReadByte(DeviceEnableMode.Address), cancellationToken);
+            return DeviceEnableMode.GetTimestampedPayload(reply);
         }
 
         /// <summary>
-        /// Asynchronously writes a value to the EmergencyStopMode register.
+        /// Asynchronously writes a value to the DeviceEnableMode register.
         /// </summary>
         /// <param name="value">The value to be stored in the register.</param>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
         /// </param>
         /// <returns>The task object representing the asynchronous write operation.</returns>
-        public async Task WriteEmergencyStopModeAsync(TriggerMode value, CancellationToken cancellationToken = default)
+        public async Task WriteDeviceEnableModeAsync(EnableMode value, CancellationToken cancellationToken = default)
         {
-            var request = EmergencyStopMode.FromPayload(MessageType.Write, value);
+            var request = DeviceEnableMode.FromPayload(MessageType.Write, value);
             await CommandAsync(request, cancellationToken);
         }
 
@@ -2145,38 +2145,6 @@ namespace Harp.StepperDriver
         {
             var reply = await CommandAsync(HarpCommand.ReadByte(MotorStopped.Address), cancellationToken);
             return MotorStopped.GetTimestampedPayload(reply);
-        }
-
-        /// <summary>
-        /// Asynchronously reads the contents of the MotorOvervoltageDetection register.
-        /// </summary>
-        /// <param name="cancellationToken">
-        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
-        /// </param>
-        /// <returns>
-        /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
-        /// property contains the register payload.
-        /// </returns>
-        public async Task<StepperMotors> ReadMotorOvervoltageDetectionAsync(CancellationToken cancellationToken = default)
-        {
-            var reply = await CommandAsync(HarpCommand.ReadByte(MotorOvervoltageDetection.Address), cancellationToken);
-            return MotorOvervoltageDetection.GetPayload(reply);
-        }
-
-        /// <summary>
-        /// Asynchronously reads the timestamped contents of the MotorOvervoltageDetection register.
-        /// </summary>
-        /// <param name="cancellationToken">
-        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
-        /// </param>
-        /// <returns>
-        /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
-        /// property contains the timestamped register payload.
-        /// </returns>
-        public async Task<Timestamped<StepperMotors>> ReadTimestampedMotorOvervoltageDetectionAsync(CancellationToken cancellationToken = default)
-        {
-            var reply = await CommandAsync(HarpCommand.ReadByte(MotorOvervoltageDetection.Address), cancellationToken);
-            return MotorOvervoltageDetection.GetTimestampedPayload(reply);
         }
 
         /// <summary>
@@ -2276,7 +2244,7 @@ namespace Harp.StepperDriver
         }
 
         /// <summary>
-        /// Asynchronously reads the contents of the EmergencyStop register.
+        /// Asynchronously reads the contents of the DeviceState register.
         /// </summary>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
@@ -2285,14 +2253,14 @@ namespace Harp.StepperDriver
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the register payload.
         /// </returns>
-        public async Task<EmergencyStopState> ReadEmergencyStopAsync(CancellationToken cancellationToken = default)
+        public async Task<DeviceStateMode> ReadDeviceStateAsync(CancellationToken cancellationToken = default)
         {
-            var reply = await CommandAsync(HarpCommand.ReadByte(EmergencyStop.Address), cancellationToken);
-            return EmergencyStop.GetPayload(reply);
+            var reply = await CommandAsync(HarpCommand.ReadByte(DeviceState.Address), cancellationToken);
+            return DeviceState.GetPayload(reply);
         }
 
         /// <summary>
-        /// Asynchronously reads the timestamped contents of the EmergencyStop register.
+        /// Asynchronously reads the timestamped contents of the DeviceState register.
         /// </summary>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
@@ -2301,10 +2269,10 @@ namespace Harp.StepperDriver
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the timestamped register payload.
         /// </returns>
-        public async Task<Timestamped<EmergencyStopState>> ReadTimestampedEmergencyStopAsync(CancellationToken cancellationToken = default)
+        public async Task<Timestamped<DeviceStateMode>> ReadTimestampedDeviceStateAsync(CancellationToken cancellationToken = default)
         {
-            var reply = await CommandAsync(HarpCommand.ReadByte(EmergencyStop.Address), cancellationToken);
-            return EmergencyStop.GetTimestampedPayload(reply);
+            var reply = await CommandAsync(HarpCommand.ReadByte(DeviceState.Address), cancellationToken);
+            return DeviceState.GetTimestampedPayload(reply);
         }
 
         /// <summary>
@@ -3270,98 +3238,6 @@ namespace Harp.StepperDriver
         public async Task WriteStopMotorSuddenlyAsync(StepperMotors value, CancellationToken cancellationToken = default)
         {
             var request = StopMotorSuddenly.FromPayload(MessageType.Write, value);
-            await CommandAsync(request, cancellationToken);
-        }
-
-        /// <summary>
-        /// Asynchronously reads the contents of the StopMotorSmoothly register.
-        /// </summary>
-        /// <param name="cancellationToken">
-        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
-        /// </param>
-        /// <returns>
-        /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
-        /// property contains the register payload.
-        /// </returns>
-        public async Task<StepperMotors> ReadStopMotorSmoothlyAsync(CancellationToken cancellationToken = default)
-        {
-            var reply = await CommandAsync(HarpCommand.ReadByte(StopMotorSmoothly.Address), cancellationToken);
-            return StopMotorSmoothly.GetPayload(reply);
-        }
-
-        /// <summary>
-        /// Asynchronously reads the timestamped contents of the StopMotorSmoothly register.
-        /// </summary>
-        /// <param name="cancellationToken">
-        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
-        /// </param>
-        /// <returns>
-        /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
-        /// property contains the timestamped register payload.
-        /// </returns>
-        public async Task<Timestamped<StepperMotors>> ReadTimestampedStopMotorSmoothlyAsync(CancellationToken cancellationToken = default)
-        {
-            var reply = await CommandAsync(HarpCommand.ReadByte(StopMotorSmoothly.Address), cancellationToken);
-            return StopMotorSmoothly.GetTimestampedPayload(reply);
-        }
-
-        /// <summary>
-        /// Asynchronously writes a value to the StopMotorSmoothly register.
-        /// </summary>
-        /// <param name="value">The value to be stored in the register.</param>
-        /// <param name="cancellationToken">
-        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
-        /// </param>
-        /// <returns>The task object representing the asynchronous write operation.</returns>
-        public async Task WriteStopMotorSmoothlyAsync(StepperMotors value, CancellationToken cancellationToken = default)
-        {
-            var request = StopMotorSmoothly.FromPayload(MessageType.Write, value);
-            await CommandAsync(request, cancellationToken);
-        }
-
-        /// <summary>
-        /// Asynchronously reads the contents of the ResetMotor register.
-        /// </summary>
-        /// <param name="cancellationToken">
-        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
-        /// </param>
-        /// <returns>
-        /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
-        /// property contains the register payload.
-        /// </returns>
-        public async Task<StepperMotors> ReadResetMotorAsync(CancellationToken cancellationToken = default)
-        {
-            var reply = await CommandAsync(HarpCommand.ReadByte(ResetMotor.Address), cancellationToken);
-            return ResetMotor.GetPayload(reply);
-        }
-
-        /// <summary>
-        /// Asynchronously reads the timestamped contents of the ResetMotor register.
-        /// </summary>
-        /// <param name="cancellationToken">
-        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
-        /// </param>
-        /// <returns>
-        /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
-        /// property contains the timestamped register payload.
-        /// </returns>
-        public async Task<Timestamped<StepperMotors>> ReadTimestampedResetMotorAsync(CancellationToken cancellationToken = default)
-        {
-            var reply = await CommandAsync(HarpCommand.ReadByte(ResetMotor.Address), cancellationToken);
-            return ResetMotor.GetTimestampedPayload(reply);
-        }
-
-        /// <summary>
-        /// Asynchronously writes a value to the ResetMotor register.
-        /// </summary>
-        /// <param name="value">The value to be stored in the register.</param>
-        /// <param name="cancellationToken">
-        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
-        /// </param>
-        /// <returns>The task object representing the asynchronous write operation.</returns>
-        public async Task WriteResetMotorAsync(StepperMotors value, CancellationToken cancellationToken = default)
-        {
-            var request = ResetMotor.FromPayload(MessageType.Write, value);
             await CommandAsync(request, cancellationToken);
         }
 
