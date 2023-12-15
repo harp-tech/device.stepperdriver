@@ -180,7 +180,7 @@ ISR(PORTE_INT1_vect, ISR_NAKED)
 /************************************************************************/
 ISR(PORTJ_INT1_vect, ISR_NAKED)
 {
-	io_pin2in(&PORTC, 2, PULL_IO_UP, SENSE_IO_NO_INT_USED);
+	io_pin2in(&PORTJ, 5, PULL_IO_UP, SENSE_IO_NO_INT_USED);
 	io_set_int(&PORTJ, INT_LEVEL_OFF, 1, (1<<5), false);
 	
 	uint8_t prev_reg = app_regs.REG_MOTORS_ERROR_DETECTTION;
