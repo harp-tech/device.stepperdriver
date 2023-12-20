@@ -33,7 +33,7 @@ void hwbp_app_initialize(void)
     uint8_t hwH = 0;
     uint8_t hwL = 2;
     uint8_t fwH = 0;
-    uint8_t fwL = 2;
+    uint8_t fwL = 3;
     uint8_t ass = 0;
     
    	/* Start core */
@@ -221,7 +221,13 @@ void core_callback_visualen_to_off(void)
 /************************************************************************/
 /* Callbacks: Change on the operation mode                              */
 /************************************************************************/
-void core_callback_device_to_standby(void) {}
+void core_callback_device_to_standby(void)
+{
+	stop_rotation(0);
+	stop_rotation(1);
+	stop_rotation(2);
+	stop_rotation(3);
+}
 void core_callback_device_to_active(void) {}
 void core_callback_device_to_enchanced_active(void) {}
 void core_callback_device_to_speed(void) {}
