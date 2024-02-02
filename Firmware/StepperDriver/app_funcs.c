@@ -796,7 +796,7 @@ bool app_write_REG_MOTOR0_NOMINAL_STEP_INTERVAL(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
 	
-	if (reg < 100) return false;
+	if (reg < 10) return false;
 	if (reg > 20000) return false;
 	
 	if (TCC0.CTRLA) return false;
@@ -816,7 +816,7 @@ bool app_write_REG_MOTOR1_NOMINAL_STEP_INTERVAL(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
 	
-	if (reg < 100) return false;
+	if (reg < 10) return false;
 	if (reg > 20000) return false;
 	
 	if (TCC0.CTRLA) return false;
@@ -836,7 +836,7 @@ bool app_write_REG_MOTOR2_NOMINAL_STEP_INTERVAL(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
 	
-	if (reg < 100) return false;
+	if (reg < 10) return false;
 	if (reg > 20000) return false;
 	
 	if (TCC0.CTRLA) return false;
@@ -856,7 +856,7 @@ bool app_write_REG_MOTOR3_NOMINAL_STEP_INTERVAL(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
 	
-	if (reg < 100) return false;
+	if (reg < 10) return false;
 	if (reg > 20000) return false;
 	
 	if (TCC0.CTRLA) return false;
@@ -876,7 +876,7 @@ bool app_write_REG_MOTOR0_MAXIMUM_STEP_INTERVAL(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
 	
-	if (reg < 100) return false;
+	if (reg < 10) return false;
 	if (reg > 20000) return false;
 	
 	if (TCC0.CTRLA) return false;
@@ -896,7 +896,7 @@ bool app_write_REG_MOTOR1_MAXIMUM_STEP_INTERVAL(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
 	
-	if (reg < 100) return false;
+	if (reg < 10) return false;
 	if (reg > 20000) return false;
 	
 	if (TCC0.CTRLA) return false;
@@ -916,7 +916,7 @@ bool app_write_REG_MOTOR2_MAXIMUM_STEP_INTERVAL(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
 	
-	if (reg < 100) return false;
+	if (reg < 10) return false;
 	if (reg > 20000) return false;
 	
 	if (TCC0.CTRLA) return false;
@@ -936,7 +936,7 @@ bool app_write_REG_MOTOR3_MAXIMUM_STEP_INTERVAL(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
 	
-	if (reg < 100) return false;
+	if (reg < 10) return false;
 	if (reg > 20000) return false;
 	
 	if (TCC0.CTRLA) return false;
@@ -1608,7 +1608,7 @@ bool app_write_REG_MOTOR0_IMMEDIATE_STEPS(void *a)
 	if (read_DRIVE_ENABLE_M0)
 		return false;
 	
-	if (reg > -100 && reg < 100)
+	if (reg > -10 && reg < 10)
 	{
 		reg = 0;
 	}
@@ -1670,7 +1670,7 @@ bool app_write_REG_MOTOR1_IMMEDIATE_STEPS(void *a)
 	if (read_DRIVE_ENABLE_M1)
 		return false;
 	
-	if (reg > -100 && reg < 100)
+	if (reg > -10 && reg < 10)
 	{
 		reg = 0;
 	}
@@ -1732,7 +1732,7 @@ bool app_write_REG_MOTOR2_IMMEDIATE_STEPS(void *a)
 	if (read_DRIVE_ENABLE_M2)
 		return false;
 	
-	if (reg > -100 && reg < 100)
+	if (reg > -10 && reg < 10)
 	{
 		reg = 0;
 	}
@@ -1794,7 +1794,7 @@ bool app_write_REG_MOTOR3_IMMEDIATE_STEPS(void *a)
 	if (read_DRIVE_ENABLE_M3)
 		return false;
 	
-	if (reg > -100 && reg < 100)
+	if (reg > -10 && reg < 10)
 	{
 		reg = 0;
 	}
