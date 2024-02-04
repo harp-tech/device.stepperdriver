@@ -1,4 +1,12 @@
-FR4 temperature > 145 ºC
+FR-4 TG150
 124.4 x 80.4 mm
 1.6 mm
 1 oz for all layers
+6/6 mil
+0.25 min hole size
+
+4 layers:
+stepper driver-F_Cu.gbr
+stepper driver-In1_Cu.gbr
+stepper driver-In2_Cu.gbr
+stepper driver-B_Cu.gbr
