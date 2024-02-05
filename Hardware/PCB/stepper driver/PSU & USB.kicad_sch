@@ -4585,7 +4585,7 @@
     (property "Value" "10u 25V" (at 189.23 80.645 0)
       (effects (font (size 1.27 1.27)) (justify left bottom))
     )
-    (property "Footprint" "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm" (at 195.9102 80.645 0)
+    (property "Footprint" "Capacitor_SMD:C_1206_3216Metric" (at 195.9102 80.645 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 194.945 76.835 0)
