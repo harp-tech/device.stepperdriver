@@ -285,11 +285,11 @@ void manage_step_boundaries (uint8_t motor_index)
 {
 	if (motor_peripherals_dir_port[motor_index]->IN & (1<<motor_peripherals_dir_pin_index[motor_index]))
 	{
-		*((&app_regs.REG_MOTOR0_ACCUMULATED_STEPS) + motor_index) += 1;
+		*(app_regs.REG_ACCUMULATED_STEPS + motor_index) += 1;
 		
 		if (*((&app_regs.REG_MOTOR0_MAX_STEPS_INTEGRATION) + motor_index) != 0)
 		{
-			if (*((&app_regs.REG_MOTOR0_ACCUMULATED_STEPS) + motor_index) >= *((&app_regs.REG_MOTOR0_MAX_STEPS_INTEGRATION) + motor_index))
+			if (*(app_regs.REG_ACCUMULATED_STEPS + motor_index) >= *((&app_regs.REG_MOTOR0_MAX_STEPS_INTEGRATION) + motor_index))
 			{
 				stop_rotation(motor_index);
 				
@@ -300,11 +300,11 @@ void manage_step_boundaries (uint8_t motor_index)
 	}
 	else
 	{
-		*((&app_regs.REG_MOTOR0_ACCUMULATED_STEPS) + motor_index) -= 1;
+		*(app_regs.REG_ACCUMULATED_STEPS + motor_index) -= 1;
 		
 		if (*((&app_regs.REG_MOTOR0_MIN_STEPS_INTEGRATION) + motor_index) != 0)
 		{
-			if (*((&app_regs.REG_MOTOR0_ACCUMULATED_STEPS) + motor_index) <= *((&app_regs.REG_MOTOR0_MIN_STEPS_INTEGRATION) + motor_index))
+			if (*(app_regs.REG_ACCUMULATED_STEPS + motor_index) <= *((&app_regs.REG_MOTOR0_MIN_STEPS_INTEGRATION) + motor_index))
 			{
 				stop_rotation(motor_index);
 				

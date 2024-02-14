@@ -425,7 +425,7 @@ typedef struct
 	int32_t REG_MOTOR1_STEPS;
 	int32_t REG_MOTOR2_STEPS;
 	int32_t REG_MOTOR3_STEPS;
-	int32_t REG_MOTOR0_ACCUMULATED_STEPS;
+	int32_t REG_ACCUMULATED_STEPS[4];
 	int32_t REG_MOTOR1_ACCUMULATED_STEPS;
 	int32_t REG_MOTOR2_ACCUMULATED_STEPS;
 	int32_t REG_MOTOR3_ACCUMULATED_STEPS;
@@ -514,7 +514,7 @@ typedef struct
 #define ADD_REG_MOTOR1_STEPS                84 // I32    Moves motor 1 by the number of steps written in this register and set the direction according to the value's signal.
 #define ADD_REG_MOTOR2_STEPS                85 // I32    Moves motor 2 by the number of steps written in this register and set the direction according to the value's signal.
 #define ADD_REG_MOTOR3_STEPS                86 // I32    Moves motor 3 by the number of steps written in this register and set the direction according to the value's signal.
-#define ADD_REG_MOTOR0_ACCUMULATED_STEPS    87 // I32    Contains the accumulated steps of motor 0.
+#define ADD_REG_ACCUMULATED_STEPS           87 // I32    Contains the accumulated steps of al l motors.
 #define ADD_REG_MOTOR1_ACCUMULATED_STEPS    88 // I32    Contains the accumulated steps of motor 1.
 #define ADD_REG_MOTOR2_ACCUMULATED_STEPS    89 // I32    Contains the accumulated steps of motor 2.
 #define ADD_REG_MOTOR3_ACCUMULATED_STEPS    90 // I32    Contains the accumulated steps of motor 3.
@@ -552,7 +552,7 @@ typedef struct
 /* Memory limits */
 #define APP_REGS_ADD_MIN                    0x20
 #define APP_REGS_ADD_MAX                    0x72
-#define APP_NBYTES_OF_REG_BANK              172
+#define APP_NBYTES_OF_REG_BANK              184
 
 /************************************************************************/
 /* Registers' bits                                                      */

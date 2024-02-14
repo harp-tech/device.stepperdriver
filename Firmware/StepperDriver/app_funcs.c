@@ -138,7 +138,7 @@ void (*app_func_rd_pointer[])(void) = {
 	&app_read_REG_MOTOR1_STEPS,
 	&app_read_REG_MOTOR2_STEPS,
 	&app_read_REG_MOTOR3_STEPS,
-	&app_read_REG_MOTOR0_ACCUMULATED_STEPS,
+	&app_read_REG_ACCUMULATED_STEPS,
 	&app_read_REG_MOTOR1_ACCUMULATED_STEPS,
 	&app_read_REG_MOTOR2_ACCUMULATED_STEPS,
 	&app_read_REG_MOTOR3_ACCUMULATED_STEPS,
@@ -224,7 +224,7 @@ bool (*app_func_wr_pointer[])(void*) = {
 	&app_write_REG_MOTOR1_STEPS,
 	&app_write_REG_MOTOR2_STEPS,
 	&app_write_REG_MOTOR3_STEPS,
-	&app_write_REG_MOTOR0_ACCUMULATED_STEPS,
+	&app_write_REG_ACCUMULATED_STEPS,
 	&app_write_REG_MOTOR1_ACCUMULATED_STEPS,
 	&app_write_REG_MOTOR2_ACCUMULATED_STEPS,
 	&app_write_REG_MOTOR3_ACCUMULATED_STEPS,
@@ -1408,19 +1408,17 @@ bool app_write_REG_MOTOR3_STEPS(void *a)
 
 
 /************************************************************************/
-/* REG_MOTOR0_ACCUMULATED_STEPS                                         */
+/* REG_ACCUMULATED_STEPS                                         */
 /************************************************************************/
-void app_read_REG_MOTOR0_ACCUMULATED_STEPS(void)
+void app_read_REG_ACCUMULATED_STEPS(void) {}
+bool app_write_REG_ACCUMULATED_STEPS(void *a)
 {
-	//app_regs.REG_MOTOR0_ACCUMULATED_STEPS = 0;
+	int32_t *reg = ((int32_t*)a);	
 
-}
-
-bool app_write_REG_MOTOR0_ACCUMULATED_STEPS(void *a)
-{
-	int32_t reg = *((int32_t*)a);
-
-	app_regs.REG_MOTOR0_ACCUMULATED_STEPS = reg;
+	app_regs.REG_ACCUMULATED_STEPS[0] = reg[0];
+	app_regs.REG_ACCUMULATED_STEPS[1] = reg[1];
+	app_regs.REG_ACCUMULATED_STEPS[2] = reg[2];
+	app_regs.REG_ACCUMULATED_STEPS[3] = reg[3];
 	return true;
 }
 

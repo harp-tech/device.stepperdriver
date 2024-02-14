@@ -276,7 +276,7 @@ registers:
     address: 80
     type: S16
     length: 3
-    access: Event
+    access: [Event, Write]
     description: Contains the quadrature encoder readings.
     payloadSpec:
       Encoder0:
@@ -322,24 +322,41 @@ registers:
   Motor3Steps:
     <<: *motorsteps
     address: 86
-    description: Moves motor 3 by the number of steps written in this register and set the direction according to the value's signal.
-
-  Motor0AccumulatedSteps: &accumulatedsteps
+    description: Moves motor 3 by the number of steps written in this register and set the direction according to the value's signal.  
+  
+  AccumulatedSteps: &accumulatedsteps
     address: 87
     type: S32
-    access: Write
-    description: Contains the accumulated steps of motor 0.
+    access: [Event, Write]
+    description: Contains the accumulated steps of all motors.
+    payloadSpec:
+      Motor0AccumulatedSteps:
+        offset: 0
+        description: Contains the accumulated steps of motor 0.
+      Motor1AccumulatedSteps:
+        offset: 0
+        description: Contains the accumulated steps of motor 1.
+      Motor2AccumulatedSteps:
+        offset: 0
+        description: Contains the accumulated steps of motor 2.
+      Motor3AccumulatedSteps:
+        offset: 0
+        description: Contains the accumulated steps of motor 3.
+
   Motor1AccumulatedSteps:
-    <<: *accumulatedsteps
     address: 88
+    type: S32
+    access: Write
     description: Contains the accumulated steps of motor 1.
   Motor2AccumulatedSteps:
-    <<: *accumulatedsteps
     address: 89
+    type: S32
+    access: Write
     description: Contains the accumulated steps of motor 2.
   Motor3AccumulatedSteps:
-    <<: *accumulatedsteps
     address: 90
+    type: S32
+    access: Write
     description: Contains the accumulated steps of motor 3.
 
   Motor0MaximumStepsIntegration: &motorsmaxsteps
