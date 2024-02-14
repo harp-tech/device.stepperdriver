@@ -353,7 +353,17 @@ void core_callback_t_before_exec(void)
 		if (read_DRIVE_ENABLE_M3 == false && TCF0_CTRLA == 0) clr_LED_M3;
 	}
 }
-void core_callback_t_after_exec(void) {}
+void core_callback_t_after_exec(void)
+{
+	if (app_regs.REG_ACCUMULATED_STEPS_UPDATE_RATE != GM_AS_DISABLED)
+	{	
+		if ((app_regs.REG_ACCUMULATED_STEPS_UPDATE_RATE == GM_AS_RATE_10HZ  && ((acquisition_counter % 200) == 0)) ||
+			(app_regs.REG_ACCUMULATED_STEPS_UPDATE_RATE == GM_AS_RATE_50HZ  && ((acquisition_counter % 40)  == 0)) ||
+			(app_regs.REG_ACCUMULATED_STEPS_UPDATE_RATE == GM_AS_RATE_100HZ && ((acquisition_counter % 20)  == 0)))
+		{
+			core_func_send_event(ADD_REG_ACCUMULATED_STEPS, true);
+		}
+}
 void core_callback_t_new_second(void)
 {
 	acquisition_counter = 0;

@@ -82,6 +82,8 @@ extern TC0_t* motor_peripherals_timer[];
 /************************************************************************/
 /* Registers                                                            */
 /************************************************************************/
+
+
 void (*app_func_rd_pointer[])(void) = {
 	&app_read_REG_ENABLE_MOTORS,
 	&app_read_REG_DISABLE_MOTORS,
@@ -128,6 +130,7 @@ void (*app_func_rd_pointer[])(void) = {
 	&app_read_REG_INPUT2_SENSE_MODE,
 	&app_read_REG_INPUT3_SENSE_MODE,
 	&app_read_REG_EMERGENCY_DETECTION_MODE,
+	&app_read_REG_ACCUMULATED_STEPS_UPDATE_RATE,
 	&app_read_REG_MOTORS_STOPPED,
 	&app_read_REG_MOTORS_OVERVOLTAGE_DETECTION,
 	&app_read_REG_MOTORS_ERROR_DETECTTION,
@@ -214,6 +217,7 @@ bool (*app_func_wr_pointer[])(void*) = {
 	&app_write_REG_INPUT2_SENSE_MODE,
 	&app_write_REG_INPUT3_SENSE_MODE,
 	&app_write_REG_EMERGENCY_DETECTION_MODE,
+	&app_write_REG_ACCUMULATED_STEPS_UPDATE_RATE,
 	&app_write_REG_MOTORS_STOPPED,
 	&app_write_REG_MOTORS_OVERVOLTAGE_DETECTION,
 	&app_write_REG_MOTORS_ERROR_DETECTTION,
@@ -1198,6 +1202,19 @@ bool app_write_REG_EMERGENCY_DETECTION_MODE(void *a)
 
 
 /************************************************************************/
+/* REG_ACCUMULATED_STEPS_UPDATE_RATE                                    */
+/************************************************************************/
+void app_read_REG_ACCUMULATED_STEPS_UPDATE_RATE(void) {}
+bool app_write_REG_ACCUMULATED_STEPS_UPDATE_RATE(void *a)
+{
+	uint8_t reg = *((uint8_t*)a);
+
+	app_regs.REG_ACCUMULATED_STEPS_UPDATE_RATE = reg;
+	return true;
+}
+
+
+/************************************************************************/
 /* REG_MOTORS_STOPPED                                                   */
 /************************************************************************/
 void app_read_REG_MOTORS_STOPPED(void)
@@ -1408,7 +1425,7 @@ bool app_write_REG_MOTOR3_STEPS(void *a)
 
 
 /************************************************************************/
-/* REG_ACCUMULATED_STEPS                                         */
+/* REG_ACCUMULATED_STEPS                                                */
 /************************************************************************/
 void app_read_REG_ACCUMULATED_STEPS(void) {}
 bool app_write_REG_ACCUMULATED_STEPS(void *a)
