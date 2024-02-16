@@ -206,9 +206,6 @@ uint8_t app_regs_type[] = {
 	TYPE_I32,
 	TYPE_I32,
 	TYPE_I32,
-	TYPE_I32,
-	TYPE_I32,
-	TYPE_I32,
 	TYPE_U8,
 	TYPE_U8,
 	TYPE_U8,
@@ -304,9 +301,6 @@ uint16_t app_regs_n_elements[] = {
 	1,
 	1,
 	1,
-	1,
-	1,
-	1,
 	1
 };
 
@@ -368,9 +362,6 @@ uint8_t *app_regs_pointer[] = {
 	(uint8_t*)(&app_regs.REG_MOTOR2_STEPS),
 	(uint8_t*)(&app_regs.REG_MOTOR3_STEPS),
 	(uint8_t*)(app_regs.REG_ACCUMULATED_STEPS),
-	(uint8_t*)(&app_regs.REG_MOTOR1_ACCUMULATED_STEPS),
-	(uint8_t*)(&app_regs.REG_MOTOR2_ACCUMULATED_STEPS),
-	(uint8_t*)(&app_regs.REG_MOTOR3_ACCUMULATED_STEPS),
 	(uint8_t*)(&app_regs.REG_MOTOR0_MAX_STEPS_INTEGRATION),
 	(uint8_t*)(&app_regs.REG_MOTOR1_MAX_STEPS_INTEGRATION),
 	(uint8_t*)(&app_regs.REG_MOTOR2_MAX_STEPS_INTEGRATION),

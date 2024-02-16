@@ -363,6 +363,7 @@ void core_callback_t_after_exec(void)
 		{
 			core_func_send_event(ADD_REG_ACCUMULATED_STEPS, true);
 		}
+	}
 }
 void core_callback_t_new_second(void)
 {

@@ -427,9 +427,6 @@ typedef struct
 	int32_t REG_MOTOR2_STEPS;
 	int32_t REG_MOTOR3_STEPS;
 	int32_t REG_ACCUMULATED_STEPS[4];
-	int32_t REG_MOTOR1_ACCUMULATED_STEPS;
-	int32_t REG_MOTOR2_ACCUMULATED_STEPS;
-	int32_t REG_MOTOR3_ACCUMULATED_STEPS;
 	int32_t REG_MOTOR0_MAX_STEPS_INTEGRATION;
 	int32_t REG_MOTOR1_MAX_STEPS_INTEGRATION;
 	int32_t REG_MOTOR2_MAX_STEPS_INTEGRATION;
@@ -517,33 +514,30 @@ typedef struct
 #define ADD_REG_MOTOR2_STEPS                86 // I32    Moves motor 2 by the number of steps written in this register and set the direction according to the value's signal.
 #define ADD_REG_MOTOR3_STEPS                87 // I32    Moves motor 3 by the number of steps written in this register and set the direction according to the value's signal.
 #define ADD_REG_ACCUMULATED_STEPS           88 // I32    Contains the accumulated steps of al l motors.
-#define ADD_REG_MOTOR1_ACCUMULATED_STEPS    89 // I32    Contains the accumulated steps of motor 1.
-#define ADD_REG_MOTOR2_ACCUMULATED_STEPS    90 // I32    Contains the accumulated steps of motor 2.
-#define ADD_REG_MOTOR3_ACCUMULATED_STEPS    91 // I32    Contains the accumulated steps of motor 3.
-#define ADD_REG_MOTOR0_MAX_STEPS_INTEGRATION 92 // I32    Defines the limit of the accumulated steps for the positive movement of motor 0. The device will not let the motor move further than this value.
-#define ADD_REG_MOTOR1_MAX_STEPS_INTEGRATION 93 // I32    Defines the limit of the accumulated steps for the positive movement of motor 1. The device will not let the motor move further than this value.
-#define ADD_REG_MOTOR2_MAX_STEPS_INTEGRATION 94 // I32    Defines the limit of the accumulated steps for the positive movement of motor 2. The device will not let the motor move further than this value.
-#define ADD_REG_MOTOR3_MAX_STEPS_INTEGRATION 95 // I32    Defines the limit of the accumulated steps for the positive movement of motor 3. The device will not let the motor move further than this value.
-#define ADD_REG_MOTOR0_MIN_STEPS_INTEGRATION 96 // I32    Defines the limit of the accumulated steps for the negative movement of motor 0. The device will not let the motor move further than this value.
-#define ADD_REG_MOTOR1_MIN_STEPS_INTEGRATION 97 // I32    Defines the limit of the accumulated steps for the negative movement of motor 1. The device will not let the motor move further than this value.
-#define ADD_REG_MOTOR2_MIN_STEPS_INTEGRATION 98 // I32    Defines the limit of the accumulated steps for the negative movement of motor 2. The device will not let the motor move further than this value.
-#define ADD_REG_MOTOR3_MIN_STEPS_INTEGRATION 99 // I32    Defines the limit of the accumulated steps for the negative movement of motor 3. The device will not let the motor move further than this value.
-#define ADD_REG_MOTOR0_IMMEDIATE_STEPS     100 // I32    Starts the movement of motor 0 with the step interval defined by this register. The value's signal defines the direction.
-#define ADD_REG_MOTOR1_IMMEDIATE_STEPS     101 // I32    Starts the movement of motor 1 with the step interval defined by this register. The value's signal defines the direction.
-#define ADD_REG_MOTOR2_IMMEDIATE_STEPS     102 // I32    Starts the movement of motor 2 with the step interval defined by this register. The value's signal defines the direction.
-#define ADD_REG_MOTOR3_IMMEDIATE_STEPS     103 // I32    Starts the movement of motor 3 with the step interval defined by this register. The value's signal defines the direction.
-#define ADD_REG_STOP_MOTORS_SUDENTLY       104 // U8     Stops the motors immediately.
-#define ADD_REG_STOP_MOTORS_BY_DECELERATION105 // U8     Decelerate the motors until they stop according to configured intervals.
-#define ADD_REG_RESET_MOTORS_ERROR_DETECTION106 // U8     Disables the current error and enables the driver.
-#define ADD_REG_RESET_ENCODERS             107 // U8     Resets the encoder.
-#define ADD_REG_RESERVED0                  108 // U8     Contains the CFG configuration pins of the TMC2210 driver that controls motor 0.
-#define ADD_REG_RESERVED1                  109 // U8     Contains the CFG configuration pins of the TMC2210 driver that controls motor 1.
-#define ADD_REG_RESERVED2                  110 // U8     Contains the CFG configuration pins of the TMC2210 driver that controls motor 2.
-#define ADD_REG_RESERVED3                  111 // U8     Contains the CFG configuration pins of the TMC2210 driver that controls motor 3.
-#define ADD_REG_RESERVED4                  112 // U8     Contains the raw data of the digital potentiometer that controls current limit of motor 0.
-#define ADD_REG_RESERVED5                  113 // U8     Contains the raw data of the digital potentiometer that controls current limit of motor 1.
-#define ADD_REG_RESERVED6                  114 // U8     Contains the raw data of the digital potentiometer that controls current limit of motor 2.
-#define ADD_REG_RESERVED7                  115 // U8     Contains the raw data of the digital potentiometer that controls current limit of motor 3.
+#define ADD_REG_MOTOR0_MAX_STEPS_INTEGRATION 89 // I32    Defines the limit of the accumulated steps for the positive movement of motor 0. The device will not let the motor move further than this value.
+#define ADD_REG_MOTOR1_MAX_STEPS_INTEGRATION 90 // I32    Defines the limit of the accumulated steps for the positive movement of motor 1. The device will not let the motor move further than this value.
+#define ADD_REG_MOTOR2_MAX_STEPS_INTEGRATION 91 // I32    Defines the limit of the accumulated steps for the positive movement of motor 2. The device will not let the motor move further than this value.
+#define ADD_REG_MOTOR3_MAX_STEPS_INTEGRATION 92 // I32    Defines the limit of the accumulated steps for the positive movement of motor 3. The device will not let the motor move further than this value.
+#define ADD_REG_MOTOR0_MIN_STEPS_INTEGRATION 93 // I32    Defines the limit of the accumulated steps for the negative movement of motor 0. The device will not let the motor move further than this value.
+#define ADD_REG_MOTOR1_MIN_STEPS_INTEGRATION 94 // I32    Defines the limit of the accumulated steps for the negative movement of motor 1. The device will not let the motor move further than this value.
+#define ADD_REG_MOTOR2_MIN_STEPS_INTEGRATION 95 // I32    Defines the limit of the accumulated steps for the negative movement of motor 2. The device will not let the motor move further than this value.
+#define ADD_REG_MOTOR3_MIN_STEPS_INTEGRATION 96 // I32    Defines the limit of the accumulated steps for the negative movement of motor 3. The device will not let the motor move further than this value.
+#define ADD_REG_MOTOR0_IMMEDIATE_STEPS      97 // I32    Starts the movement of motor 0 with the step interval defined by this register. The value's signal defines the direction.
+#define ADD_REG_MOTOR1_IMMEDIATE_STEPS      98 // I32    Starts the movement of motor 1 with the step interval defined by this register. The value's signal defines the direction.
+#define ADD_REG_MOTOR2_IMMEDIATE_STEPS      99 // I32    Starts the movement of motor 2 with the step interval defined by this register. The value's signal defines the direction.
+#define ADD_REG_MOTOR3_IMMEDIATE_STEPS     100 // I32    Starts the movement of motor 3 with the step interval defined by this register. The value's signal defines the direction.
+#define ADD_REG_STOP_MOTORS_SUDENTLY       101 // U8     Stops the motors immediately.
+#define ADD_REG_STOP_MOTORS_BY_DECELERATION102 // U8     Decelerate the motors until they stop according to configured intervals.
+#define ADD_REG_RESET_MOTORS_ERROR_DETECTION103 // U8     Disables the current error and enables the driver.
+#define ADD_REG_RESET_ENCODERS             104 // U8     Resets the encoder.
+#define ADD_REG_RESERVED0                  105 // U8     Contains the CFG configuration pins of the TMC2210 driver that controls motor 0.
+#define ADD_REG_RESERVED1                  106 // U8     Contains the CFG configuration pins of the TMC2210 driver that controls motor 1.
+#define ADD_REG_RESERVED2                  107 // U8     Contains the CFG configuration pins of the TMC2210 driver that controls motor 2.
+#define ADD_REG_RESERVED3                  108 // U8     Contains the CFG configuration pins of the TMC2210 driver that controls motor 3.
+#define ADD_REG_RESERVED4                  109 // U8     Contains the raw data of the digital potentiometer that controls current limit of motor 0.
+#define ADD_REG_RESERVED5                  110 // U8     Contains the raw data of the digital potentiometer that controls current limit of motor 1.
+#define ADD_REG_RESERVED6                  111 // U8     Contains the raw data of the digital potentiometer that controls current limit of motor 2.
+#define ADD_REG_RESERVED7                  112 // U8     Contains the raw data of the digital potentiometer that controls current limit of motor 3.
 
 /************************************************************************/
 /* PWM Generator registers' memory limits                               */
@@ -553,8 +547,8 @@ typedef struct
 /************************************************************************/
 /* Memory limits */
 #define APP_REGS_ADD_MIN                    0x20
-#define APP_REGS_ADD_MAX                    0x73
-#define APP_NBYTES_OF_REG_BANK              185
+#define APP_REGS_ADD_MAX                    0x70
+#define APP_NBYTES_OF_REG_BANK              173
 
 /************************************************************************/
 /* Registers' bits                                                      */
