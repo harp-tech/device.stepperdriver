@@ -3,8 +3,8 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/harp-tech/reflex-generator/main/schema/device.json
 device: StepperDriver
 whoAmI: 1130
-firmwareVersion: "0.2"
-hardwareTargets: "0.2"
+firmwareVersion: "0.3"
+hardwareTargets: "1.0"
 registers:
 
 ##################################
