@@ -352,94 +352,78 @@ registers:
         offset: 3
         description: Contains the accumulated steps of motor 3.
 
-  Motor1AccumulatedSteps:
-    address: 89
-    type: S32
-    access: Write
-    description: Contains the accumulated steps of motor 1.
-  Motor2AccumulatedSteps:
-    address: 90
-    type: S32
-    access: Write
-    description: Contains the accumulated steps of motor 2.
-  Motor3AccumulatedSteps:
-    address: 91
-    type: S32
-    access: Write
-    description: Contains the accumulated steps of motor 3.
-
   Motor0MaximumStepsIntegration: &motorsmaxsteps
-    address: 92
+    address: 89
     type: S32
     access: Write
     description: Specifies the limit of the accumulated steps for the positive movement of motor 0. The device will not let the motor move further than this value. A value equal to 0 disables the feature.
   Motor1MaximumStepsIntegration:
     <<: *motorsmaxsteps
-    address: 93
+    address: 90
     description: Specifies the limit of the accumulated steps for the positive movement of motor 1. The device will not let the motor move further than this value. A value equal to 0 disables the feature.
   Motor2MaximumStepsIntegration:
     <<: *motorsmaxsteps
-    address: 94
+    address: 91
     description: Specifies the limit of the accumulated steps for the positive movement of motor 2. The device will not let the motor move further than this value. A value equal to 0 disables the feature.
   Motor3MaximumStepsIntegration:
     <<: *motorsmaxsteps
-    address: 95
+    address: 92
     description: Specifies the limit of the accumulated steps for the positive movement of motor 3. The device will not let the motor move further than this value. A value equal to 0 disables the feature.
 
   Motor0MinimumStepsIntegration: &motorsminsteps
-    address: 96
+    address: 93
     type: S32
     access: Write
     description: Specifies the limit of the accumulated steps for the negative movement of motor 0. The device will not let the motor move further than this value. A value equal to 0 disables the feature.
   Motor1MinimumStepsIntegration:
     <<: *motorsminsteps
-    address: 97
+    address: 94
     description: Specifies the limit of the accumulated steps for the negative movement of motor 1. The device will not let the motor move further than this value. A value equal to 0 disables the feature.
   Motor2MinimumStepsIntegration:
     <<: *motorsminsteps
-    address: 98
+    address: 95
     description: Specifies the limit of the accumulated steps for the negative movement of motor 2. The device will not let the motor move further than this value. A value equal to 0 disables the feature.
   Motor3MinimumStepsIntegration:
     <<: *motorsminsteps
-    address: 99
+    address: 96
     description: Specifies the limit of the accumulated steps for the negative movement of motor 3. The device will not let the motor move further than this value. A value equal to 0 disables the feature.
   
   Motor0ImmediateSteps: &immediatesteps
-    address: 100
+    address: 97
     type: S32
     access: Write
     description: Starts the movement of motor 0 with the step interval defined by this register. The sign of the value specifies the direction.
   Motor1ImmediateSteps:
     <<: *immediatesteps
-    address: 101
+    address: 98
     description: Starts the movement of motor 1 with the step interval defined by this register. The sign of the value specifies the direction.
   Motor2ImmediateSteps:
     <<: *immediatesteps
-    address: 102
+    address: 99
     description: Starts the movement of motor 2 with the step interval defined by this register. The sign of the value specifies the direction.
   Motor3ImmediateSteps:
     <<: *immediatesteps
-    address: 103
+    address: 100
     description: Starts the movement of motor 3 with the step interval defined by this register. The sign of the value specifies the direction.
 
 ##################################
 # Actions
 ##################################
   StopMotorSuddenly:
-    address: 104
+    address: 101
     type: U8
     access: Write
     maskType: StepperMotors
     description: Stops the motors immediately.
   StopMotorSmoothly:
-    address: 105
+    address: 102
     type: U8
     access: Write
     visibility: private
     maskType: StepperMotors
     description: Decelerate the motors until they stop according to configured intervals (not implemented).
   ResetMotor:
-    address: 106
+    address: 103
     type: U8
     access: Write
     visibility: private
@@ -447,7 +431,7 @@ registers:
     description: Resets the internal motor driver which also clears any eventual error (not implemented).
   
   ResetEncoder:
-    address: 107
+    address: 104
     type: U8
     access: Write
     maskType: QuadratureEncoders
@@ -457,42 +441,42 @@ registers:
 # Reserved
 ##################################
   Reserved0: &reserved
-    address: 108
+    address: 105
     type: U8
     access: Write
     visibility: private
     description: Contains the CFG configuration pins of the TMC2210 driver that controls motor 0.
   Reserved1:
     <<: *reserved
-    address: 109
+    address: 106
     description: Contains the CFG configuration pins of the TMC2210 driver that controls motor 1.
   Reserved2:
     <<: *reserved
-    address: 110
+    address: 107
     description: Contains the CFG configuration pins of the TMC2210 driver that controls motor 2.
   Reserved3:
     <<: *reserved
-    address: 111
+    address: 108
     description: Contains the CFG configuration pins of the TMC2210 driver that controls motor 3.
 
   Reserved4:
     <<: *reserved
-    address: 112
+    address: 109
     visibility: private
     description: Contains the raw data of the digital potentiometer that controls current limit of motor 0.
   Reserved5:
     <<: *reserved
-    address: 113
+    address: 110
     visibility: private
     description: Contains the raw data of the digital potentiometer that controls current limit of motor 1.
   Reserved6:
     <<: *reserved
-    address: 114
+    address: 111
     visibility: private
     description: Contains the raw data of the digital potentiometer that controls current limit of motor 2.
   Reserved7:
     <<: *reserved
-    address: 115
+    address: 112
     visibility: private
     description: Contains the raw data of the digital potentiometer that controls current limit of motor 3.
 
