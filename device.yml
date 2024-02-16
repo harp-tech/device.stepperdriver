@@ -335,6 +335,7 @@ registers:
   AccumulatedSteps: &accumulatedsteps
     address: 88
     type: S32
+    length: 4
     access: [Event, Write]
     description: Contains the accumulated steps of all motors.
     payloadSpec:
@@ -342,13 +343,13 @@ registers:
         offset: 0
         description: Contains the accumulated steps of motor 0.
       Motor1AccumulatedSteps:
-        offset: 0
+        offset: 1
         description: Contains the accumulated steps of motor 1.
       Motor2AccumulatedSteps:
-        offset: 0
+        offset: 2
         description: Contains the accumulated steps of motor 2.
       Motor3AccumulatedSteps:
-        offset: 0
+        offset: 3
         description: Contains the accumulated steps of motor 3.
 
   Motor1AccumulatedSteps:
