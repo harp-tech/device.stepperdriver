@@ -474,15 +474,8 @@ registers:
     access: Write
     maskType: StepperMotors
     description: Stops the motors immediately.
-  StopMotorSmoothly:
-    address: 108
-    type: U8
-    access: Write
-    visibility: private
-    maskType: StepperMotors
-    description: Decelerate the motors until they stop according to configured intervals (not implemented).
   ResetMotor:
-    address: 109
+    address: 108
     type: U8
     access: Write
     visibility: private
@@ -490,7 +483,7 @@ registers:
     description: Resets the internal motor driver which also clears any eventual error (not implemented).
   
   ResetEncoder:
-    address: 110
+    address: 109
     type: U8
     access: Write
     maskType: QuadratureEncoders
@@ -500,42 +493,42 @@ registers:
 # Reserved
 ##################################
   Reserved0: &reserved
-    address: 111
+    address: 110
     type: U8
     access: Write
     visibility: private
     description: Contains the CFG configuration pins of the TMC2210 driver that controls motor 0.
   Reserved1:
     <<: *reserved
-    address: 112
+    address: 111
     description: Contains the CFG configuration pins of the TMC2210 driver that controls motor 1.
   Reserved2:
     <<: *reserved
-    address: 113
+    address: 112
     description: Contains the CFG configuration pins of the TMC2210 driver that controls motor 2.
   Reserved3:
     <<: *reserved
-    address: 114
+    address: 113
     description: Contains the CFG configuration pins of the TMC2210 driver that controls motor 3.
 
   Reserved4:
     <<: *reserved
-    address: 115
+    address: 114
     visibility: private
     description: Contains the raw data of the digital potentiometer that controls current limit of motor 0.
   Reserved5:
     <<: *reserved
-    address: 116
+    address: 115
     visibility: private
     description: Contains the raw data of the digital potentiometer that controls current limit of motor 1.
   Reserved6:
     <<: *reserved
-    address: 117
+    address: 116
     visibility: private
     description: Contains the raw data of the digital potentiometer that controls current limit of motor 2.
   Reserved7:
     <<: *reserved
-    address: 118
+    address: 117
     visibility: private
     description: Contains the raw data of the digital potentiometer that controls current limit of motor 3.
 

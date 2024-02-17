@@ -446,7 +446,6 @@ typedef struct
 	int32_t REG_MOTOR2_IMMEDIATE_STEPS;
 	int32_t REG_MOTOR3_IMMEDIATE_STEPS;
 	uint8_t REG_STOP_MOTORS_SUDENTLY;
-	uint8_t REG_STOP_MOTORS_BY_DECELERATION;
 	uint8_t REG_RESET_MOTORS_ERROR_DETECTION;
 	uint8_t REG_RESET_ENCODERS;
 	uint8_t REG_RESERVED0;
@@ -515,17 +514,17 @@ typedef struct
 #define ADD_REG_ENCODERS                    81 // I16    
 #define ADD_REG_DIGITAL_INPUTS_STATE        82 // U8     
 #define ADD_REG_EMERGENCY_DETECTION         83 // U8     
-#define ADD_REG_MOTORS_STEPS                84 // I32    Moves all motors by the number of steps written in this register array and set the direction according to the value's signal.
+#define ADD_REG_MOTORS_STEPS                84 // I32    Moves all motors by the number of steps written in this array register and set the direction according to the value's signal.
 #define ADD_REG_MOTOR0_STEPS                85 // I32    Moves motor 0 by the number of steps written in this register and set the direction according to the value's signal.
 #define ADD_REG_MOTOR1_STEPS                86 // I32    Moves motor 1 by the number of steps written in this register and set the direction according to the value's signal.
 #define ADD_REG_MOTOR2_STEPS                87 // I32    Moves motor 2 by the number of steps written in this register and set the direction according to the value's signal.
 #define ADD_REG_MOTOR3_STEPS                88 // I32    Moves motor 3 by the number of steps written in this register and set the direction according to the value's signal.
-#define ADD_REG_MOTORS_ABSOLUTE_STEPS       89 // I32    Moves all motors to the absolute position written in this arry register.
+#define ADD_REG_MOTORS_ABSOLUTE_STEPS       89 // I32    Moves all motors to the absolute position written in this array register.
 #define ADD_REG_MOTOR0_ABSOLUTE_STEPS       90 // I32    Moves motor 0 to the absolute position written in this register.
 #define ADD_REG_MOTOR1_ABSOLUTE_STEPS       91 // I32    Moves motor 1 to the absolute position written in this register.
 #define ADD_REG_MOTOR2_ABSOLUTE_STEPS       92 // I32    Moves motor 2 to the absolute position written in this register.
 #define ADD_REG_MOTOR3_ABSOLUTE_STEPS       93 // I32    Moves motor 3 to the absolute position written in this register.
-#define ADD_REG_ACCUMULATED_STEPS           94 // I32    Contains the accumulated steps of al l motors.
+#define ADD_REG_ACCUMULATED_STEPS           94 // I32    Contains the accumulated steps of all motors.
 #define ADD_REG_MOTOR0_MAX_STEPS_INTEGRATION 95 // I32    Defines the limit of the accumulated steps for the positive movement of motor 0. The device will not let the motor move further than this value.
 #define ADD_REG_MOTOR1_MAX_STEPS_INTEGRATION 96 // I32    Defines the limit of the accumulated steps for the positive movement of motor 1. The device will not let the motor move further than this value.
 #define ADD_REG_MOTOR2_MAX_STEPS_INTEGRATION 97 // I32    Defines the limit of the accumulated steps for the positive movement of motor 2. The device will not let the motor move further than this value.
@@ -539,17 +538,16 @@ typedef struct
 #define ADD_REG_MOTOR2_IMMEDIATE_STEPS     105 // I32    Starts the movement of motor 2 with the step interval defined by this register. The value's signal defines the direction.
 #define ADD_REG_MOTOR3_IMMEDIATE_STEPS     106 // I32    Starts the movement of motor 3 with the step interval defined by this register. The value's signal defines the direction.
 #define ADD_REG_STOP_MOTORS_SUDENTLY       107 // U8     Stops the motors immediately.
-#define ADD_REG_STOP_MOTORS_BY_DECELERATION108 // U8     Decelerate the motors until they stop according to configured intervals.
-#define ADD_REG_RESET_MOTORS_ERROR_DETECTION109 // U8     Disables the current error and enables the driver.
-#define ADD_REG_RESET_ENCODERS             110 // U8     Resets the encoder.
-#define ADD_REG_RESERVED0                  111 // U8     Contains the CFG configuration pins of the TMC2210 driver that controls motor 0.
-#define ADD_REG_RESERVED1                  112 // U8     Contains the CFG configuration pins of the TMC2210 driver that controls motor 1.
-#define ADD_REG_RESERVED2                  113 // U8     Contains the CFG configuration pins of the TMC2210 driver that controls motor 2.
-#define ADD_REG_RESERVED3                  114 // U8     Contains the CFG configuration pins of the TMC2210 driver that controls motor 3.
-#define ADD_REG_RESERVED4                  115 // U8     Contains the raw data of the digital potentiometer that controls current limit of motor 0.
-#define ADD_REG_RESERVED5                  116 // U8     Contains the raw data of the digital potentiometer that controls current limit of motor 1.
-#define ADD_REG_RESERVED6                  117 // U8     Contains the raw data of the digital potentiometer that controls current limit of motor 2.
-#define ADD_REG_RESERVED7                  118 // U8     Contains the raw data of the digital potentiometer that controls current limit of motor 3.
+#define ADD_REG_RESET_MOTORS_ERROR_DETECTION108 // U8     Disables the current error and enables the driver.
+#define ADD_REG_RESET_ENCODERS             109 // U8     Resets the encoder.
+#define ADD_REG_RESERVED0                  110 // U8     Contains the CFG configuration pins of the TMC2210 driver that controls motor 0.
+#define ADD_REG_RESERVED1                  111 // U8     Contains the CFG configuration pins of the TMC2210 driver that controls motor 1.
+#define ADD_REG_RESERVED2                  112 // U8     Contains the CFG configuration pins of the TMC2210 driver that controls motor 2.
+#define ADD_REG_RESERVED3                  113 // U8     Contains the CFG configuration pins of the TMC2210 driver that controls motor 3.
+#define ADD_REG_RESERVED4                  114 // U8     Contains the raw data of the digital potentiometer that controls current limit of motor 0.
+#define ADD_REG_RESERVED5                  115 // U8     Contains the raw data of the digital potentiometer that controls current limit of motor 1.
+#define ADD_REG_RESERVED6                  116 // U8     Contains the raw data of the digital potentiometer that controls current limit of motor 2.
+#define ADD_REG_RESERVED7                  117 // U8     Contains the raw data of the digital potentiometer that controls current limit of motor 3.
 
 /************************************************************************/
 /* PWM Generator registers' memory limits                               */
@@ -559,8 +557,8 @@ typedef struct
 /************************************************************************/
 /* Memory limits */
 #define APP_REGS_ADD_MIN                    0x20
-#define APP_REGS_ADD_MAX                    0x76
-#define APP_NBYTES_OF_REG_BANK              221
+#define APP_REGS_ADD_MAX                    0x75
+#define APP_NBYTES_OF_REG_BANK              220
 
 /************************************************************************/
 /* Registers' bits                                                      */
