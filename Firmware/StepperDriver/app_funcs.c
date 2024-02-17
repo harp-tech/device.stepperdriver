@@ -1347,9 +1347,9 @@ bool app_write_REG_MOTORS_STEPS(void *a)
 	if ((reg[3] != 0) && (is_timer_ready(3) == false)) return false;
 	
 	if (reg[0] != 0) app_write_REG_MOTOR0_STEPS(reg+0);
-	if (reg[1] != 0) app_write_REG_MOTOR0_STEPS(reg+1);
-	if (reg[2] != 0) app_write_REG_MOTOR0_STEPS(reg+2);
-	if (reg[3] != 0) app_write_REG_MOTOR0_STEPS(reg+3);	
+	if (reg[1] != 0) app_write_REG_MOTOR1_STEPS(reg+1);
+	if (reg[2] != 0) app_write_REG_MOTOR2_STEPS(reg+2);
+	if (reg[3] != 0) app_write_REG_MOTOR3_STEPS(reg+3);	
 
 	app_regs.REG_MOTORS_STEPS[0] = reg[0];
 	app_regs.REG_MOTORS_STEPS[1] = reg[1];
@@ -1485,9 +1485,9 @@ bool app_write_REG_MOTORS_ABSOLUTE_STEPS(void *a)
 	if ((reg[3] != app_regs.REG_ACCUMULATED_STEPS[3]) && read_DRIVE_ENABLE_M3) return false;
 	
 	if (reg[0] != app_regs.REG_ACCUMULATED_STEPS[0]) app_write_REG_MOTOR0_ABSOLUTE_STEPS(reg+0);
-	if (reg[1] != app_regs.REG_ACCUMULATED_STEPS[1]) app_write_REG_MOTOR0_ABSOLUTE_STEPS(reg+1);
-	if (reg[2] != app_regs.REG_ACCUMULATED_STEPS[2]) app_write_REG_MOTOR0_ABSOLUTE_STEPS(reg+2);
-	if (reg[3] != app_regs.REG_ACCUMULATED_STEPS[3]) app_write_REG_MOTOR0_ABSOLUTE_STEPS(reg+3);
+	if (reg[1] != app_regs.REG_ACCUMULATED_STEPS[1]) app_write_REG_MOTOR1_ABSOLUTE_STEPS(reg+1);
+	if (reg[2] != app_regs.REG_ACCUMULATED_STEPS[2]) app_write_REG_MOTOR2_ABSOLUTE_STEPS(reg+2);
+	if (reg[3] != app_regs.REG_ACCUMULATED_STEPS[3]) app_write_REG_MOTOR3_ABSOLUTE_STEPS(reg+3);
 
 	app_regs.REG_MOTORS_ABSOLUTE_STEPS[0] = reg[0];
 	app_regs.REG_MOTORS_ABSOLUTE_STEPS[1] = reg[1];
