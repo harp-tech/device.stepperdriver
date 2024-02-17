@@ -137,10 +137,16 @@ void (*app_func_rd_pointer[])(void) = {
 	&app_read_REG_ENCODERS,
 	&app_read_REG_DIGITAL_INPUTS_STATE,
 	&app_read_REG_EMERGENCY_DETECTION,
+	&app_read_REG_MOTORS_STEPS,
 	&app_read_REG_MOTOR0_STEPS,
 	&app_read_REG_MOTOR1_STEPS,
 	&app_read_REG_MOTOR2_STEPS,
 	&app_read_REG_MOTOR3_STEPS,
+	&app_read_REG_MOTORS_ABSOLUTE_STEPS,
+	&app_read_REG_MOTOR0_ABSOLUTE_STEPS,
+	&app_read_REG_MOTOR1_ABSOLUTE_STEPS,
+	&app_read_REG_MOTOR2_ABSOLUTE_STEPS,
+	&app_read_REG_MOTOR3_ABSOLUTE_STEPS,	
 	&app_read_REG_ACCUMULATED_STEPS,
 	&app_read_REG_MOTOR0_MAX_STEPS_INTEGRATION,
 	&app_read_REG_MOTOR1_MAX_STEPS_INTEGRATION,
@@ -221,10 +227,16 @@ bool (*app_func_wr_pointer[])(void*) = {
 	&app_write_REG_ENCODERS,
 	&app_write_REG_DIGITAL_INPUTS_STATE,
 	&app_write_REG_EMERGENCY_DETECTION,
+	&app_write_REG_MOTORS_STEPS,
 	&app_write_REG_MOTOR0_STEPS,
 	&app_write_REG_MOTOR1_STEPS,
 	&app_write_REG_MOTOR2_STEPS,
 	&app_write_REG_MOTOR3_STEPS,
+	&app_write_REG_MOTORS_ABSOLUTE_STEPS,
+	&app_write_REG_MOTOR0_ABSOLUTE_STEPS,
+	&app_write_REG_MOTOR1_ABSOLUTE_STEPS,
+	&app_write_REG_MOTOR2_ABSOLUTE_STEPS,
+	&app_write_REG_MOTOR3_ABSOLUTE_STEPS,
 	&app_write_REG_ACCUMULATED_STEPS,
 	&app_write_REG_MOTOR0_MAX_STEPS_INTEGRATION,
 	&app_write_REG_MOTOR1_MAX_STEPS_INTEGRATION,
@@ -1319,6 +1331,22 @@ bool app_write_REG_EMERGENCY_DETECTION(void *a)
 
 
 /************************************************************************/
+/* REG_MOTORS_STEPS                                                     */
+/************************************************************************/
+void app_read_REG_MOTORS_STEPS(void) {}
+bool app_write_REG_MOTORS_STEPS(void *a)
+{	
+	int32_t *reg = ((int32_t*)a);
+
+	app_regs.REG_MOTORS_STEPS[0] = reg[0];
+	app_regs.REG_MOTORS_STEPS[1] = reg[1];
+	app_regs.REG_MOTORS_STEPS[2] = reg[2];
+	app_regs.REG_MOTORS_STEPS[3] = reg[3];
+	return true;
+}
+
+
+/************************************************************************/
 /* REG_MOTOR0_STEPS                                                     */
 /************************************************************************/
 void app_read_REG_MOTOR0_STEPS(void) {}
@@ -1414,6 +1442,75 @@ bool app_write_REG_MOTOR3_STEPS(void *a)
 	user_requested_steps[3] += reg;
 
 	app_regs.REG_MOTOR3_STEPS = reg;
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_MOTORS_ABSOLUTE_STEPS                                            */
+/************************************************************************/
+void app_read_REG_MOTORS_ABSOLUTE_STEPS(void) {}
+bool app_write_REG_MOTORS_ABSOLUTE_STEPS(void *a)
+{
+	int32_t *reg = ((int32_t*)a);
+
+	app_regs.REG_MOTORS_ABSOLUTE_STEPS[0] = reg[0];
+	app_regs.REG_MOTORS_ABSOLUTE_STEPS[1] = reg[1];
+	app_regs.REG_MOTORS_ABSOLUTE_STEPS[2] = reg[2];
+	app_regs.REG_MOTORS_ABSOLUTE_STEPS[3] = reg[3];
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_MOTOR0_ABSOLUTE_STEPS                                            */
+/************************************************************************/
+void app_read_REG_MOTOR0_ABSOLUTE_STEPS(void) {}
+bool app_write_REG_MOTOR0_ABSOLUTE_STEPS(void *a)
+{
+	int32_t reg = *((int32_t*)a);
+
+	app_regs.REG_MOTOR0_ABSOLUTE_STEPS = reg;
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_MOTOR1_ABSOLUTE_STEPS                                            */
+/************************************************************************/
+void app_read_REG_MOTOR1_ABSOLUTE_STEPS(void) {}
+bool app_write_REG_MOTOR1_ABSOLUTE_STEPS(void *a)
+{
+	int32_t reg = *((int32_t*)a);
+
+	app_regs.REG_MOTOR1_ABSOLUTE_STEPS = reg;
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_MOTOR2_ABSOLUTE_STEPS                                            */
+/************************************************************************/
+void app_read_REG_MOTOR2_ABSOLUTE_STEPS(void) {}
+bool app_write_REG_MOTOR2_ABSOLUTE_STEPS(void *a)
+{
+	int32_t reg = *((int32_t*)a);
+
+	app_regs.REG_MOTOR2_ABSOLUTE_STEPS = reg;
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_MOTOR3_ABSOLUTE_STEPS                                            */
+/************************************************************************/
+void app_read_REG_MOTOR3_ABSOLUTE_STEPS(void) {}
+bool app_write_REG_MOTOR3_ABSOLUTE_STEPS(void *a)
+{
+	int32_t reg = *((int32_t*)a);
+
+
+	app_regs.REG_MOTOR3_ABSOLUTE_STEPS = reg;
 	return true;
 }
 
