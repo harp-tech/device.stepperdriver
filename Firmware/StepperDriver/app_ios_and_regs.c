@@ -222,7 +222,6 @@ uint8_t app_regs_type[] = {
 	TYPE_U8,
 	TYPE_U8,
 	TYPE_U8,
-	TYPE_U8,
 	TYPE_U8
 };
 
@@ -290,7 +289,6 @@ uint16_t app_regs_n_elements[] = {
 	1,
 	1,
 	4,
-	1,
 	1,
 	1,
 	1,
@@ -393,7 +391,6 @@ uint8_t *app_regs_pointer[] = {
 	(uint8_t*)(&app_regs.REG_MOTOR2_IMMEDIATE_STEPS),
 	(uint8_t*)(&app_regs.REG_MOTOR3_IMMEDIATE_STEPS),
 	(uint8_t*)(&app_regs.REG_STOP_MOTORS_SUDENTLY),
-	(uint8_t*)(&app_regs.REG_STOP_MOTORS_BY_DECELERATION),
 	(uint8_t*)(&app_regs.REG_RESET_MOTORS_ERROR_DETECTION),
 	(uint8_t*)(&app_regs.REG_RESET_ENCODERS),
 	(uint8_t*)(&app_regs.REG_RESERVED0),

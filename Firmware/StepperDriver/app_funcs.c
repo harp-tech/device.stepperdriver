@@ -161,7 +161,6 @@ void (*app_func_rd_pointer[])(void) = {
 	&app_read_REG_MOTOR2_IMMEDIATE_STEPS,
 	&app_read_REG_MOTOR3_IMMEDIATE_STEPS,
 	&app_read_REG_STOP_MOTORS_SUDENTLY,
-	&app_read_REG_STOP_MOTORS_BY_DECELERATION,
 	&app_read_REG_RESET_MOTORS_ERROR_DETECTION,
 	&app_read_REG_RESET_ENCODERS,
 	&app_read_REG_RESERVED0,
@@ -251,7 +250,6 @@ bool (*app_func_wr_pointer[])(void*) = {
 	&app_write_REG_MOTOR2_IMMEDIATE_STEPS,
 	&app_write_REG_MOTOR3_IMMEDIATE_STEPS,
 	&app_write_REG_STOP_MOTORS_SUDENTLY,
-	&app_write_REG_STOP_MOTORS_BY_DECELERATION,
 	&app_write_REG_RESET_MOTORS_ERROR_DETECTION,
 	&app_write_REG_RESET_ENCODERS,
 	&app_write_REG_RESERVED0,
@@ -2001,26 +1999,6 @@ bool app_write_REG_STOP_MOTORS_SUDENTLY(void *a)
 	if (reg & B_MOTOR3) stop_rotation (3);
 
 	app_regs.REG_STOP_MOTORS_SUDENTLY = reg;
-	return true;
-}
-
-
-/************************************************************************/
-/* REG_STOP_MOTORS_BY_DECELERATION                                      */
-/************************************************************************/
-void app_read_REG_STOP_MOTORS_BY_DECELERATION(void) {}
-bool app_write_REG_STOP_MOTORS_BY_DECELERATION(void *a)
-{
-	uint8_t reg = *((uint8_t*)a);
-	
-	/* This register is not implemented yet             */
-	/* It will stop as it was the STOP_MOTORS_SUDDENTLY */	
-	if (B_MOTOR0) reduce_until_stop_rotation (0);
-	if (B_MOTOR1) reduce_until_stop_rotation (1);
-	if (B_MOTOR2) reduce_until_stop_rotation (2);
-	if (B_MOTOR3) reduce_until_stop_rotation (3);
-
-	app_regs.REG_STOP_MOTORS_BY_DECELERATION = reg;
 	return true;
 }
 
