@@ -137,10 +137,16 @@ void (*app_func_rd_pointer[])(void) = {
 	&app_read_REG_ENCODERS,
 	&app_read_REG_DIGITAL_INPUTS_STATE,
 	&app_read_REG_EMERGENCY_DETECTION,
+	&app_read_REG_MOTORS_STEPS,
 	&app_read_REG_MOTOR0_STEPS,
 	&app_read_REG_MOTOR1_STEPS,
 	&app_read_REG_MOTOR2_STEPS,
 	&app_read_REG_MOTOR3_STEPS,
+	&app_read_REG_MOTORS_ABSOLUTE_STEPS,
+	&app_read_REG_MOTOR0_ABSOLUTE_STEPS,
+	&app_read_REG_MOTOR1_ABSOLUTE_STEPS,
+	&app_read_REG_MOTOR2_ABSOLUTE_STEPS,
+	&app_read_REG_MOTOR3_ABSOLUTE_STEPS,	
 	&app_read_REG_ACCUMULATED_STEPS,
 	&app_read_REG_MOTOR0_MAX_STEPS_INTEGRATION,
 	&app_read_REG_MOTOR1_MAX_STEPS_INTEGRATION,
@@ -221,10 +227,16 @@ bool (*app_func_wr_pointer[])(void*) = {
 	&app_write_REG_ENCODERS,
 	&app_write_REG_DIGITAL_INPUTS_STATE,
 	&app_write_REG_EMERGENCY_DETECTION,
+	&app_write_REG_MOTORS_STEPS,
 	&app_write_REG_MOTOR0_STEPS,
 	&app_write_REG_MOTOR1_STEPS,
 	&app_write_REG_MOTOR2_STEPS,
 	&app_write_REG_MOTOR3_STEPS,
+	&app_write_REG_MOTORS_ABSOLUTE_STEPS,
+	&app_write_REG_MOTOR0_ABSOLUTE_STEPS,
+	&app_write_REG_MOTOR1_ABSOLUTE_STEPS,
+	&app_write_REG_MOTOR2_ABSOLUTE_STEPS,
+	&app_write_REG_MOTOR3_ABSOLUTE_STEPS,
 	&app_write_REG_ACCUMULATED_STEPS,
 	&app_write_REG_MOTOR0_MAX_STEPS_INTEGRATION,
 	&app_write_REG_MOTOR1_MAX_STEPS_INTEGRATION,
@@ -1319,6 +1331,37 @@ bool app_write_REG_EMERGENCY_DETECTION(void *a)
 
 
 /************************************************************************/
+/* REG_MOTORS_STEPS                                                     */
+/************************************************************************/
+void app_read_REG_MOTORS_STEPS(void) {}
+bool app_write_REG_MOTORS_STEPS(void *a)
+{	
+	int32_t *reg = ((int32_t*)a);
+	
+	if ((reg[0] != 0) && read_DRIVE_ENABLE_M0) return false;
+	if ((reg[1] != 0) && read_DRIVE_ENABLE_M1) return false;
+	if ((reg[2] != 0) && read_DRIVE_ENABLE_M2) return false;
+	if ((reg[3] != 0) && read_DRIVE_ENABLE_M3) return false;
+	
+	if ((reg[0] != 0) && (is_timer_ready(0) == false)) return false;
+	if ((reg[1] != 0) && (is_timer_ready(1) == false)) return false;
+	if ((reg[2] != 0) && (is_timer_ready(2) == false)) return false;
+	if ((reg[3] != 0) && (is_timer_ready(3) == false)) return false;
+	
+	if (reg[0] != 0) app_write_REG_MOTOR0_STEPS(reg+0);
+	if (reg[1] != 0) app_write_REG_MOTOR0_STEPS(reg+1);
+	if (reg[2] != 0) app_write_REG_MOTOR0_STEPS(reg+2);
+	if (reg[3] != 0) app_write_REG_MOTOR0_STEPS(reg+3);	
+
+	app_regs.REG_MOTORS_STEPS[0] = reg[0];
+	app_regs.REG_MOTORS_STEPS[1] = reg[1];
+	app_regs.REG_MOTORS_STEPS[2] = reg[2];
+	app_regs.REG_MOTORS_STEPS[3] = reg[3];
+	return true;
+}
+
+
+/************************************************************************/
 /* REG_MOTOR0_STEPS                                                     */
 /************************************************************************/
 void app_read_REG_MOTOR0_STEPS(void) {}
@@ -1326,14 +1369,17 @@ bool app_write_REG_MOTOR0_STEPS(void *a)
 {
 	int32_t reg = *((int32_t*)a);
 
-	if (read_DRIVE_ENABLE_M0)
+	if (reg != 0)
 	{
-		return false;
-	}
+		if (read_DRIVE_ENABLE_M0)
+		{
+			return false;
+		}
 	
-	if (is_timer_ready(0) == false)
-	{
-		return false;
+		if (is_timer_ready(0) == false)
+		{
+			return false;
+		}
 	}
 	
 	user_requested_steps[0] += reg;
@@ -1351,14 +1397,17 @@ bool app_write_REG_MOTOR1_STEPS(void *a)
 {
 	int32_t reg = *((int32_t*)a);
 
-	if (read_DRIVE_ENABLE_M1)
+	if (reg != 0)
 	{
-		return false;
-	}
+		if (read_DRIVE_ENABLE_M1)
+		{
+			return false;
+		}
 	
-	if (is_timer_ready(1) == false)
-	{
-		return false;
+		if (is_timer_ready(1) == false)
+		{
+			return false;
+		}
 	}
 	
 	user_requested_steps[1] += reg;
@@ -1376,14 +1425,17 @@ bool app_write_REG_MOTOR2_STEPS(void *a)
 {
 	int32_t reg = *((int32_t*)a);
 
-	if (read_DRIVE_ENABLE_M2)
+	if (reg != 0)
 	{
-		return false;
-	}	
-	
-	if (is_timer_ready(2) == false)
-	{
-		return false;
+		if (read_DRIVE_ENABLE_M2)
+		{
+			return false;
+		}
+		
+		if (is_timer_ready(2) == false)
+		{
+			return false;
+		}
 	}
 	
 	user_requested_steps[2] += reg;
@@ -1401,19 +1453,152 @@ bool app_write_REG_MOTOR3_STEPS(void *a)
 {
 	int32_t reg = *((int32_t*)a);
 
-	if (read_DRIVE_ENABLE_M3)
+	if (reg != 0)
 	{
-		return false;
-	}	
-	
-	if (is_timer_ready(3) == false)
-	{
-		return false;
+		if (read_DRIVE_ENABLE_M3)
+		{
+			return false;
+		}
+		
+		if (is_timer_ready(3) == false)
+		{
+			return false;
+		}
 	}
 	
 	user_requested_steps[3] += reg;
 
 	app_regs.REG_MOTOR3_STEPS = reg;
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_MOTORS_ABSOLUTE_STEPS                                            */
+/************************************************************************/
+void app_read_REG_MOTORS_ABSOLUTE_STEPS(void) {}
+bool app_write_REG_MOTORS_ABSOLUTE_STEPS(void *a)
+{
+	int32_t *reg = ((int32_t*)a);
+	
+	if ((reg[0] != app_regs.REG_ACCUMULATED_STEPS[0]) && read_DRIVE_ENABLE_M0) return false;
+	if ((reg[1] != app_regs.REG_ACCUMULATED_STEPS[1]) && read_DRIVE_ENABLE_M1) return false;
+	if ((reg[2] != app_regs.REG_ACCUMULATED_STEPS[2]) && read_DRIVE_ENABLE_M2) return false;
+	if ((reg[3] != app_regs.REG_ACCUMULATED_STEPS[3]) && read_DRIVE_ENABLE_M3) return false;
+	
+	if (reg[0] != app_regs.REG_ACCUMULATED_STEPS[0]) app_write_REG_MOTOR0_ABSOLUTE_STEPS(reg+0);
+	if (reg[1] != app_regs.REG_ACCUMULATED_STEPS[1]) app_write_REG_MOTOR0_ABSOLUTE_STEPS(reg+1);
+	if (reg[2] != app_regs.REG_ACCUMULATED_STEPS[2]) app_write_REG_MOTOR0_ABSOLUTE_STEPS(reg+2);
+	if (reg[3] != app_regs.REG_ACCUMULATED_STEPS[3]) app_write_REG_MOTOR0_ABSOLUTE_STEPS(reg+3);
+
+	app_regs.REG_MOTORS_ABSOLUTE_STEPS[0] = reg[0];
+	app_regs.REG_MOTORS_ABSOLUTE_STEPS[1] = reg[1];
+	app_regs.REG_MOTORS_ABSOLUTE_STEPS[2] = reg[2];
+	app_regs.REG_MOTORS_ABSOLUTE_STEPS[3] = reg[3];
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_MOTOR0_ABSOLUTE_STEPS                                            */
+/************************************************************************/
+void app_read_REG_MOTOR0_ABSOLUTE_STEPS(void) {}
+bool app_write_REG_MOTOR0_ABSOLUTE_STEPS(void *a)
+{
+	int32_t reg = *((int32_t*)a);
+	
+	/* Only executes the commands if the motor is stopped */
+	if_moving_stop_rotation(0);
+
+	if (reg != app_regs.REG_ACCUMULATED_STEPS[0])
+	{
+		if (read_DRIVE_ENABLE_M0)
+		{
+			return false;
+		}
+	}	
+	
+	user_requested_steps[0] += reg - app_regs.REG_ACCUMULATED_STEPS[0];
+
+	app_regs.REG_MOTOR0_ABSOLUTE_STEPS = reg;
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_MOTOR1_ABSOLUTE_STEPS                                            */
+/************************************************************************/
+void app_read_REG_MOTOR1_ABSOLUTE_STEPS(void) {}
+bool app_write_REG_MOTOR1_ABSOLUTE_STEPS(void *a)
+{
+	int32_t reg = *((int32_t*)a);
+	
+	/* Only executes the commands if the motor is stopped */
+	if_moving_stop_rotation(1);
+
+	if (reg != app_regs.REG_ACCUMULATED_STEPS[1])
+	{
+		if (read_DRIVE_ENABLE_M1)
+		{
+			return false;
+		}
+	}
+	
+	user_requested_steps[1] += reg - app_regs.REG_ACCUMULATED_STEPS[1];
+
+	app_regs.REG_MOTOR1_ABSOLUTE_STEPS = reg;
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_MOTOR2_ABSOLUTE_STEPS                                            */
+/************************************************************************/
+void app_read_REG_MOTOR2_ABSOLUTE_STEPS(void) {}
+bool app_write_REG_MOTOR2_ABSOLUTE_STEPS(void *a)
+{
+	int32_t reg = *((int32_t*)a);
+	
+	/* Only executes the commands if the motor is stopped */
+	if_moving_stop_rotation(2);
+
+	if (reg != app_regs.REG_ACCUMULATED_STEPS[2])
+	{
+		if (read_DRIVE_ENABLE_M2)
+		{
+			return false;
+		}
+	}
+	
+	user_requested_steps[2] += reg - app_regs.REG_ACCUMULATED_STEPS[2];
+
+	app_regs.REG_MOTOR2_ABSOLUTE_STEPS = reg;
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_MOTOR3_ABSOLUTE_STEPS                                            */
+/************************************************************************/
+void app_read_REG_MOTOR3_ABSOLUTE_STEPS(void) {}
+bool app_write_REG_MOTOR3_ABSOLUTE_STEPS(void *a)
+{
+	int32_t reg = *((int32_t*)a);
+	
+	/* Only executes the commands if the motor is stopped */
+	if_moving_stop_rotation(3);
+
+	if (reg != app_regs.REG_ACCUMULATED_STEPS[3])
+	{
+		if (read_DRIVE_ENABLE_M3)
+		{
+			return false;
+		}
+	}
+	
+	user_requested_steps[3] += reg - app_regs.REG_ACCUMULATED_STEPS[3];
+
+	app_regs.REG_MOTOR3_ABSOLUTE_STEPS = reg;
 	return true;
 }
 
