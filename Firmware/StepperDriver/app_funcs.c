@@ -5,7 +5,7 @@
 #include "i2c.h"
 #include "stepper_control.h"
 
-#define PERIOD_LIMIT 100
+#define PERIOD_LIMIT 10
 
 /************************************************************************/
 /* Create pointers to functions                                         */
