@@ -8,7 +8,6 @@ hardwareTargets: "1.0"
 registers:
 
 
-## reference https://software.zaber.com/motion-library/api/cs/ascii/axis
 ##################################
 # Enable and disable
 ##################################
