@@ -7,21 +7,23 @@ firmwareVersion: "0.3"
 hardwareTargets: "1.0"
 registers:
 
+
+## reference https://software.zaber.com/motion-library/api/cs/ascii/axis
 ##################################
 # Enable and disable
 ##################################
-  EnableMotors:
+  EnableDriver:
     address: 32
     type: U8
     access: Write
     maskType: StepperMotors
-    description: Specifies a set of motors to enable in the device.
-  DisableMotors:
+    description: Enables the driver for a specific motor. If the driver is already enabled, the driver remains enabled.
+  DisableDriver:
     address: 33
     type: U8
     access: Write
     maskType: StepperMotors
-    description: Specifies a set of motors to disable in the device.
+    description: Disables the driver for a specific stepper motor, which prevents current from being sent to the motor or load. If the driver is already disabled, the driver remains disabled.
   EnableEncoders:
     address: 34
     type: U8
@@ -34,13 +36,13 @@ registers:
     access: Write
     maskType: QuadratureEncoders
     description: Specifies a set of port quadrature counters to disable in the device.
-  EnableInputs:  
+  EnableDigitalInputs:
     address: 36
     type: U8
     access: Write
     maskType: DigitalInputs
     description: Specifies a set of digital inputs to enable in the device.
-  DisableInputs:
+  DisableDigitalInputs:
     address: 37
     type: U8
     access: Write
@@ -68,7 +70,6 @@ registers:
     <<: *opmode
     address: 41
     description: Configures the operation mode for motor 3.
-
   Motor0MicrostepResolution: &microstep_resolution
     address: 42
     type: U8
@@ -88,26 +89,26 @@ registers:
     address: 45
     description: Configures the microstep resolution for motor 3.
 
-  Motor0MaximumCurrentRms: &maxcurrent
+  Motor0MaximumRunCurrent: &maxcurrent
     address: 46
     minValue: 0.139
     maxValue: 2.1
     defaultValue: 0.2
     type: Float
     access: Write
-    description: Configures the maximum RMS current per phase for motor 0.
-  Motor1MaximumCurrentRms:
+    description: Configures the maximum run RMS current per phase for motor 0.
+  Motor1MaximumRunCurrent:
     <<: *maxcurrent
     address: 47
-    description: Configures the maximum RMS current per phase for motor 1.
-  Motor2MaximumCurrentRms:
+    description: Configures the maximum run RMS current per phase for motor 1.
+  Motor2MaximumRunCurrent:
     <<: *maxcurrent
     address: 48
-    description: Configures the maximum RMS current per phase for motor 2.
-  Motor3MaximumCurrentRms:
+    description: Configures the maximum run RMS current per phase for motor 2.
+  Motor3MaximumRunCurrent:
     <<: *maxcurrent
     address: 49
-    description: Configures the maximum RMS current per phase for motor 3.
+    description: Configures the maximum run RMS current per phase for motor 3.
   
   Motor0HoldCurrentReduction: &currentreduction
     address: 50
@@ -128,26 +129,26 @@ registers:
     address: 53
     description: Configures the hold current reduction for motor 3.
 
-  Motor0NominalStepInterval: &nominalinterval
+  Motor0StepInterval: &nominalinterval
     address: 54
     minValue: 100
     maxValue: 20000
     defaultValue: 250
     type: U16
     access: Write
-    description: Configures the time between step motor pulses when running at nominal speed for motor 0.
-  Motor1NominalStepInterval:
+    description: Configures the time between step motor pulses (us) when running at nominal speed for motor 0.
+  Motor1StepInterval:
     <<: *nominalinterval
     address: 55
-    description: Configures the time between step motor pulses when running at nominal speed for motor 1.
-  Motor2NominalStepInterval:
+    description: Configures the time between step motor pulses (us) when running at nominal speed for motor 1.
+  Motor2StepInterval:
     <<: *nominalinterval
     address: 56
-    description: Configures the time between step motor pulses when running at nominal speed for motor 2.
-  Motor3NominalStepInterval:
+    description: Configures the time between step motor pulses (us) when running at nominal speed for motor 2.
+  Motor3StepInterval:
     <<: *nominalinterval
     address: 57
-    description: Configures the time between step motor pulses when running at nominal speed for motor 3.
+    description: Configures the time between step motor pulses (us) when running at nominal speed for motor 3.
 
   Motor0MaximumStepInterval: &maxinterval
     address: 58
@@ -156,19 +157,19 @@ registers:
     defaultValue: 2000
     type: U16
     access: Write
-    description: Configures the time between step motor pulses used when starting or stopping a movement for motor 0.
+    description: Configures the time between step motor pulses (us) used when starting or stopping a movement for motor 0.
   Motor1MaximumStepInterval:
     <<: *maxinterval
     address: 59
-    description: Configures the time between step motor pulses used when starting or stopping a movement for motor 1.
+    description: Configures the time between step motor pulses (us) used when starting or stopping a movement for motor 1.
   Motor2MaximumStepInterval:
     <<: *maxinterval
     address: 60
-    description: Configures the time between step motor pulses used when starting or stopping a movement for motor 2.
+    description: Configures the time between step motor pulses (us) used when starting or stopping a movement for motor 2.
   Motor3MaximumStepInterval:
     <<: *maxinterval
     address: 61
-    description: Configures the time between step motor pulses used when starting or stopping a movement for motor 3.
+    description: Configures the time between step motor pulses (us) used when starting or stopping a movement for motor 3.
 
   Motor0StepAccelerationInterval: &accperiod
     address: 62
@@ -196,65 +197,65 @@ registers:
     type: U8
     access: Write
     maskType: EncoderModeConfig
-    description: Configures the operation mode of the quadrature encoders.
-  EncoderRate:
+    description: Configures the operation mode of the quadrature QuadratureEncoders.
+  EncoderSamplingRate:
     address: 67
     type: U8
     access: Write
-    maskType: EncoderRateConfig
-    description: Configures the reading rate of the encoders' event.
-  
-  Input0OperationMode: &input_mode
+    maskType: EncoderSamplingRateConfig
+    description: Configures the reading rate of the QuadratureEncoders' event.
+
+  Input0OpMode: &input_mode
     address: 68
     type: U8
     access: Write
-    maskType: InputOperationMode
+    maskType: InputOpModeConfig
     description: Configures the operation mode for digital input 0.
-  Input1OperationMode:
+  Input1OpMode:
     <<: *input_mode
     address: 69
     description: Configures the operation mode for digital input 1.
-  Input2OperationMode:
+  Input2OpMode:
     <<: *input_mode
     address: 70
     description: Configures the operation mode for digital input 2.
-  Input3OperationMode:
+  Input3OpMode:
     <<: *input_mode
     address: 71
     description: Configures the operation mode for digital input 3.
 
-  Input0TriggerMode: &trig_mode
+  Input0Trigger: &trig_mode
     address: 72
     type: U8
     access: Write
-    maskType: TriggerMode
-    description: Configures the sense mode for digital input 0.
-  Input1TriggerMode:
+    maskType: TriggerConfig
+    description: Configures the trigger mode for digital input 0.
+  Input1Trigger:
     <<: *trig_mode
     address: 73
-    description: Configures the sense mode for digital input 1.
-  Input2TriggerMode:
+    description: Configures the trigger mode for digital input 1.
+  Input2Trigger:
     <<: *trig_mode
     address: 74
-    description: Configures the sense mode for digital input 2.
-  Input3TriggerMode:
+    description: Configures the trigger mode for digital input 2.
+  Input3Trigger:
     <<: *trig_mode
     address: 75
-    description: Configures the sense mode for digital input 3.
+    description: Configures the trigger mode for digital input 3.
 
-  DeviceEnableMode:
+  InterlockEnabled:
     address: 76
     type: U8
     access: Write
-    maskType: EnableMode
-    description: Configures the external connector state required to the device.
-  
-  AccumulatedStepsRate:
+    maskType: InterlockEnabledConfig
+    description: Configures the external interlock connector state required for the device to be enabled.
+
+  AccumulatedStepsSamplingRate:
     address: 77
     type: U8
     access: Write
-    maskType: AccumulatedStepsRateConfig
-    description: Configures the reading rate of the accumulated steps event.
+    maskType: AccumulatedStepsSamplingRateConfig
+    description: Configures the dispatch rate of the accumulated steps event.
   
 
 ##################################
@@ -265,20 +266,19 @@ registers:
     type: U8
     access: Event
     maskType: StepperMotors
-    description: Contains a bit mask specifying the motor that stopped the movement.
-  MotorOvervoltageDetection:
+    description: Emitted when any of the motor state changes. Contains a bit mask specifying the motor that stopped the movement.
+  MotorOverVoltageDetection:
     address: 79
     type: U8
     access: Event
-    visibility: private
     maskType: StepperMotors
-    description: Contains a bit mask specifying the motor where the overvoltage detection and protection mechanism occurred, which can happen when the there's a quick deceleration from a high velocity or when the motor stalls (not implemented).
-  MotorErrorDetection:
+    description: Contains a bit mask specifying the motor where the over voltage detection and protection mechanism occurred, which can happen when the there's a quick deceleration from a high velocity or when the motor stalls (not implemented).
+  MotorRaisedError:
     address: 80
     type: U8
     access: Event
     maskType: StepperMotors
-    description: Contains a bit mask specifying the motor that triggered the error which can be happen in case of short-circuit or driver temperature above 165 degress celsius.
+    description: Contains a bit mask specifying the motor that triggered the error which can be happen in case of short-circuit or driver temperature above 165 degrees celsius.
 
   Encoders:
     address: 81
@@ -315,78 +315,78 @@ registers:
 # Movement control
 ##################################
 
-  MotorsSteps:
+  MoveRelative:
     address: 84
     type: S32
     length: 4
     access: Write
-    description: Moves all motors by the number of steps written in this array register and set the direction according to the value's signal.
+    description: Moves all motors by the number of steps written in this array register and set the direction according to the value's signal. If a motor is disable, the user should set the value to 0.
     payloadSpec:
-      Motor0Steps:
+      Motor0:
         offset: 0
         description: Contains the number of steps used to move motor 0.
-      Motor1Steps:
+      Motor1:
         offset: 1
         description: Contains the number of steps used to move motor 1.
-      Motor2Steps:
+      Motor2:
         offset: 2
         description: Contains the number of steps used to move motor 2.
-      Motor3Steps:
+      Motor3:
         offset: 3
         description: Contains the number of steps used to move motor 3.
 
-  Motor0Steps: &motorsteps
+  Motor0MoveRelative: &motorsteps
     address: 85
     type: S32
     access: Write
     description: Moves motor 0 by the number of steps written in this register and set the direction according to the value's signal.    
-  Motor1Steps:
+  Motor1MoveRelative:
     <<: *motorsteps
     address: 86
     description: Moves motor 1 by the number of steps written in this register and set the direction according to the value's signal.
-  Motor2Steps:
+  Motor2MoveRelative:
     <<: *motorsteps
     address: 87
     description: Moves motor 2 by the number of steps written in this register and set the direction according to the value's signal.
-  Motor3Steps:
+  Motor3MoveRelative:
     <<: *motorsteps
     address: 88
-    description: Moves motor 3 by the number of steps written in this register and set the direction according to the value's signal.  
+    description: Moves motor 3 by the number of steps written in this register and set the direction according to the value's signal.
 
-  MotorsAbsoluteSteps:
+  MoveAbsolute:
     address: 89
     type: S32
     length: 4
     access: Write
-    description: Moves all motors to the absolute position written in this array register.
+    description: Moves all motors to the absolute position written in this array register. If a motor is disable, the user should set the value to 0.
     payloadSpec:
-      Motor0Steps:
+      Motor0:
         offset: 0
-        description: Contains the abolute position to move motor 0.
-      Motor1Steps:
+        description: Contains the absolute position to move motor 0.
+      Motor1:
         offset: 1
-        description: Contains the abolute position to move motor 1.
-      Motor2Steps:
+        description: Contains the absolute position to move motor 1.
+      Motor2:
         offset: 2
-        description: Contains the abolute position to move motor 2.
-      Motor3Steps:
+        description: Contains the absolute position to move motor 2.
+      Motor3:
         offset: 3
-        description: Contains the abolute position to move motor 3.
+        description: Contains the absolute position to move motor 3.
 
-  Motor0AbsoluteSteps: &motorabsolutesteps
+  Motor0MoveAbsolute: &motorabsolutesteps
     address: 90
     type: S32
     access: Write
     description: Moves motor 0 to the absolute position written in this register.
-  Motor1AbsoluteSteps:
+  Motor1MoveAbsolute:
     <<: *motorabsolutesteps
     address: 91
     description: Moves motor 1 to the absolute position written in this register.
-  Motor2AbsoluteSteps:
+  Motor2MoveAbsolute:
     <<: *motorabsolutesteps
     address: 92
     description: Moves motor 2 to the absolute position written in this register.
-  Motor3AbsoluteSteps:
+  Motor3MoveAbsolute:
     <<: *motorabsolutesteps
     address: 93
     description: Moves motor 3 to the absolute position written in this register.
@@ -398,97 +398,97 @@ registers:
     access: [Event, Write]
     description: Contains the accumulated steps of all motors.
     payloadSpec:
-      Motor0AccumulatedSteps:
+      Motor0:
         offset: 0
         description: Contains the accumulated steps of motor 0.
-      Motor1AccumulatedSteps:
+      Motor1:
         offset: 1
         description: Contains the accumulated steps of motor 1.
-      Motor2AccumulatedSteps:
+      Motor2:
         offset: 2
         description: Contains the accumulated steps of motor 2.
-      Motor3AccumulatedSteps:
+      Motor3:
         offset: 3
         description: Contains the accumulated steps of motor 3.
 
-  Motor0MaximumStepsIntegration: &motorsmaxsteps
+  Motor0MaxPosition: &motorsmaxsteps
     address: 95
     type: S32
     access: Write
     description: Specifies the limit of the accumulated steps for the positive movement of motor 0. The device will not let the motor move further than this value. A value equal to 0 disables the feature.
-  Motor1MaximumStepsIntegration:
+  Motor1MaxPosition:
     <<: *motorsmaxsteps
     address: 96
     description: Specifies the limit of the accumulated steps for the positive movement of motor 1. The device will not let the motor move further than this value. A value equal to 0 disables the feature.
-  Motor2MaximumStepsIntegration:
+  Motor2MaxPosition:
     <<: *motorsmaxsteps
     address: 97
     description: Specifies the limit of the accumulated steps for the positive movement of motor 2. The device will not let the motor move further than this value. A value equal to 0 disables the feature.
-  Motor3MaximumStepsIntegration:
+  Motor3MaxPosition:
     <<: *motorsmaxsteps
     address: 98
     description: Specifies the limit of the accumulated steps for the positive movement of motor 3. The device will not let the motor move further than this value. A value equal to 0 disables the feature.
 
-  Motor0MinimumStepsIntegration: &motorsminsteps
+  Motor0MinPosition: &motorsminsteps
     address: 99
     type: S32
     access: Write
     description: Specifies the limit of the accumulated steps for the negative movement of motor 0. The device will not let the motor move further than this value. A value equal to 0 disables the feature.
-  Motor1MinimumStepsIntegration:
+  Motor1MinPosition:
     <<: *motorsminsteps
     address: 100
     description: Specifies the limit of the accumulated steps for the negative movement of motor 1. The device will not let the motor move further than this value. A value equal to 0 disables the feature.
-  Motor2MinimumStepsIntegration:
+  Motor2MinPosition:
     <<: *motorsminsteps
     address: 101
     description: Specifies the limit of the accumulated steps for the negative movement of motor 2. The device will not let the motor move further than this value. A value equal to 0 disables the feature.
-  Motor3MinimumStepsIntegration:
+  Motor3MinPosition:
     <<: *motorsminsteps
     address: 102
     description: Specifies the limit of the accumulated steps for the negative movement of motor 3. The device will not let the motor move further than this value. A value equal to 0 disables the feature.
-  
-  Motor0ImmediateSteps: &immediatesteps
+
+  Motor0StepRelative: &immediatesteps
     address: 103
     type: S32
     access: Write
-    description: Starts the movement of motor 0 with the step interval defined by this register. The sign of the value specifies the direction.
-  Motor1ImmediateSteps:
+    description: Starts the movement of motor 0 with the step interval defined by this register, disregarding the acceleration protocol. The sign of the value specifies the direction.
+  Motor1StepRelative:
     <<: *immediatesteps
     address: 104
-    description: Starts the movement of motor 1 with the step interval defined by this register. The sign of the value specifies the direction.
-  Motor2ImmediateSteps:
+    description: Starts the movement of motor 1 with the step interval defined by this register, disregarding the acceleration protocol. The sign of the value specifies the direction.
+  Motor2StepRelative:
     <<: *immediatesteps
     address: 105
-    description: Starts the movement of motor 2 with the step interval defined by this register. The sign of the value specifies the direction.
-  Motor3ImmediateSteps:
+    description: Starts the movement of motor 2 with the step interval defined by this register, disregarding the acceleration protocol. The sign of the value specifies the direction.
+  Motor3StepRelative:
     <<: *immediatesteps
     address: 106
-    description: Starts the movement of motor 3 with the step interval defined by this register. The sign of the value specifies the direction.
+    description: Starts the movement of motor 3 with the step interval defined by this register, disregarding the acceleration protocol. The sign of the value specifies the direction.
 
 ##################################
 # Actions
 ##################################
-  StopMotorSuddenly:
+  StopMotors:
     address: 107
     type: U8
     access: Write
     maskType: StepperMotors
-    description: Stops the motors immediately.
-  ResetMotor:
+    description: Stops the motors selected in the bit-mask immediately.
+  ResetMotors:
     address: 108
     type: U8
     access: Write
     visibility: private
     maskType: StepperMotors
     description: Resets the internal motor driver which also clears any eventual error (not implemented).
-  
-  ResetEncoder:
+
+  ResetEncoders:
     address: 109
     type: U8
     access: Write
     maskType: QuadratureEncoders
     description: Resets the encoder.
-  
+
 ##################################
 # Reserved
 ##################################
@@ -562,12 +562,12 @@ bitMasks:
 ##################################
 groupMasks:
   EncoderModeConfig:
-    description: Specifies the type of reading made from the quadrature encoders.
+    description: Specifies the type of reading made from the quadrature QuadratureEncoders.
     values:
       Position: 0
       Displacement: 1
-  EncoderRateConfig:
-    description: Specifies the rate of the events from the quadrature encoders.
+  EncoderSamplingRateConfig:
+    description: Specifies the rate of the events from the quadrature QuadratureEncoders.
     values:
       Rate100Hz: 0
       Rate200Hz: 1
@@ -592,7 +592,7 @@ groupMasks:
       ReductionTo25Percent: 1
       ReductionTo12Percent: 2
       NoReduction: 3
-  InputOperationMode:
+  InputOpModeConfig:
     description: Specifies the inputs operation mode.
     values:
       EventOnly: 0
@@ -600,17 +600,17 @@ groupMasks:
       EventAndStopMotor1: 2
       EventAndStopMotor2: 3
       EventAndStopMotor3: 4
-  TriggerMode:
-    description: Specifies the input trigger mode.
+  TriggerConfig:
+    description: Specifies the input trigger configuration.
     values:
       FallingEdge: 0
       RisingEdge: 1
-  EnableMode:
+  InterlockEnabledConfig:
     description: Specifies the external connector state that enables the device.
     values:
       Closed: 0
       Open: 1
-  AccumulatedStepsRateConfig:
+  AccumulatedStepsSamplingRateConfig:
     description: Specifies the rate of the accumulated steps events.
     values:
       Disabled: 0
