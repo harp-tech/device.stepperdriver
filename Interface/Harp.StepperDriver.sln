@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{56F7CCAF-E148-451C-A5F3-729D8EC7ECAD}") = "Harp.StepperDriver", "Harp.StepperDriver\Harp.StepperDriver.csproj", "{3DA83C09-7ADF-4F1E-90E8-8EA8A01FC671}"
+Project("{196B6E78-0F82-485D-A2E2-FF9ADD606C28}") = "Harp.StepperDriver", "Harp.StepperDriver\Harp.StepperDriver.csproj", "{A96F1C4E-4C27-43A3-BFDD-DCD2920BFE86}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3DA83C09-7ADF-4F1E-90E8-8EA8A01FC671}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3DA83C09-7ADF-4F1E-90E8-8EA8A01FC671}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3DA83C09-7ADF-4F1E-90E8-8EA8A01FC671}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3DA83C09-7ADF-4F1E-90E8-8EA8A01FC671}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A96F1C4E-4C27-43A3-BFDD-DCD2920BFE86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A96F1C4E-4C27-43A3-BFDD-DCD2920BFE86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A96F1C4E-4C27-43A3-BFDD-DCD2920BFE86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A96F1C4E-4C27-43A3-BFDD-DCD2920BFE86}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {BBE37261-7BBB-4F3F-86C4-10220529CB5F}
+		SolutionGuid = {A389958A-701D-4980-BCAE-97E8628500B7}
 	EndGlobalSection
 EndGlobal
