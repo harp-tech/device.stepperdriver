@@ -148,14 +148,17 @@ void (*app_func_rd_pointer[])(void) = {
 	&app_read_REG_MOTOR2_ABSOLUTE_STEPS,
 	&app_read_REG_MOTOR3_ABSOLUTE_STEPS,	
 	&app_read_REG_ACCUMULATED_STEPS,
+	&app_read_REG_MOTORS_MAX_STEPS_INTEGRATION,
 	&app_read_REG_MOTOR0_MAX_STEPS_INTEGRATION,
 	&app_read_REG_MOTOR1_MAX_STEPS_INTEGRATION,
 	&app_read_REG_MOTOR2_MAX_STEPS_INTEGRATION,
 	&app_read_REG_MOTOR3_MAX_STEPS_INTEGRATION,
+	&app_read_REG_MOTORS_MIN_STEPS_INTEGRATION,
 	&app_read_REG_MOTOR0_MIN_STEPS_INTEGRATION,
 	&app_read_REG_MOTOR1_MIN_STEPS_INTEGRATION,
 	&app_read_REG_MOTOR2_MIN_STEPS_INTEGRATION,
 	&app_read_REG_MOTOR3_MIN_STEPS_INTEGRATION,
+	&app_read_REG_MOTORS_IMMEDIATE_STEPS,
 	&app_read_REG_MOTOR0_IMMEDIATE_STEPS,
 	&app_read_REG_MOTOR1_IMMEDIATE_STEPS,
 	&app_read_REG_MOTOR2_IMMEDIATE_STEPS,
@@ -237,14 +240,17 @@ bool (*app_func_wr_pointer[])(void*) = {
 	&app_write_REG_MOTOR2_ABSOLUTE_STEPS,
 	&app_write_REG_MOTOR3_ABSOLUTE_STEPS,
 	&app_write_REG_ACCUMULATED_STEPS,
+	&app_write_REG_MOTORS_MAX_STEPS_INTEGRATION,
 	&app_write_REG_MOTOR0_MAX_STEPS_INTEGRATION,
 	&app_write_REG_MOTOR1_MAX_STEPS_INTEGRATION,
 	&app_write_REG_MOTOR2_MAX_STEPS_INTEGRATION,
 	&app_write_REG_MOTOR3_MAX_STEPS_INTEGRATION,
+	&app_write_REG_MOTORS_MIN_STEPS_INTEGRATION,
 	&app_write_REG_MOTOR0_MIN_STEPS_INTEGRATION,
 	&app_write_REG_MOTOR1_MIN_STEPS_INTEGRATION,
 	&app_write_REG_MOTOR2_MIN_STEPS_INTEGRATION,
 	&app_write_REG_MOTOR3_MIN_STEPS_INTEGRATION,
+	&app_write_REG_MOTORS_IMMEDIATE_STEPS,
 	&app_write_REG_MOTOR0_IMMEDIATE_STEPS,
 	&app_write_REG_MOTOR1_IMMEDIATE_STEPS,
 	&app_write_REG_MOTOR2_IMMEDIATE_STEPS,
@@ -1618,6 +1624,27 @@ bool app_write_REG_ACCUMULATED_STEPS(void *a)
 
 
 /************************************************************************/
+/* REG_MOTORS_MAX_STEPS_INTEGRATION                                     */
+/************************************************************************/
+void app_read_REG_MOTORS_MAX_STEPS_INTEGRATION(void) {}
+bool app_write_REG_MOTORS_MAX_STEPS_INTEGRATION(void *a)
+{
+	int32_t *reg = ((int32_t*)a);
+
+	app_regs.REG_MOTOR0_MAX_STEPS_INTEGRATION = reg[0];
+	app_regs.REG_MOTOR1_MAX_STEPS_INTEGRATION = reg[1];
+	app_regs.REG_MOTOR2_MAX_STEPS_INTEGRATION = reg[2];
+	app_regs.REG_MOTOR3_MAX_STEPS_INTEGRATION = reg[3];
+
+	app_regs.REG_MOTORS_MAX_STEPS_INTEGRATION[0] = reg[0];
+	app_regs.REG_MOTORS_MAX_STEPS_INTEGRATION[1] = reg[1];
+	app_regs.REG_MOTORS_MAX_STEPS_INTEGRATION[2] = reg[2];
+	app_regs.REG_MOTORS_MAX_STEPS_INTEGRATION[3] = reg[3];
+	return true;
+}
+
+
+/************************************************************************/
 /* REG_MOTOR0_MAX_STEPS_INTEGRATION                                     */
 /************************************************************************/
 void app_read_REG_MOTOR0_MAX_STEPS_INTEGRATION(void) {}
@@ -1678,6 +1705,27 @@ bool app_write_REG_MOTOR3_MAX_STEPS_INTEGRATION(void *a)
 
 
 /************************************************************************/
+/* REG_MOTORS_MIN_STEPS_INTEGRATION                                     */
+/************************************************************************/
+void app_read_REG_MOTORS_MIN_STEPS_INTEGRATION(void) {}
+bool app_write_REG_MOTORS_MIN_STEPS_INTEGRATION(void *a)
+{
+	int32_t *reg = ((int32_t*)a);
+	
+	app_regs.REG_MOTOR0_MIN_STEPS_INTEGRATION = reg[0];
+	app_regs.REG_MOTOR1_MIN_STEPS_INTEGRATION = reg[1];
+	app_regs.REG_MOTOR2_MIN_STEPS_INTEGRATION = reg[2];
+	app_regs.REG_MOTOR3_MIN_STEPS_INTEGRATION = reg[3];
+
+	app_regs.REG_MOTORS_MIN_STEPS_INTEGRATION[0] = reg[0];
+	app_regs.REG_MOTORS_MIN_STEPS_INTEGRATION[1] = reg[1];
+	app_regs.REG_MOTORS_MIN_STEPS_INTEGRATION[2] = reg[2];
+	app_regs.REG_MOTORS_MIN_STEPS_INTEGRATION[3] = reg[3];
+	return true;
+}
+
+
+/************************************************************************/
 /* REG_MOTOR0_MIN_STEPS_INTEGRATION                                     */
 /************************************************************************/
 void app_read_REG_MOTOR0_MIN_STEPS_INTEGRATION(void) {}
@@ -1733,6 +1781,27 @@ bool app_write_REG_MOTOR3_MIN_STEPS_INTEGRATION(void *a)
 	if (reg > 0) return false;
 
 	app_regs.REG_MOTOR3_MIN_STEPS_INTEGRATION = reg;
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_MOTORS_IMMEDIATE_STEPS                                           */
+/************************************************************************/
+void app_read_REG_MOTORS_IMMEDIATE_STEPS(void) {}
+bool app_write_REG_MOTORS_IMMEDIATE_STEPS(void *a)
+{
+	int32_t *reg = ((int32_t*)a);
+	
+	if (reg[0]) app_write_REG_MOTOR0_IMMEDIATE_STEPS(reg+0);
+	if (reg[1]) app_write_REG_MOTOR1_IMMEDIATE_STEPS(reg+1);
+	if (reg[2]) app_write_REG_MOTOR2_IMMEDIATE_STEPS(reg+2);
+	if (reg[3]) app_write_REG_MOTOR3_IMMEDIATE_STEPS(reg+3);
+
+	app_regs.REG_MOTORS_IMMEDIATE_STEPS[0] = reg[0];
+	app_regs.REG_MOTORS_IMMEDIATE_STEPS[1] = reg[1];
+	app_regs.REG_MOTORS_IMMEDIATE_STEPS[2] = reg[2];
+	app_regs.REG_MOTORS_IMMEDIATE_STEPS[3] = reg[3];
 	return true;
 }
 
