@@ -1782,10 +1782,10 @@ bool app_write_REG_MOTORS_IMMEDIATE_STEPS(void *a)
 	if (reg[2]) if (read_DRIVE_ENABLE_M2) return false;
 	if (reg[3]) if (read_DRIVE_ENABLE_M3) return false;
 	
-	if (reg[0]) app_write_REG_MOTOR0_IMMEDIATE_STEPS(reg+0);
-	if (reg[1]) app_write_REG_MOTOR1_IMMEDIATE_STEPS(reg+1);
-	if (reg[2]) app_write_REG_MOTOR2_IMMEDIATE_STEPS(reg+2);
-	if (reg[3]) app_write_REG_MOTOR3_IMMEDIATE_STEPS(reg+3);
+	app_write_REG_MOTOR0_IMMEDIATE_STEPS(reg+0);
+	app_write_REG_MOTOR1_IMMEDIATE_STEPS(reg+1);
+	app_write_REG_MOTOR2_IMMEDIATE_STEPS(reg+2);
+	app_write_REG_MOTOR3_IMMEDIATE_STEPS(reg+3);
 
 	app_regs.REG_MOTORS_IMMEDIATE_STEPS[0] = reg[0];
 	app_regs.REG_MOTORS_IMMEDIATE_STEPS[1] = reg[1];
