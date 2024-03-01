@@ -1651,8 +1651,6 @@ void app_read_REG_MOTOR0_MAX_STEPS_INTEGRATION(void) {}
 bool app_write_REG_MOTOR0_MAX_STEPS_INTEGRATION(void *a)
 {
 	int32_t reg = *((int32_t*)a);
-	
-	if (reg < 0) return false;
 
 	app_regs.REG_MOTOR0_MAX_STEPS_INTEGRATION = reg;
 	return true;
@@ -1666,8 +1664,6 @@ void app_read_REG_MOTOR1_MAX_STEPS_INTEGRATION(void) {}
 bool app_write_REG_MOTOR1_MAX_STEPS_INTEGRATION(void *a)
 {
 	int32_t reg = *((int32_t*)a);
-	
-	if (reg < 0) return false;
 
 	app_regs.REG_MOTOR1_MAX_STEPS_INTEGRATION = reg;
 	return true;
@@ -1681,8 +1677,6 @@ void app_read_REG_MOTOR2_MAX_STEPS_INTEGRATION(void) {}
 bool app_write_REG_MOTOR2_MAX_STEPS_INTEGRATION(void *a)
 {
 	int32_t reg = *((int32_t*)a);
-	
-	if (reg < 0) return false;
 
 	app_regs.REG_MOTOR2_MAX_STEPS_INTEGRATION = reg;
 	return true;
@@ -1696,8 +1690,6 @@ void app_read_REG_MOTOR3_MAX_STEPS_INTEGRATION(void) {}
 bool app_write_REG_MOTOR3_MAX_STEPS_INTEGRATION(void *a)
 {
 	int32_t reg = *((int32_t*)a);
-	
-	if (reg < 0) return false;
 
 	app_regs.REG_MOTOR3_MAX_STEPS_INTEGRATION = reg;
 	return true;
@@ -1732,8 +1724,6 @@ void app_read_REG_MOTOR0_MIN_STEPS_INTEGRATION(void) {}
 bool app_write_REG_MOTOR0_MIN_STEPS_INTEGRATION(void *a)
 {
 	int32_t reg = *((int32_t*)a);
-	
-	if (reg > 0) return false;
 
 	app_regs.REG_MOTOR0_MIN_STEPS_INTEGRATION = reg;
 	return true;
@@ -1747,8 +1737,6 @@ void app_read_REG_MOTOR1_MIN_STEPS_INTEGRATION(void) {}
 bool app_write_REG_MOTOR1_MIN_STEPS_INTEGRATION(void *a)
 {
 	int32_t reg = *((int32_t*)a);
-	
-	if (reg > 0) return false;
 
 	app_regs.REG_MOTOR1_MIN_STEPS_INTEGRATION = reg;
 	return true;
@@ -1762,8 +1750,6 @@ void app_read_REG_MOTOR2_MIN_STEPS_INTEGRATION(void) {}
 bool app_write_REG_MOTOR2_MIN_STEPS_INTEGRATION(void *a)
 {
 	int32_t reg = *((int32_t*)a);
-	
-	if (reg > 0) return false;
 
 	app_regs.REG_MOTOR2_MIN_STEPS_INTEGRATION = reg;
 	return true;
@@ -1777,8 +1763,6 @@ void app_read_REG_MOTOR3_MIN_STEPS_INTEGRATION(void) {}
 bool app_write_REG_MOTOR3_MIN_STEPS_INTEGRATION(void *a)
 {
 	int32_t reg = *((int32_t*)a);
-	
-	if (reg > 0) return false;
 
 	app_regs.REG_MOTOR3_MIN_STEPS_INTEGRATION = reg;
 	return true;
@@ -1792,6 +1776,11 @@ void app_read_REG_MOTORS_IMMEDIATE_STEPS(void) {}
 bool app_write_REG_MOTORS_IMMEDIATE_STEPS(void *a)
 {
 	int32_t *reg = ((int32_t*)a);
+	
+	if (reg[0]) if (read_DRIVE_ENABLE_M0) return false;
+	if (reg[1]) if (read_DRIVE_ENABLE_M1) return false;
+	if (reg[2]) if (read_DRIVE_ENABLE_M2) return false;
+	if (reg[3]) if (read_DRIVE_ENABLE_M3) return false;
 	
 	if (reg[0]) app_write_REG_MOTOR0_IMMEDIATE_STEPS(reg+0);
 	if (reg[1]) app_write_REG_MOTOR1_IMMEDIATE_STEPS(reg+1);
@@ -1814,8 +1803,7 @@ bool app_write_REG_MOTOR0_IMMEDIATE_STEPS(void *a)
 {
 	int32_t reg = *((int32_t*)a);
 	
-	if (read_DRIVE_ENABLE_M0)
-		return false;
+	if (reg) if (read_DRIVE_ENABLE_M0) return false;
 	
 	if (reg > -PERIOD_LIMIT && reg < PERIOD_LIMIT)
 	{
@@ -1876,8 +1864,7 @@ bool app_write_REG_MOTOR1_IMMEDIATE_STEPS(void *a)
 {
 	int32_t reg = *((int32_t*)a);
 	
-	if (read_DRIVE_ENABLE_M1)
-		return false;
+	if (reg) if (read_DRIVE_ENABLE_M1) return false;
 	
 	if (reg > -PERIOD_LIMIT && reg < PERIOD_LIMIT)
 	{
@@ -1938,8 +1925,7 @@ bool app_write_REG_MOTOR2_IMMEDIATE_STEPS(void *a)
 {
 	int32_t reg = *((int32_t*)a);
 	
-	if (read_DRIVE_ENABLE_M2)
-		return false;
+	if (reg) if (read_DRIVE_ENABLE_M2) return false;
 	
 	if (reg > -PERIOD_LIMIT && reg < PERIOD_LIMIT)
 	{
@@ -2000,8 +1986,7 @@ bool app_write_REG_MOTOR3_IMMEDIATE_STEPS(void *a)
 {
 	int32_t reg = *((int32_t*)a);
 	
-	if (read_DRIVE_ENABLE_M3)
-		return false;
+	if (reg) if (read_DRIVE_ENABLE_M3) return false;
 	
 	if (reg > -PERIOD_LIMIT && reg < PERIOD_LIMIT)
 	{
