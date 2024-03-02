@@ -57,8 +57,7 @@ void stop_motor_and_send_events (uint8_t operation_mode, uint8_t input_bit_maks)
 	
 	if (motor_stopped_mask)	
 	{
-		app_regs.REG_MOTORS_STOPPED = motor_stopped_mask;
-		core_func_send_event(ADD_REG_MOTORS_STOPPED, true);
+		send_motors_stopped_event(motor_stopped_mask);
 	}
 }
 

@@ -198,6 +198,21 @@ bool is_timer_ready (uint8_t motor_index)
 	return (motor_peripherals_timer[motor_index]->INTCTRLB == 0) ? false : true;
 }
 
+void send_motors_stopped_event (uint8_t motor_stop_bit_mask)
+{
+	/* Note: This function doesn't turn the motor off, it should be done before calling this function */
+	
+	app_regs.REG_MOTORS_STOPPED = (motor_stop_bit_mask << 4);
+	
+	if (motor_peripherals_timer[0]->CTRLA == 0) app_regs.REG_MOTORS_STOPPED |= B_MOTOR0;
+	if (motor_peripherals_timer[1]->CTRLA == 0) app_regs.REG_MOTORS_STOPPED |= B_MOTOR1;
+	if (motor_peripherals_timer[2]->CTRLA == 0) app_regs.REG_MOTORS_STOPPED |= B_MOTOR2;
+	if (motor_peripherals_timer[3]->CTRLA == 0) app_regs.REG_MOTORS_STOPPED |= B_MOTOR3;
+	
+	core_func_send_event(ADD_REG_MOTORS_STOPPED, true);
+};
+
+
 /************************************************************************/
 /* Update motion                                                        */
 /************************************************************************/
