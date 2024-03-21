@@ -42,13 +42,13 @@ void stop_motor_and_send_events (uint8_t operation_mode, uint8_t input_bit_maks)
 			motor_stopped_mask = (if_moving_stop_rotation(0)) ? B_MOTOR0 : 0;
 			break;
 		case GM_EVENT_AND_STOP_MOTOR1:
-			motor_stopped_mask = (if_moving_stop_rotation(1)) ? B_MOTOR1 : 1;
+			motor_stopped_mask = (if_moving_stop_rotation(1)) ? B_MOTOR1 : 0;
 			break;
 		case GM_EVENT_AND_STOP_MOTOR2:
-			motor_stopped_mask = (if_moving_stop_rotation(2)) ? B_MOTOR2 : 2;
+			motor_stopped_mask = (if_moving_stop_rotation(2)) ? B_MOTOR2 : 0;
 			break;
 		case GM_EVENT_AND_STOP_MOTOR3:
-			motor_stopped_mask = (if_moving_stop_rotation(3)) ? B_MOTOR3 : 3;
+			motor_stopped_mask = (if_moving_stop_rotation(3)) ? B_MOTOR3 : 0;
 			break;
 	}
 	
