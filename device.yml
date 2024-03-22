@@ -245,7 +245,7 @@ registers:
     address: 74
     type: U8
     access: Event
-    maskType: StepperMotors
+    maskType: StoppedStepperMotors
     description: Emitted when any of the motor state changes. Contains a bit mask specifying the motor that stopped the movement.
   MotorOverVoltageDetection:
     address: 75
@@ -281,7 +281,7 @@ registers:
     address: 78
     access: Event
     type: U8
-    maskType: DigitalInputs
+    maskType: DigitalInputStates
     description: Reflects the state of the digital input lines.
 
   DeviceState:
@@ -583,6 +583,17 @@ bitMasks:
       Motor1: 0x02
       Motor2: 0x04
       Motor3: 0x08
+  StoppedStepperMotors:
+    description: Specifies the index of each motor that stopped and the state of all motors
+    bits:
+      Motor0: 0x01
+      Motor1: 0x02
+      Motor2: 0x04
+      Motor3: 0x08
+      Motor0Changed: 0x10
+      Motor1Changed: 0x20
+      Motor2Changed: 0x40
+      Motor3Changed: 0x80
   QuadratureEncoders:
     description: Specifies the index of each motor.
     bits:
@@ -590,13 +601,23 @@ bitMasks:
       Encoder1: 0x02
       Encoder2: 0x04
   DigitalInputs:
-    description: Specifies the digital input lines.
+    description: Specifies the available digital input lines.
     bits:
       Input0: 0x1
       Input1: 0x2
       Input2: 0x4
       Input3: 0x8
-
+  DigitalInputStates:
+    description: Specifies the state of the port and digital input line that changed.
+    bits:
+      Input0: 0x1
+      Input1: 0x2
+      Input2: 0x4
+      Input3: 0x8
+      Input0Changed: 0x10
+      Input1Changed: 0x20
+      Input2Changed: 0x40
+      Input3Changed: 0x80
 ##################################
 # Group masks
 ##################################
@@ -635,15 +656,15 @@ groupMasks:
   InputOpModeConfig:
     description: Specifies the inputs operation mode.
     values:
-      EventOnly: 0
-      StopMotor0OnRising: 16
-      StopMotor1OnRising: 17
-      StopMotor2OnRising: 18
-      StopMotor3OnRising: 19
-      StopMotor0OnFalling: 32
-      StopMotor1OnFalling: 33
-      StopMotor2OnFalling: 34
-      StopMotor3OnFalling: 35
+      EventOnly: 0x0
+      StopMotor0OnRising: 0x10
+      StopMotor1OnRising: 0x11
+      StopMotor2OnRising: 0x12
+      StopMotor3OnRising: 0x13
+      StopMotor0OnFalling: 0x20
+      StopMotor1OnFalling: 0x21
+      StopMotor2OnFalling: 0x22
+      StopMotor3OnFalling: 0x23
   TriggerConfig:
     description: Specifies the input trigger configuration.
     values:
