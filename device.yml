@@ -371,7 +371,7 @@ registers:
     address: 89
     description: Moves motor 3 to the absolute position written in this register.
 
-  AccumulatedSteps: &accumulatedsteps
+  AccumulatedSteps:
     address: 90
     type: S32
     length: 4
@@ -391,7 +391,7 @@ registers:
         offset: 3
         description: Contains the accumulated steps of motor 3.
 
-  MaxsPosition:
+  MaxPosition:
     address: 91
     type: S32
     length: 4
@@ -429,7 +429,7 @@ registers:
     address: 95
     description: Specifies the limit of the accumulated steps for the positive movement of motor 3. The device will not let the motor move further than this value. A value equal to 0 disables the feature.
 
-  MinsPosition:
+  MinPosition:
     address: 96
     type: S32
     length: 4
@@ -467,7 +467,7 @@ registers:
     address: 100
     description: Specifies the limit of the accumulated steps for the negative movement of motor 3. The device will not let the motor move further than this value. A value equal to 0 disables the feature.
 
-  StepsRelative:
+  StepRelative:
     address: 101
     type: S32
     length: 4
