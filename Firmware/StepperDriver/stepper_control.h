@@ -38,6 +38,8 @@ bool if_moving_stop_rotation (uint8_t motor_index);
 
 bool is_timer_ready (uint8_t motor_index);
 
+void send_motors_stopped_event (uint8_t motor_stop_bit_mask);
+
 /************************************************************************/
 /* Update motion                                                        */
 /************************************************************************/

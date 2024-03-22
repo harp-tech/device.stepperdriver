@@ -320,7 +320,6 @@ void core_callback_t_before_exec(void)
 	for (uint8_t i = 0; i < MOTORS_QUANTITY; i++)
 	{
 		
-		
 		if (send_motor_stopped_notification[i])
 		{
 			send_motor_stopped_notification[i] = false;
@@ -330,8 +329,7 @@ void core_callback_t_before_exec(void)
 	}	
 	if (motors_mask)
 	{		
-		app_regs.REG_MOTORS_STOPPED = motors_mask;
-		core_func_send_event(ADD_REG_MOTORS_STOPPED, true);
+		send_motors_stopped_event(motors_mask);
 	}
 	
 	if (core_bool_is_visual_enabled())

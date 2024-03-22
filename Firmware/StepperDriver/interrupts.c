@@ -42,13 +42,13 @@ void stop_motor_and_send_events (uint8_t operation_mode, uint8_t input_bit_maks)
 			motor_stopped_mask = (if_moving_stop_rotation(0)) ? B_MOTOR0 : 0;
 			break;
 		case GM_EVENT_AND_STOP_MOTOR1:
-			motor_stopped_mask = (if_moving_stop_rotation(1)) ? B_MOTOR1 : 1;
+			motor_stopped_mask = (if_moving_stop_rotation(1)) ? B_MOTOR1 : 0;
 			break;
 		case GM_EVENT_AND_STOP_MOTOR2:
-			motor_stopped_mask = (if_moving_stop_rotation(2)) ? B_MOTOR2 : 2;
+			motor_stopped_mask = (if_moving_stop_rotation(2)) ? B_MOTOR2 : 0;
 			break;
 		case GM_EVENT_AND_STOP_MOTOR3:
-			motor_stopped_mask = (if_moving_stop_rotation(3)) ? B_MOTOR3 : 3;
+			motor_stopped_mask = (if_moving_stop_rotation(3)) ? B_MOTOR3 : 0;
 			break;
 	}
 	
@@ -57,8 +57,7 @@ void stop_motor_and_send_events (uint8_t operation_mode, uint8_t input_bit_maks)
 	
 	if (motor_stopped_mask)	
 	{
-		app_regs.REG_MOTORS_STOPPED = motor_stopped_mask;
-		core_func_send_event(ADD_REG_MOTORS_STOPPED, true);
+		send_motors_stopped_event(motor_stopped_mask);
 	}
 }
 
@@ -231,15 +230,27 @@ ISR(PORTQ_INT1_vect, ISR_NAKED)
 		{
 			if (enable_counter == 0)
 			{
+				uint8_t motor_stopped_mask = 0;
+				
 				enable_counter = 1;
 				
-				clr_DRIVE_ENABLE_M0; stop_rotation(0); clr_LED_M0;
-				clr_DRIVE_ENABLE_M1; stop_rotation(1);; clr_LED_M1;
-				clr_DRIVE_ENABLE_M2; stop_rotation(2);; clr_LED_M2;
-				clr_DRIVE_ENABLE_M3; stop_rotation(3);; clr_LED_M3;
+				motor_stopped_mask |= (if_moving_stop_rotation(0)) ? B_MOTOR0 : 0;
+				motor_stopped_mask |= (if_moving_stop_rotation(1)) ? B_MOTOR1 : 0;
+				motor_stopped_mask |= (if_moving_stop_rotation(2)) ? B_MOTOR2 : 0;
+				motor_stopped_mask |= (if_moving_stop_rotation(3)) ? B_MOTOR3 : 0;
+				
+				clr_DRIVE_ENABLE_M0; clr_LED_M0;
+				clr_DRIVE_ENABLE_M1; clr_LED_M1;
+				clr_DRIVE_ENABLE_M2; clr_LED_M2;
+				clr_DRIVE_ENABLE_M3; clr_LED_M3;
 				
 				app_regs.REG_EMERGENCY_DETECTION = GM_DISABLED;
 				core_func_send_event(ADD_REG_EMERGENCY_DETECTION, true);
+				
+				if (motor_stopped_mask)
+				{
+					send_motors_stopped_event(motor_stopped_mask);
+				}
 			}
 		}
 	}
@@ -255,15 +266,27 @@ ISR(PORTQ_INT1_vect, ISR_NAKED)
 		{
 			if (enable_counter == 0)
 			{
+				uint8_t motor_stopped_mask = 0;
+				
 				enable_counter = 1;
 				
-				clr_DRIVE_ENABLE_M0; stop_rotation(0); clr_LED_M0;
-				clr_DRIVE_ENABLE_M1; stop_rotation(1); clr_LED_M1;
-				clr_DRIVE_ENABLE_M2; stop_rotation(2); clr_LED_M2;
-				clr_DRIVE_ENABLE_M3; stop_rotation(3); clr_LED_M3;
+				motor_stopped_mask |= (if_moving_stop_rotation(0)) ? B_MOTOR0 : 0;
+				motor_stopped_mask |= (if_moving_stop_rotation(1)) ? B_MOTOR1 : 0;
+				motor_stopped_mask |= (if_moving_stop_rotation(2)) ? B_MOTOR2 : 0;
+				motor_stopped_mask |= (if_moving_stop_rotation(3)) ? B_MOTOR3 : 0;
+				
+				clr_DRIVE_ENABLE_M0; clr_LED_M0;
+				clr_DRIVE_ENABLE_M1; clr_LED_M1;
+				clr_DRIVE_ENABLE_M2; clr_LED_M2;
+				clr_DRIVE_ENABLE_M3; clr_LED_M3;
 				
 				app_regs.REG_EMERGENCY_DETECTION = GM_DISABLED;
 				core_func_send_event(ADD_REG_EMERGENCY_DETECTION, true);
+				
+				if (motor_stopped_mask)
+				{
+					send_motors_stopped_event(motor_stopped_mask);
+				}
 			}
 		}
 		
