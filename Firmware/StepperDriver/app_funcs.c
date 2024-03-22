@@ -1217,10 +1217,10 @@ extern uint8_t inputs_previous_read;
 void app_read_REG_DIGITAL_INPUTS_STATE(void)
 {
 	app_regs.REG_DIGITAL_INPUTS_STATE = 0;
-	app_regs.REG_DIGITAL_INPUTS_STATE |= (read_INPUT0) ? 1 : 0;
-	app_regs.REG_DIGITAL_INPUTS_STATE |= (read_INPUT1) ? 2 : 0;
-	app_regs.REG_DIGITAL_INPUTS_STATE |= (read_INPUT2) ? 4 : 0;
-	app_regs.REG_DIGITAL_INPUTS_STATE |= (read_INPUT3) ? 8 : 0;
+	app_regs.REG_DIGITAL_INPUTS_STATE |= (read_INPUT0) ? 0 : B_INPUT0;
+	app_regs.REG_DIGITAL_INPUTS_STATE |= (read_INPUT1) ? 0 : B_INPUT1;
+	app_regs.REG_DIGITAL_INPUTS_STATE |= (read_INPUT2) ? 0 : B_INPUT2;
+	app_regs.REG_DIGITAL_INPUTS_STATE |= (read_INPUT3) ? 0 : B_INPUT3;
 	
 	inputs_previous_read = app_regs.REG_DIGITAL_INPUTS_STATE;
 }
