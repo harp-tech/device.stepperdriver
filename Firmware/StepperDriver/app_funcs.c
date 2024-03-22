@@ -406,43 +406,33 @@ bool app_write_REG_ENABLE_INPUTS(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
 	
+	if (reg)
+	{
+		/* Update state of the inputs */
+		app_read_REG_DIGITAL_INPUTS_STATE();
+	}
+	
 	if (reg & B_INPUT0)
 	{
-		if (app_regs.REG_INPUT0_SENSE_MODE == GM_RISING_EDGE)
-			io_pin2in(&PORTK, 5, PULL_IO_UP, SENSE_IO_EDGE_RISING);
-		else
-			io_pin2in(&PORTK, 5, PULL_IO_UP, SENSE_IO_EDGE_FALLING);
-		
+		io_pin2in(&PORTK, 5, PULL_IO_UP, SENSE_IO_EDGES_BOTH);		
 		io_set_int(&PORTK, INT_LEVEL_LOW, 0, (1<<5), false);
 	}
 	
 	if (reg & B_INPUT1)
 	{
-		if (app_regs.REG_INPUT0_SENSE_MODE == GM_RISING_EDGE)
-			io_pin2in(&PORTQ, 2, PULL_IO_UP, SENSE_IO_EDGE_RISING);
-		else
-			io_pin2in(&PORTQ, 2, PULL_IO_UP, SENSE_IO_EDGE_FALLING);
-		
+		io_pin2in(&PORTQ, 2, PULL_IO_UP, SENSE_IO_EDGES_BOTH);
 		io_set_int(&PORTQ, INT_LEVEL_LOW, 0, (1<<2), false);
 	}
 	
 	if (reg & B_INPUT2)
 	{
-		if (app_regs.REG_INPUT0_SENSE_MODE == GM_RISING_EDGE)
-			io_pin2in(&PORTC, 5, PULL_IO_UP, SENSE_IO_EDGE_RISING);
-		else
-			io_pin2in(&PORTC, 5, PULL_IO_UP, SENSE_IO_EDGE_FALLING);
-		
+		io_pin2in(&PORTC, 5, PULL_IO_UP, SENSE_IO_EDGES_BOTH);
 		io_set_int(&PORTC, INT_LEVEL_LOW, 0, (1<<5), false);
 	}
 	
 	if (reg & B_INPUT3)
 	{
-		if (app_regs.REG_INPUT0_SENSE_MODE == GM_RISING_EDGE)
-			io_pin2in(&PORTH, 7, PULL_IO_UP, SENSE_IO_EDGE_RISING);
-		else
-			io_pin2in(&PORTH, 7, PULL_IO_UP, SENSE_IO_EDGE_FALLING);
-		
+		io_pin2in(&PORTH, 7, PULL_IO_UP, SENSE_IO_EDGES_BOTH);		
 		io_set_int(&PORTH, INT_LEVEL_LOW, 0, (1<<7), false);
 	}
 
@@ -1298,6 +1288,7 @@ bool app_write_REG_ENCODERS(void *a)
 /************************************************************************/
 /* REG_DIGITAL_INPUTS_STATE                                             */
 /************************************************************************/
+extern inputs_previous_read;
 void app_read_REG_DIGITAL_INPUTS_STATE(void)
 {
 	app_regs.REG_DIGITAL_INPUTS_STATE = 0;
@@ -1305,6 +1296,8 @@ void app_read_REG_DIGITAL_INPUTS_STATE(void)
 	app_regs.REG_DIGITAL_INPUTS_STATE |= (read_INPUT1) ? 2 : 0;
 	app_regs.REG_DIGITAL_INPUTS_STATE |= (read_INPUT2) ? 4 : 0;
 	app_regs.REG_DIGITAL_INPUTS_STATE |= (read_INPUT3) ? 8 : 0;
+	
+	inputs_previous_read = app_regs.REG_DIGITAL_INPUTS_STATE;
 }
 
 bool app_write_REG_DIGITAL_INPUTS_STATE(void *a)

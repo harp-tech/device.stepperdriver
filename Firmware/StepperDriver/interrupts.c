@@ -32,6 +32,8 @@ extern AppRegs app_regs;
 /************************************************************************/ 
 /* General function for input handling                                  */
 /************************************************************************/
+uint8_t inputs_previous_read = 0;
+
 void stop_motor_and_send_events (uint8_t operation_mode, uint8_t input_bit_maks)
 {
 	uint8_t motor_stopped_mask = 0;
@@ -67,7 +69,26 @@ void stop_motor_and_send_events (uint8_t operation_mode, uint8_t input_bit_maks)
 /************************************************************************/
 ISR(PORTK_INT0_vect, ISR_NAKED)
 {
-	stop_motor_and_send_events(app_regs.REG_INPUT0_OPERATION_MODE, B_INPUT0);
+	uint8_t inputs_current_read = inputs_previous_read;
+	
+	if (read_INPUT0)
+	{
+		inputs_current_read |= B_INPUT0;
+	}
+	else
+	{
+		inputs_current_read &= ~B_INPUT0;
+	}
+	if (inputs_current_read != inputs_previous_read)
+	{
+		app_regs.REG_DIGITAL_INPUTS_STATE = ((inputs_previous_read ^ inputs_current_read) << 4) | (inputs_current_read & 0x0F);
+		core_func_send_event(ADD_REG_DIGITAL_INPUTS_STATE, true);
+		
+		inputs_previous_read = inputs_current_read;
+	}
+	
+	
+	//stop_motor_and_send_events(app_regs.REG_INPUT0_OPERATION_MODE, B_INPUT0);
 	
 	reti();
 }
@@ -77,7 +98,25 @@ ISR(PORTK_INT0_vect, ISR_NAKED)
 /************************************************************************/
 ISR(PORTQ_INT0_vect, ISR_NAKED)
 {
-	stop_motor_and_send_events(app_regs.REG_INPUT1_OPERATION_MODE, B_INPUT1);
+	uint8_t inputs_current_read = inputs_previous_read;
+	
+	if (read_INPUT1)
+	{
+		inputs_current_read |= B_INPUT1;
+	}
+	else
+	{
+		inputs_current_read &= ~B_INPUT1;
+	}
+	if (inputs_current_read != inputs_previous_read)
+	{
+		app_regs.REG_DIGITAL_INPUTS_STATE = ((inputs_previous_read ^ inputs_current_read) << 4) | (inputs_current_read & 0x0F);
+		core_func_send_event(ADD_REG_DIGITAL_INPUTS_STATE, true);
+		
+		inputs_previous_read = inputs_current_read;
+	}
+	
+	//stop_motor_and_send_events(app_regs.REG_INPUT1_OPERATION_MODE, B_INPUT1);
 	
 	reti();
 }
@@ -87,7 +126,25 @@ ISR(PORTQ_INT0_vect, ISR_NAKED)
 /************************************************************************/
 ISR(PORTC_INT0_vect, ISR_NAKED)
 {
-	stop_motor_and_send_events(app_regs.REG_INPUT2_OPERATION_MODE, B_INPUT2);
+	uint8_t inputs_current_read = inputs_previous_read;
+	
+	if (read_INPUT2)
+	{
+		inputs_current_read |= B_INPUT2;
+	}
+	else
+	{
+		inputs_current_read &= ~B_INPUT2;
+	}
+	if (inputs_current_read != inputs_previous_read)
+	{
+		app_regs.REG_DIGITAL_INPUTS_STATE = ((inputs_previous_read ^ inputs_current_read) << 4) | (inputs_current_read & 0x0F);
+		core_func_send_event(ADD_REG_DIGITAL_INPUTS_STATE, true);
+		
+		inputs_previous_read = inputs_current_read;
+	}
+	
+	//stop_motor_and_send_events(app_regs.REG_INPUT2_OPERATION_MODE, B_INPUT2);
 	
 	reti();
 }
@@ -97,7 +154,25 @@ ISR(PORTC_INT0_vect, ISR_NAKED)
 /************************************************************************/
 ISR(PORTH_INT0_vect, ISR_NAKED)
 {
-	stop_motor_and_send_events(app_regs.REG_INPUT3_OPERATION_MODE, B_INPUT3);
+	uint8_t inputs_current_read = inputs_previous_read;
+	
+	if (read_INPUT3)
+	{
+		inputs_current_read |= B_INPUT3;
+	}
+	else
+	{
+		inputs_current_read &= ~B_INPUT3;
+	}
+	if (inputs_current_read != inputs_previous_read)
+	{
+		app_regs.REG_DIGITAL_INPUTS_STATE = ((inputs_previous_read ^ inputs_current_read) << 4) | (inputs_current_read & 0x0F);
+		core_func_send_event(ADD_REG_DIGITAL_INPUTS_STATE, true);
+		
+		inputs_previous_read = inputs_current_read;
+	}
+	
+	//stop_motor_and_send_events(app_regs.REG_INPUT3_OPERATION_MODE, B_INPUT3);
 	
 	reti();
 }
