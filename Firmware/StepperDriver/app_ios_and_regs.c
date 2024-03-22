@@ -182,10 +182,6 @@ uint8_t app_regs_type[] = {
 	TYPE_U8,
 	TYPE_U8,
 	TYPE_U8,
-	TYPE_U8,
-	TYPE_U8,
-	TYPE_U8,
-	TYPE_U8,
 	TYPE_I16,
 	TYPE_U8,
 	TYPE_U8,
@@ -229,10 +225,6 @@ uint8_t app_regs_type[] = {
 };
 
 uint16_t app_regs_n_elements[] = {
-	1,
-	1,
-	1,
-	1,
 	1,
 	1,
 	1,
@@ -361,10 +353,6 @@ uint8_t *app_regs_pointer[] = {
 	(uint8_t*)(&app_regs.REG_INPUT1_OPERATION_MODE),
 	(uint8_t*)(&app_regs.REG_INPUT2_OPERATION_MODE),
 	(uint8_t*)(&app_regs.REG_INPUT3_OPERATION_MODE),
-	(uint8_t*)(&app_regs.REG_INPUT0_SENSE_MODE),
-	(uint8_t*)(&app_regs.REG_INPUT1_SENSE_MODE),
-	(uint8_t*)(&app_regs.REG_INPUT2_SENSE_MODE),
-	(uint8_t*)(&app_regs.REG_INPUT3_SENSE_MODE),
 	(uint8_t*)(&app_regs.REG_EMERGENCY_DETECTION_MODE),
 	(uint8_t*)(&app_regs.REG_ACCUMULATED_STEPS_UPDATE_RATE),
 	(uint8_t*)(&app_regs.REG_MOTORS_STOPPED),

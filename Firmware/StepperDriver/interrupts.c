@@ -40,7 +40,7 @@ void stop_motor_and_send_events (uint8_t operation_mode, uint8_t input_bit_maks)
 	
 	switch (operation_mode)
 	{
-		case GM_EVENT_AND_STOP_MOTOR0:
+		/*case GM_EVENT_AND_STOP_MOTOR0:
 			motor_stopped_mask = (if_moving_stop_rotation(0)) ? B_MOTOR0 : 0;
 			break;
 		case GM_EVENT_AND_STOP_MOTOR1:
@@ -51,7 +51,7 @@ void stop_motor_and_send_events (uint8_t operation_mode, uint8_t input_bit_maks)
 			break;
 		case GM_EVENT_AND_STOP_MOTOR3:
 			motor_stopped_mask = (if_moving_stop_rotation(3)) ? B_MOTOR3 : 0;
-			break;
+			break;*/
 	}
 	
 	app_regs.REG_DIGITAL_INPUTS_STATE = input_bit_maks;
@@ -73,11 +73,11 @@ ISR(PORTK_INT0_vect, ISR_NAKED)
 	
 	if (read_INPUT0)
 	{
-		inputs_current_read |= B_INPUT0;
+		inputs_current_read &= ~B_INPUT0;
 	}
 	else
 	{
-		inputs_current_read &= ~B_INPUT0;
+		inputs_current_read |= B_INPUT0;
 	}
 	if (inputs_current_read != inputs_previous_read)
 	{
@@ -102,11 +102,11 @@ ISR(PORTQ_INT0_vect, ISR_NAKED)
 	
 	if (read_INPUT1)
 	{
-		inputs_current_read |= B_INPUT1;
+		inputs_current_read &= ~B_INPUT1;
 	}
 	else
 	{
-		inputs_current_read &= ~B_INPUT1;
+		inputs_current_read |= B_INPUT1;
 	}
 	if (inputs_current_read != inputs_previous_read)
 	{
@@ -130,11 +130,11 @@ ISR(PORTC_INT0_vect, ISR_NAKED)
 	
 	if (read_INPUT2)
 	{
-		inputs_current_read |= B_INPUT2;
+		inputs_current_read &= ~B_INPUT2;
 	}
 	else
 	{
-		inputs_current_read &= ~B_INPUT2;
+		inputs_current_read |= B_INPUT2;
 	}
 	if (inputs_current_read != inputs_previous_read)
 	{
@@ -158,11 +158,11 @@ ISR(PORTH_INT0_vect, ISR_NAKED)
 	
 	if (read_INPUT3)
 	{
-		inputs_current_read |= B_INPUT3;
+		inputs_current_read &= ~B_INPUT3;
 	}
 	else
 	{
-		inputs_current_read &= ~B_INPUT3;
+		inputs_current_read |= B_INPUT3;
 	}
 	if (inputs_current_read != inputs_previous_read)
 	{

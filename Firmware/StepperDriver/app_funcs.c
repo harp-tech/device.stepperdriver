@@ -125,10 +125,6 @@ void (*app_func_rd_pointer[])(void) = {
 	&app_read_REG_INPUT1_OPERATION_MODE,
 	&app_read_REG_INPUT2_OPERATION_MODE,
 	&app_read_REG_INPUT3_OPERATION_MODE,
-	&app_read_REG_INPUT0_SENSE_MODE,
-	&app_read_REG_INPUT1_SENSE_MODE,
-	&app_read_REG_INPUT2_SENSE_MODE,
-	&app_read_REG_INPUT3_SENSE_MODE,
 	&app_read_REG_EMERGENCY_DETECTION_MODE,
 	&app_read_REG_ACCUMULATED_STEPS_UPDATE_RATE,
 	&app_read_REG_MOTORS_STOPPED,
@@ -217,10 +213,6 @@ bool (*app_func_wr_pointer[])(void*) = {
 	&app_write_REG_INPUT1_OPERATION_MODE,
 	&app_write_REG_INPUT2_OPERATION_MODE,
 	&app_write_REG_INPUT3_OPERATION_MODE,
-	&app_write_REG_INPUT0_SENSE_MODE,
-	&app_write_REG_INPUT1_SENSE_MODE,
-	&app_write_REG_INPUT2_SENSE_MODE,
-	&app_write_REG_INPUT3_SENSE_MODE,
 	&app_write_REG_EMERGENCY_DETECTION_MODE,
 	&app_write_REG_ACCUMULATED_STEPS_UPDATE_RATE,
 	&app_write_REG_MOTORS_STOPPED,
@@ -1072,8 +1064,6 @@ void app_read_REG_INPUT0_OPERATION_MODE(void) {}
 bool app_write_REG_INPUT0_OPERATION_MODE(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
-	
-	app_write_REG_ENABLE_INPUTS(&app_regs.REG_ENABLE_INPUTS);
 
 	app_regs.REG_INPUT0_OPERATION_MODE = reg;
 	return true;
@@ -1087,8 +1077,6 @@ void app_read_REG_INPUT1_OPERATION_MODE(void) {}
 bool app_write_REG_INPUT1_OPERATION_MODE(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
-	
-	app_write_REG_ENABLE_INPUTS(&app_regs.REG_ENABLE_INPUTS);
 
 	app_regs.REG_INPUT1_OPERATION_MODE = reg;
 	return true;
@@ -1102,8 +1090,6 @@ void app_read_REG_INPUT2_OPERATION_MODE(void) {}
 bool app_write_REG_INPUT2_OPERATION_MODE(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
-	
-	app_write_REG_ENABLE_INPUTS(&app_regs.REG_ENABLE_INPUTS);
 
 	app_regs.REG_INPUT2_OPERATION_MODE = reg;
 	return true;
@@ -1117,70 +1103,8 @@ void app_read_REG_INPUT3_OPERATION_MODE(void) {}
 bool app_write_REG_INPUT3_OPERATION_MODE(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
-	
-	app_write_REG_ENABLE_INPUTS(&app_regs.REG_ENABLE_INPUTS);
 
 	app_regs.REG_INPUT3_OPERATION_MODE = reg;
-	return true;
-}
-
-
-/************************************************************************/
-/* REG_INPUT0_SENSE_MODE                                                */
-/************************************************************************/
-void app_read_REG_INPUT0_SENSE_MODE(void) {}
-bool app_write_REG_INPUT0_SENSE_MODE(void *a)
-{
-	uint8_t reg = *((uint8_t*)a);
-	
-	app_write_REG_ENABLE_INPUTS(&app_regs.REG_ENABLE_INPUTS);
-
-	app_regs.REG_INPUT0_SENSE_MODE = reg;
-	return true;
-}
-
-
-/************************************************************************/
-/* REG_INPUT1_SENSE_MODE                                                */
-/************************************************************************/
-void app_read_REG_INPUT1_SENSE_MODE(void) {}
-bool app_write_REG_INPUT1_SENSE_MODE(void *a)
-{
-	uint8_t reg = *((uint8_t*)a);
-	
-	app_write_REG_ENABLE_INPUTS(&app_regs.REG_ENABLE_INPUTS);
-
-	app_regs.REG_INPUT1_SENSE_MODE = reg;
-	return true;
-}
-
-
-/************************************************************************/
-/* REG_INPUT2_SENSE_MODE                                                */
-/************************************************************************/
-void app_read_REG_INPUT2_SENSE_MODE(void) {}
-bool app_write_REG_INPUT2_SENSE_MODE(void *a)
-{
-	uint8_t reg = *((uint8_t*)a);
-	
-	app_write_REG_ENABLE_INPUTS(&app_regs.REG_ENABLE_INPUTS);
-
-	app_regs.REG_INPUT2_SENSE_MODE = reg;
-	return true;
-}
-
-
-/************************************************************************/
-/* REG_INPUT3_SENSE_MODE                                                */
-/************************************************************************/
-void app_read_REG_INPUT3_SENSE_MODE(void) {}
-bool app_write_REG_INPUT3_SENSE_MODE(void *a)
-{
-	uint8_t reg = *((uint8_t*)a);
-	
-	app_write_REG_ENABLE_INPUTS(&app_regs.REG_ENABLE_INPUTS);
-
-	app_regs.REG_INPUT3_SENSE_MODE = reg;
 	return true;
 }
 
@@ -1288,7 +1212,8 @@ bool app_write_REG_ENCODERS(void *a)
 /************************************************************************/
 /* REG_DIGITAL_INPUTS_STATE                                             */
 /************************************************************************/
-extern inputs_previous_read;
+extern uint8_t inputs_previous_read;
+
 void app_read_REG_DIGITAL_INPUTS_STATE(void)
 {
 	app_regs.REG_DIGITAL_INPUTS_STATE = 0;
