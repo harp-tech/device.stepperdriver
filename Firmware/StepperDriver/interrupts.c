@@ -29,40 +29,7 @@ extern AppRegs app_regs;
 // ISR(TCD1_CCA_vect, ISR_NAKED)
 
 
-/************************************************************************/ 
-/* General function for input handling                                  */
-/************************************************************************/
 uint8_t inputs_previous_read = 0;
-
-void stop_motor_and_send_events (uint8_t operation_mode, uint8_t input_bit_maks)
-{
-	uint8_t motor_stopped_mask = 0;
-	
-	switch (operation_mode)
-	{
-		/*case GM_EVENT_AND_STOP_MOTOR0:
-			motor_stopped_mask = (if_moving_stop_rotation(0)) ? B_MOTOR0 : 0;
-			break;
-		case GM_EVENT_AND_STOP_MOTOR1:
-			motor_stopped_mask = (if_moving_stop_rotation(1)) ? B_MOTOR1 : 0;
-			break;
-		case GM_EVENT_AND_STOP_MOTOR2:
-			motor_stopped_mask = (if_moving_stop_rotation(2)) ? B_MOTOR2 : 0;
-			break;
-		case GM_EVENT_AND_STOP_MOTOR3:
-			motor_stopped_mask = (if_moving_stop_rotation(3)) ? B_MOTOR3 : 0;
-			break;*/
-	}
-	
-	app_regs.REG_DIGITAL_INPUTS_STATE = input_bit_maks;
-	core_func_send_event(ADD_REG_DIGITAL_INPUTS_STATE, true);
-	
-	if (motor_stopped_mask)	
-	{
-		send_motors_stopped_event(motor_stopped_mask);
-	}
-}
-
 
 /************************************************************************/ 
 /* INPUT0                                                               */
@@ -71,14 +38,27 @@ ISR(PORTK_INT0_vect, ISR_NAKED)
 {
 	uint8_t inputs_current_read = inputs_previous_read;
 	
+	uint8_t motor_stopped_mask = 0;
+	
 	if (read_INPUT0)
 	{
 		inputs_current_read &= ~B_INPUT0;
+		
+		if (app_regs.REG_INPUT0_OPERATION_MODE & 0x20)	// Means it's configured to stop when falling
+		{
+			motor_stopped_mask = (if_moving_stop_rotation(app_regs.REG_INPUT0_OPERATION_MODE & 0x0F)) ? (app_regs.REG_INPUT0_OPERATION_MODE & 0x0F) : 0;
+		}
 	}
 	else
 	{
 		inputs_current_read |= B_INPUT0;
+		
+		if (app_regs.REG_INPUT0_OPERATION_MODE & 0x10)	// Means it's configured to stop when rising
+		{
+			motor_stopped_mask = (if_moving_stop_rotation(app_regs.REG_INPUT0_OPERATION_MODE & 0x0F)) ? (app_regs.REG_INPUT0_OPERATION_MODE & 0x0F) : 0;
+		}
 	}
+	
 	if (inputs_current_read != inputs_previous_read)
 	{
 		app_regs.REG_DIGITAL_INPUTS_STATE = ((inputs_previous_read ^ inputs_current_read) << 4) | (inputs_current_read & 0x0F);
@@ -87,8 +67,10 @@ ISR(PORTK_INT0_vect, ISR_NAKED)
 		inputs_previous_read = inputs_current_read;
 	}
 	
-	
-	//stop_motor_and_send_events(app_regs.REG_INPUT0_OPERATION_MODE, B_INPUT0);
+	if (motor_stopped_mask)
+	{
+		send_motors_stopped_event(motor_stopped_mask);
+	}
 	
 	reti();
 }
@@ -100,14 +82,27 @@ ISR(PORTQ_INT0_vect, ISR_NAKED)
 {
 	uint8_t inputs_current_read = inputs_previous_read;
 	
+	uint8_t motor_stopped_mask = 0;
+	
 	if (read_INPUT1)
 	{
 		inputs_current_read &= ~B_INPUT1;
+		
+		if (app_regs.REG_INPUT1_OPERATION_MODE & 0x20)	// Means it's configured to stop when falling
+		{
+			motor_stopped_mask = (if_moving_stop_rotation(app_regs.REG_INPUT1_OPERATION_MODE & 0x0F)) ? (app_regs.REG_INPUT1_OPERATION_MODE & 0x0F) : 0;
+		}
 	}
 	else
 	{
 		inputs_current_read |= B_INPUT1;
+		
+		if (app_regs.REG_INPUT1_OPERATION_MODE & 0x10)	// Means it's configured to stop when rising
+		{
+			motor_stopped_mask = (if_moving_stop_rotation(app_regs.REG_INPUT1_OPERATION_MODE & 0x0F)) ? (app_regs.REG_INPUT1_OPERATION_MODE & 0x0F) : 0;
+		}
 	}
+	
 	if (inputs_current_read != inputs_previous_read)
 	{
 		app_regs.REG_DIGITAL_INPUTS_STATE = ((inputs_previous_read ^ inputs_current_read) << 4) | (inputs_current_read & 0x0F);
@@ -116,7 +111,10 @@ ISR(PORTQ_INT0_vect, ISR_NAKED)
 		inputs_previous_read = inputs_current_read;
 	}
 	
-	//stop_motor_and_send_events(app_regs.REG_INPUT1_OPERATION_MODE, B_INPUT1);
+	if (motor_stopped_mask)
+	{
+		send_motors_stopped_event(motor_stopped_mask);
+	}
 	
 	reti();
 }
@@ -128,14 +126,27 @@ ISR(PORTC_INT0_vect, ISR_NAKED)
 {
 	uint8_t inputs_current_read = inputs_previous_read;
 	
+	uint8_t motor_stopped_mask = 0;
+	
 	if (read_INPUT2)
 	{
 		inputs_current_read &= ~B_INPUT2;
+		
+		if (app_regs.REG_INPUT2_OPERATION_MODE & 0x20)	// Means it's configured to stop when falling
+		{
+			motor_stopped_mask = (if_moving_stop_rotation(app_regs.REG_INPUT2_OPERATION_MODE & 0x0F)) ? (app_regs.REG_INPUT2_OPERATION_MODE & 0x0F) : 0;
+		}
 	}
 	else
 	{
 		inputs_current_read |= B_INPUT2;
+		
+		if (app_regs.REG_INPUT2_OPERATION_MODE & 0x10)	// Means it's configured to stop when rising
+		{
+			motor_stopped_mask = (if_moving_stop_rotation(app_regs.REG_INPUT2_OPERATION_MODE & 0x0F)) ? (app_regs.REG_INPUT2_OPERATION_MODE & 0x0F) : 0;
+		}
 	}
+	
 	if (inputs_current_read != inputs_previous_read)
 	{
 		app_regs.REG_DIGITAL_INPUTS_STATE = ((inputs_previous_read ^ inputs_current_read) << 4) | (inputs_current_read & 0x0F);
@@ -144,7 +155,10 @@ ISR(PORTC_INT0_vect, ISR_NAKED)
 		inputs_previous_read = inputs_current_read;
 	}
 	
-	//stop_motor_and_send_events(app_regs.REG_INPUT2_OPERATION_MODE, B_INPUT2);
+	if (motor_stopped_mask)
+	{
+		send_motors_stopped_event(motor_stopped_mask);
+	}
 	
 	reti();
 }
@@ -156,14 +170,27 @@ ISR(PORTH_INT0_vect, ISR_NAKED)
 {
 	uint8_t inputs_current_read = inputs_previous_read;
 	
+	uint8_t motor_stopped_mask = 0;
+	
 	if (read_INPUT3)
 	{
 		inputs_current_read &= ~B_INPUT3;
+		
+		if (app_regs.REG_INPUT3_OPERATION_MODE & 0x20)	// Means it's configured to stop when falling
+		{
+			motor_stopped_mask = (if_moving_stop_rotation(app_regs.REG_INPUT3_OPERATION_MODE & 0x0F)) ? (app_regs.REG_INPUT3_OPERATION_MODE & 0x0F) : 0;
+		}
 	}
 	else
 	{
 		inputs_current_read |= B_INPUT3;
+		
+		if (app_regs.REG_INPUT3_OPERATION_MODE & 0x10)	// Means it's configured to stop when rising
+		{
+			motor_stopped_mask = (if_moving_stop_rotation(app_regs.REG_INPUT3_OPERATION_MODE & 0x0F)) ? (app_regs.REG_INPUT3_OPERATION_MODE & 0x0F) : 0;
+		}
 	}
+	
 	if (inputs_current_read != inputs_previous_read)
 	{
 		app_regs.REG_DIGITAL_INPUTS_STATE = ((inputs_previous_read ^ inputs_current_read) << 4) | (inputs_current_read & 0x0F);
@@ -172,7 +199,10 @@ ISR(PORTH_INT0_vect, ISR_NAKED)
 		inputs_previous_read = inputs_current_read;
 	}
 	
-	//stop_motor_and_send_events(app_regs.REG_INPUT3_OPERATION_MODE, B_INPUT3);
+	if (motor_stopped_mask)
+	{
+		send_motors_stopped_event(motor_stopped_mask);
+	}
 	
 	reti();
 }
