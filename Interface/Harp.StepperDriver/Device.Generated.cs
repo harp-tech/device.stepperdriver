@@ -96,17 +96,17 @@ namespace Harp.StepperDriver
             { 88, typeof(Motor2MoveAbsolute) },
             { 89, typeof(Motor3MoveAbsolute) },
             { 90, typeof(AccumulatedSteps) },
-            { 91, typeof(MaxsPosition) },
+            { 91, typeof(MaxPosition) },
             { 92, typeof(Motor0MaxPosition) },
             { 93, typeof(Motor1MaxPosition) },
             { 94, typeof(Motor2MaxPosition) },
             { 95, typeof(Motor3MaxPosition) },
-            { 96, typeof(MinsPosition) },
+            { 96, typeof(MinPosition) },
             { 97, typeof(Motor0MinPosition) },
             { 98, typeof(Motor1MinPosition) },
             { 99, typeof(Motor2MinPosition) },
             { 100, typeof(Motor3MinPosition) },
-            { 101, typeof(StepsRelative) },
+            { 101, typeof(StepRelative) },
             { 102, typeof(Motor0StepRelative) },
             { 103, typeof(Motor1StepRelative) },
             { 104, typeof(Motor2StepRelative) },
@@ -200,17 +200,17 @@ namespace Harp.StepperDriver
     /// <seealso cref="Motor2MoveAbsolute"/>
     /// <seealso cref="Motor3MoveAbsolute"/>
     /// <seealso cref="AccumulatedSteps"/>
-    /// <seealso cref="MaxsPosition"/>
+    /// <seealso cref="MaxPosition"/>
     /// <seealso cref="Motor0MaxPosition"/>
     /// <seealso cref="Motor1MaxPosition"/>
     /// <seealso cref="Motor2MaxPosition"/>
     /// <seealso cref="Motor3MaxPosition"/>
-    /// <seealso cref="MinsPosition"/>
+    /// <seealso cref="MinPosition"/>
     /// <seealso cref="Motor0MinPosition"/>
     /// <seealso cref="Motor1MinPosition"/>
     /// <seealso cref="Motor2MinPosition"/>
     /// <seealso cref="Motor3MinPosition"/>
-    /// <seealso cref="StepsRelative"/>
+    /// <seealso cref="StepRelative"/>
     /// <seealso cref="Motor0StepRelative"/>
     /// <seealso cref="Motor1StepRelative"/>
     /// <seealso cref="Motor2StepRelative"/>
@@ -276,17 +276,17 @@ namespace Harp.StepperDriver
     [XmlInclude(typeof(Motor2MoveAbsolute))]
     [XmlInclude(typeof(Motor3MoveAbsolute))]
     [XmlInclude(typeof(AccumulatedSteps))]
-    [XmlInclude(typeof(MaxsPosition))]
+    [XmlInclude(typeof(MaxPosition))]
     [XmlInclude(typeof(Motor0MaxPosition))]
     [XmlInclude(typeof(Motor1MaxPosition))]
     [XmlInclude(typeof(Motor2MaxPosition))]
     [XmlInclude(typeof(Motor3MaxPosition))]
-    [XmlInclude(typeof(MinsPosition))]
+    [XmlInclude(typeof(MinPosition))]
     [XmlInclude(typeof(Motor0MinPosition))]
     [XmlInclude(typeof(Motor1MinPosition))]
     [XmlInclude(typeof(Motor2MinPosition))]
     [XmlInclude(typeof(Motor3MinPosition))]
-    [XmlInclude(typeof(StepsRelative))]
+    [XmlInclude(typeof(StepRelative))]
     [XmlInclude(typeof(Motor0StepRelative))]
     [XmlInclude(typeof(Motor1StepRelative))]
     [XmlInclude(typeof(Motor2StepRelative))]
@@ -373,17 +373,17 @@ namespace Harp.StepperDriver
     /// <seealso cref="Motor2MoveAbsolute"/>
     /// <seealso cref="Motor3MoveAbsolute"/>
     /// <seealso cref="AccumulatedSteps"/>
-    /// <seealso cref="MaxsPosition"/>
+    /// <seealso cref="MaxPosition"/>
     /// <seealso cref="Motor0MaxPosition"/>
     /// <seealso cref="Motor1MaxPosition"/>
     /// <seealso cref="Motor2MaxPosition"/>
     /// <seealso cref="Motor3MaxPosition"/>
-    /// <seealso cref="MinsPosition"/>
+    /// <seealso cref="MinPosition"/>
     /// <seealso cref="Motor0MinPosition"/>
     /// <seealso cref="Motor1MinPosition"/>
     /// <seealso cref="Motor2MinPosition"/>
     /// <seealso cref="Motor3MinPosition"/>
-    /// <seealso cref="StepsRelative"/>
+    /// <seealso cref="StepRelative"/>
     /// <seealso cref="Motor0StepRelative"/>
     /// <seealso cref="Motor1StepRelative"/>
     /// <seealso cref="Motor2StepRelative"/>
@@ -449,17 +449,17 @@ namespace Harp.StepperDriver
     [XmlInclude(typeof(Motor2MoveAbsolute))]
     [XmlInclude(typeof(Motor3MoveAbsolute))]
     [XmlInclude(typeof(AccumulatedSteps))]
-    [XmlInclude(typeof(MaxsPosition))]
+    [XmlInclude(typeof(MaxPosition))]
     [XmlInclude(typeof(Motor0MaxPosition))]
     [XmlInclude(typeof(Motor1MaxPosition))]
     [XmlInclude(typeof(Motor2MaxPosition))]
     [XmlInclude(typeof(Motor3MaxPosition))]
-    [XmlInclude(typeof(MinsPosition))]
+    [XmlInclude(typeof(MinPosition))]
     [XmlInclude(typeof(Motor0MinPosition))]
     [XmlInclude(typeof(Motor1MinPosition))]
     [XmlInclude(typeof(Motor2MinPosition))]
     [XmlInclude(typeof(Motor3MinPosition))]
-    [XmlInclude(typeof(StepsRelative))]
+    [XmlInclude(typeof(StepRelative))]
     [XmlInclude(typeof(Motor0StepRelative))]
     [XmlInclude(typeof(Motor1StepRelative))]
     [XmlInclude(typeof(Motor2StepRelative))]
@@ -525,17 +525,17 @@ namespace Harp.StepperDriver
     [XmlInclude(typeof(TimestampedMotor2MoveAbsolute))]
     [XmlInclude(typeof(TimestampedMotor3MoveAbsolute))]
     [XmlInclude(typeof(TimestampedAccumulatedSteps))]
-    [XmlInclude(typeof(TimestampedMaxsPosition))]
+    [XmlInclude(typeof(TimestampedMaxPosition))]
     [XmlInclude(typeof(TimestampedMotor0MaxPosition))]
     [XmlInclude(typeof(TimestampedMotor1MaxPosition))]
     [XmlInclude(typeof(TimestampedMotor2MaxPosition))]
     [XmlInclude(typeof(TimestampedMotor3MaxPosition))]
-    [XmlInclude(typeof(TimestampedMinsPosition))]
+    [XmlInclude(typeof(TimestampedMinPosition))]
     [XmlInclude(typeof(TimestampedMotor0MinPosition))]
     [XmlInclude(typeof(TimestampedMotor1MinPosition))]
     [XmlInclude(typeof(TimestampedMotor2MinPosition))]
     [XmlInclude(typeof(TimestampedMotor3MinPosition))]
-    [XmlInclude(typeof(TimestampedStepsRelative))]
+    [XmlInclude(typeof(TimestampedStepRelative))]
     [XmlInclude(typeof(TimestampedMotor0StepRelative))]
     [XmlInclude(typeof(TimestampedMotor1StepRelative))]
     [XmlInclude(typeof(TimestampedMotor2StepRelative))]
@@ -619,17 +619,17 @@ namespace Harp.StepperDriver
     /// <seealso cref="Motor2MoveAbsolute"/>
     /// <seealso cref="Motor3MoveAbsolute"/>
     /// <seealso cref="AccumulatedSteps"/>
-    /// <seealso cref="MaxsPosition"/>
+    /// <seealso cref="MaxPosition"/>
     /// <seealso cref="Motor0MaxPosition"/>
     /// <seealso cref="Motor1MaxPosition"/>
     /// <seealso cref="Motor2MaxPosition"/>
     /// <seealso cref="Motor3MaxPosition"/>
-    /// <seealso cref="MinsPosition"/>
+    /// <seealso cref="MinPosition"/>
     /// <seealso cref="Motor0MinPosition"/>
     /// <seealso cref="Motor1MinPosition"/>
     /// <seealso cref="Motor2MinPosition"/>
     /// <seealso cref="Motor3MinPosition"/>
-    /// <seealso cref="StepsRelative"/>
+    /// <seealso cref="StepRelative"/>
     /// <seealso cref="Motor0StepRelative"/>
     /// <seealso cref="Motor1StepRelative"/>
     /// <seealso cref="Motor2StepRelative"/>
@@ -695,17 +695,17 @@ namespace Harp.StepperDriver
     [XmlInclude(typeof(Motor2MoveAbsolute))]
     [XmlInclude(typeof(Motor3MoveAbsolute))]
     [XmlInclude(typeof(AccumulatedSteps))]
-    [XmlInclude(typeof(MaxsPosition))]
+    [XmlInclude(typeof(MaxPosition))]
     [XmlInclude(typeof(Motor0MaxPosition))]
     [XmlInclude(typeof(Motor1MaxPosition))]
     [XmlInclude(typeof(Motor2MaxPosition))]
     [XmlInclude(typeof(Motor3MaxPosition))]
-    [XmlInclude(typeof(MinsPosition))]
+    [XmlInclude(typeof(MinPosition))]
     [XmlInclude(typeof(Motor0MinPosition))]
     [XmlInclude(typeof(Motor1MinPosition))]
     [XmlInclude(typeof(Motor2MinPosition))]
     [XmlInclude(typeof(Motor3MinPosition))]
-    [XmlInclude(typeof(StepsRelative))]
+    [XmlInclude(typeof(StepRelative))]
     [XmlInclude(typeof(Motor0StepRelative))]
     [XmlInclude(typeof(Motor1StepRelative))]
     [XmlInclude(typeof(Motor2StepRelative))]
@@ -6511,26 +6511,26 @@ namespace Harp.StepperDriver
     /// Represents a register that defines the limit of the accumulated steps for the positive movement of all motors. The device will not let the motors move further than this value.
     /// </summary>
     [Description("Defines the limit of the accumulated steps for the positive movement of all motors. The device will not let the motors move further than this value.")]
-    public partial class MaxsPosition
+    public partial class MaxPosition
     {
         /// <summary>
-        /// Represents the address of the <see cref="MaxsPosition"/> register. This field is constant.
+        /// Represents the address of the <see cref="MaxPosition"/> register. This field is constant.
         /// </summary>
         public const int Address = 91;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="MaxsPosition"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="MaxPosition"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.S32;
 
         /// <summary>
-        /// Represents the length of the <see cref="MaxsPosition"/> register. This field is constant.
+        /// Represents the length of the <see cref="MaxPosition"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 4;
 
-        static MaxsPositionPayload ParsePayload(int[] payload)
+        static MaxPositionPayload ParsePayload(int[] payload)
         {
-            MaxsPositionPayload result;
+            MaxPositionPayload result;
             result.Motor0 = payload[0];
             result.Motor1 = payload[1];
             result.Motor2 = payload[2];
@@ -6538,7 +6538,7 @@ namespace Harp.StepperDriver
             return result;
         }
 
-        static int[] FormatPayload(MaxsPositionPayload value)
+        static int[] FormatPayload(MaxPositionPayload value)
         {
             int[] result;
             result = new int[4];
@@ -6550,52 +6550,52 @@ namespace Harp.StepperDriver
         }
 
         /// <summary>
-        /// Returns the payload data for <see cref="MaxsPosition"/> register messages.
+        /// Returns the payload data for <see cref="MaxPosition"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
-        public static MaxsPositionPayload GetPayload(HarpMessage message)
+        public static MaxPositionPayload GetPayload(HarpMessage message)
         {
             return ParsePayload(message.GetPayloadArray<int>());
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="MaxsPosition"/> register messages.
+        /// Returns the timestamped payload data for <see cref="MaxPosition"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<MaxsPositionPayload> GetTimestampedPayload(HarpMessage message)
+        public static Timestamped<MaxPositionPayload> GetTimestampedPayload(HarpMessage message)
         {
             var payload = message.GetTimestampedPayloadArray<int>();
             return Timestamped.Create(ParsePayload(payload.Value), payload.Seconds);
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="MaxsPosition"/> register.
+        /// Returns a Harp message for the <see cref="MaxPosition"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="MaxsPosition"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="MaxPosition"/> register
         /// with the specified message type and payload.
         /// </returns>
-        public static HarpMessage FromPayload(MessageType messageType, MaxsPositionPayload value)
+        public static HarpMessage FromPayload(MessageType messageType, MaxPositionPayload value)
         {
             return HarpMessage.FromInt32(Address, messageType, FormatPayload(value));
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="MaxsPosition"/>
+        /// Returns a timestamped Harp message for the <see cref="MaxPosition"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="MaxsPosition"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="MaxPosition"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
-        public static HarpMessage FromPayload(double timestamp, MessageType messageType, MaxsPositionPayload value)
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, MaxPositionPayload value)
         {
             return HarpMessage.FromInt32(Address, timestamp, messageType, FormatPayload(value));
         }
@@ -6603,25 +6603,25 @@ namespace Harp.StepperDriver
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// MaxsPosition register.
+    /// MaxPosition register.
     /// </summary>
-    /// <seealso cref="MaxsPosition"/>
-    [Description("Filters and selects timestamped messages from the MaxsPosition register.")]
-    public partial class TimestampedMaxsPosition
+    /// <seealso cref="MaxPosition"/>
+    [Description("Filters and selects timestamped messages from the MaxPosition register.")]
+    public partial class TimestampedMaxPosition
     {
         /// <summary>
-        /// Represents the address of the <see cref="MaxsPosition"/> register. This field is constant.
+        /// Represents the address of the <see cref="MaxPosition"/> register. This field is constant.
         /// </summary>
-        public const int Address = MaxsPosition.Address;
+        public const int Address = MaxPosition.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="MaxsPosition"/> register messages.
+        /// Returns timestamped payload data for <see cref="MaxPosition"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<MaxsPositionPayload> GetPayload(HarpMessage message)
+        public static Timestamped<MaxPositionPayload> GetPayload(HarpMessage message)
         {
-            return MaxsPosition.GetTimestampedPayload(message);
+            return MaxPosition.GetTimestampedPayload(message);
         }
     }
 
@@ -7013,26 +7013,26 @@ namespace Harp.StepperDriver
     /// Represents a register that defines the limit of the accumulated steps for the negative movement of all motors. The device will not let the motors move further than this value.
     /// </summary>
     [Description("Defines the limit of the accumulated steps for the negative movement of all motors. The device will not let the motors move further than this value.")]
-    public partial class MinsPosition
+    public partial class MinPosition
     {
         /// <summary>
-        /// Represents the address of the <see cref="MinsPosition"/> register. This field is constant.
+        /// Represents the address of the <see cref="MinPosition"/> register. This field is constant.
         /// </summary>
         public const int Address = 96;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="MinsPosition"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="MinPosition"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.S32;
 
         /// <summary>
-        /// Represents the length of the <see cref="MinsPosition"/> register. This field is constant.
+        /// Represents the length of the <see cref="MinPosition"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 4;
 
-        static MinsPositionPayload ParsePayload(int[] payload)
+        static MinPositionPayload ParsePayload(int[] payload)
         {
-            MinsPositionPayload result;
+            MinPositionPayload result;
             result.Motor0 = payload[0];
             result.Motor1 = payload[1];
             result.Motor2 = payload[2];
@@ -7040,7 +7040,7 @@ namespace Harp.StepperDriver
             return result;
         }
 
-        static int[] FormatPayload(MinsPositionPayload value)
+        static int[] FormatPayload(MinPositionPayload value)
         {
             int[] result;
             result = new int[4];
@@ -7052,52 +7052,52 @@ namespace Harp.StepperDriver
         }
 
         /// <summary>
-        /// Returns the payload data for <see cref="MinsPosition"/> register messages.
+        /// Returns the payload data for <see cref="MinPosition"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
-        public static MinsPositionPayload GetPayload(HarpMessage message)
+        public static MinPositionPayload GetPayload(HarpMessage message)
         {
             return ParsePayload(message.GetPayloadArray<int>());
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="MinsPosition"/> register messages.
+        /// Returns the timestamped payload data for <see cref="MinPosition"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<MinsPositionPayload> GetTimestampedPayload(HarpMessage message)
+        public static Timestamped<MinPositionPayload> GetTimestampedPayload(HarpMessage message)
         {
             var payload = message.GetTimestampedPayloadArray<int>();
             return Timestamped.Create(ParsePayload(payload.Value), payload.Seconds);
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="MinsPosition"/> register.
+        /// Returns a Harp message for the <see cref="MinPosition"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="MinsPosition"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="MinPosition"/> register
         /// with the specified message type and payload.
         /// </returns>
-        public static HarpMessage FromPayload(MessageType messageType, MinsPositionPayload value)
+        public static HarpMessage FromPayload(MessageType messageType, MinPositionPayload value)
         {
             return HarpMessage.FromInt32(Address, messageType, FormatPayload(value));
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="MinsPosition"/>
+        /// Returns a timestamped Harp message for the <see cref="MinPosition"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="MinsPosition"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="MinPosition"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
-        public static HarpMessage FromPayload(double timestamp, MessageType messageType, MinsPositionPayload value)
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, MinPositionPayload value)
         {
             return HarpMessage.FromInt32(Address, timestamp, messageType, FormatPayload(value));
         }
@@ -7105,25 +7105,25 @@ namespace Harp.StepperDriver
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// MinsPosition register.
+    /// MinPosition register.
     /// </summary>
-    /// <seealso cref="MinsPosition"/>
-    [Description("Filters and selects timestamped messages from the MinsPosition register.")]
-    public partial class TimestampedMinsPosition
+    /// <seealso cref="MinPosition"/>
+    [Description("Filters and selects timestamped messages from the MinPosition register.")]
+    public partial class TimestampedMinPosition
     {
         /// <summary>
-        /// Represents the address of the <see cref="MinsPosition"/> register. This field is constant.
+        /// Represents the address of the <see cref="MinPosition"/> register. This field is constant.
         /// </summary>
-        public const int Address = MinsPosition.Address;
+        public const int Address = MinPosition.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="MinsPosition"/> register messages.
+        /// Returns timestamped payload data for <see cref="MinPosition"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<MinsPositionPayload> GetPayload(HarpMessage message)
+        public static Timestamped<MinPositionPayload> GetPayload(HarpMessage message)
         {
-            return MinsPosition.GetTimestampedPayload(message);
+            return MinPosition.GetTimestampedPayload(message);
         }
     }
 
@@ -7515,26 +7515,26 @@ namespace Harp.StepperDriver
     /// Represents a register that starts the movement of all motors with the step interval defined by this array. The value's signal defines the direction.
     /// </summary>
     [Description("Starts the movement of all motors with the step interval defined by this array. The value's signal defines the direction.")]
-    public partial class StepsRelative
+    public partial class StepRelative
     {
         /// <summary>
-        /// Represents the address of the <see cref="StepsRelative"/> register. This field is constant.
+        /// Represents the address of the <see cref="StepRelative"/> register. This field is constant.
         /// </summary>
         public const int Address = 101;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="StepsRelative"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="StepRelative"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.S32;
 
         /// <summary>
-        /// Represents the length of the <see cref="StepsRelative"/> register. This field is constant.
+        /// Represents the length of the <see cref="StepRelative"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 4;
 
-        static StepsRelativePayload ParsePayload(int[] payload)
+        static StepRelativePayload ParsePayload(int[] payload)
         {
-            StepsRelativePayload result;
+            StepRelativePayload result;
             result.Motor0 = payload[0];
             result.Motor1 = payload[1];
             result.Motor2 = payload[2];
@@ -7542,7 +7542,7 @@ namespace Harp.StepperDriver
             return result;
         }
 
-        static int[] FormatPayload(StepsRelativePayload value)
+        static int[] FormatPayload(StepRelativePayload value)
         {
             int[] result;
             result = new int[4];
@@ -7554,52 +7554,52 @@ namespace Harp.StepperDriver
         }
 
         /// <summary>
-        /// Returns the payload data for <see cref="StepsRelative"/> register messages.
+        /// Returns the payload data for <see cref="StepRelative"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
-        public static StepsRelativePayload GetPayload(HarpMessage message)
+        public static StepRelativePayload GetPayload(HarpMessage message)
         {
             return ParsePayload(message.GetPayloadArray<int>());
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="StepsRelative"/> register messages.
+        /// Returns the timestamped payload data for <see cref="StepRelative"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<StepsRelativePayload> GetTimestampedPayload(HarpMessage message)
+        public static Timestamped<StepRelativePayload> GetTimestampedPayload(HarpMessage message)
         {
             var payload = message.GetTimestampedPayloadArray<int>();
             return Timestamped.Create(ParsePayload(payload.Value), payload.Seconds);
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="StepsRelative"/> register.
+        /// Returns a Harp message for the <see cref="StepRelative"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="StepsRelative"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="StepRelative"/> register
         /// with the specified message type and payload.
         /// </returns>
-        public static HarpMessage FromPayload(MessageType messageType, StepsRelativePayload value)
+        public static HarpMessage FromPayload(MessageType messageType, StepRelativePayload value)
         {
             return HarpMessage.FromInt32(Address, messageType, FormatPayload(value));
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="StepsRelative"/>
+        /// Returns a timestamped Harp message for the <see cref="StepRelative"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="StepsRelative"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="StepRelative"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
-        public static HarpMessage FromPayload(double timestamp, MessageType messageType, StepsRelativePayload value)
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, StepRelativePayload value)
         {
             return HarpMessage.FromInt32(Address, timestamp, messageType, FormatPayload(value));
         }
@@ -7607,25 +7607,25 @@ namespace Harp.StepperDriver
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// StepsRelative register.
+    /// StepRelative register.
     /// </summary>
-    /// <seealso cref="StepsRelative"/>
-    [Description("Filters and selects timestamped messages from the StepsRelative register.")]
-    public partial class TimestampedStepsRelative
+    /// <seealso cref="StepRelative"/>
+    [Description("Filters and selects timestamped messages from the StepRelative register.")]
+    public partial class TimestampedStepRelative
     {
         /// <summary>
-        /// Represents the address of the <see cref="StepsRelative"/> register. This field is constant.
+        /// Represents the address of the <see cref="StepRelative"/> register. This field is constant.
         /// </summary>
-        public const int Address = StepsRelative.Address;
+        public const int Address = StepRelative.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="StepsRelative"/> register messages.
+        /// Returns timestamped payload data for <see cref="StepRelative"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<StepsRelativePayload> GetPayload(HarpMessage message)
+        public static Timestamped<StepRelativePayload> GetPayload(HarpMessage message)
         {
-            return StepsRelative.GetTimestampedPayload(message);
+            return StepRelative.GetTimestampedPayload(message);
         }
     }
 
@@ -8270,17 +8270,17 @@ namespace Harp.StepperDriver
     /// <seealso cref="CreateMotor2MoveAbsolutePayload"/>
     /// <seealso cref="CreateMotor3MoveAbsolutePayload"/>
     /// <seealso cref="CreateAccumulatedStepsPayload"/>
-    /// <seealso cref="CreateMaxsPositionPayload"/>
+    /// <seealso cref="CreateMaxPositionPayload"/>
     /// <seealso cref="CreateMotor0MaxPositionPayload"/>
     /// <seealso cref="CreateMotor1MaxPositionPayload"/>
     /// <seealso cref="CreateMotor2MaxPositionPayload"/>
     /// <seealso cref="CreateMotor3MaxPositionPayload"/>
-    /// <seealso cref="CreateMinsPositionPayload"/>
+    /// <seealso cref="CreateMinPositionPayload"/>
     /// <seealso cref="CreateMotor0MinPositionPayload"/>
     /// <seealso cref="CreateMotor1MinPositionPayload"/>
     /// <seealso cref="CreateMotor2MinPositionPayload"/>
     /// <seealso cref="CreateMotor3MinPositionPayload"/>
-    /// <seealso cref="CreateStepsRelativePayload"/>
+    /// <seealso cref="CreateStepRelativePayload"/>
     /// <seealso cref="CreateMotor0StepRelativePayload"/>
     /// <seealso cref="CreateMotor1StepRelativePayload"/>
     /// <seealso cref="CreateMotor2StepRelativePayload"/>
@@ -8346,17 +8346,17 @@ namespace Harp.StepperDriver
     [XmlInclude(typeof(CreateMotor2MoveAbsolutePayload))]
     [XmlInclude(typeof(CreateMotor3MoveAbsolutePayload))]
     [XmlInclude(typeof(CreateAccumulatedStepsPayload))]
-    [XmlInclude(typeof(CreateMaxsPositionPayload))]
+    [XmlInclude(typeof(CreateMaxPositionPayload))]
     [XmlInclude(typeof(CreateMotor0MaxPositionPayload))]
     [XmlInclude(typeof(CreateMotor1MaxPositionPayload))]
     [XmlInclude(typeof(CreateMotor2MaxPositionPayload))]
     [XmlInclude(typeof(CreateMotor3MaxPositionPayload))]
-    [XmlInclude(typeof(CreateMinsPositionPayload))]
+    [XmlInclude(typeof(CreateMinPositionPayload))]
     [XmlInclude(typeof(CreateMotor0MinPositionPayload))]
     [XmlInclude(typeof(CreateMotor1MinPositionPayload))]
     [XmlInclude(typeof(CreateMotor2MinPositionPayload))]
     [XmlInclude(typeof(CreateMotor3MinPositionPayload))]
-    [XmlInclude(typeof(CreateStepsRelativePayload))]
+    [XmlInclude(typeof(CreateStepRelativePayload))]
     [XmlInclude(typeof(CreateMotor0StepRelativePayload))]
     [XmlInclude(typeof(CreateMotor1StepRelativePayload))]
     [XmlInclude(typeof(CreateMotor2StepRelativePayload))]
@@ -8422,17 +8422,17 @@ namespace Harp.StepperDriver
     [XmlInclude(typeof(CreateTimestampedMotor2MoveAbsolutePayload))]
     [XmlInclude(typeof(CreateTimestampedMotor3MoveAbsolutePayload))]
     [XmlInclude(typeof(CreateTimestampedAccumulatedStepsPayload))]
-    [XmlInclude(typeof(CreateTimestampedMaxsPositionPayload))]
+    [XmlInclude(typeof(CreateTimestampedMaxPositionPayload))]
     [XmlInclude(typeof(CreateTimestampedMotor0MaxPositionPayload))]
     [XmlInclude(typeof(CreateTimestampedMotor1MaxPositionPayload))]
     [XmlInclude(typeof(CreateTimestampedMotor2MaxPositionPayload))]
     [XmlInclude(typeof(CreateTimestampedMotor3MaxPositionPayload))]
-    [XmlInclude(typeof(CreateTimestampedMinsPositionPayload))]
+    [XmlInclude(typeof(CreateTimestampedMinPositionPayload))]
     [XmlInclude(typeof(CreateTimestampedMotor0MinPositionPayload))]
     [XmlInclude(typeof(CreateTimestampedMotor1MinPositionPayload))]
     [XmlInclude(typeof(CreateTimestampedMotor2MinPositionPayload))]
     [XmlInclude(typeof(CreateTimestampedMotor3MinPositionPayload))]
-    [XmlInclude(typeof(CreateTimestampedStepsRelativePayload))]
+    [XmlInclude(typeof(CreateTimestampedStepRelativePayload))]
     [XmlInclude(typeof(CreateTimestampedMotor0StepRelativePayload))]
     [XmlInclude(typeof(CreateTimestampedMotor1StepRelativePayload))]
     [XmlInclude(typeof(CreateTimestampedMotor2StepRelativePayload))]
@@ -11760,9 +11760,9 @@ namespace Harp.StepperDriver
     /// Represents an operator that creates a message payload
     /// that defines the limit of the accumulated steps for the positive movement of all motors. The device will not let the motors move further than this value.
     /// </summary>
-    [DisplayName("MaxsPositionPayload")]
+    [DisplayName("MaxPositionPayload")]
     [Description("Creates a message payload that defines the limit of the accumulated steps for the positive movement of all motors. The device will not let the motors move further than this value.")]
-    public partial class CreateMaxsPositionPayload
+    public partial class CreateMaxPositionPayload
     {
         /// <summary>
         /// Gets or sets a value that defines the limit of the accumulated steps for the positive movement of motor 0. The device will not let the motor move further than this value.
@@ -11789,12 +11789,12 @@ namespace Harp.StepperDriver
         public int Motor3 { get; set; }
 
         /// <summary>
-        /// Creates a message payload for the MaxsPosition register.
+        /// Creates a message payload for the MaxPosition register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
-        public MaxsPositionPayload GetPayload()
+        public MaxPositionPayload GetPayload()
         {
-            MaxsPositionPayload value;
+            MaxPositionPayload value;
             value.Motor0 = Motor0;
             value.Motor1 = Motor1;
             value.Motor2 = Motor2;
@@ -11806,10 +11806,10 @@ namespace Harp.StepperDriver
         /// Creates a message that defines the limit of the accumulated steps for the positive movement of all motors. The device will not let the motors move further than this value.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the MaxsPosition register.</returns>
+        /// <returns>A new message for the MaxPosition register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return Harp.StepperDriver.MaxsPosition.FromPayload(messageType, GetPayload());
+            return Harp.StepperDriver.MaxPosition.FromPayload(messageType, GetPayload());
         }
     }
 
@@ -11817,19 +11817,19 @@ namespace Harp.StepperDriver
     /// Represents an operator that creates a timestamped message payload
     /// that defines the limit of the accumulated steps for the positive movement of all motors. The device will not let the motors move further than this value.
     /// </summary>
-    [DisplayName("TimestampedMaxsPositionPayload")]
+    [DisplayName("TimestampedMaxPositionPayload")]
     [Description("Creates a timestamped message payload that defines the limit of the accumulated steps for the positive movement of all motors. The device will not let the motors move further than this value.")]
-    public partial class CreateTimestampedMaxsPositionPayload : CreateMaxsPositionPayload
+    public partial class CreateTimestampedMaxPositionPayload : CreateMaxPositionPayload
     {
         /// <summary>
         /// Creates a timestamped message that defines the limit of the accumulated steps for the positive movement of all motors. The device will not let the motors move further than this value.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the MaxsPosition register.</returns>
+        /// <returns>A new timestamped message for the MaxPosition register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return Harp.StepperDriver.MaxsPosition.FromPayload(timestamp, messageType, GetPayload());
+            return Harp.StepperDriver.MaxPosition.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
@@ -12053,9 +12053,9 @@ namespace Harp.StepperDriver
     /// Represents an operator that creates a message payload
     /// that defines the limit of the accumulated steps for the negative movement of all motors. The device will not let the motors move further than this value.
     /// </summary>
-    [DisplayName("MinsPositionPayload")]
+    [DisplayName("MinPositionPayload")]
     [Description("Creates a message payload that defines the limit of the accumulated steps for the negative movement of all motors. The device will not let the motors move further than this value.")]
-    public partial class CreateMinsPositionPayload
+    public partial class CreateMinPositionPayload
     {
         /// <summary>
         /// Gets or sets a value that defines the limit of the accumulated steps for the negative movement of motor 0. The device will not let the motor move further than this value.
@@ -12082,12 +12082,12 @@ namespace Harp.StepperDriver
         public int Motor3 { get; set; }
 
         /// <summary>
-        /// Creates a message payload for the MinsPosition register.
+        /// Creates a message payload for the MinPosition register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
-        public MinsPositionPayload GetPayload()
+        public MinPositionPayload GetPayload()
         {
-            MinsPositionPayload value;
+            MinPositionPayload value;
             value.Motor0 = Motor0;
             value.Motor1 = Motor1;
             value.Motor2 = Motor2;
@@ -12099,10 +12099,10 @@ namespace Harp.StepperDriver
         /// Creates a message that defines the limit of the accumulated steps for the negative movement of all motors. The device will not let the motors move further than this value.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the MinsPosition register.</returns>
+        /// <returns>A new message for the MinPosition register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return Harp.StepperDriver.MinsPosition.FromPayload(messageType, GetPayload());
+            return Harp.StepperDriver.MinPosition.FromPayload(messageType, GetPayload());
         }
     }
 
@@ -12110,19 +12110,19 @@ namespace Harp.StepperDriver
     /// Represents an operator that creates a timestamped message payload
     /// that defines the limit of the accumulated steps for the negative movement of all motors. The device will not let the motors move further than this value.
     /// </summary>
-    [DisplayName("TimestampedMinsPositionPayload")]
+    [DisplayName("TimestampedMinPositionPayload")]
     [Description("Creates a timestamped message payload that defines the limit of the accumulated steps for the negative movement of all motors. The device will not let the motors move further than this value.")]
-    public partial class CreateTimestampedMinsPositionPayload : CreateMinsPositionPayload
+    public partial class CreateTimestampedMinPositionPayload : CreateMinPositionPayload
     {
         /// <summary>
         /// Creates a timestamped message that defines the limit of the accumulated steps for the negative movement of all motors. The device will not let the motors move further than this value.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the MinsPosition register.</returns>
+        /// <returns>A new timestamped message for the MinPosition register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return Harp.StepperDriver.MinsPosition.FromPayload(timestamp, messageType, GetPayload());
+            return Harp.StepperDriver.MinPosition.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
@@ -12346,9 +12346,9 @@ namespace Harp.StepperDriver
     /// Represents an operator that creates a message payload
     /// that starts the movement of all motors with the step interval defined by this array. The value's signal defines the direction.
     /// </summary>
-    [DisplayName("StepsRelativePayload")]
+    [DisplayName("StepRelativePayload")]
     [Description("Creates a message payload that starts the movement of all motors with the step interval defined by this array. The value's signal defines the direction.")]
-    public partial class CreateStepsRelativePayload
+    public partial class CreateStepRelativePayload
     {
         /// <summary>
         /// Gets or sets a value that starts the movement of motor 0 with the step interval defined by this register. The value's signal defines the direction.
@@ -12375,12 +12375,12 @@ namespace Harp.StepperDriver
         public int Motor3 { get; set; }
 
         /// <summary>
-        /// Creates a message payload for the StepsRelative register.
+        /// Creates a message payload for the StepRelative register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
-        public StepsRelativePayload GetPayload()
+        public StepRelativePayload GetPayload()
         {
-            StepsRelativePayload value;
+            StepRelativePayload value;
             value.Motor0 = Motor0;
             value.Motor1 = Motor1;
             value.Motor2 = Motor2;
@@ -12392,10 +12392,10 @@ namespace Harp.StepperDriver
         /// Creates a message that starts the movement of all motors with the step interval defined by this array. The value's signal defines the direction.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the StepsRelative register.</returns>
+        /// <returns>A new message for the StepRelative register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return Harp.StepperDriver.StepsRelative.FromPayload(messageType, GetPayload());
+            return Harp.StepperDriver.StepRelative.FromPayload(messageType, GetPayload());
         }
     }
 
@@ -12403,19 +12403,19 @@ namespace Harp.StepperDriver
     /// Represents an operator that creates a timestamped message payload
     /// that starts the movement of all motors with the step interval defined by this array. The value's signal defines the direction.
     /// </summary>
-    [DisplayName("TimestampedStepsRelativePayload")]
+    [DisplayName("TimestampedStepRelativePayload")]
     [Description("Creates a timestamped message payload that starts the movement of all motors with the step interval defined by this array. The value's signal defines the direction.")]
-    public partial class CreateTimestampedStepsRelativePayload : CreateStepsRelativePayload
+    public partial class CreateTimestampedStepRelativePayload : CreateStepRelativePayload
     {
         /// <summary>
         /// Creates a timestamped message that starts the movement of all motors with the step interval defined by this array. The value's signal defines the direction.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the StepsRelative register.</returns>
+        /// <returns>A new timestamped message for the StepRelative register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return Harp.StepperDriver.StepsRelative.FromPayload(timestamp, messageType, GetPayload());
+            return Harp.StepperDriver.StepRelative.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
@@ -12916,18 +12916,18 @@ namespace Harp.StepperDriver
     }
 
     /// <summary>
-    /// Represents the payload of the MaxsPosition register.
+    /// Represents the payload of the MaxPosition register.
     /// </summary>
-    public struct MaxsPositionPayload
+    public struct MaxPositionPayload
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MaxsPositionPayload"/> structure.
+        /// Initializes a new instance of the <see cref="MaxPositionPayload"/> structure.
         /// </summary>
         /// <param name="motor0">Defines the limit of the accumulated steps for the positive movement of motor 0. The device will not let the motor move further than this value.</param>
         /// <param name="motor1">Defines the limit of the accumulated steps for the positive movement of motor 1. The device will not let the motor move further than this value.</param>
         /// <param name="motor2">Defines the limit of the accumulated steps for the positive movement of motor 2. The device will not let the motor move further than this value.</param>
         /// <param name="motor3">Defines the limit of the accumulated steps for the positive movement of motor 3. The device will not let the motor move further than this value.</param>
-        public MaxsPositionPayload(
+        public MaxPositionPayload(
             int motor0,
             int motor1,
             int motor2,
@@ -12961,18 +12961,18 @@ namespace Harp.StepperDriver
     }
 
     /// <summary>
-    /// Represents the payload of the MinsPosition register.
+    /// Represents the payload of the MinPosition register.
     /// </summary>
-    public struct MinsPositionPayload
+    public struct MinPositionPayload
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MinsPositionPayload"/> structure.
+        /// Initializes a new instance of the <see cref="MinPositionPayload"/> structure.
         /// </summary>
         /// <param name="motor0">Defines the limit of the accumulated steps for the negative movement of motor 0. The device will not let the motor move further than this value.</param>
         /// <param name="motor1">Defines the limit of the accumulated steps for the negative movement of motor 1. The device will not let the motor move further than this value.</param>
         /// <param name="motor2">Defines the limit of the accumulated steps for the negative movement of motor 2. The device will not let the motor move further than this value.</param>
         /// <param name="motor3">Defines the limit of the accumulated steps for the negative movement of motor 3. The device will not let the motor move further than this value.</param>
-        public MinsPositionPayload(
+        public MinPositionPayload(
             int motor0,
             int motor1,
             int motor2,
@@ -13006,18 +13006,18 @@ namespace Harp.StepperDriver
     }
 
     /// <summary>
-    /// Represents the payload of the StepsRelative register.
+    /// Represents the payload of the StepRelative register.
     /// </summary>
-    public struct StepsRelativePayload
+    public struct StepRelativePayload
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="StepsRelativePayload"/> structure.
+        /// Initializes a new instance of the <see cref="StepRelativePayload"/> structure.
         /// </summary>
         /// <param name="motor0">Starts the movement of motor 0 with the step interval defined by this register. The value's signal defines the direction.</param>
         /// <param name="motor1">Starts the movement of motor 1 with the step interval defined by this register. The value's signal defines the direction.</param>
         /// <param name="motor2">Starts the movement of motor 2 with the step interval defined by this register. The value's signal defines the direction.</param>
         /// <param name="motor3">Starts the movement of motor 3 with the step interval defined by this register. The value's signal defines the direction.</param>
-        public StepsRelativePayload(
+        public StepRelativePayload(
             int motor0,
             int motor1,
             int motor2,

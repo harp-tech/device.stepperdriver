@@ -2690,7 +2690,7 @@ namespace Harp.StepperDriver
         }
 
         /// <summary>
-        /// Asynchronously reads the contents of the MaxsPosition register.
+        /// Asynchronously reads the contents of the MaxPosition register.
         /// </summary>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
@@ -2699,14 +2699,14 @@ namespace Harp.StepperDriver
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the register payload.
         /// </returns>
-        public async Task<MaxsPositionPayload> ReadMaxsPositionAsync(CancellationToken cancellationToken = default)
+        public async Task<MaxPositionPayload> ReadMaxPositionAsync(CancellationToken cancellationToken = default)
         {
-            var reply = await CommandAsync(HarpCommand.ReadInt32(MaxsPosition.Address), cancellationToken);
-            return MaxsPosition.GetPayload(reply);
+            var reply = await CommandAsync(HarpCommand.ReadInt32(MaxPosition.Address), cancellationToken);
+            return MaxPosition.GetPayload(reply);
         }
 
         /// <summary>
-        /// Asynchronously reads the timestamped contents of the MaxsPosition register.
+        /// Asynchronously reads the timestamped contents of the MaxPosition register.
         /// </summary>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
@@ -2715,23 +2715,23 @@ namespace Harp.StepperDriver
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the timestamped register payload.
         /// </returns>
-        public async Task<Timestamped<MaxsPositionPayload>> ReadTimestampedMaxsPositionAsync(CancellationToken cancellationToken = default)
+        public async Task<Timestamped<MaxPositionPayload>> ReadTimestampedMaxPositionAsync(CancellationToken cancellationToken = default)
         {
-            var reply = await CommandAsync(HarpCommand.ReadInt32(MaxsPosition.Address), cancellationToken);
-            return MaxsPosition.GetTimestampedPayload(reply);
+            var reply = await CommandAsync(HarpCommand.ReadInt32(MaxPosition.Address), cancellationToken);
+            return MaxPosition.GetTimestampedPayload(reply);
         }
 
         /// <summary>
-        /// Asynchronously writes a value to the MaxsPosition register.
+        /// Asynchronously writes a value to the MaxPosition register.
         /// </summary>
         /// <param name="value">The value to be stored in the register.</param>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
         /// </param>
         /// <returns>The task object representing the asynchronous write operation.</returns>
-        public async Task WriteMaxsPositionAsync(MaxsPositionPayload value, CancellationToken cancellationToken = default)
+        public async Task WriteMaxPositionAsync(MaxPositionPayload value, CancellationToken cancellationToken = default)
         {
-            var request = MaxsPosition.FromPayload(MessageType.Write, value);
+            var request = MaxPosition.FromPayload(MessageType.Write, value);
             await CommandAsync(request, cancellationToken);
         }
 
@@ -2920,7 +2920,7 @@ namespace Harp.StepperDriver
         }
 
         /// <summary>
-        /// Asynchronously reads the contents of the MinsPosition register.
+        /// Asynchronously reads the contents of the MinPosition register.
         /// </summary>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
@@ -2929,14 +2929,14 @@ namespace Harp.StepperDriver
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the register payload.
         /// </returns>
-        public async Task<MinsPositionPayload> ReadMinsPositionAsync(CancellationToken cancellationToken = default)
+        public async Task<MinPositionPayload> ReadMinPositionAsync(CancellationToken cancellationToken = default)
         {
-            var reply = await CommandAsync(HarpCommand.ReadInt32(MinsPosition.Address), cancellationToken);
-            return MinsPosition.GetPayload(reply);
+            var reply = await CommandAsync(HarpCommand.ReadInt32(MinPosition.Address), cancellationToken);
+            return MinPosition.GetPayload(reply);
         }
 
         /// <summary>
-        /// Asynchronously reads the timestamped contents of the MinsPosition register.
+        /// Asynchronously reads the timestamped contents of the MinPosition register.
         /// </summary>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
@@ -2945,23 +2945,23 @@ namespace Harp.StepperDriver
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the timestamped register payload.
         /// </returns>
-        public async Task<Timestamped<MinsPositionPayload>> ReadTimestampedMinsPositionAsync(CancellationToken cancellationToken = default)
+        public async Task<Timestamped<MinPositionPayload>> ReadTimestampedMinPositionAsync(CancellationToken cancellationToken = default)
         {
-            var reply = await CommandAsync(HarpCommand.ReadInt32(MinsPosition.Address), cancellationToken);
-            return MinsPosition.GetTimestampedPayload(reply);
+            var reply = await CommandAsync(HarpCommand.ReadInt32(MinPosition.Address), cancellationToken);
+            return MinPosition.GetTimestampedPayload(reply);
         }
 
         /// <summary>
-        /// Asynchronously writes a value to the MinsPosition register.
+        /// Asynchronously writes a value to the MinPosition register.
         /// </summary>
         /// <param name="value">The value to be stored in the register.</param>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
         /// </param>
         /// <returns>The task object representing the asynchronous write operation.</returns>
-        public async Task WriteMinsPositionAsync(MinsPositionPayload value, CancellationToken cancellationToken = default)
+        public async Task WriteMinPositionAsync(MinPositionPayload value, CancellationToken cancellationToken = default)
         {
-            var request = MinsPosition.FromPayload(MessageType.Write, value);
+            var request = MinPosition.FromPayload(MessageType.Write, value);
             await CommandAsync(request, cancellationToken);
         }
 
@@ -3150,7 +3150,7 @@ namespace Harp.StepperDriver
         }
 
         /// <summary>
-        /// Asynchronously reads the contents of the StepsRelative register.
+        /// Asynchronously reads the contents of the StepRelative register.
         /// </summary>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
@@ -3159,14 +3159,14 @@ namespace Harp.StepperDriver
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the register payload.
         /// </returns>
-        public async Task<StepsRelativePayload> ReadStepsRelativeAsync(CancellationToken cancellationToken = default)
+        public async Task<StepRelativePayload> ReadStepRelativeAsync(CancellationToken cancellationToken = default)
         {
-            var reply = await CommandAsync(HarpCommand.ReadInt32(StepsRelative.Address), cancellationToken);
-            return StepsRelative.GetPayload(reply);
+            var reply = await CommandAsync(HarpCommand.ReadInt32(StepRelative.Address), cancellationToken);
+            return StepRelative.GetPayload(reply);
         }
 
         /// <summary>
-        /// Asynchronously reads the timestamped contents of the StepsRelative register.
+        /// Asynchronously reads the timestamped contents of the StepRelative register.
         /// </summary>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
@@ -3175,23 +3175,23 @@ namespace Harp.StepperDriver
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the timestamped register payload.
         /// </returns>
-        public async Task<Timestamped<StepsRelativePayload>> ReadTimestampedStepsRelativeAsync(CancellationToken cancellationToken = default)
+        public async Task<Timestamped<StepRelativePayload>> ReadTimestampedStepRelativeAsync(CancellationToken cancellationToken = default)
         {
-            var reply = await CommandAsync(HarpCommand.ReadInt32(StepsRelative.Address), cancellationToken);
-            return StepsRelative.GetTimestampedPayload(reply);
+            var reply = await CommandAsync(HarpCommand.ReadInt32(StepRelative.Address), cancellationToken);
+            return StepRelative.GetTimestampedPayload(reply);
         }
 
         /// <summary>
-        /// Asynchronously writes a value to the StepsRelative register.
+        /// Asynchronously writes a value to the StepRelative register.
         /// </summary>
         /// <param name="value">The value to be stored in the register.</param>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
         /// </param>
         /// <returns>The task object representing the asynchronous write operation.</returns>
-        public async Task WriteStepsRelativeAsync(StepsRelativePayload value, CancellationToken cancellationToken = default)
+        public async Task WriteStepRelativeAsync(StepRelativePayload value, CancellationToken cancellationToken = default)
         {
-            var request = StepsRelative.FromPayload(MessageType.Write, value);
+            var request = StepRelative.FromPayload(MessageType.Write, value);
             await CommandAsync(request, cancellationToken);
         }
 
