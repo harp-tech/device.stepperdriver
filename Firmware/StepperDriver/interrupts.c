@@ -218,7 +218,10 @@ ISR(PORTC_INT1_vect, ISR_NAKED)
 	uint8_t prev_reg = app_regs.REG_MOTORS_ERROR_DETECTTION;	
 	
 	clr_DRIVE_ENABLE_M0;
-	if_moving_stop_rotation(0);
+	if (if_moving_stop_rotation(0))
+	{
+		send_motors_stopped_event(0);
+	}
 	clr_LED_M0;
 		
 	app_regs.REG_MOTORS_ERROR_DETECTTION |= B_MOTOR0;
@@ -242,7 +245,10 @@ ISR(PORTD_INT1_vect, ISR_NAKED)
 	uint8_t prev_reg = app_regs.REG_MOTORS_ERROR_DETECTTION;
 	
 	clr_DRIVE_ENABLE_M1;
-	if_moving_stop_rotation(1);
+	if (if_moving_stop_rotation(1))
+	{
+		send_motors_stopped_event(1);
+	}
 	clr_LED_M1;
 		
 	app_regs.REG_MOTORS_ERROR_DETECTTION |= B_MOTOR1;
@@ -266,7 +272,10 @@ ISR(PORTE_INT1_vect, ISR_NAKED)
 	uint8_t prev_reg = app_regs.REG_MOTORS_ERROR_DETECTTION;
 	
 	clr_DRIVE_ENABLE_M2;
-	if_moving_stop_rotation(2);
+	if (if_moving_stop_rotation(2))
+	{
+		send_motors_stopped_event(2);
+	}
 	clr_LED_M2;
 	
 	app_regs.REG_MOTORS_ERROR_DETECTTION |= B_MOTOR2;
@@ -290,7 +299,10 @@ ISR(PORTJ_INT1_vect, ISR_NAKED)
 	uint8_t prev_reg = app_regs.REG_MOTORS_ERROR_DETECTTION;
 		
 	clr_DRIVE_ENABLE_M3;
-	if_moving_stop_rotation(3);
+	if (if_moving_stop_rotation(3))
+	{
+		send_motors_stopped_event(3);
+	}
 	clr_LED_M3;
 		
 	app_regs.REG_MOTORS_ERROR_DETECTTION |= B_MOTOR3;		
