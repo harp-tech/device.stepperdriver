@@ -376,7 +376,7 @@ registers:
     type: S32
     length: 4
     access: [Event, Write]
-    description: Contains the accumulated steps of all motors.
+    description: Contains the accumulated steps of all motors. Write a value to set the accumulated steps.
     payloadSpec:
       Motor0:
         offset: 0
@@ -396,7 +396,7 @@ registers:
     type: S32
     length: 4
     access: Write
-    description: Defines the limit of the accumulated steps for the positive movement of all motors. The device will not let the motors move further than this value.
+    description: Defines the limit of the accumulated steps for the positive movement of all motors. The device will not let the motors move further than this value. A value equal to 0 will disable the limits.
     payloadSpec:
       Motor0:
         offset: 0
@@ -434,7 +434,7 @@ registers:
     type: S32
     length: 4
     access: Write
-    description: Defines the limit of the accumulated steps for the negative movement of all motors. The device will not let the motors move further than this value.
+    description: Defines the limit of the accumulated steps for the negative movement of all motors. The device will not let the motors move further than this value. A value equal to 0 will disable the limits.
     payloadSpec:
       Motor0:
         offset: 0
