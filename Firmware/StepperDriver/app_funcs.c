@@ -125,10 +125,6 @@ void (*app_func_rd_pointer[])(void) = {
 	&app_read_REG_INPUT1_OPERATION_MODE,
 	&app_read_REG_INPUT2_OPERATION_MODE,
 	&app_read_REG_INPUT3_OPERATION_MODE,
-	&app_read_REG_INPUT0_SENSE_MODE,
-	&app_read_REG_INPUT1_SENSE_MODE,
-	&app_read_REG_INPUT2_SENSE_MODE,
-	&app_read_REG_INPUT3_SENSE_MODE,
 	&app_read_REG_EMERGENCY_DETECTION_MODE,
 	&app_read_REG_ACCUMULATED_STEPS_UPDATE_RATE,
 	&app_read_REG_MOTORS_STOPPED,
@@ -217,10 +213,6 @@ bool (*app_func_wr_pointer[])(void*) = {
 	&app_write_REG_INPUT1_OPERATION_MODE,
 	&app_write_REG_INPUT2_OPERATION_MODE,
 	&app_write_REG_INPUT3_OPERATION_MODE,
-	&app_write_REG_INPUT0_SENSE_MODE,
-	&app_write_REG_INPUT1_SENSE_MODE,
-	&app_write_REG_INPUT2_SENSE_MODE,
-	&app_write_REG_INPUT3_SENSE_MODE,
 	&app_write_REG_EMERGENCY_DETECTION_MODE,
 	&app_write_REG_ACCUMULATED_STEPS_UPDATE_RATE,
 	&app_write_REG_MOTORS_STOPPED,
@@ -406,43 +398,33 @@ bool app_write_REG_ENABLE_INPUTS(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
 	
+	if (reg)
+	{
+		/* Update state of the inputs */
+		app_read_REG_DIGITAL_INPUTS_STATE();
+	}
+	
 	if (reg & B_INPUT0)
 	{
-		if (app_regs.REG_INPUT0_SENSE_MODE == GM_RISING_EDGE)
-			io_pin2in(&PORTK, 5, PULL_IO_UP, SENSE_IO_EDGE_RISING);
-		else
-			io_pin2in(&PORTK, 5, PULL_IO_UP, SENSE_IO_EDGE_FALLING);
-		
+		io_pin2in(&PORTK, 5, PULL_IO_UP, SENSE_IO_EDGES_BOTH);		
 		io_set_int(&PORTK, INT_LEVEL_LOW, 0, (1<<5), false);
 	}
 	
 	if (reg & B_INPUT1)
 	{
-		if (app_regs.REG_INPUT0_SENSE_MODE == GM_RISING_EDGE)
-			io_pin2in(&PORTQ, 2, PULL_IO_UP, SENSE_IO_EDGE_RISING);
-		else
-			io_pin2in(&PORTQ, 2, PULL_IO_UP, SENSE_IO_EDGE_FALLING);
-		
+		io_pin2in(&PORTQ, 2, PULL_IO_UP, SENSE_IO_EDGES_BOTH);
 		io_set_int(&PORTQ, INT_LEVEL_LOW, 0, (1<<2), false);
 	}
 	
 	if (reg & B_INPUT2)
 	{
-		if (app_regs.REG_INPUT0_SENSE_MODE == GM_RISING_EDGE)
-			io_pin2in(&PORTC, 5, PULL_IO_UP, SENSE_IO_EDGE_RISING);
-		else
-			io_pin2in(&PORTC, 5, PULL_IO_UP, SENSE_IO_EDGE_FALLING);
-		
+		io_pin2in(&PORTC, 5, PULL_IO_UP, SENSE_IO_EDGES_BOTH);
 		io_set_int(&PORTC, INT_LEVEL_LOW, 0, (1<<5), false);
 	}
 	
 	if (reg & B_INPUT3)
 	{
-		if (app_regs.REG_INPUT0_SENSE_MODE == GM_RISING_EDGE)
-			io_pin2in(&PORTH, 7, PULL_IO_UP, SENSE_IO_EDGE_RISING);
-		else
-			io_pin2in(&PORTH, 7, PULL_IO_UP, SENSE_IO_EDGE_FALLING);
-		
+		io_pin2in(&PORTH, 7, PULL_IO_UP, SENSE_IO_EDGES_BOTH);		
 		io_set_int(&PORTH, INT_LEVEL_LOW, 0, (1<<7), false);
 	}
 
@@ -1082,8 +1064,6 @@ void app_read_REG_INPUT0_OPERATION_MODE(void) {}
 bool app_write_REG_INPUT0_OPERATION_MODE(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
-	
-	app_write_REG_ENABLE_INPUTS(&app_regs.REG_ENABLE_INPUTS);
 
 	app_regs.REG_INPUT0_OPERATION_MODE = reg;
 	return true;
@@ -1097,8 +1077,6 @@ void app_read_REG_INPUT1_OPERATION_MODE(void) {}
 bool app_write_REG_INPUT1_OPERATION_MODE(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
-	
-	app_write_REG_ENABLE_INPUTS(&app_regs.REG_ENABLE_INPUTS);
 
 	app_regs.REG_INPUT1_OPERATION_MODE = reg;
 	return true;
@@ -1112,8 +1090,6 @@ void app_read_REG_INPUT2_OPERATION_MODE(void) {}
 bool app_write_REG_INPUT2_OPERATION_MODE(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
-	
-	app_write_REG_ENABLE_INPUTS(&app_regs.REG_ENABLE_INPUTS);
 
 	app_regs.REG_INPUT2_OPERATION_MODE = reg;
 	return true;
@@ -1127,70 +1103,8 @@ void app_read_REG_INPUT3_OPERATION_MODE(void) {}
 bool app_write_REG_INPUT3_OPERATION_MODE(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
-	
-	app_write_REG_ENABLE_INPUTS(&app_regs.REG_ENABLE_INPUTS);
 
 	app_regs.REG_INPUT3_OPERATION_MODE = reg;
-	return true;
-}
-
-
-/************************************************************************/
-/* REG_INPUT0_SENSE_MODE                                                */
-/************************************************************************/
-void app_read_REG_INPUT0_SENSE_MODE(void) {}
-bool app_write_REG_INPUT0_SENSE_MODE(void *a)
-{
-	uint8_t reg = *((uint8_t*)a);
-	
-	app_write_REG_ENABLE_INPUTS(&app_regs.REG_ENABLE_INPUTS);
-
-	app_regs.REG_INPUT0_SENSE_MODE = reg;
-	return true;
-}
-
-
-/************************************************************************/
-/* REG_INPUT1_SENSE_MODE                                                */
-/************************************************************************/
-void app_read_REG_INPUT1_SENSE_MODE(void) {}
-bool app_write_REG_INPUT1_SENSE_MODE(void *a)
-{
-	uint8_t reg = *((uint8_t*)a);
-	
-	app_write_REG_ENABLE_INPUTS(&app_regs.REG_ENABLE_INPUTS);
-
-	app_regs.REG_INPUT1_SENSE_MODE = reg;
-	return true;
-}
-
-
-/************************************************************************/
-/* REG_INPUT2_SENSE_MODE                                                */
-/************************************************************************/
-void app_read_REG_INPUT2_SENSE_MODE(void) {}
-bool app_write_REG_INPUT2_SENSE_MODE(void *a)
-{
-	uint8_t reg = *((uint8_t*)a);
-	
-	app_write_REG_ENABLE_INPUTS(&app_regs.REG_ENABLE_INPUTS);
-
-	app_regs.REG_INPUT2_SENSE_MODE = reg;
-	return true;
-}
-
-
-/************************************************************************/
-/* REG_INPUT3_SENSE_MODE                                                */
-/************************************************************************/
-void app_read_REG_INPUT3_SENSE_MODE(void) {}
-bool app_write_REG_INPUT3_SENSE_MODE(void *a)
-{
-	uint8_t reg = *((uint8_t*)a);
-	
-	app_write_REG_ENABLE_INPUTS(&app_regs.REG_ENABLE_INPUTS);
-
-	app_regs.REG_INPUT3_SENSE_MODE = reg;
 	return true;
 }
 
@@ -1229,16 +1143,17 @@ bool app_write_REG_ACCUMULATED_STEPS_UPDATE_RATE(void *a)
 /************************************************************************/
 void app_read_REG_MOTORS_STOPPED(void)
 {
-	//app_regs.REG_MOTORS_STOPPED = 0;
-
+	app_regs.REG_MOTORS_STOPPED = 0;
+		
+	if (motor_peripherals_timer[0]->CTRLA == 0) app_regs.REG_MOTORS_STOPPED |= B_MOTOR0;
+	if (motor_peripherals_timer[1]->CTRLA == 0) app_regs.REG_MOTORS_STOPPED |= B_MOTOR1;
+	if (motor_peripherals_timer[2]->CTRLA == 0) app_regs.REG_MOTORS_STOPPED |= B_MOTOR2;
+	if (motor_peripherals_timer[3]->CTRLA == 0) app_regs.REG_MOTORS_STOPPED |= B_MOTOR3;
 }
 
 bool app_write_REG_MOTORS_STOPPED(void *a)
 {
-	uint8_t reg = *((uint8_t*)a);
-
-	app_regs.REG_MOTORS_STOPPED = reg;
-	return true;
+	return false;
 }
 
 
@@ -1298,13 +1213,17 @@ bool app_write_REG_ENCODERS(void *a)
 /************************************************************************/
 /* REG_DIGITAL_INPUTS_STATE                                             */
 /************************************************************************/
+extern uint8_t inputs_previous_read;
+
 void app_read_REG_DIGITAL_INPUTS_STATE(void)
 {
 	app_regs.REG_DIGITAL_INPUTS_STATE = 0;
-	app_regs.REG_DIGITAL_INPUTS_STATE |= (read_INPUT0) ? 1 : 0;
-	app_regs.REG_DIGITAL_INPUTS_STATE |= (read_INPUT1) ? 2 : 0;
-	app_regs.REG_DIGITAL_INPUTS_STATE |= (read_INPUT2) ? 4 : 0;
-	app_regs.REG_DIGITAL_INPUTS_STATE |= (read_INPUT3) ? 8 : 0;
+	app_regs.REG_DIGITAL_INPUTS_STATE |= (read_INPUT0) ? 0 : B_INPUT0;
+	app_regs.REG_DIGITAL_INPUTS_STATE |= (read_INPUT1) ? 0 : B_INPUT1;
+	app_regs.REG_DIGITAL_INPUTS_STATE |= (read_INPUT2) ? 0 : B_INPUT2;
+	app_regs.REG_DIGITAL_INPUTS_STATE |= (read_INPUT3) ? 0 : B_INPUT3;
+	
+	inputs_previous_read = app_regs.REG_DIGITAL_INPUTS_STATE;
 }
 
 bool app_write_REG_DIGITAL_INPUTS_STATE(void *a)
