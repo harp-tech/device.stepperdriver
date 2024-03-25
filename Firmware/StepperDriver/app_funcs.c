@@ -1143,16 +1143,17 @@ bool app_write_REG_ACCUMULATED_STEPS_UPDATE_RATE(void *a)
 /************************************************************************/
 void app_read_REG_MOTORS_STOPPED(void)
 {
-	//app_regs.REG_MOTORS_STOPPED = 0;
-
+	app_regs.REG_MOTORS_STOPPED = 0;
+		
+	if (motor_peripherals_timer[0]->CTRLA == 0) app_regs.REG_MOTORS_STOPPED |= B_MOTOR0;
+	if (motor_peripherals_timer[1]->CTRLA == 0) app_regs.REG_MOTORS_STOPPED |= B_MOTOR1;
+	if (motor_peripherals_timer[2]->CTRLA == 0) app_regs.REG_MOTORS_STOPPED |= B_MOTOR2;
+	if (motor_peripherals_timer[3]->CTRLA == 0) app_regs.REG_MOTORS_STOPPED |= B_MOTOR3;
 }
 
 bool app_write_REG_MOTORS_STOPPED(void *a)
 {
-	uint8_t reg = *((uint8_t*)a);
-
-	app_regs.REG_MOTORS_STOPPED = reg;
-	return true;
+	return false;
 }
 
 
