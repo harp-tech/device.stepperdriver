@@ -1555,14 +1555,14 @@ bool app_write_REG_ACCUMULATED_STEPS(void *a)
 /************************************************************************/
 void app_read_REG_MOTOR0_ACCUMULATED_STEPS(void)
 {
-	//app_regs.REG_MOTOR0_ACCUMULATED_STEPS = 0;
-
+	app_regs.REG_MOTOR0_ACCUMULATED_STEPS = app_regs.REG_ACCUMULATED_STEPS[0];
 }
 
 bool app_write_REG_MOTOR0_ACCUMULATED_STEPS(void *a)
 {
 	int32_t reg = *((int32_t*)a);
-
+	
+	app_regs.REG_ACCUMULATED_STEPS[0] = reg;
 	app_regs.REG_MOTOR0_ACCUMULATED_STEPS = reg;
 	return true;
 }
@@ -1573,14 +1573,14 @@ bool app_write_REG_MOTOR0_ACCUMULATED_STEPS(void *a)
 /************************************************************************/
 void app_read_REG_MOTOR1_ACCUMULATED_STEPS(void)
 {
-	//app_regs.REG_MOTOR1_ACCUMULATED_STEPS = 0;
-
+	app_regs.REG_MOTOR1_ACCUMULATED_STEPS = app_regs.REG_ACCUMULATED_STEPS[1];
 }
 
 bool app_write_REG_MOTOR1_ACCUMULATED_STEPS(void *a)
 {
 	int32_t reg = *((int32_t*)a);
-
+	
+	app_regs.REG_ACCUMULATED_STEPS[1] = reg;
 	app_regs.REG_MOTOR1_ACCUMULATED_STEPS = reg;
 	return true;
 }
@@ -1591,14 +1591,15 @@ bool app_write_REG_MOTOR1_ACCUMULATED_STEPS(void *a)
 /************************************************************************/
 void app_read_REG_MOTOR2_ACCUMULATED_STEPS(void)
 {
-	//app_regs.REG_MOTOR2_ACCUMULATED_STEPS = 0;
-
+	app_regs.REG_MOTOR2_ACCUMULATED_STEPS = app_regs.REG_ACCUMULATED_STEPS[2];
 }
 
 bool app_write_REG_MOTOR2_ACCUMULATED_STEPS(void *a)
 {
 	int32_t reg = *((int32_t*)a);
 
+
+	app_regs.REG_ACCUMULATED_STEPS[2] = reg;
 	app_regs.REG_MOTOR2_ACCUMULATED_STEPS = reg;
 	return true;
 }
@@ -1609,14 +1610,14 @@ bool app_write_REG_MOTOR2_ACCUMULATED_STEPS(void *a)
 /************************************************************************/
 void app_read_REG_MOTOR3_ACCUMULATED_STEPS(void)
 {
-	//app_regs.REG_MOTOR3_ACCUMULATED_STEPS = 0;
-
+	app_regs.REG_MOTOR3_ACCUMULATED_STEPS = app_regs.REG_ACCUMULATED_STEPS[3];
 }
 
 bool app_write_REG_MOTOR3_ACCUMULATED_STEPS(void *a)
 {
 	int32_t reg = *((int32_t*)a);
 
+	app_regs.REG_ACCUMULATED_STEPS[3] = reg;
 	app_regs.REG_MOTOR3_ACCUMULATED_STEPS = reg;
 	return true;
 }
