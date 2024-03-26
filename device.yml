@@ -376,7 +376,7 @@ registers:
     type: S32
     length: 4
     access: [Event, Write]
-    description: Contains the accumulated steps of all motors. Write a value to set the accumulated steps.
+    description: Contains the accumulated steps of all motors. Write a value to set the accumulated steps. An event will be emitted with a dispatch rate defined in AccumulatedStepsSamplingRate.
     payloadSpec:
       Motor0:
         offset: 0
@@ -395,19 +395,19 @@ registers:
     address: 91
     type: S32
     access: Write
-    description: Containts the accumulated number of steps of motor 0. Write a value to set the current number of accumulated steps.
+    description: Contains the accumulated number of steps of motor 0. Write a value to set the current number of accumulated steps.
   Mortor1AccumulatedSteps:
     <<: *motorsaccumulatedsteps
     address: 92
-    description: Containts the accumulated number of steps of motor 1. Write a value to set the current number of accumulated steps.
+    description: Contains the accumulated number of steps of motor 1. Write a value to set the current number of accumulated steps.
   Mortor2AccumulatedSteps:
     <<: *motorsaccumulatedsteps
     address: 93
-    description: Containts the accumulated number of steps of motor 2. Write a value to set the current number of accumulated steps.
+    description: Contains the accumulated number of steps of motor 2. Write a value to set the current number of accumulated steps.
   Mortor3AccumulatedSteps:
     <<: *motorsaccumulatedsteps
     address: 94
-    description: Containts the accumulated number of steps of motor 3. Write a value to set the current number of accumulated steps.  
+    description: Contains the accumulated number of steps of motor 3. Write a value to set the current number of accumulated steps.  
   
   MaxPosition:
     address: 95
