@@ -144,6 +144,10 @@ void (*app_func_rd_pointer[])(void) = {
 	&app_read_REG_MOTOR2_ABSOLUTE_STEPS,
 	&app_read_REG_MOTOR3_ABSOLUTE_STEPS,	
 	&app_read_REG_ACCUMULATED_STEPS,
+	&app_read_REG_MOTOR0_ACCUMULATED_STEPS,
+	&app_read_REG_MOTOR1_ACCUMULATED_STEPS,
+	&app_read_REG_MOTOR2_ACCUMULATED_STEPS,
+	&app_read_REG_MOTOR3_ACCUMULATED_STEPS,
 	&app_read_REG_MOTORS_MAX_STEPS_INTEGRATION,
 	&app_read_REG_MOTOR0_MAX_STEPS_INTEGRATION,
 	&app_read_REG_MOTOR1_MAX_STEPS_INTEGRATION,
@@ -232,6 +236,10 @@ bool (*app_func_wr_pointer[])(void*) = {
 	&app_write_REG_MOTOR2_ABSOLUTE_STEPS,
 	&app_write_REG_MOTOR3_ABSOLUTE_STEPS,
 	&app_write_REG_ACCUMULATED_STEPS,
+	&app_write_REG_MOTOR0_ACCUMULATED_STEPS,
+	&app_write_REG_MOTOR1_ACCUMULATED_STEPS,
+	&app_write_REG_MOTOR2_ACCUMULATED_STEPS,
+	&app_write_REG_MOTOR3_ACCUMULATED_STEPS,
 	&app_write_REG_MOTORS_MAX_STEPS_INTEGRATION,
 	&app_write_REG_MOTOR0_MAX_STEPS_INTEGRATION,
 	&app_write_REG_MOTOR1_MAX_STEPS_INTEGRATION,
@@ -1538,6 +1546,79 @@ bool app_write_REG_ACCUMULATED_STEPS(void *a)
 	app_regs.REG_ACCUMULATED_STEPS[1] = reg[1];
 	app_regs.REG_ACCUMULATED_STEPS[2] = reg[2];
 	app_regs.REG_ACCUMULATED_STEPS[3] = reg[3];
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_MOTOR0_ACCUMULATED_STEPS                                         */
+/************************************************************************/
+void app_read_REG_MOTOR0_ACCUMULATED_STEPS(void)
+{
+	app_regs.REG_MOTOR0_ACCUMULATED_STEPS = app_regs.REG_ACCUMULATED_STEPS[0];
+}
+
+bool app_write_REG_MOTOR0_ACCUMULATED_STEPS(void *a)
+{
+	int32_t reg = *((int32_t*)a);
+	
+	app_regs.REG_ACCUMULATED_STEPS[0] = reg;
+	app_regs.REG_MOTOR0_ACCUMULATED_STEPS = reg;
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_MOTOR1_ACCUMULATED_STEPS                                         */
+/************************************************************************/
+void app_read_REG_MOTOR1_ACCUMULATED_STEPS(void)
+{
+	app_regs.REG_MOTOR1_ACCUMULATED_STEPS = app_regs.REG_ACCUMULATED_STEPS[1];
+}
+
+bool app_write_REG_MOTOR1_ACCUMULATED_STEPS(void *a)
+{
+	int32_t reg = *((int32_t*)a);
+	
+	app_regs.REG_ACCUMULATED_STEPS[1] = reg;
+	app_regs.REG_MOTOR1_ACCUMULATED_STEPS = reg;
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_MOTOR2_ACCUMULATED_STEPS                                         */
+/************************************************************************/
+void app_read_REG_MOTOR2_ACCUMULATED_STEPS(void)
+{
+	app_regs.REG_MOTOR2_ACCUMULATED_STEPS = app_regs.REG_ACCUMULATED_STEPS[2];
+}
+
+bool app_write_REG_MOTOR2_ACCUMULATED_STEPS(void *a)
+{
+	int32_t reg = *((int32_t*)a);
+
+
+	app_regs.REG_ACCUMULATED_STEPS[2] = reg;
+	app_regs.REG_MOTOR2_ACCUMULATED_STEPS = reg;
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_MOTOR3_ACCUMULATED_STEPS                                         */
+/************************************************************************/
+void app_read_REG_MOTOR3_ACCUMULATED_STEPS(void)
+{
+	app_regs.REG_MOTOR3_ACCUMULATED_STEPS = app_regs.REG_ACCUMULATED_STEPS[3];
+}
+
+bool app_write_REG_MOTOR3_ACCUMULATED_STEPS(void *a)
+{
+	int32_t reg = *((int32_t*)a);
+
+	app_regs.REG_ACCUMULATED_STEPS[3] = reg;
+	app_regs.REG_MOTOR3_ACCUMULATED_STEPS = reg;
 	return true;
 }
 
