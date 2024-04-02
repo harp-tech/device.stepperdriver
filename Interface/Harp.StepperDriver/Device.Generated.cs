@@ -4041,9 +4041,9 @@ namespace Harp.StepperDriver
     }
 
     /// <summary>
-    /// Represents a register that configures the operation mode of the quadrature QuadratureEncoders.
+    /// Represents a register that configures the operation mode of the quadrature encoder.
     /// </summary>
-    [Description("Configures the operation mode of the quadrature QuadratureEncoders.")]
+    [Description("Configures the operation mode of the quadrature encoder.")]
     public partial class EncoderMode
     {
         /// <summary>
@@ -4138,9 +4138,9 @@ namespace Harp.StepperDriver
     }
 
     /// <summary>
-    /// Represents a register that configures the reading rate of the QuadratureEncoders' event.
+    /// Represents a register that configures the sampling rate of the quadrature encoder event.
     /// </summary>
-    [Description("Configures the reading rate of the QuadratureEncoders' event.")]
+    [Description("Configures the sampling rate of the quadrature encoder event.")]
     public partial class EncoderSamplingRate
     {
         /// <summary>
@@ -4817,9 +4817,9 @@ namespace Harp.StepperDriver
     }
 
     /// <summary>
-    /// Represents a register that emitted when any of the motor state changes. Contains a bit mask specifying the motor that stopped the movement.
+    /// Represents a register that emitted when any of the motors stops.
     /// </summary>
-    [Description("Emitted when any of the motor state changes. Contains a bit mask specifying the motor that stopped the movement.")]
+    [Description("Emitted when any of the motors stops.")]
     public partial class MotorStopped
     {
         /// <summary>
@@ -4837,14 +4837,30 @@ namespace Harp.StepperDriver
         /// </summary>
         public const int RegisterLength = 1;
 
+        static MotorStoppedPayload ParsePayload(byte payload)
+        {
+            MotorStoppedPayload result;
+            result.State = (StepperMotors)(byte)(payload & 0xF);
+            result.Changed = (StepperMotors)(byte)((payload & 0xF0) >> 4);
+            return result;
+        }
+
+        static byte FormatPayload(MotorStoppedPayload value)
+        {
+            byte result;
+            result = (byte)((byte)value.State & 0xF);
+            result |= (byte)(((byte)value.Changed << 4) & 0xF0);
+            return result;
+        }
+
         /// <summary>
         /// Returns the payload data for <see cref="MotorStopped"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
-        public static StoppedStepperMotors GetPayload(HarpMessage message)
+        public static MotorStoppedPayload GetPayload(HarpMessage message)
         {
-            return (StoppedStepperMotors)message.GetPayloadByte();
+            return ParsePayload(message.GetPayloadByte());
         }
 
         /// <summary>
@@ -4852,10 +4868,10 @@ namespace Harp.StepperDriver
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<StoppedStepperMotors> GetTimestampedPayload(HarpMessage message)
+        public static Timestamped<MotorStoppedPayload> GetTimestampedPayload(HarpMessage message)
         {
             var payload = message.GetTimestampedPayloadByte();
-            return Timestamped.Create((StoppedStepperMotors)payload.Value, payload.Seconds);
+            return Timestamped.Create(ParsePayload(payload.Value), payload.Seconds);
         }
 
         /// <summary>
@@ -4867,9 +4883,9 @@ namespace Harp.StepperDriver
         /// A <see cref="HarpMessage"/> object for the <see cref="MotorStopped"/> register
         /// with the specified message type and payload.
         /// </returns>
-        public static HarpMessage FromPayload(MessageType messageType, StoppedStepperMotors value)
+        public static HarpMessage FromPayload(MessageType messageType, MotorStoppedPayload value)
         {
-            return HarpMessage.FromByte(Address, messageType, (byte)value);
+            return HarpMessage.FromByte(Address, messageType, FormatPayload(value));
         }
 
         /// <summary>
@@ -4883,9 +4899,9 @@ namespace Harp.StepperDriver
         /// A <see cref="HarpMessage"/> object for the <see cref="MotorStopped"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
-        public static HarpMessage FromPayload(double timestamp, MessageType messageType, StoppedStepperMotors value)
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, MotorStoppedPayload value)
         {
-            return HarpMessage.FromByte(Address, timestamp, messageType, (byte)value);
+            return HarpMessage.FromByte(Address, timestamp, messageType, FormatPayload(value));
         }
     }
 
@@ -4907,7 +4923,7 @@ namespace Harp.StepperDriver
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<StoppedStepperMotors> GetPayload(HarpMessage message)
+        public static Timestamped<MotorStoppedPayload> GetPayload(HarpMessage message)
         {
             return MotorStopped.GetTimestampedPayload(message);
         }
@@ -6422,9 +6438,9 @@ namespace Harp.StepperDriver
     }
 
     /// <summary>
-    /// Represents a register that contains the accumulated steps of all motors. Write a value to set the accumulated steps.
+    /// Represents a register that contains the accumulated steps of all motors. Write a value to set the accumulated steps. An event will be emitted with a dispatch rate defined in AccumulatedStepsSamplingRate.
     /// </summary>
-    [Description("Contains the accumulated steps of all motors. Write a value to set the accumulated steps.")]
+    [Description("Contains the accumulated steps of all motors. Write a value to set the accumulated steps. An event will be emitted with a dispatch rate defined in AccumulatedStepsSamplingRate.")]
     public partial class AccumulatedSteps
     {
         /// <summary>
@@ -6540,9 +6556,9 @@ namespace Harp.StepperDriver
     }
 
     /// <summary>
-    /// Represents a register that containts the accumulated number of steps of motor 0. Write a value to set the current number of accumulated steps.
+    /// Represents a register that contains the accumulated number of steps of motor 0. Write a value to set the current number of accumulated steps.
     /// </summary>
-    [Description("Containts the accumulated number of steps of motor 0. Write a value to set the current number of accumulated steps.")]
+    [Description("Contains the accumulated number of steps of motor 0. Write a value to set the current number of accumulated steps.")]
     public partial class Mortor0AccumulatedSteps
     {
         /// <summary>
@@ -6636,9 +6652,9 @@ namespace Harp.StepperDriver
     }
 
     /// <summary>
-    /// Represents a register that containts the accumulated number of steps of motor 1. Write a value to set the current number of accumulated steps.
+    /// Represents a register that contains the accumulated number of steps of motor 1. Write a value to set the current number of accumulated steps.
     /// </summary>
-    [Description("Containts the accumulated number of steps of motor 1. Write a value to set the current number of accumulated steps.")]
+    [Description("Contains the accumulated number of steps of motor 1. Write a value to set the current number of accumulated steps.")]
     public partial class Mortor1AccumulatedSteps
     {
         /// <summary>
@@ -6732,9 +6748,9 @@ namespace Harp.StepperDriver
     }
 
     /// <summary>
-    /// Represents a register that containts the accumulated number of steps of motor 2. Write a value to set the current number of accumulated steps.
+    /// Represents a register that contains the accumulated number of steps of motor 2. Write a value to set the current number of accumulated steps.
     /// </summary>
-    [Description("Containts the accumulated number of steps of motor 2. Write a value to set the current number of accumulated steps.")]
+    [Description("Contains the accumulated number of steps of motor 2. Write a value to set the current number of accumulated steps.")]
     public partial class Mortor2AccumulatedSteps
     {
         /// <summary>
@@ -6828,9 +6844,9 @@ namespace Harp.StepperDriver
     }
 
     /// <summary>
-    /// Represents a register that containts the accumulated number of steps of motor 3. Write a value to set the current number of accumulated steps.
+    /// Represents a register that contains the accumulated number of steps of motor 3. Write a value to set the current number of accumulated steps.
     /// </summary>
-    [Description("Containts the accumulated number of steps of motor 3. Write a value to set the current number of accumulated steps.")]
+    [Description("Contains the accumulated number of steps of motor 3. Write a value to set the current number of accumulated steps.")]
     public partial class Mortor3AccumulatedSteps
     {
         /// <summary>
@@ -10751,16 +10767,16 @@ namespace Harp.StepperDriver
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that configures the operation mode of the quadrature QuadratureEncoders.
+    /// that configures the operation mode of the quadrature encoder.
     /// </summary>
     [DisplayName("EncoderModePayload")]
-    [Description("Creates a message payload that configures the operation mode of the quadrature QuadratureEncoders.")]
+    [Description("Creates a message payload that configures the operation mode of the quadrature encoder.")]
     public partial class CreateEncoderModePayload
     {
         /// <summary>
-        /// Gets or sets the value that configures the operation mode of the quadrature QuadratureEncoders.
+        /// Gets or sets the value that configures the operation mode of the quadrature encoder.
         /// </summary>
-        [Description("The value that configures the operation mode of the quadrature QuadratureEncoders.")]
+        [Description("The value that configures the operation mode of the quadrature encoder.")]
         public EncoderModeConfig EncoderMode { get; set; }
 
         /// <summary>
@@ -10773,7 +10789,7 @@ namespace Harp.StepperDriver
         }
 
         /// <summary>
-        /// Creates a message that configures the operation mode of the quadrature QuadratureEncoders.
+        /// Creates a message that configures the operation mode of the quadrature encoder.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the EncoderMode register.</returns>
@@ -10785,14 +10801,14 @@ namespace Harp.StepperDriver
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that configures the operation mode of the quadrature QuadratureEncoders.
+    /// that configures the operation mode of the quadrature encoder.
     /// </summary>
     [DisplayName("TimestampedEncoderModePayload")]
-    [Description("Creates a timestamped message payload that configures the operation mode of the quadrature QuadratureEncoders.")]
+    [Description("Creates a timestamped message payload that configures the operation mode of the quadrature encoder.")]
     public partial class CreateTimestampedEncoderModePayload : CreateEncoderModePayload
     {
         /// <summary>
-        /// Creates a timestamped message that configures the operation mode of the quadrature QuadratureEncoders.
+        /// Creates a timestamped message that configures the operation mode of the quadrature encoder.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -10805,16 +10821,16 @@ namespace Harp.StepperDriver
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that configures the reading rate of the QuadratureEncoders' event.
+    /// that configures the sampling rate of the quadrature encoder event.
     /// </summary>
     [DisplayName("EncoderSamplingRatePayload")]
-    [Description("Creates a message payload that configures the reading rate of the QuadratureEncoders' event.")]
+    [Description("Creates a message payload that configures the sampling rate of the quadrature encoder event.")]
     public partial class CreateEncoderSamplingRatePayload
     {
         /// <summary>
-        /// Gets or sets the value that configures the reading rate of the QuadratureEncoders' event.
+        /// Gets or sets the value that configures the sampling rate of the quadrature encoder event.
         /// </summary>
-        [Description("The value that configures the reading rate of the QuadratureEncoders' event.")]
+        [Description("The value that configures the sampling rate of the quadrature encoder event.")]
         public EncoderSamplingRateConfig EncoderSamplingRate { get; set; }
 
         /// <summary>
@@ -10827,7 +10843,7 @@ namespace Harp.StepperDriver
         }
 
         /// <summary>
-        /// Creates a message that configures the reading rate of the QuadratureEncoders' event.
+        /// Creates a message that configures the sampling rate of the quadrature encoder event.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the EncoderSamplingRate register.</returns>
@@ -10839,14 +10855,14 @@ namespace Harp.StepperDriver
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that configures the reading rate of the QuadratureEncoders' event.
+    /// that configures the sampling rate of the quadrature encoder event.
     /// </summary>
     [DisplayName("TimestampedEncoderSamplingRatePayload")]
-    [Description("Creates a timestamped message payload that configures the reading rate of the QuadratureEncoders' event.")]
+    [Description("Creates a timestamped message payload that configures the sampling rate of the quadrature encoder event.")]
     public partial class CreateTimestampedEncoderSamplingRatePayload : CreateEncoderSamplingRatePayload
     {
         /// <summary>
-        /// Creates a timestamped message that configures the reading rate of the QuadratureEncoders' event.
+        /// Creates a timestamped message that configures the sampling rate of the quadrature encoder event.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -11183,29 +11199,38 @@ namespace Harp.StepperDriver
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that emitted when any of the motor state changes. Contains a bit mask specifying the motor that stopped the movement.
+    /// that emitted when any of the motors stops.
     /// </summary>
     [DisplayName("MotorStoppedPayload")]
-    [Description("Creates a message payload that emitted when any of the motor state changes. Contains a bit mask specifying the motor that stopped the movement.")]
+    [Description("Creates a message payload that emitted when any of the motors stops.")]
     public partial class CreateMotorStoppedPayload
     {
         /// <summary>
-        /// Gets or sets the value that emitted when any of the motor state changes. Contains a bit mask specifying the motor that stopped the movement.
+        /// Gets or sets a value that specifies which motors are currently stopped.
         /// </summary>
-        [Description("The value that emitted when any of the motor state changes. Contains a bit mask specifying the motor that stopped the movement.")]
-        public StoppedStepperMotors MotorStopped { get; set; }
+        [Description("Specifies which motors are currently stopped.")]
+        public StepperMotors State { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value that specifies which motor just stopped.
+        /// </summary>
+        [Description("Specifies which motor just stopped.")]
+        public StepperMotors Changed { get; set; }
 
         /// <summary>
         /// Creates a message payload for the MotorStopped register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
-        public StoppedStepperMotors GetPayload()
+        public MotorStoppedPayload GetPayload()
         {
-            return MotorStopped;
+            MotorStoppedPayload value;
+            value.State = State;
+            value.Changed = Changed;
+            return value;
         }
 
         /// <summary>
-        /// Creates a message that emitted when any of the motor state changes. Contains a bit mask specifying the motor that stopped the movement.
+        /// Creates a message that emitted when any of the motors stops.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the MotorStopped register.</returns>
@@ -11217,14 +11242,14 @@ namespace Harp.StepperDriver
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that emitted when any of the motor state changes. Contains a bit mask specifying the motor that stopped the movement.
+    /// that emitted when any of the motors stops.
     /// </summary>
     [DisplayName("TimestampedMotorStoppedPayload")]
-    [Description("Creates a timestamped message payload that emitted when any of the motor state changes. Contains a bit mask specifying the motor that stopped the movement.")]
+    [Description("Creates a timestamped message payload that emitted when any of the motors stops.")]
     public partial class CreateTimestampedMotorStoppedPayload : CreateMotorStoppedPayload
     {
         /// <summary>
-        /// Creates a timestamped message that emitted when any of the motor state changes. Contains a bit mask specifying the motor that stopped the movement.
+        /// Creates a timestamped message that emitted when any of the motors stops.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -12109,10 +12134,10 @@ namespace Harp.StepperDriver
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that contains the accumulated steps of all motors. Write a value to set the accumulated steps.
+    /// that contains the accumulated steps of all motors. Write a value to set the accumulated steps. An event will be emitted with a dispatch rate defined in AccumulatedStepsSamplingRate.
     /// </summary>
     [DisplayName("AccumulatedStepsPayload")]
-    [Description("Creates a message payload that contains the accumulated steps of all motors. Write a value to set the accumulated steps.")]
+    [Description("Creates a message payload that contains the accumulated steps of all motors. Write a value to set the accumulated steps. An event will be emitted with a dispatch rate defined in AccumulatedStepsSamplingRate.")]
     public partial class CreateAccumulatedStepsPayload
     {
         /// <summary>
@@ -12154,7 +12179,7 @@ namespace Harp.StepperDriver
         }
 
         /// <summary>
-        /// Creates a message that contains the accumulated steps of all motors. Write a value to set the accumulated steps.
+        /// Creates a message that contains the accumulated steps of all motors. Write a value to set the accumulated steps. An event will be emitted with a dispatch rate defined in AccumulatedStepsSamplingRate.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the AccumulatedSteps register.</returns>
@@ -12166,14 +12191,14 @@ namespace Harp.StepperDriver
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that contains the accumulated steps of all motors. Write a value to set the accumulated steps.
+    /// that contains the accumulated steps of all motors. Write a value to set the accumulated steps. An event will be emitted with a dispatch rate defined in AccumulatedStepsSamplingRate.
     /// </summary>
     [DisplayName("TimestampedAccumulatedStepsPayload")]
-    [Description("Creates a timestamped message payload that contains the accumulated steps of all motors. Write a value to set the accumulated steps.")]
+    [Description("Creates a timestamped message payload that contains the accumulated steps of all motors. Write a value to set the accumulated steps. An event will be emitted with a dispatch rate defined in AccumulatedStepsSamplingRate.")]
     public partial class CreateTimestampedAccumulatedStepsPayload : CreateAccumulatedStepsPayload
     {
         /// <summary>
-        /// Creates a timestamped message that contains the accumulated steps of all motors. Write a value to set the accumulated steps.
+        /// Creates a timestamped message that contains the accumulated steps of all motors. Write a value to set the accumulated steps. An event will be emitted with a dispatch rate defined in AccumulatedStepsSamplingRate.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -12186,16 +12211,16 @@ namespace Harp.StepperDriver
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that containts the accumulated number of steps of motor 0. Write a value to set the current number of accumulated steps.
+    /// that contains the accumulated number of steps of motor 0. Write a value to set the current number of accumulated steps.
     /// </summary>
     [DisplayName("Mortor0AccumulatedStepsPayload")]
-    [Description("Creates a message payload that containts the accumulated number of steps of motor 0. Write a value to set the current number of accumulated steps.")]
+    [Description("Creates a message payload that contains the accumulated number of steps of motor 0. Write a value to set the current number of accumulated steps.")]
     public partial class CreateMortor0AccumulatedStepsPayload
     {
         /// <summary>
-        /// Gets or sets the value that containts the accumulated number of steps of motor 0. Write a value to set the current number of accumulated steps.
+        /// Gets or sets the value that contains the accumulated number of steps of motor 0. Write a value to set the current number of accumulated steps.
         /// </summary>
-        [Description("The value that containts the accumulated number of steps of motor 0. Write a value to set the current number of accumulated steps.")]
+        [Description("The value that contains the accumulated number of steps of motor 0. Write a value to set the current number of accumulated steps.")]
         public int Mortor0AccumulatedSteps { get; set; }
 
         /// <summary>
@@ -12208,7 +12233,7 @@ namespace Harp.StepperDriver
         }
 
         /// <summary>
-        /// Creates a message that containts the accumulated number of steps of motor 0. Write a value to set the current number of accumulated steps.
+        /// Creates a message that contains the accumulated number of steps of motor 0. Write a value to set the current number of accumulated steps.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the Mortor0AccumulatedSteps register.</returns>
@@ -12220,14 +12245,14 @@ namespace Harp.StepperDriver
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that containts the accumulated number of steps of motor 0. Write a value to set the current number of accumulated steps.
+    /// that contains the accumulated number of steps of motor 0. Write a value to set the current number of accumulated steps.
     /// </summary>
     [DisplayName("TimestampedMortor0AccumulatedStepsPayload")]
-    [Description("Creates a timestamped message payload that containts the accumulated number of steps of motor 0. Write a value to set the current number of accumulated steps.")]
+    [Description("Creates a timestamped message payload that contains the accumulated number of steps of motor 0. Write a value to set the current number of accumulated steps.")]
     public partial class CreateTimestampedMortor0AccumulatedStepsPayload : CreateMortor0AccumulatedStepsPayload
     {
         /// <summary>
-        /// Creates a timestamped message that containts the accumulated number of steps of motor 0. Write a value to set the current number of accumulated steps.
+        /// Creates a timestamped message that contains the accumulated number of steps of motor 0. Write a value to set the current number of accumulated steps.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -12240,16 +12265,16 @@ namespace Harp.StepperDriver
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that containts the accumulated number of steps of motor 1. Write a value to set the current number of accumulated steps.
+    /// that contains the accumulated number of steps of motor 1. Write a value to set the current number of accumulated steps.
     /// </summary>
     [DisplayName("Mortor1AccumulatedStepsPayload")]
-    [Description("Creates a message payload that containts the accumulated number of steps of motor 1. Write a value to set the current number of accumulated steps.")]
+    [Description("Creates a message payload that contains the accumulated number of steps of motor 1. Write a value to set the current number of accumulated steps.")]
     public partial class CreateMortor1AccumulatedStepsPayload
     {
         /// <summary>
-        /// Gets or sets the value that containts the accumulated number of steps of motor 1. Write a value to set the current number of accumulated steps.
+        /// Gets or sets the value that contains the accumulated number of steps of motor 1. Write a value to set the current number of accumulated steps.
         /// </summary>
-        [Description("The value that containts the accumulated number of steps of motor 1. Write a value to set the current number of accumulated steps.")]
+        [Description("The value that contains the accumulated number of steps of motor 1. Write a value to set the current number of accumulated steps.")]
         public int Mortor1AccumulatedSteps { get; set; }
 
         /// <summary>
@@ -12262,7 +12287,7 @@ namespace Harp.StepperDriver
         }
 
         /// <summary>
-        /// Creates a message that containts the accumulated number of steps of motor 1. Write a value to set the current number of accumulated steps.
+        /// Creates a message that contains the accumulated number of steps of motor 1. Write a value to set the current number of accumulated steps.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the Mortor1AccumulatedSteps register.</returns>
@@ -12274,14 +12299,14 @@ namespace Harp.StepperDriver
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that containts the accumulated number of steps of motor 1. Write a value to set the current number of accumulated steps.
+    /// that contains the accumulated number of steps of motor 1. Write a value to set the current number of accumulated steps.
     /// </summary>
     [DisplayName("TimestampedMortor1AccumulatedStepsPayload")]
-    [Description("Creates a timestamped message payload that containts the accumulated number of steps of motor 1. Write a value to set the current number of accumulated steps.")]
+    [Description("Creates a timestamped message payload that contains the accumulated number of steps of motor 1. Write a value to set the current number of accumulated steps.")]
     public partial class CreateTimestampedMortor1AccumulatedStepsPayload : CreateMortor1AccumulatedStepsPayload
     {
         /// <summary>
-        /// Creates a timestamped message that containts the accumulated number of steps of motor 1. Write a value to set the current number of accumulated steps.
+        /// Creates a timestamped message that contains the accumulated number of steps of motor 1. Write a value to set the current number of accumulated steps.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -12294,16 +12319,16 @@ namespace Harp.StepperDriver
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that containts the accumulated number of steps of motor 2. Write a value to set the current number of accumulated steps.
+    /// that contains the accumulated number of steps of motor 2. Write a value to set the current number of accumulated steps.
     /// </summary>
     [DisplayName("Mortor2AccumulatedStepsPayload")]
-    [Description("Creates a message payload that containts the accumulated number of steps of motor 2. Write a value to set the current number of accumulated steps.")]
+    [Description("Creates a message payload that contains the accumulated number of steps of motor 2. Write a value to set the current number of accumulated steps.")]
     public partial class CreateMortor2AccumulatedStepsPayload
     {
         /// <summary>
-        /// Gets or sets the value that containts the accumulated number of steps of motor 2. Write a value to set the current number of accumulated steps.
+        /// Gets or sets the value that contains the accumulated number of steps of motor 2. Write a value to set the current number of accumulated steps.
         /// </summary>
-        [Description("The value that containts the accumulated number of steps of motor 2. Write a value to set the current number of accumulated steps.")]
+        [Description("The value that contains the accumulated number of steps of motor 2. Write a value to set the current number of accumulated steps.")]
         public int Mortor2AccumulatedSteps { get; set; }
 
         /// <summary>
@@ -12316,7 +12341,7 @@ namespace Harp.StepperDriver
         }
 
         /// <summary>
-        /// Creates a message that containts the accumulated number of steps of motor 2. Write a value to set the current number of accumulated steps.
+        /// Creates a message that contains the accumulated number of steps of motor 2. Write a value to set the current number of accumulated steps.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the Mortor2AccumulatedSteps register.</returns>
@@ -12328,14 +12353,14 @@ namespace Harp.StepperDriver
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that containts the accumulated number of steps of motor 2. Write a value to set the current number of accumulated steps.
+    /// that contains the accumulated number of steps of motor 2. Write a value to set the current number of accumulated steps.
     /// </summary>
     [DisplayName("TimestampedMortor2AccumulatedStepsPayload")]
-    [Description("Creates a timestamped message payload that containts the accumulated number of steps of motor 2. Write a value to set the current number of accumulated steps.")]
+    [Description("Creates a timestamped message payload that contains the accumulated number of steps of motor 2. Write a value to set the current number of accumulated steps.")]
     public partial class CreateTimestampedMortor2AccumulatedStepsPayload : CreateMortor2AccumulatedStepsPayload
     {
         /// <summary>
-        /// Creates a timestamped message that containts the accumulated number of steps of motor 2. Write a value to set the current number of accumulated steps.
+        /// Creates a timestamped message that contains the accumulated number of steps of motor 2. Write a value to set the current number of accumulated steps.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -12348,16 +12373,16 @@ namespace Harp.StepperDriver
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that containts the accumulated number of steps of motor 3. Write a value to set the current number of accumulated steps.
+    /// that contains the accumulated number of steps of motor 3. Write a value to set the current number of accumulated steps.
     /// </summary>
     [DisplayName("Mortor3AccumulatedStepsPayload")]
-    [Description("Creates a message payload that containts the accumulated number of steps of motor 3. Write a value to set the current number of accumulated steps.")]
+    [Description("Creates a message payload that contains the accumulated number of steps of motor 3. Write a value to set the current number of accumulated steps.")]
     public partial class CreateMortor3AccumulatedStepsPayload
     {
         /// <summary>
-        /// Gets or sets the value that containts the accumulated number of steps of motor 3. Write a value to set the current number of accumulated steps.
+        /// Gets or sets the value that contains the accumulated number of steps of motor 3. Write a value to set the current number of accumulated steps.
         /// </summary>
-        [Description("The value that containts the accumulated number of steps of motor 3. Write a value to set the current number of accumulated steps.")]
+        [Description("The value that contains the accumulated number of steps of motor 3. Write a value to set the current number of accumulated steps.")]
         public int Mortor3AccumulatedSteps { get; set; }
 
         /// <summary>
@@ -12370,7 +12395,7 @@ namespace Harp.StepperDriver
         }
 
         /// <summary>
-        /// Creates a message that containts the accumulated number of steps of motor 3. Write a value to set the current number of accumulated steps.
+        /// Creates a message that contains the accumulated number of steps of motor 3. Write a value to set the current number of accumulated steps.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the Mortor3AccumulatedSteps register.</returns>
@@ -12382,14 +12407,14 @@ namespace Harp.StepperDriver
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that containts the accumulated number of steps of motor 3. Write a value to set the current number of accumulated steps.
+    /// that contains the accumulated number of steps of motor 3. Write a value to set the current number of accumulated steps.
     /// </summary>
     [DisplayName("TimestampedMortor3AccumulatedStepsPayload")]
-    [Description("Creates a timestamped message payload that containts the accumulated number of steps of motor 3. Write a value to set the current number of accumulated steps.")]
+    [Description("Creates a timestamped message payload that contains the accumulated number of steps of motor 3. Write a value to set the current number of accumulated steps.")]
     public partial class CreateTimestampedMortor3AccumulatedStepsPayload : CreateMortor3AccumulatedStepsPayload
     {
         /// <summary>
-        /// Creates a timestamped message that containts the accumulated number of steps of motor 3. Write a value to set the current number of accumulated steps.
+        /// Creates a timestamped message that contains the accumulated number of steps of motor 3. Write a value to set the current number of accumulated steps.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -13388,6 +13413,35 @@ namespace Harp.StepperDriver
     }
 
     /// <summary>
+    /// Represents the payload of the MotorStopped register.
+    /// </summary>
+    public struct MotorStoppedPayload
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MotorStoppedPayload"/> structure.
+        /// </summary>
+        /// <param name="state">Specifies which motors are currently stopped.</param>
+        /// <param name="changed">Specifies which motor just stopped.</param>
+        public MotorStoppedPayload(
+            StepperMotors state,
+            StepperMotors changed)
+        {
+            State = state;
+            Changed = changed;
+        }
+
+        /// <summary>
+        /// Specifies which motors are currently stopped.
+        /// </summary>
+        public StepperMotors State;
+
+        /// <summary>
+        /// Specifies which motor just stopped.
+        /// </summary>
+        public StepperMotors Changed;
+    }
+
+    /// <summary>
     /// Represents the payload of the Encoders register.
     /// </summary>
     public struct EncodersPayload
@@ -13705,23 +13759,6 @@ namespace Harp.StepperDriver
         Motor1 = 0x2,
         Motor2 = 0x4,
         Motor3 = 0x8
-    }
-
-    /// <summary>
-    /// Specifies the index of each motor that stopped and the state of all motors
-    /// </summary>
-    [Flags]
-    public enum StoppedStepperMotors : byte
-    {
-        None = 0x0,
-        Motor0 = 0x1,
-        Motor1 = 0x2,
-        Motor2 = 0x4,
-        Motor3 = 0x8,
-        Motor0Changed = 0x10,
-        Motor1Changed = 0x20,
-        Motor2Changed = 0x40,
-        Motor3Changed = 0x80
     }
 
     /// <summary>
