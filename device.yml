@@ -196,13 +196,13 @@ registers:
     type: U8
     access: Write
     maskType: EncoderModeConfig
-    description: Configures the operation mode of the quadrature QuadratureEncoders.
+    description: Configures the operation mode of the quadrature encoder.
   EncoderSamplingRate:
     address: 67
     type: U8
     access: Write
     maskType: EncoderSamplingRateConfig
-    description: Configures the reading rate of the QuadratureEncoders' event.
+    description: Configures the sampling rate of the quadrature encoder event.
 
   Input0OpMode: &input_mode
     address: 68
@@ -245,8 +245,16 @@ registers:
     address: 74
     type: U8
     access: Event
-    maskType: StoppedStepperMotors
-    description: Emitted when any of the motor state changes. Contains a bit mask specifying the motor that stopped the movement.
+    description: Emitted when any of the motors stops.
+    payloadSpec:
+      State:
+        description: Specifies which motors are currently stopped.
+        maskType: StepperMotors
+        mask: 0x0F
+      Changed:
+        description: Specifies which motor just stopped.
+        maskType: StepperMotors
+        mask: 0xF0
   MotorOverVoltageDetection:
     address: 75
     type: U8
@@ -601,17 +609,6 @@ bitMasks:
       Motor1: 0x02
       Motor2: 0x04
       Motor3: 0x08
-  StoppedStepperMotors:
-    description: Specifies the index of each motor that stopped and the state of all motors
-    bits:
-      Motor0: 0x01
-      Motor1: 0x02
-      Motor2: 0x04
-      Motor3: 0x08
-      Motor0Changed: 0x10
-      Motor1Changed: 0x20
-      Motor2Changed: 0x40
-      Motor3Changed: 0x80
   QuadratureEncoders:
     description: Specifies the index of each motor.
     bits:

@@ -1987,7 +1987,7 @@ namespace Harp.StepperDriver
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the register payload.
         /// </returns>
-        public async Task<StoppedStepperMotors> ReadMotorStoppedAsync(CancellationToken cancellationToken = default)
+        public async Task<MotorStoppedPayload> ReadMotorStoppedAsync(CancellationToken cancellationToken = default)
         {
             var reply = await CommandAsync(HarpCommand.ReadByte(MotorStopped.Address), cancellationToken);
             return MotorStopped.GetPayload(reply);
@@ -2003,7 +2003,7 @@ namespace Harp.StepperDriver
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the timestamped register payload.
         /// </returns>
-        public async Task<Timestamped<StoppedStepperMotors>> ReadTimestampedMotorStoppedAsync(CancellationToken cancellationToken = default)
+        public async Task<Timestamped<MotorStoppedPayload>> ReadTimestampedMotorStoppedAsync(CancellationToken cancellationToken = default)
         {
             var reply = await CommandAsync(HarpCommand.ReadByte(MotorStopped.Address), cancellationToken);
             return MotorStopped.GetTimestampedPayload(reply);
