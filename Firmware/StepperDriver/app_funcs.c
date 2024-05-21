@@ -4,6 +4,7 @@
 
 #include "i2c.h"
 #include "stepper_control.h"
+#include "quick_movement.h"
 
 #define PERIOD_LIMIT 10
 
@@ -2147,18 +2148,26 @@ void app_read_REG_RESERVED1(void)
 
 bool app_write_REG_RESERVED1(void *a)
 {
-	uint8_t reg = *((uint8_t*)a);
+	bool ok = m1_quick_load_parameters();
 	
-	if (reg & 1)   set_CFG0_M1; else clr_CFG0_M1;
-	if (reg & 2)   set_CFG1_M1; else set_CFG1_M1;
-	if (reg & 4)   set_CFG2_M1; else set_CFG2_M1;
-	if (reg & 8)   set_CFG3_M1; else set_CFG3_M1;
-	if (reg & 32)  set_CFG5_M1; else set_CFG5_M1;
-	if (reg & 64)  set_CFG6_M1; else set_CFG6_M1;
-	if (reg & 128) set_CFG7_M1; else set_CFG7_M1;	
+	if (ok)
+	{
+		ok = m1_quick_launch_movement();	
+	}
+	
+ 	uint8_t reg = *((uint8_t*)a);
+	
+// 	if (reg & 1)   set_CFG0_M1; else clr_CFG0_M1;
+// 	if (reg & 2)   set_CFG1_M1; else set_CFG1_M1;
+// 	if (reg & 4)   set_CFG2_M1; else set_CFG2_M1;
+// 	if (reg & 8)   set_CFG3_M1; else set_CFG3_M1;
+// 	if (reg & 32)  set_CFG5_M1; else set_CFG5_M1;
+// 	if (reg & 64)  set_CFG6_M1; else set_CFG6_M1;
+// 	if (reg & 128) set_CFG7_M1; else set_CFG7_M1;	
 
-	app_regs.REG_RESERVED1 = reg;
-	return true;
+	if (!ok) return false;
+ 	app_regs.REG_RESERVED1 = reg;
+ 	return true;
 }
 
 

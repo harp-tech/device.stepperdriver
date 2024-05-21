@@ -48,6 +48,16 @@ int32_t user_requested_steps[MOTORS_QUANTITY];
 bool send_motor_stopped_notification[MOTORS_QUANTITY];
 
 /************************************************************************/
+/* Quick movement globals                                               */
+/************************************************************************/
+extern uint8_t m1_quick_count_down;
+extern uint8_t m2_quick_count_down;
+
+extern uint16_t m1_quick_relative_steps;
+extern uint16_t m2_quick_relative_steps;
+
+
+/************************************************************************/
 /* Update global electrical pulse parameters                            */
 /************************************************************************/
 bool initialize_motors (void)
@@ -161,6 +171,9 @@ void stop_rotation (uint8_t motor_index)
 {
  	timer_type0_stop(motor_peripherals_timer[motor_index]);
  	motor_is_running[motor_index] = false;
+	 
+ 	if (motor_index == 1) m1_quick_count_down = 0;
+ 	if (motor_index == 2) m2_quick_count_down = 0;
 	
 	motor_peripherals_led_port[motor_index]->OUTCLR = (1<<motor_peripherals_led_pin_index[motor_index]);
 }
@@ -394,13 +407,77 @@ ISR(TCC0_CCA_vect/*, ISR_NAKED*/)
 	timer_cca_routine(0);
 }
 
+extern uint16_t m1_quick_timer_per;
+extern uint8_t m1_quick_state_ctrl;
+extern uint16_t m1_quick_stop_decreasing_interval;
+extern uint16_t m1_quick_start_increasing_interval;
+
+extern uint16_t m1_quick_acc_interval;
+extern uint16_t m1_quick_step_interval;
+
 ISR(TCD0_OVF_vect/*, ISR_NAKED*/)
-{
-	timer_ovf_routine(1);
+{	
+	if (m1_quick_count_down)
+	{
+		/* Run time is 2 us for the entire interrupt */
+		if (read_DIR_M1 > 0)
+		{
+			app_regs.REG_ACCUMULATED_STEPS[1]++;
+		}
+		else
+		{
+			app_regs.REG_ACCUMULATED_STEPS[1]--;
+		}		
+
+		if (m1_quick_state_ctrl)
+		{
+			if (m1_quick_relative_steps <= m1_quick_start_increasing_interval)
+			{
+				m1_quick_timer_per += m1_quick_acc_interval;
+				TCD0_PER = (m1_quick_timer_per - 1) >> 1;
+			}
+		}
+		else
+		{			
+			if (m1_quick_relative_steps == m1_quick_stop_decreasing_interval)
+			{
+				m1_quick_timer_per = m1_quick_step_interval;
+				TCD0_PER = (m1_quick_timer_per - 1) >> 1;
+				m1_quick_state_ctrl++;
+			}
+			else
+			{
+				m1_quick_timer_per -= m1_quick_acc_interval;
+				TCD0_PER = (m1_quick_timer_per - 1) >> 1;
+			}
+		}
+		
+		m1_quick_relative_steps--;
+		
+	}
+	else
+	{
+		timer_ovf_routine(1);	
+	}
 }
 ISR(TCD0_CCA_vect/*, ISR_NAKED*/)
-{
-	timer_cca_routine(1);
+{	
+	if (m1_quick_count_down)
+	{
+		/* Run time is 500 ns for the entire interrupt */
+		if (m1_quick_relative_steps == 0)
+		{			
+			/* Stop motor */
+			stop_rotation(1);
+			
+			/* Since this is used at MID level interrupts, send an event from here can happen in the middle of other event */
+			send_motor_stopped_notification[1] = true;
+		}
+	}
+	else
+	{
+		timer_cca_routine(1);
+	}
 }
 
 ISR(TCE0_OVF_vect/*, ISR_NAKED*/)

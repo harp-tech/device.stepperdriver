@@ -179,6 +179,9 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="quick_movement.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="regs_reset_and_init.c">
       <SubType>compile</SubType>
     </Compile>
