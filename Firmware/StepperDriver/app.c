@@ -427,18 +427,37 @@ void core_callback_t_1ms(void)
 				
 				m1_start_quick_movement();
 			}
-		}
-		
-		
+		}		
 	}
 	
-	if (user_requested_steps[2] != 0)
+	if (m2_quick_count_down == 0)
 	{
-		PMIC_CTRL = PMIC_RREN_bm | PMIC_LOLVLEN_bm;
-		
-		user_requested_steps[2] = user_sent_request(user_requested_steps[2], 2);
-		
-		PMIC_CTRL = PMIC_RREN_bm | PMIC_LOLVLEN_bm | PMIC_MEDLVLEN_bm | PMIC_HILVLEN_bm;
+		if (user_requested_steps[2] != 0)
+		{
+			PMIC_CTRL = PMIC_RREN_bm | PMIC_LOLVLEN_bm;
+			
+			user_requested_steps[2] = user_sent_request(user_requested_steps[2], 2);
+			
+			PMIC_CTRL = PMIC_RREN_bm | PMIC_LOLVLEN_bm | PMIC_MEDLVLEN_bm | PMIC_HILVLEN_bm;
+		}
+	}
+	else
+	{
+		if (m2_quick_count_down == 1)
+		{
+			// Means that motor is moving
+		}
+		else
+		{
+			m2_quick_count_down--;
+			
+			if (m2_quick_count_down == 2)
+			{
+				m2_quick_count_down--;
+				
+				m2_start_quick_movement();
+			}
+		}
 	}
 	
 	if (user_requested_steps[3] != 0)

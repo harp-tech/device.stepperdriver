@@ -2149,10 +2149,16 @@ void app_read_REG_RESERVED1(void)
 bool app_write_REG_RESERVED1(void *a)
 {
 	bool ok = m1_quick_load_parameters();
+	ok = m2_quick_load_parameters();
 	
 	if (ok)
 	{
-		ok = m1_quick_launch_movement();	
+		ok = m1_quick_launch_movement();
+		
+		if (ok)
+		{
+			ok = m2_quick_launch_movement();
+		}
 	}
 	
  	uint8_t reg = *((uint8_t*)a);

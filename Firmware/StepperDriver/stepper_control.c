@@ -415,6 +415,14 @@ extern uint16_t m1_quick_start_increasing_interval;
 extern uint16_t m1_quick_acc_interval;
 extern uint16_t m1_quick_step_interval;
 
+extern uint16_t m2_quick_timer_per;
+extern uint8_t m2_quick_state_ctrl;
+extern uint16_t m2_quick_stop_decreasing_interval;
+extern uint16_t m2_quick_start_increasing_interval;
+
+extern uint16_t m2_quick_acc_interval;
+extern uint16_t m2_quick_step_interval;
+
 ISR(TCD0_OVF_vect/*, ISR_NAKED*/)
 {	
 	if (m1_quick_count_down)
@@ -481,12 +489,68 @@ ISR(TCD0_CCA_vect/*, ISR_NAKED*/)
 }
 
 ISR(TCE0_OVF_vect/*, ISR_NAKED*/)
-{
-	timer_ovf_routine(2);
+{	
+	if (m2_quick_count_down)
+	{
+		/* Run time is 2 us for the entire interrupt */
+		if (read_DIR_M2 > 0)
+		{
+			app_regs.REG_ACCUMULATED_STEPS[2]++;
+		}
+		else
+		{
+			app_regs.REG_ACCUMULATED_STEPS[2]--;
+		}
+
+		if (m2_quick_state_ctrl)
+		{
+			if (m2_quick_relative_steps <= m2_quick_start_increasing_interval)
+			{
+				m2_quick_timer_per += m2_quick_acc_interval;
+				TCE0_PER = (m2_quick_timer_per - 1) >> 1;
+			}
+		}
+		else
+		{
+			if (m2_quick_relative_steps == m2_quick_stop_decreasing_interval)
+			{
+				m2_quick_timer_per = m2_quick_step_interval;
+				TCE0_PER = (m2_quick_timer_per - 1) >> 1;
+				m2_quick_state_ctrl++;
+			}
+			else
+			{
+				m2_quick_timer_per -= m2_quick_acc_interval;
+				TCE0_PER = (m2_quick_timer_per - 1) >> 1;
+			}
+		}
+		
+		m2_quick_relative_steps--;
+		
+	}
+	else
+	{
+		timer_ovf_routine(2);
+	}
 }
 ISR(TCE0_CCA_vect/*, ISR_NAKED*/)
 {
-	timer_cca_routine(2);
+	if (m2_quick_count_down)
+	{
+		/* Run time is 500 ns for the entire interrupt */
+		if (m2_quick_relative_steps == 0)
+		{
+			/* Stop motor */
+			stop_rotation(2);
+			
+			/* Since this is used at MID level interrupts, send an event from here can happen in the middle of other event */
+			send_motor_stopped_notification[2] = true;
+		}
+	}
+	else
+	{
+		timer_cca_routine(1);
+	}
 }
 
 ISR(TCF0_OVF_vect/*, ISR_NAKED*/)

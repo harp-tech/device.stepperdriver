@@ -12,7 +12,10 @@
 #endif
 
 bool m1_quick_load_parameters (void);
+bool m2_quick_load_parameters (void);
 bool m1_quick_launch_movement (void);
+bool m2_quick_launch_movement (void);
 void m1_start_quick_movement (void);
+void m2_start_quick_movement (void);
 
 #endif /* _QUICK_MOVEMENT_H_ */
