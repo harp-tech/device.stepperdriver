@@ -6,7 +6,7 @@
 #include "stepper_control.h"
 #include "quick_movement.h"
 
-#define PERIOD_LIMIT 10
+#define PERIOD_LIMIT 100
 
 /************************************************************************/
 /* Create pointers to functions                                         */
