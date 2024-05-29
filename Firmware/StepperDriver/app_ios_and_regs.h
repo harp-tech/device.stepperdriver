@@ -459,6 +459,16 @@ typedef struct
 	uint8_t REG_RESERVED5;
 	uint8_t REG_RESERVED6;
 	uint8_t REG_RESERVED7;
+	uint16_t REG_MOTOR1_QUICK_NOMINAL_STEP_INTERVAL;
+	uint16_t REG_MOTOR2_QUICK_NOMINAL_STEP_INTERVAL;
+	uint16_t REG_MOTOR1_QUICK_MAXIMUM_STEP_INTERVAL;
+	uint16_t REG_MOTOR2_QUICK_MAXIMUM_STEP_INTERVAL;
+	uint16_t REG_MOTOR1_QUICK_STEP_ACCELERATION_INTERVAL;
+	uint16_t REG_MOTOR2_QUICK_STEP_ACCELERATION_INTERVAL;
+	int16_t REG_MOTOR1_QUICK_STEPS;
+	int16_t REG_MOTOR2_QUICK_STEPS;
+	uint8_t REG_LOAD_QUICK_MOVEMENT;
+	uint8_t REG_START_QUICK_MOVEMENT;
 } AppRegs;
 
 /************************************************************************/
@@ -554,6 +564,16 @@ typedef struct
 #define ADD_REG_RESERVED5                  118 // U8     Contains the raw data of the digital potentiometer that controls current limit of motor 1.
 #define ADD_REG_RESERVED6                  119 // U8     Contains the raw data of the digital potentiometer that controls current limit of motor 2.
 #define ADD_REG_RESERVED7                  120 // U8     Contains the raw data of the digital potentiometer that controls current limit of motor 3.
+#define ADD_REG_MOTOR1_QUICK_NOMINAL_STEP_INTERVAL121 // U16    Configures the motor's step interval when running at nominal speed for motor 1 for the quick mode.
+#define ADD_REG_MOTOR2_QUICK_NOMINAL_STEP_INTERVAL122 // U16    Configures the motor's step interval when running at nominal speed for motor 2 for the quick mode.
+#define ADD_REG_MOTOR1_QUICK_MAXIMUM_STEP_INTERVAL123 // U16    Configures the motor's maximum step interval for motor 1, used as the first and last steo interval of a movement for the quick mode.
+#define ADD_REG_MOTOR2_QUICK_MAXIMUM_STEP_INTERVAL124 // U16    Configures the motor's maximum step interval for motor 2, used as the first and last steo interval of a movement for the quick mode.
+#define ADD_REG_MOTOR1_QUICK_STEP_ACCELERATION_INTERVAL125 // U16    Configures the acceleration for motor 1. The step's interval is decreased by this value when accelerating and increased when decelerating for the quick mode.
+#define ADD_REG_MOTOR2_QUICK_STEP_ACCELERATION_INTERVAL126 // U16    Configures the acceleration for motor . The step's interval is decreased by this value when accelerating and increased when decelerating for the quick mode.
+#define ADD_REG_MOTOR1_QUICK_STEPS         127 // I16    Moves motor 1 by the number of steps written in this register and set the direction according to the value's signal for the quick mode.
+#define ADD_REG_MOTOR2_QUICK_STEPS         128 // I16    Moves motor 2 by the number of steps written in this register and set the direction according to the value's signal for the quick mode.
+#define ADD_REG_LOAD_QUICK_MOVEMENT        129 // U8     Writing any value to this register will load the motors' current configuration memory for quicker start.
+#define ADD_REG_START_QUICK_MOVEMENT       130 // U8     Triggers the quick movement in the correspondent motor.
 
 /************************************************************************/
 /* PWM Generator registers' memory limits                               */
@@ -563,8 +583,8 @@ typedef struct
 /************************************************************************/
 /* Memory limits */
 #define APP_REGS_ADD_MIN                    0x20
-#define APP_REGS_ADD_MAX                    0x78
-#define APP_NBYTES_OF_REG_BANK              280
+#define APP_REGS_ADD_MAX                    0x82
+#define APP_NBYTES_OF_REG_BANK              298
 
 /************************************************************************/
 /* Registers' bits                                                      */

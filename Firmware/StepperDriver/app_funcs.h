@@ -109,6 +109,16 @@ void app_read_REG_RESERVED4(void);
 void app_read_REG_RESERVED5(void);
 void app_read_REG_RESERVED6(void);
 void app_read_REG_RESERVED7(void);
+void app_read_REG_MOTOR1_QUICK_NOMINAL_STEP_INTERVAL(void);
+void app_read_REG_MOTOR2_QUICK_NOMINAL_STEP_INTERVAL(void);
+void app_read_REG_MOTOR1_QUICK_MAXIMUM_STEP_INTERVAL(void);
+void app_read_REG_MOTOR2_QUICK_MAXIMUM_STEP_INTERVAL(void);
+void app_read_REG_MOTOR1_QUICK_STEP_ACCELERATION_INTERVAL(void);
+void app_read_REG_MOTOR2_QUICK_STEP_ACCELERATION_INTERVAL(void);
+void app_read_REG_MOTOR1_QUICK_STEPS(void);
+void app_read_REG_MOTOR2_QUICK_STEPS(void);
+void app_read_REG_LOAD_QUICK_MOVEMENT(void);
+void app_read_REG_START_QUICK_MOVEMENT(void);
 
 bool app_write_REG_ENABLE_MOTORS(void *a);
 bool app_write_REG_DISABLE_MOTORS(void *a);
@@ -199,6 +209,16 @@ bool app_write_REG_RESERVED4(void *a);
 bool app_write_REG_RESERVED5(void *a);
 bool app_write_REG_RESERVED6(void *a);
 bool app_write_REG_RESERVED7(void *a);
+bool app_write_REG_MOTOR1_QUICK_NOMINAL_STEP_INTERVAL(void *a);
+bool app_write_REG_MOTOR2_QUICK_NOMINAL_STEP_INTERVAL(void *a);
+bool app_write_REG_MOTOR1_QUICK_MAXIMUM_STEP_INTERVAL(void *a);
+bool app_write_REG_MOTOR2_QUICK_MAXIMUM_STEP_INTERVAL(void *a);
+bool app_write_REG_MOTOR1_QUICK_STEP_ACCELERATION_INTERVAL(void *a);
+bool app_write_REG_MOTOR2_QUICK_STEP_ACCELERATION_INTERVAL(void *a);
+bool app_write_REG_MOTOR1_QUICK_STEPS(void *a);
+bool app_write_REG_MOTOR2_QUICK_STEPS(void *a);
+bool app_write_REG_LOAD_QUICK_MOVEMENT(void *a);
+bool app_write_REG_START_QUICK_MOVEMENT(void *a);
 
 
 #endif /* _APP_FUNCTIONS_H_ */

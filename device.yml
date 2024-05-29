@@ -591,6 +591,67 @@ registers:
     description: Contains the raw data of the digital potentiometer that controls current limit of motor 3.
 
 ##################################
+# Quick movement
+##################################
+  Motor1QuickStepInterval:
+    address: 121
+    type: U16
+    access: Write
+    description: Configures the time between step motor pulses (us) when running at nominal speed for motor 1 for the quick mode.
+  Motor2QuickStepInterval:
+    address: 122
+    type: U16
+    access: Write
+    description: Configures the time between step motor pulses (us) when running at nominal speed for motor 2 for the quick mode.
+ 
+  Motor1QuickMaximumStepInterval:
+    address: 123
+    type: U16
+    access: Write
+    description: Configures the time between step motor pulses (us) used when starting or stopping a movement for motor 1 for the quick mode.    
+  Motor2QuickMaximumStepInterval:
+    address: 124
+    type: U16
+    access: Write
+    description: Configures the time between step motor pulses (us) used when starting or stopping a movement for motor 2 for the quick mode.
+
+  Motor1QuickStepAccelerationInterval:
+    address: 125
+    type: U16
+    access: Write
+    description: Configures the acceleration for motor 1 for the quick mode. The time between step pulses is decreased by this value when accelerating and increased when decelerating.
+  Motor2QuickStepAccelerationInterval:
+    address: 126
+    type: U16
+    access: Write
+    description: Configures the acceleration for motor 2 for the quick mode. The time between step pulses is decreased by this value when accelerating and increased when decelerating.
+
+
+  Motor1QuickMoveRelative:
+    address: 127
+    type: U16
+    access: Write
+    description: Moves motor 1 by the number of steps written in this register and set the direction according to the value's signal for the quick mode.
+  Motor2QuickMoveRelative:
+    address: 128
+    type: U16
+    access: Write
+    description: Moves motor 2 by the number of steps written in this register and set the direction according to the value's signal for the quick mode.
+  
+  LoadQuickMovementParameters:
+    address: 129
+    type: U16
+    access: Write
+    description: Writing any value to this register will load the motors' current configuration memory for quicker start.
+
+  StartQuickMovement:
+    address: 130
+    type: U16
+    access: Write
+    maskType: StepperMotors
+    description: Triggers the quick movement in the correspondent motor.
+
+##################################
 # Bit masks
 ##################################
 bitMasks:

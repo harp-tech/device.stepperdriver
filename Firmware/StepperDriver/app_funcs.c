@@ -143,7 +143,7 @@ void (*app_func_rd_pointer[])(void) = {
 	&app_read_REG_MOTOR0_ABSOLUTE_STEPS,
 	&app_read_REG_MOTOR1_ABSOLUTE_STEPS,
 	&app_read_REG_MOTOR2_ABSOLUTE_STEPS,
-	&app_read_REG_MOTOR3_ABSOLUTE_STEPS,	
+	&app_read_REG_MOTOR3_ABSOLUTE_STEPS,
 	&app_read_REG_ACCUMULATED_STEPS,
 	&app_read_REG_MOTOR0_ACCUMULATED_STEPS,
 	&app_read_REG_MOTOR1_ACCUMULATED_STEPS,
@@ -174,7 +174,17 @@ void (*app_func_rd_pointer[])(void) = {
 	&app_read_REG_RESERVED4,
 	&app_read_REG_RESERVED5,
 	&app_read_REG_RESERVED6,
-	&app_read_REG_RESERVED7
+	&app_read_REG_RESERVED7,
+	&app_read_REG_MOTOR1_QUICK_NOMINAL_STEP_INTERVAL,
+	&app_read_REG_MOTOR2_QUICK_NOMINAL_STEP_INTERVAL,
+	&app_read_REG_MOTOR1_QUICK_MAXIMUM_STEP_INTERVAL,
+	&app_read_REG_MOTOR2_QUICK_MAXIMUM_STEP_INTERVAL,
+	&app_read_REG_MOTOR1_QUICK_STEP_ACCELERATION_INTERVAL,
+	&app_read_REG_MOTOR2_QUICK_STEP_ACCELERATION_INTERVAL,
+	&app_read_REG_MOTOR1_QUICK_STEPS,
+	&app_read_REG_MOTOR2_QUICK_STEPS,
+	&app_read_REG_LOAD_QUICK_MOVEMENT,
+	&app_read_REG_START_QUICK_MOVEMENT
 };
 
 bool (*app_func_wr_pointer[])(void*) = {
@@ -266,7 +276,17 @@ bool (*app_func_wr_pointer[])(void*) = {
 	&app_write_REG_RESERVED4,
 	&app_write_REG_RESERVED5,
 	&app_write_REG_RESERVED6,
-	&app_write_REG_RESERVED7
+	&app_write_REG_RESERVED7,
+	&app_write_REG_MOTOR1_QUICK_NOMINAL_STEP_INTERVAL,
+	&app_write_REG_MOTOR2_QUICK_NOMINAL_STEP_INTERVAL,
+	&app_write_REG_MOTOR1_QUICK_MAXIMUM_STEP_INTERVAL,
+	&app_write_REG_MOTOR2_QUICK_MAXIMUM_STEP_INTERVAL,
+	&app_write_REG_MOTOR1_QUICK_STEP_ACCELERATION_INTERVAL,
+	&app_write_REG_MOTOR2_QUICK_STEP_ACCELERATION_INTERVAL,
+	&app_write_REG_MOTOR1_QUICK_STEPS,
+	&app_write_REG_MOTOR2_QUICK_STEPS,
+	&app_write_REG_LOAD_QUICK_MOVEMENT,
+	&app_write_REG_START_QUICK_MOVEMENT
 };
 
 
@@ -2301,4 +2321,142 @@ bool app_write_REG_RESERVED7(void *a)
 
 	app_regs.REG_RESERVED7 = reg;
 	return ok;
+}
+
+
+/************************************************************************/
+/* REG_MOTOR1_QUICK_NOMINAL_STEP_INTERVAL                               */
+/************************************************************************/
+void app_read_REG_MOTOR1_QUICK_NOMINAL_STEP_INTERVAL(void) {}
+bool app_write_REG_MOTOR1_QUICK_NOMINAL_STEP_INTERVAL(void *a)
+{
+	uint16_t reg = *((uint16_t*)a);
+
+	app_regs.REG_MOTOR1_QUICK_NOMINAL_STEP_INTERVAL = reg;
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_MOTOR2_QUICK_NOMINAL_STEP_INTERVAL                               */
+/************************************************************************/
+void app_read_REG_MOTOR2_QUICK_NOMINAL_STEP_INTERVAL(void) {}
+bool app_write_REG_MOTOR2_QUICK_NOMINAL_STEP_INTERVAL(void *a)
+{
+	uint16_t reg = *((uint16_t*)a);
+
+	app_regs.REG_MOTOR2_QUICK_NOMINAL_STEP_INTERVAL = reg;
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_MOTOR1_QUICK_MAXIMUM_STEP_INTERVAL                               */
+/************************************************************************/
+void app_read_REG_MOTOR1_QUICK_MAXIMUM_STEP_INTERVAL(void) {}
+bool app_write_REG_MOTOR1_QUICK_MAXIMUM_STEP_INTERVAL(void *a)
+{
+	uint16_t reg = *((uint16_t*)a);
+
+	app_regs.REG_MOTOR1_QUICK_MAXIMUM_STEP_INTERVAL = reg;
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_MOTOR2_QUICK_MAXIMUM_STEP_INTERVAL                               */
+/************************************************************************/
+void app_read_REG_MOTOR2_QUICK_MAXIMUM_STEP_INTERVAL(void) {}
+bool app_write_REG_MOTOR2_QUICK_MAXIMUM_STEP_INTERVAL(void *a)
+{
+	uint16_t reg = *((uint16_t*)a);
+
+	app_regs.REG_MOTOR2_QUICK_MAXIMUM_STEP_INTERVAL = reg;
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_MOTOR1_QUICK_STEP_ACCELERATION_INTERVAL                          */
+/************************************************************************/
+void app_read_REG_MOTOR1_QUICK_STEP_ACCELERATION_INTERVAL(void) {}
+bool app_write_REG_MOTOR1_QUICK_STEP_ACCELERATION_INTERVAL(void *a)
+{
+	uint16_t reg = *((uint16_t*)a);
+
+	app_regs.REG_MOTOR1_QUICK_STEP_ACCELERATION_INTERVAL = reg;
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_MOTOR2_QUICK_STEP_ACCELERATION_INTERVAL                          */
+/************************************************************************/
+void app_read_REG_MOTOR2_QUICK_STEP_ACCELERATION_INTERVAL(void) {}
+bool app_write_REG_MOTOR2_QUICK_STEP_ACCELERATION_INTERVAL(void *a)
+{
+	uint16_t reg = *((uint16_t*)a);
+
+	app_regs.REG_MOTOR2_QUICK_STEP_ACCELERATION_INTERVAL = reg;
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_MOTOR1_QUICK_STEPS                                               */
+/************************************************************************/
+void app_read_REG_MOTOR1_QUICK_STEPS(void) {}
+bool app_write_REG_MOTOR1_QUICK_STEPS(void *a)
+{
+	int16_t reg = *((int16_t*)a);
+
+	app_regs.REG_MOTOR1_QUICK_STEPS = reg;
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_MOTOR2_QUICK_STEPS                                               */
+/************************************************************************/
+void app_read_REG_MOTOR2_QUICK_STEPS(void) {}
+bool app_write_REG_MOTOR2_QUICK_STEPS(void *a)
+{
+	int16_t reg = *((int16_t*)a);
+
+	app_regs.REG_MOTOR2_QUICK_STEPS = reg;
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_LOAD_QUICK_MOVEMENT                                              */
+/************************************************************************/
+void app_read_REG_LOAD_QUICK_MOVEMENT(void)
+{
+	app_regs.REG_LOAD_QUICK_MOVEMENT = 0;
+}
+
+bool app_write_REG_LOAD_QUICK_MOVEMENT(void *a)
+{
+	uint8_t reg = *((uint8_t*)a);
+
+	app_regs.REG_LOAD_QUICK_MOVEMENT = reg;
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_START_QUICK_MOVEMENT                                             */
+/************************************************************************/
+void app_read_REG_START_QUICK_MOVEMENT(void)
+{
+	app_regs.REG_START_QUICK_MOVEMENT = 0;
+}
+
+bool app_write_REG_START_QUICK_MOVEMENT(void *a)
+{
+	uint8_t reg = *((uint8_t*)a);
+
+	app_regs.REG_START_QUICK_MOVEMENT = reg;
+	return true;
 }
