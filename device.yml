@@ -595,37 +595,48 @@ registers:
 ##################################
   Motor1QuickStepInterval:
     address: 121
+    minValue: 10
+    defaultValue: 50
     type: U16
     access: Write
     description: Configures the time between step motor pulses (us) when running at nominal speed for motor 1 for the quick mode.
   Motor2QuickStepInterval:
     address: 122
+    minValue: 10
+    defaultValue: 50
     type: U16
     access: Write
     description: Configures the time between step motor pulses (us) when running at nominal speed for motor 2 for the quick mode.
  
   Motor1QuickMaximumStepInterval:
     address: 123
+    minValue: 12
+    defaultValue: 2000
     type: U16
     access: Write
     description: Configures the time between step motor pulses (us) used when starting or stopping a movement for motor 1 for the quick mode.    
   Motor2QuickMaximumStepInterval:
     address: 124
+    minValue: 12
+    defaultValue: 2000
     type: U16
     access: Write
     description: Configures the time between step motor pulses (us) used when starting or stopping a movement for motor 2 for the quick mode.
 
   Motor1QuickStepAccelerationInterval:
     address: 125
+    minValue: 2
+    defaultValue: 10
     type: U16
     access: Write
     description: Configures the acceleration for motor 1 for the quick mode. The time between step pulses is decreased by this value when accelerating and increased when decelerating.
   Motor2QuickStepAccelerationInterval:
     address: 126
+    minValue: 2
+    defaultValue: 10
     type: U16
     access: Write
     description: Configures the acceleration for motor 2 for the quick mode. The time between step pulses is decreased by this value when accelerating and increased when decelerating.
-
 
   Motor1QuickMoveRelative:
     address: 127

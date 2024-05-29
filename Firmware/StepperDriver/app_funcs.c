@@ -2331,6 +2331,8 @@ void app_read_REG_MOTOR1_QUICK_NOMINAL_STEP_INTERVAL(void) {}
 bool app_write_REG_MOTOR1_QUICK_NOMINAL_STEP_INTERVAL(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
+	
+	if (reg < 10) return false;
 
 	app_regs.REG_MOTOR1_QUICK_NOMINAL_STEP_INTERVAL = reg;
 	return true;
@@ -2344,6 +2346,8 @@ void app_read_REG_MOTOR2_QUICK_NOMINAL_STEP_INTERVAL(void) {}
 bool app_write_REG_MOTOR2_QUICK_NOMINAL_STEP_INTERVAL(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
+	
+	if (reg < 10) return false;
 
 	app_regs.REG_MOTOR2_QUICK_NOMINAL_STEP_INTERVAL = reg;
 	return true;
@@ -2357,6 +2361,8 @@ void app_read_REG_MOTOR1_QUICK_MAXIMUM_STEP_INTERVAL(void) {}
 bool app_write_REG_MOTOR1_QUICK_MAXIMUM_STEP_INTERVAL(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
+	
+	if (reg < 12) return false;
 
 	app_regs.REG_MOTOR1_QUICK_MAXIMUM_STEP_INTERVAL = reg;
 	return true;
@@ -2370,6 +2376,8 @@ void app_read_REG_MOTOR2_QUICK_MAXIMUM_STEP_INTERVAL(void) {}
 bool app_write_REG_MOTOR2_QUICK_MAXIMUM_STEP_INTERVAL(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
+	
+	if (reg < 12) return false;
 
 	app_regs.REG_MOTOR2_QUICK_MAXIMUM_STEP_INTERVAL = reg;
 	return true;
@@ -2383,6 +2391,8 @@ void app_read_REG_MOTOR1_QUICK_STEP_ACCELERATION_INTERVAL(void) {}
 bool app_write_REG_MOTOR1_QUICK_STEP_ACCELERATION_INTERVAL(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
+	
+	if (reg < 2) return false;
 
 	app_regs.REG_MOTOR1_QUICK_STEP_ACCELERATION_INTERVAL = reg;
 	return true;
@@ -2396,6 +2406,8 @@ void app_read_REG_MOTOR2_QUICK_STEP_ACCELERATION_INTERVAL(void) {}
 bool app_write_REG_MOTOR2_QUICK_STEP_ACCELERATION_INTERVAL(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
+	
+	if (reg < 2) return false;
 
 	app_regs.REG_MOTOR2_QUICK_STEP_ACCELERATION_INTERVAL = reg;
 	return true;
