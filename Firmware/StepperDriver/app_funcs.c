@@ -2439,6 +2439,17 @@ void app_read_REG_LOAD_QUICK_MOVEMENT(void)
 bool app_write_REG_LOAD_QUICK_MOVEMENT(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
+	
+	bool ok = m1_quick_load_parameters();
+	if (ok)
+	{
+		ok = m2_quick_load_parameters();
+	}
+	
+	if (!ok)
+	{
+		return false;
+	}
 
 	app_regs.REG_LOAD_QUICK_MOVEMENT = reg;
 	return true;
@@ -2456,6 +2467,26 @@ void app_read_REG_START_QUICK_MOVEMENT(void)
 bool app_write_REG_START_QUICK_MOVEMENT(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
+	
+	bool ok = true;
+	
+	if (reg & B_MOTOR1)
+	{
+		ok = m1_quick_launch_movement();
+	}
+	
+	if (ok)
+	{
+		if (reg & B_MOTOR2)
+		{
+			ok = m2_quick_launch_movement();
+		}
+	}
+	
+	if (!ok)
+	{
+		return false;
+	}
 
 	app_regs.REG_START_QUICK_MOVEMENT = reg;
 	return true;

@@ -36,53 +36,39 @@ uint16_t m2_quick_acc_interval;
 uint16_t m1_quick_step_interval;
 uint16_t m2_quick_step_interval;
 
-/************************************************************************/
-/* User configuration for motor 1                                       */
-/************************************************************************/
-uint16_t Motor1QuickMaximumStepInterval = 30;
-uint16_t Motor1QuickAccelerationInterval = 6;
-uint16_t Motor1QuickStepInterval = 9;	// Minimum is 16 us for two motors and 8 us for one motor
-uint16_t Motor1QuickRelativeSteps = 16;
-
-/************************************************************************/
-/* User configuration for motor 2                                       */
-/************************************************************************/
-uint16_t Motor2QuickMaximumStepInterval = 40;
-uint16_t Motor2QuickAccelerationInterval = 8;
-uint16_t Motor2QuickStepInterval = 9;	// Minimum is 16 us for two motors and 8 us for one motor
-uint16_t Motor2QuickRelativeSteps = 16;
-
 
 /************************************************************************/
 /* Quick movement routines                                              */
 /************************************************************************/
 bool m1_quick_load_parameters (void)
 {
+	uint16_t motor1_positive_steps = (uint16_t)((app_regs.REG_MOTOR1_QUICK_STEPS > 0) ? app_regs.REG_MOTOR1_QUICK_STEPS : -app_regs.REG_MOTOR1_QUICK_STEPS);
+
 	m1_quick_parameters_loaded = true;
 	
-	float m1_acc_number_of_steps_float = (float)(Motor1QuickMaximumStepInterval - Motor1QuickStepInterval) / (float)Motor1QuickAccelerationInterval;
+	float m1_acc_number_of_steps_float = (float)(app_regs.REG_MOTOR1_QUICK_MAXIMUM_STEP_INTERVAL - app_regs.REG_MOTOR1_QUICK_NOMINAL_STEP_INTERVAL) / (float)app_regs.REG_MOTOR1_QUICK_STEP_ACCELERATION_INTERVAL;
 	
 	m1_acc_number_of_steps = m1_acc_number_of_steps_float - ((uint16_t)m1_acc_number_of_steps_float) > 0 ? (uint16_t)m1_acc_number_of_steps_float + 1 : (uint16_t)m1_acc_number_of_steps_float;
 	
-	m1_quick_timer_per = Motor1QuickMaximumStepInterval + Motor1QuickAccelerationInterval;
-	m1_quick_step_interval = Motor1QuickStepInterval;
+	m1_quick_timer_per = app_regs.REG_MOTOR1_QUICK_MAXIMUM_STEP_INTERVAL + app_regs.REG_MOTOR1_QUICK_STEP_ACCELERATION_INTERVAL;
+	m1_quick_step_interval = app_regs.REG_MOTOR1_QUICK_NOMINAL_STEP_INTERVAL;
 	m1_quick_state_ctrl = 0;
-	m1_quick_stop_decreasing_interval = Motor1QuickRelativeSteps - m1_acc_number_of_steps;
+	m1_quick_stop_decreasing_interval = abs(app_regs.REG_MOTOR1_QUICK_STEPS) - m1_acc_number_of_steps;
 	m1_quick_start_increasing_interval = m1_acc_number_of_steps;
 	
-	m1_quick_acc_interval = Motor1QuickAccelerationInterval;
+	m1_quick_acc_interval = app_regs.REG_MOTOR1_QUICK_STEP_ACCELERATION_INTERVAL;
 	
 	if (m1_acc_number_of_steps <= 2)
 	{
 		return false;
 	}
 	
-	if (m1_acc_number_of_steps * 2 < Motor1QuickRelativeSteps)
+	if (m1_acc_number_of_steps * 2 < abs(app_regs.REG_MOTOR1_QUICK_STEPS))
 	{
 		//return false;
 	}
 	
-	if (Motor1QuickAccelerationInterval < Motor1QuickStepInterval)
+	if (app_regs.REG_MOTOR1_QUICK_STEP_ACCELERATION_INTERVAL < app_regs.REG_MOTOR1_QUICK_NOMINAL_STEP_INTERVAL)
 	{
 		//return false;
 	}
@@ -94,29 +80,29 @@ bool m2_quick_load_parameters (void)
 {
 	m2_quick_parameters_loaded = true;
 	
-	float m2_acc_number_of_steps_float = (float)(Motor2QuickMaximumStepInterval - Motor2QuickStepInterval) / (float)Motor2QuickAccelerationInterval;
+	float m2_acc_number_of_steps_float = (float)(app_regs.REG_MOTOR2_QUICK_MAXIMUM_STEP_INTERVAL - app_regs.REG_MOTOR2_QUICK_NOMINAL_STEP_INTERVAL) / (float)app_regs.REG_MOTOR2_QUICK_STEP_ACCELERATION_INTERVAL;
 	
 	m2_acc_number_of_steps = m2_acc_number_of_steps_float - ((uint16_t)m2_acc_number_of_steps_float) > 0 ? (uint16_t)m2_acc_number_of_steps_float + 1 : (uint16_t)m2_acc_number_of_steps_float;
 	
-	m2_quick_timer_per = Motor2QuickMaximumStepInterval + Motor2QuickAccelerationInterval;
-	m2_quick_step_interval = Motor2QuickStepInterval;
+	m2_quick_timer_per = app_regs.REG_MOTOR2_QUICK_MAXIMUM_STEP_INTERVAL + app_regs.REG_MOTOR2_QUICK_STEP_ACCELERATION_INTERVAL;
+	m2_quick_step_interval = app_regs.REG_MOTOR2_QUICK_NOMINAL_STEP_INTERVAL;
 	m2_quick_state_ctrl = 0;
-	m2_quick_stop_decreasing_interval = Motor2QuickRelativeSteps - m2_acc_number_of_steps;
+	m2_quick_stop_decreasing_interval = abs(app_regs.REG_MOTOR2_QUICK_STEPS) - m2_acc_number_of_steps;
 	m2_quick_start_increasing_interval = m2_acc_number_of_steps;
 	
-	m2_quick_acc_interval = Motor2QuickAccelerationInterval;
+	m2_quick_acc_interval = app_regs.REG_MOTOR2_QUICK_STEP_ACCELERATION_INTERVAL;
 	
 	if (m2_acc_number_of_steps <= 2)
 	{
 		return false;
 	}
 	
-	if (m2_acc_number_of_steps * 2 < Motor2QuickRelativeSteps)
+	if (m2_acc_number_of_steps * 2 < abs(app_regs.REG_MOTOR2_QUICK_STEPS))
 	{
 		//return false;
 	}
 	
-	if (Motor2QuickAccelerationInterval < Motor2QuickStepInterval)
+	if (app_regs.REG_MOTOR2_QUICK_STEP_ACCELERATION_INTERVAL < app_regs.REG_MOTOR2_QUICK_NOMINAL_STEP_INTERVAL)
 	{
 		//return false;
 	}
@@ -136,8 +122,20 @@ bool m1_quick_launch_movement (void)
 		return false;
 	}
 	
+	m1_quick_timer_per = app_regs.REG_MOTOR1_QUICK_MAXIMUM_STEP_INTERVAL + app_regs.REG_MOTOR1_QUICK_STEP_ACCELERATION_INTERVAL;
+	m1_quick_state_ctrl = 0;
+	
 	/* Only executes the movement if the motor is stopped */
-	if_moving_stop_rotation(1);
+	if_moving_stop_rotation(1);	
+	
+	if (app_regs.REG_MOTOR1_QUICK_STEPS > 0)
+	{
+		set_DIR_M1;
+	}
+	else
+	{
+		clr_DIR_M1;
+	}
 	
 	// 4 Stop motor if moving
 	// 3 Wait 1 ms
@@ -146,7 +144,7 @@ bool m1_quick_launch_movement (void)
 	// 0 Stopped
 	m1_quick_count_down = 4;
 	
-	m1_quick_relative_steps = Motor1QuickRelativeSteps;
+	m1_quick_relative_steps = abs(app_regs.REG_MOTOR1_QUICK_STEPS);
 	
 	return true;
 }
@@ -163,8 +161,20 @@ bool m2_quick_launch_movement (void)
 		return false;
 	}
 	
+	m2_quick_timer_per = app_regs.REG_MOTOR2_QUICK_MAXIMUM_STEP_INTERVAL + app_regs.REG_MOTOR2_QUICK_STEP_ACCELERATION_INTERVAL;
+	m2_quick_state_ctrl = 0;
+	
 	/* Only executes the movement if the motor is stopped */
 	if_moving_stop_rotation(2);
+	
+	if (app_regs.REG_MOTOR2_QUICK_STEPS > 0)
+	{
+		set_DIR_M2;
+	}
+	else
+	{
+		clr_DIR_M2;
+	}
 	
 	// 4 Stop motor if moving
 	// 3 Wait 1 ms
@@ -173,29 +183,20 @@ bool m2_quick_launch_movement (void)
 	// 0 Stopped
 	m2_quick_count_down = 4;
 	
-	m2_quick_relative_steps = Motor2QuickRelativeSteps;
+	m2_quick_relative_steps = abs(app_regs.REG_MOTOR2_QUICK_STEPS);
 	
 	return true;
 }
 
 void m1_start_quick_movement (void)
-{
-	if (Motor1QuickRelativeSteps > 0)
-	{
-		set_DIR_M1;
-	}
-	else
-	{
-		clr_DIR_M1;
-	}
-	
+{	
 	if (read_DRIVE_ENABLE_M1)
 	{
 		return;
 	}
 	
 	/* Start the generation of pulses */
-	timer_type0_pwm(&TCD0, TIMER_PRESCALER_DIV64, (Motor1QuickMaximumStepInterval - 1) >> 1, 2 >> 1, INT_LEVEL_MED, INT_LEVEL_MED);
+	timer_type0_pwm(&TCD0, TIMER_PRESCALER_DIV64, (app_regs.REG_MOTOR1_QUICK_MAXIMUM_STEP_INTERVAL - 1) >> 1, 2 >> 1, INT_LEVEL_MED, INT_LEVEL_MED);
 	
 	motor_is_running[1] = true;
 	
@@ -207,23 +208,14 @@ void m1_start_quick_movement (void)
 }
 
 void m2_start_quick_movement (void)
-{
-	if (Motor2QuickRelativeSteps > 0)
-	{
-		set_DIR_M2;
-	}
-	else
-	{
-		clr_DIR_M2;
-	}
-	
+{	
 	if (read_DRIVE_ENABLE_M2)
 	{
 		return;
 	}
 	
 	/* Start the generation of pulses */
-	timer_type0_pwm(&TCE0, TIMER_PRESCALER_DIV64, (Motor2QuickMaximumStepInterval - 1) >> 1, 2 >> 1, INT_LEVEL_MED, INT_LEVEL_MED);
+	timer_type0_pwm(&TCE0, TIMER_PRESCALER_DIV64, (app_regs.REG_MOTOR2_QUICK_MAXIMUM_STEP_INTERVAL - 1) >> 1, 2 >> 1, INT_LEVEL_MED, INT_LEVEL_MED);
 	
 	motor_is_running[2] = true;
 	

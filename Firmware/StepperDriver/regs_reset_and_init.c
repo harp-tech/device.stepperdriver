@@ -75,6 +75,16 @@ void core_callback_reset_registers(void)
 	
 	app_regs.REG_MOTOR3_MAX_STEPS_INTEGRATION = 0;
 	app_regs.REG_MOTOR3_MIN_STEPS_INTEGRATION = 0;
+
+ 	app_regs.REG_MOTOR1_QUICK_NOMINAL_STEP_INTERVAL = 50;
+ 	app_regs.REG_MOTOR1_QUICK_MAXIMUM_STEP_INTERVAL = 2000;
+ 	app_regs.REG_MOTOR1_QUICK_STEP_ACCELERATION_INTERVAL = 10;
+	app_regs.REG_MOTOR1_QUICK_STEPS = -5000;
+	
+	app_regs.REG_MOTOR2_QUICK_NOMINAL_STEP_INTERVAL = 50;
+	app_regs.REG_MOTOR2_QUICK_MAXIMUM_STEP_INTERVAL = 2000;
+	app_regs.REG_MOTOR2_QUICK_STEP_ACCELERATION_INTERVAL = 10;
+	app_regs.REG_MOTOR2_QUICK_STEPS = 5000;
 }
 
 void core_callback_registers_were_reinitialized(void)
@@ -119,4 +129,6 @@ void core_callback_registers_were_reinitialized(void)
 	
 	app_read_REG_MOTORS_ERROR_DETECTTION();
 	app_read_REG_DIGITAL_INPUTS_STATE();
+	
+	app_write_REG_LOAD_QUICK_MOVEMENT(&app_regs.REG_LOAD_QUICK_MOVEMENT);
 }
