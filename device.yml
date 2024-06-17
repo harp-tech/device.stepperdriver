@@ -640,24 +640,24 @@ registers:
 
   Motor1QuickMoveRelative:
     address: 127
-    type: U16
+    type: S16
     access: Write
     description: Moves motor 1 by the number of steps written in this register and set the direction according to the value's signal for the quick mode.
   Motor2QuickMoveRelative:
     address: 128
-    type: U16
+    type: S16
     access: Write
     description: Moves motor 2 by the number of steps written in this register and set the direction according to the value's signal for the quick mode.
   
   LoadQuickMovementParameters:
     address: 129
-    type: U16
+    type: U8
     access: Write
     description: Writing any value to this register will load the motors' current configuration memory for quicker start.
 
   StartQuickMovement:
     address: 130
-    type: U16
+    type: U8
     access: Write
     maskType: StepperMotors
     description: Triggers the quick movement in the correspondent motor.
