@@ -95,7 +95,7 @@ void core_callback_catastrophic_error_detected(void)
 /************************************************************************/
 void core_callback_define_clock_default(void) {}
 
-#define T_STARTUP_ON  50
+#define T_STARTUP_ON  0/*50*/
 #define T_STARTUP_OFF 0
 
 extern i2c_dev_t digi_pot_M0_M1;
@@ -425,7 +425,8 @@ void core_callback_t_1ms(void)
 			{
 				m1_quick_count_down--;
 				
-				m1_start_quick_movement();
+				//m1_start_quick_movement(); // old way
+				m1_initiate_quick_movement(); // new way
 			}
 		}		
 	}

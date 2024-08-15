@@ -119,6 +119,16 @@ void app_read_REG_MOTOR1_QUICK_STEPS(void);
 void app_read_REG_MOTOR2_QUICK_STEPS(void);
 void app_read_REG_LOAD_QUICK_MOVEMENT(void);
 void app_read_REG_START_QUICK_MOVEMENT(void);
+void app_read_REG_MOTOR1_QUICK_PULSE_DISTANCE(void);
+void app_read_REG_MOTOR2_QUICK_PULSE_DISTANCE(void);
+void app_read_REG_MOTOR1_QUICK_NOMINAL_SPEED(void);
+void app_read_REG_MOTOR2_QUICK_NOMINAL_SPEED(void);
+void app_read_REG_MOTOR1_QUICK_START_SPEED(void);
+void app_read_REG_MOTOR2_QUICK_START_SPEED(void);
+void app_read_REG_MOTOR1_QUICK_ACCELERATION(void);
+void app_read_REG_MOTOR2_QUICK_ACCELERATION(void);
+void app_read_REG_MOTOR1_QUICK_DISTANCE(void);
+void app_read_REG_MOTOR2_QUICK_DISTANCE(void);
 
 bool app_write_REG_ENABLE_MOTORS(void *a);
 bool app_write_REG_DISABLE_MOTORS(void *a);
@@ -219,6 +229,16 @@ bool app_write_REG_MOTOR1_QUICK_STEPS(void *a);
 bool app_write_REG_MOTOR2_QUICK_STEPS(void *a);
 bool app_write_REG_LOAD_QUICK_MOVEMENT(void *a);
 bool app_write_REG_START_QUICK_MOVEMENT(void *a);
+bool app_write_REG_MOTOR1_QUICK_PULSE_DISTANCE(void *a);
+bool app_write_REG_MOTOR2_QUICK_PULSE_DISTANCE(void *a);
+bool app_write_REG_MOTOR1_QUICK_NOMINAL_SPEED(void *a);
+bool app_write_REG_MOTOR2_QUICK_NOMINAL_SPEED(void *a);
+bool app_write_REG_MOTOR1_QUICK_START_SPEED(void *a);
+bool app_write_REG_MOTOR2_QUICK_START_SPEED(void *a);
+bool app_write_REG_MOTOR1_QUICK_ACCELERATION(void *a);
+bool app_write_REG_MOTOR2_QUICK_ACCELERATION(void *a);
+bool app_write_REG_MOTOR1_QUICK_DISTANCE(void *a);
+bool app_write_REG_MOTOR2_QUICK_DISTANCE(void *a);
 
 
 #endif /* _APP_FUNCTIONS_H_ */

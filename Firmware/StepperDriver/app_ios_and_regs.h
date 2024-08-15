@@ -469,6 +469,16 @@ typedef struct
 	int16_t REG_MOTOR2_QUICK_STEPS;
 	uint8_t REG_LOAD_QUICK_MOVEMENT;
 	uint8_t REG_START_QUICK_MOVEMENT;
+	float REG_MOTOR1_QUICK_PULSE_DISTANCE;
+	float REG_MOTOR2_QUICK_PULSE_DISTANCE;
+	float REG_MOTOR1_QUICK_NOMINAL_SPEED;
+	float REG_MOTOR2_QUICK_NOMINAL_SPEED;
+	float REG_MOTOR1_QUICK_START_SPEED;
+	float REG_MOTOR2_QUICK_START_SPEED;
+	float REG_MOTOR1_QUICK_ACCELERATION;
+	float REG_MOTOR2_QUICK_ACCELERATION;
+	float REG_MOTOR1_QUICK_DISTANCE;
+	float REG_MOTOR2_QUICK_DISTANCE;
 } AppRegs;
 
 /************************************************************************/
@@ -574,6 +584,16 @@ typedef struct
 #define ADD_REG_MOTOR2_QUICK_STEPS         128 // I16    Moves motor 2 by the number of steps written in this register and set the direction according to the value's signal for the quick mode.
 #define ADD_REG_LOAD_QUICK_MOVEMENT        129 // U8     Writing any value to this register will load the motors' current configuration memory for quicker start.
 #define ADD_REG_START_QUICK_MOVEMENT       130 // U8     Triggers the quick movement in the correspondent motor.
+#define ADD_REG_MOTOR1_QUICK_PULSE_DISTANCE131 // FLOAT  Configures the motor's step distance in µm for motor 1.
+#define ADD_REG_MOTOR2_QUICK_PULSE_DISTANCE132 // FLOAT  Configures the motor's step distance in µm for motor 2.
+#define ADD_REG_MOTOR1_QUICK_NOMINAL_SPEED 133 // FLOAT  Configures the motor's nominal speed in mm/s for motor 1.
+#define ADD_REG_MOTOR2_QUICK_NOMINAL_SPEED 134 // FLOAT  Configures the motor's nominal speed in mm/s for motor 2.
+#define ADD_REG_MOTOR1_QUICK_START_SPEED   135 // FLOAT  Configures the motor's starting speed in mm/s for motor 1.
+#define ADD_REG_MOTOR2_QUICK_START_SPEED   136 // FLOAT  Configures the motor's starting speed in mm/s for motor 2.
+#define ADD_REG_MOTOR1_QUICK_ACCELERATION  137 // FLOAT  Configures the motor's acceleration in m/s2 for motor 1.
+#define ADD_REG_MOTOR2_QUICK_ACCELERATION  138 // FLOAT  Configures the motor's acceleration in m/s2 for motor 2.
+#define ADD_REG_MOTOR1_QUICK_DISTANCE      139 // FLOAT  Configures the motor's travel distance in mm for motor 1.
+#define ADD_REG_MOTOR2_QUICK_DISTANCE      140 // FLOAT  Configures the motor's travel distance in mm for motor 2.
 
 /************************************************************************/
 /* PWM Generator registers' memory limits                               */
@@ -583,8 +603,8 @@ typedef struct
 /************************************************************************/
 /* Memory limits */
 #define APP_REGS_ADD_MIN                    0x20
-#define APP_REGS_ADD_MAX                    0x82
-#define APP_NBYTES_OF_REG_BANK              298
+#define APP_REGS_ADD_MAX                    0x8C
+#define APP_NBYTES_OF_REG_BANK              338
 
 /************************************************************************/
 /* Registers' bits                                                      */

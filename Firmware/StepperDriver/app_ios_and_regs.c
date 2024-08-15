@@ -235,7 +235,17 @@ uint8_t app_regs_type[] = {
 	TYPE_I16,
 	TYPE_I16,
 	TYPE_U8,
-	TYPE_U8
+	TYPE_U8,
+	TYPE_FLOAT,
+	TYPE_FLOAT,
+	TYPE_FLOAT,
+	TYPE_FLOAT,
+	TYPE_FLOAT,
+	TYPE_FLOAT,
+	TYPE_FLOAT,
+	TYPE_FLOAT,
+	TYPE_FLOAT,
+	TYPE_FLOAT
 };
 
 uint16_t app_regs_n_elements[] = {
@@ -313,6 +323,16 @@ uint16_t app_regs_n_elements[] = {
 	1,
 	1,
 	4,
+	1,
+	1,
+	1,
+	1,
+	1,
+	1,
+	1,
+	1,
+	1,
+	1,
 	1,
 	1,
 	1,
@@ -439,5 +459,15 @@ uint8_t *app_regs_pointer[] = {
 	(uint8_t*)(&app_regs.REG_MOTOR1_QUICK_STEPS),
 	(uint8_t*)(&app_regs.REG_MOTOR2_QUICK_STEPS),
 	(uint8_t*)(&app_regs.REG_LOAD_QUICK_MOVEMENT),
-	(uint8_t*)(&app_regs.REG_START_QUICK_MOVEMENT)
+	(uint8_t*)(&app_regs.REG_START_QUICK_MOVEMENT),
+	(uint8_t*)(&app_regs.REG_MOTOR1_QUICK_PULSE_DISTANCE),
+	(uint8_t*)(&app_regs.REG_MOTOR2_QUICK_PULSE_DISTANCE),
+	(uint8_t*)(&app_regs.REG_MOTOR1_QUICK_NOMINAL_SPEED),
+	(uint8_t*)(&app_regs.REG_MOTOR2_QUICK_NOMINAL_SPEED),
+	(uint8_t*)(&app_regs.REG_MOTOR1_QUICK_START_SPEED),
+	(uint8_t*)(&app_regs.REG_MOTOR2_QUICK_START_SPEED),
+	(uint8_t*)(&app_regs.REG_MOTOR1_QUICK_ACCELERATION),
+	(uint8_t*)(&app_regs.REG_MOTOR2_QUICK_ACCELERATION),
+	(uint8_t*)(&app_regs.REG_MOTOR1_QUICK_DISTANCE),
+	(uint8_t*)(&app_regs.REG_MOTOR2_QUICK_DISTANCE)
 };
