@@ -18,7 +18,7 @@ bool m2_quick_launch_movement (void);
 void m1_start_quick_movement (void);
 void m2_start_quick_movement (void);
 
-void m1_recalc_internal_paramenters (void);
+bool m1_recalc_internal_paramenters (void);
 bool m1_update_internal_variables (void);
 bool m1_launch_quick_movement (void);
 void m1_initiate_quick_movement (void);

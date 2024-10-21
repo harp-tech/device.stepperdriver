@@ -262,6 +262,8 @@ uint16_t m2_short_move_pulses;
 uint32_t m1_timer_limit;
 uint32_t m2_timer_limit;
 
+#define MINIMUM_US_BETWEEN_PULSES 16
+
 
 /************************************************************************/
 /* Quick movement routines                                              */
@@ -269,7 +271,7 @@ uint32_t m2_timer_limit;
 
 // Check file Harp Motion Controller Plots - New Trapezoidal Speed Control.html
 
-void m1_recalc_internal_paramenters (void)
+bool m1_recalc_internal_paramenters (void)
 {
 	m1_speed_start = 1000.0 * app_regs.REG_MOTOR1_QUICK_START_SPEED / app_regs.REG_MOTOR1_QUICK_PULSE_DISTANCE;
 	m1_speed_limit = 1000.0 * app_regs.REG_MOTOR1_QUICK_NOMINAL_SPEED / app_regs.REG_MOTOR1_QUICK_PULSE_DISTANCE;
@@ -278,11 +280,24 @@ void m1_recalc_internal_paramenters (void)
 		m1_move_pulses = (app_regs.REG_MOTOR1_QUICK_DISTANCE * 1000.0 / app_regs.REG_MOTOR1_QUICK_PULSE_DISTANCE);
 	else
 		m1_move_pulses = (app_regs.REG_MOTOR1_QUICK_DISTANCE * -1000.0 / app_regs.REG_MOTOR1_QUICK_PULSE_DISTANCE);
+		
+	
+	
+	float max_pulses_check = app_regs.REG_MOTOR1_QUICK_DISTANCE * 1000.0 / app_regs.REG_MOTOR1_QUICK_PULSE_DISTANCE;
+		
+	if (max_pulses_check > 65530 /* 2^16 */)
+		/* Check for max uint16 because m1_move_pulses is a uint16 */
+		return false;
+		
+	return true;
 }
 
 bool m1_update_internal_variables (void)
 {
-	m1_timer_limit = (uint16_t)(1000000.0/m1_speed_limit) >> 1; // Shift right 1 position because timer is 2us resolution	
+	m1_timer_limit = (uint16_t)(1000000.0/m1_speed_limit) >> 1; // Shift right 1 position because timer is 2us resolution
+	
+	if (m1_timer_limit < (MINIMUM_US_BETWEEN_PULSES >> 1))
+		m1_timer_limit = MINIMUM_US_BETWEEN_PULSES >> 1;	// Make sure time between pulses don't go below the minimum acceptable
 	
 	m1_speed = m1_speed_start;
 	m1_delay = 0;
