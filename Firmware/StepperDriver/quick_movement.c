@@ -274,7 +274,10 @@ void m1_recalc_internal_paramenters (void)
 	m1_speed_start = 1000.0 * app_regs.REG_MOTOR1_QUICK_START_SPEED / app_regs.REG_MOTOR1_QUICK_PULSE_DISTANCE;
 	m1_speed_limit = 1000.0 * app_regs.REG_MOTOR1_QUICK_NOMINAL_SPEED / app_regs.REG_MOTOR1_QUICK_PULSE_DISTANCE;
 	m1_acc = 1024.0 * app_regs.REG_MOTOR1_QUICK_ACCELERATION / app_regs.REG_MOTOR1_QUICK_PULSE_DISTANCE;
-	m1_move_pulses = (app_regs.REG_MOTOR1_QUICK_DISTANCE * 1000 / app_regs.REG_MOTOR1_QUICK_PULSE_DISTANCE);
+	if (app_regs.REG_MOTOR1_QUICK_DISTANCE > 0)
+		m1_move_pulses = (app_regs.REG_MOTOR1_QUICK_DISTANCE * 1000.0 / app_regs.REG_MOTOR1_QUICK_PULSE_DISTANCE);
+	else
+		m1_move_pulses = (app_regs.REG_MOTOR1_QUICK_DISTANCE * -1000.0 / app_regs.REG_MOTOR1_QUICK_PULSE_DISTANCE);
 }
 
 bool m1_update_internal_variables (void)
