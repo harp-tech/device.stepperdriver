@@ -116,8 +116,52 @@ namespace Harp.StepperDriver
             { 108, typeof(Motor2StepRelative) },
             { 109, typeof(Motor3StepRelative) },
             { 110, typeof(StopMotors) },
-            { 112, typeof(ResetEncoders) }
+            { 111, typeof(ResetMotors) },
+            { 112, typeof(ResetEncoders) },
+            { 113, typeof(Reserved0) },
+            { 114, typeof(Reserved1) },
+            { 115, typeof(Reserved2) },
+            { 116, typeof(Reserved3) },
+            { 117, typeof(Reserved4) },
+            { 118, typeof(Reserved5) },
+            { 119, typeof(Reserved6) },
+            { 120, typeof(Reserved7) }
         };
+
+        /// <summary>
+        /// Gets the contents of the metadata file describing the <see cref="StepperDriver"/>
+        /// device registers.
+        /// </summary>
+        public static readonly string Metadata = GetDeviceMetadata();
+
+        static string GetDeviceMetadata()
+        {
+            var deviceType = typeof(Device);
+            using var metadataStream = deviceType.Assembly.GetManifestResourceStream($"{deviceType.Namespace}.device.yml");
+            using var streamReader = new System.IO.StreamReader(metadataStream);
+            return streamReader.ReadToEnd();
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that returns the contents of the metadata file
+    /// describing the <see cref="StepperDriver"/> device registers.
+    /// </summary>
+    [Description("Returns the contents of the metadata file describing the StepperDriver device registers.")]
+    public partial class GetMetadata : Source<string>
+    {
+        /// <summary>
+        /// Returns an observable sequence with the contents of the metadata file
+        /// describing the <see cref="StepperDriver"/> device registers.
+        /// </summary>
+        /// <returns>
+        /// A sequence with a single <see cref="string"/> object representing the
+        /// contents of the metadata file.
+        /// </returns>
+        public override IObservable<string> Generate()
+        {
+            return Observable.Return(Device.Metadata);
+        }
     }
 
     /// <summary>
@@ -8543,6 +8587,28 @@ namespace Harp.StepperDriver
     }
 
     /// <summary>
+    /// Represents a register that resets the internal motor driver which also clears any eventual error (not implemented).
+    /// </summary>
+    [Description("Resets the internal motor driver which also clears any eventual error (not implemented).")]
+    internal partial class ResetMotors
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="ResetMotors"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 111;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="ResetMotors"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U8;
+
+        /// <summary>
+        /// Represents the length of the <see cref="ResetMotors"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+    }
+
+    /// <summary>
     /// Represents a register that resets the encoder.
     /// </summary>
     [Description("Resets the encoder.")]
@@ -8637,6 +8703,182 @@ namespace Harp.StepperDriver
         {
             return ResetEncoders.GetTimestampedPayload(message);
         }
+    }
+
+    /// <summary>
+    /// Represents a register that contains the CFG configuration pins of the TMC2210 driver that controls motor 0.
+    /// </summary>
+    [Description("Contains the CFG configuration pins of the TMC2210 driver that controls motor 0.")]
+    internal partial class Reserved0
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Reserved0"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 113;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Reserved0"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U8;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Reserved0"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+    }
+
+    /// <summary>
+    /// Represents a register that contains the CFG configuration pins of the TMC2210 driver that controls motor 1.
+    /// </summary>
+    [Description("Contains the CFG configuration pins of the TMC2210 driver that controls motor 1.")]
+    internal partial class Reserved1
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Reserved1"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 114;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Reserved1"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U8;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Reserved1"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+    }
+
+    /// <summary>
+    /// Represents a register that contains the CFG configuration pins of the TMC2210 driver that controls motor 2.
+    /// </summary>
+    [Description("Contains the CFG configuration pins of the TMC2210 driver that controls motor 2.")]
+    internal partial class Reserved2
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Reserved2"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 115;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Reserved2"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U8;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Reserved2"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+    }
+
+    /// <summary>
+    /// Represents a register that contains the CFG configuration pins of the TMC2210 driver that controls motor 3.
+    /// </summary>
+    [Description("Contains the CFG configuration pins of the TMC2210 driver that controls motor 3.")]
+    internal partial class Reserved3
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Reserved3"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 116;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Reserved3"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U8;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Reserved3"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+    }
+
+    /// <summary>
+    /// Represents a register that contains the raw data of the digital potentiometer that controls current limit of motor 0.
+    /// </summary>
+    [Description("Contains the raw data of the digital potentiometer that controls current limit of motor 0.")]
+    internal partial class Reserved4
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Reserved4"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 117;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Reserved4"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U8;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Reserved4"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+    }
+
+    /// <summary>
+    /// Represents a register that contains the raw data of the digital potentiometer that controls current limit of motor 1.
+    /// </summary>
+    [Description("Contains the raw data of the digital potentiometer that controls current limit of motor 1.")]
+    internal partial class Reserved5
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Reserved5"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 118;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Reserved5"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U8;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Reserved5"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+    }
+
+    /// <summary>
+    /// Represents a register that contains the raw data of the digital potentiometer that controls current limit of motor 2.
+    /// </summary>
+    [Description("Contains the raw data of the digital potentiometer that controls current limit of motor 2.")]
+    internal partial class Reserved6
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Reserved6"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 119;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Reserved6"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U8;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Reserved6"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+    }
+
+    /// <summary>
+    /// Represents a register that contains the raw data of the digital potentiometer that controls current limit of motor 3.
+    /// </summary>
+    [Description("Contains the raw data of the digital potentiometer that controls current limit of motor 3.")]
+    internal partial class Reserved7
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Reserved7"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 120;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Reserved7"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U8;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Reserved7"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
     }
 
     /// <summary>
@@ -13439,6 +13681,22 @@ namespace Harp.StepperDriver
         /// Specifies which motor just stopped.
         /// </summary>
         public StepperMotors Changed;
+
+        /// <summary>
+        /// Returns a <see cref="string"/> that represents the payload of
+        /// the MotorStopped register.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="string"/> that represents the payload of the
+        /// MotorStopped register.
+        /// </returns>
+        public override string ToString()
+        {
+            return "MotorStoppedPayload { " +
+                "State = " + State + ", " +
+                "Changed = " + Changed + " " +
+            "}";
+        }
     }
 
     /// <summary>
@@ -13476,6 +13734,23 @@ namespace Harp.StepperDriver
         /// The quadrature counter on port ENC 2.
         /// </summary>
         public short Encoder2;
+
+        /// <summary>
+        /// Returns a <see cref="string"/> that represents the payload of
+        /// the Encoders register.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="string"/> that represents the payload of the
+        /// Encoders register.
+        /// </returns>
+        public override string ToString()
+        {
+            return "EncodersPayload { " +
+                "Encoder0 = " + Encoder0 + ", " +
+                "Encoder1 = " + Encoder1 + ", " +
+                "Encoder2 = " + Encoder2 + " " +
+            "}";
+        }
     }
 
     /// <summary>
@@ -13521,6 +13796,24 @@ namespace Harp.StepperDriver
         /// Contains the number of steps used to move motor 3.
         /// </summary>
         public int Motor3;
+
+        /// <summary>
+        /// Returns a <see cref="string"/> that represents the payload of
+        /// the MoveRelative register.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="string"/> that represents the payload of the
+        /// MoveRelative register.
+        /// </returns>
+        public override string ToString()
+        {
+            return "MoveRelativePayload { " +
+                "Motor0 = " + Motor0 + ", " +
+                "Motor1 = " + Motor1 + ", " +
+                "Motor2 = " + Motor2 + ", " +
+                "Motor3 = " + Motor3 + " " +
+            "}";
+        }
     }
 
     /// <summary>
@@ -13566,6 +13859,24 @@ namespace Harp.StepperDriver
         /// Contains the absolute position to move motor 3.
         /// </summary>
         public int Motor3;
+
+        /// <summary>
+        /// Returns a <see cref="string"/> that represents the payload of
+        /// the MoveAbsolute register.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="string"/> that represents the payload of the
+        /// MoveAbsolute register.
+        /// </returns>
+        public override string ToString()
+        {
+            return "MoveAbsolutePayload { " +
+                "Motor0 = " + Motor0 + ", " +
+                "Motor1 = " + Motor1 + ", " +
+                "Motor2 = " + Motor2 + ", " +
+                "Motor3 = " + Motor3 + " " +
+            "}";
+        }
     }
 
     /// <summary>
@@ -13611,6 +13922,24 @@ namespace Harp.StepperDriver
         /// Contains the accumulated steps of motor 3.
         /// </summary>
         public int Motor3;
+
+        /// <summary>
+        /// Returns a <see cref="string"/> that represents the payload of
+        /// the AccumulatedSteps register.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="string"/> that represents the payload of the
+        /// AccumulatedSteps register.
+        /// </returns>
+        public override string ToString()
+        {
+            return "AccumulatedStepsPayload { " +
+                "Motor0 = " + Motor0 + ", " +
+                "Motor1 = " + Motor1 + ", " +
+                "Motor2 = " + Motor2 + ", " +
+                "Motor3 = " + Motor3 + " " +
+            "}";
+        }
     }
 
     /// <summary>
@@ -13656,6 +13985,24 @@ namespace Harp.StepperDriver
         /// Defines the limit of the accumulated steps for the positive movement of motor 3. The device will not let the motor move further than this value.
         /// </summary>
         public int Motor3;
+
+        /// <summary>
+        /// Returns a <see cref="string"/> that represents the payload of
+        /// the MaxPosition register.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="string"/> that represents the payload of the
+        /// MaxPosition register.
+        /// </returns>
+        public override string ToString()
+        {
+            return "MaxPositionPayload { " +
+                "Motor0 = " + Motor0 + ", " +
+                "Motor1 = " + Motor1 + ", " +
+                "Motor2 = " + Motor2 + ", " +
+                "Motor3 = " + Motor3 + " " +
+            "}";
+        }
     }
 
     /// <summary>
@@ -13701,6 +14048,24 @@ namespace Harp.StepperDriver
         /// Defines the limit of the accumulated steps for the negative movement of motor 3. The device will not let the motor move further than this value.
         /// </summary>
         public int Motor3;
+
+        /// <summary>
+        /// Returns a <see cref="string"/> that represents the payload of
+        /// the MinPosition register.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="string"/> that represents the payload of the
+        /// MinPosition register.
+        /// </returns>
+        public override string ToString()
+        {
+            return "MinPositionPayload { " +
+                "Motor0 = " + Motor0 + ", " +
+                "Motor1 = " + Motor1 + ", " +
+                "Motor2 = " + Motor2 + ", " +
+                "Motor3 = " + Motor3 + " " +
+            "}";
+        }
     }
 
     /// <summary>
@@ -13746,6 +14111,24 @@ namespace Harp.StepperDriver
         /// Starts the movement of motor 3 with the step interval defined by this register. The value's signal defines the direction.
         /// </summary>
         public int Motor3;
+
+        /// <summary>
+        /// Returns a <see cref="string"/> that represents the payload of
+        /// the StepRelative register.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="string"/> that represents the payload of the
+        /// StepRelative register.
+        /// </returns>
+        public override string ToString()
+        {
+            return "StepRelativePayload { " +
+                "Motor0 = " + Motor0 + ", " +
+                "Motor1 = " + Motor1 + ", " +
+                "Motor2 = " + Motor2 + ", " +
+                "Motor3 = " + Motor3 + " " +
+            "}";
+        }
     }
 
     /// <summary>
