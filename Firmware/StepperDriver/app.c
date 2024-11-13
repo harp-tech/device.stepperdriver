@@ -456,7 +456,8 @@ void core_callback_t_1ms(void)
 			{
 				m2_quick_count_down--;
 				
-				m2_start_quick_movement();
+				//m2_start_quick_movement(); // old way
+				m2_initiate_quick_movement(); // new way
 			}
 		}
 	}

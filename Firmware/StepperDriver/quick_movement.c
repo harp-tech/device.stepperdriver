@@ -78,6 +78,8 @@ bool m1_quick_load_parameters (void)
 
 bool m2_quick_load_parameters (void)
 {
+	uint16_t motor2_positive_steps = (uint16_t)((app_regs.REG_MOTOR2_QUICK_STEPS > 0) ? app_regs.REG_MOTOR2_QUICK_STEPS : -app_regs.REG_MOTOR2_QUICK_STEPS);
+
 	m2_quick_parameters_loaded = true;
 	
 	float m2_acc_number_of_steps_float = (float)(app_regs.REG_MOTOR2_QUICK_MAXIMUM_STEP_INTERVAL - app_regs.REG_MOTOR2_QUICK_NOMINAL_STEP_INTERVAL) / (float)app_regs.REG_MOTOR2_QUICK_STEP_ACCELERATION_INTERVAL;
@@ -178,7 +180,7 @@ bool m2_quick_launch_movement (void)
 	
 	// 4 Stop motor if moving
 	// 3 Wait 1 ms
-	// 2 Star m1_start_quick_movement()
+	// 2 Star m2_start_quick_movement()
 	// 1 Moving
 	// 0 Stopped
 	m2_quick_count_down = 4;
@@ -208,7 +210,7 @@ void m1_start_quick_movement (void)
 }
 
 void m2_start_quick_movement (void)
-{	
+{
 	if (read_DRIVE_ENABLE_M2)
 	{
 		return;
@@ -259,6 +261,10 @@ bool m2_accelerating;
 uint16_t m2_pulses_to_accelerate;
 uint16_t m2_short_move_pulses;
 
+uint8_t m2_exec_ctrl;
+bool m2_use_steps;
+bool m2_use_single_step;
+
 uint32_t m1_timer_limit;
 uint32_t m2_timer_limit;
 
@@ -292,6 +298,27 @@ bool m1_recalc_internal_paramenters (void)
 	return true;
 }
 
+bool m2_recalc_internal_paramenters (void)
+{
+	m2_speed_start = 1000.0 * app_regs.REG_MOTOR2_QUICK_START_SPEED / app_regs.REG_MOTOR2_QUICK_PULSE_DISTANCE;
+	m2_speed_limit = 1000.0 * app_regs.REG_MOTOR2_QUICK_NOMINAL_SPEED / app_regs.REG_MOTOR2_QUICK_PULSE_DISTANCE;
+	m2_acc = 1024.0 * app_regs.REG_MOTOR2_QUICK_ACCELERATION / app_regs.REG_MOTOR2_QUICK_PULSE_DISTANCE;
+	if (app_regs.REG_MOTOR2_QUICK_DISTANCE > 0)
+		m2_move_pulses = (app_regs.REG_MOTOR2_QUICK_DISTANCE * 1000.0 / app_regs.REG_MOTOR2_QUICK_PULSE_DISTANCE);
+	else
+		m2_move_pulses = (app_regs.REG_MOTOR2_QUICK_DISTANCE * -1000.0 / app_regs.REG_MOTOR2_QUICK_PULSE_DISTANCE);
+	
+	
+	
+	float max_pulses_check = app_regs.REG_MOTOR2_QUICK_DISTANCE * 1000.0 / app_regs.REG_MOTOR2_QUICK_PULSE_DISTANCE;
+	
+	if (max_pulses_check > 65530 /* 2^16 */)
+		/* Check for max uint16 because m1_move_pulses is a uint16 */
+		return false;
+	
+	return true;
+}
+
 bool m1_update_internal_variables (void)
 {
 	m1_timer_limit = (uint16_t)(1000000.0/m1_speed_limit) >> 1; // Shift right 1 position because timer is 2us resolution
@@ -311,6 +338,32 @@ bool m1_update_internal_variables (void)
 	m1_use_single_step = false;
 	
 	if (m1_move_pulses <= 4)
+	{
+		return false;
+	}
+	
+	return true;
+}
+
+bool m2_update_internal_variables (void)
+{
+	m2_timer_limit = (uint16_t)(1000000.0/m2_speed_limit) >> 1; // Shift right 1 position because timer is 2us resolution
+	
+	if (m2_timer_limit < (MINIMUM_US_BETWEEN_PULSES >> 1))
+		// m1_timer_limit = MINIMUM_US_BETWEEN_PULSES >> 1;	// Make sure time between pulses don't go below the minimum acceptable
+		return false;
+	
+	m2_speed = m1_speed_start;
+	m2_delay = 0;
+	m2_accelerating = true;
+	m2_pulses_to_accelerate = 0;
+	m2_short_move_pulses = m2_move_pulses/2.0;
+	
+	m2_exec_ctrl = 9;
+	m2_use_steps = false;
+	m2_use_single_step = false;
+	
+	if (m2_move_pulses <= 4)
 	{
 		return false;
 	}
@@ -357,6 +410,44 @@ bool m1_launch_quick_movement (void)
 	return true;
 }
 
+bool m2_launch_quick_movement (void)
+{
+	if (m2_update_internal_variables() == false)
+	{
+		return false;
+	}
+	
+	if (read_DRIVE_ENABLE_M2)
+	{
+		return false;
+	}
+	
+	m2_quick_timer_per = app_regs.REG_MOTOR2_QUICK_MAXIMUM_STEP_INTERVAL + app_regs.REG_MOTOR2_QUICK_STEP_ACCELERATION_INTERVAL;
+	m2_quick_state_ctrl = 0;
+	
+	/* Only executes the movement if the motor is stopped */
+	if_moving_stop_rotation(2);
+	
+	if (app_regs.REG_MOTOR2_QUICK_DISTANCE > 0)
+	{
+		set_DIR_M2;
+	}
+	else
+	{
+		clr_DIR_M2;
+	}
+	
+	// 4 Stop motor if moving
+	// 3 Wait 1 ms
+	// 2 Star m2_start_quick_movement()
+	// 1 Moving
+	// 0 Stopped
+	m2_quick_count_down = 4;
+	
+	m2_quick_relative_steps = abs(m2_move_pulses);
+	
+	return true;
+}
 
 void m1_initiate_quick_movement (void)
 {
@@ -385,4 +476,29 @@ void m1_initiate_quick_movement (void)
 	}
 }
 
-
+void m2_initiate_quick_movement (void)
+{
+	if (read_DRIVE_ENABLE_M2)
+	{
+		return;
+	}
+	
+	/* Start the generation of pulses */
+	m2_delay = (uint16_t)(1000000.0/m2_speed);
+	
+	timer_type0_pwm(&TCE0, TIMER_PRESCALER_DIV64, (m2_delay >> 1) - 1, 2 >> 1, INT_LEVEL_MED, INT_LEVEL_MED);
+	
+	if (0)//m2_delay < 6000 && m2_delay > 20)
+	{
+		app_regs.REG_MOTOR2_QUICK_DISTANCE = m2_delay;
+		core_func_send_event(ADD_REG_MOTOR2_QUICK_DISTANCE, true);
+	}
+	
+	motor_is_running[2] = true;
+	
+	
+	if (core_bool_is_visual_enabled())
+	{
+		set_LED_M2;
+	}
+}

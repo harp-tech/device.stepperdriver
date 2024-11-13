@@ -2514,8 +2514,11 @@ bool app_write_REG_START_QUICK_MOVEMENT(void *a)
 	if (ok)
 	{
 		if (reg & B_MOTOR2)
-		{
-			ok = m2_quick_launch_movement();
+		{			
+			//ok = m2_quick_launch_movement(); // old way
+			ok = m2_recalc_internal_paramenters(); // new way
+			if (ok)
+			ok = m2_launch_quick_movement(); // new way
 		}
 	}
 	
@@ -2554,6 +2557,9 @@ bool app_write_REG_MOTOR2_QUICK_PULSE_DISTANCE(void *a)
 	float reg = *((float*)a);
 
 	app_regs.REG_MOTOR2_QUICK_PULSE_DISTANCE = reg;
+	
+	//m2_recalc_internal_paramenters();
+	
 	return true;
 }
 
@@ -2583,6 +2589,9 @@ bool app_write_REG_MOTOR2_QUICK_NOMINAL_SPEED(void *a)
 	float reg = *((float*)a);
 
 	app_regs.REG_MOTOR2_QUICK_NOMINAL_SPEED = reg;
+	
+	//m2_recalc_internal_paramenters();
+	
 	return true;
 }
 
@@ -2612,6 +2621,9 @@ bool app_write_REG_MOTOR2_QUICK_START_SPEED(void *a)
 	float reg = *((float*)a);
 
 	app_regs.REG_MOTOR2_QUICK_START_SPEED = reg;
+	
+	//m2_recalc_internal_paramenters();
+	
 	return true;
 }
 
@@ -2641,6 +2653,9 @@ bool app_write_REG_MOTOR2_QUICK_ACCELERATION(void *a)
 	float reg = *((float*)a);
 
 	app_regs.REG_MOTOR2_QUICK_ACCELERATION = reg;
+	
+	//m2_recalc_internal_paramenters();
+	
 	return true;
 }
 
@@ -2670,5 +2685,8 @@ bool app_write_REG_MOTOR2_QUICK_DISTANCE(void *a)
 	float reg = *((float*)a);
 
 	app_regs.REG_MOTOR2_QUICK_DISTANCE = reg;
+	
+	//m1_recalc_internal_paramenters();
+	
 	return true;
 }

@@ -23,4 +23,9 @@ bool m1_update_internal_variables (void);
 bool m1_launch_quick_movement (void);
 void m1_initiate_quick_movement (void);
 
+bool m2_recalc_internal_paramenters (void);
+bool m2_update_internal_variables (void);
+bool m2_launch_quick_movement (void);
+void m2_initiate_quick_movement (void);
+
 #endif /* _QUICK_MOVEMENT_H_ */

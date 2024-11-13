@@ -467,7 +467,7 @@ uint16_t m1_single_step_per;
 #define STEPS_UPDATE_TIMER 0
 
 #define MOVE_TO_STEPS_PERIOD 50 // 500 // 50 // Equal to 30 is too low, it fails.
-#define MOVE_TO_SINGLE_STEP 25 // 10 // This solution doesn't seem to work well, keep low value to not be used
+#define MOVE_TO_SINGLE_STEP 5 // 10 // This solution doesn't seem to work well, keep low value to not be used
 /* MOVE_TO_STEPS_PERIOD  MOVE_TO_SINGLE_STEP  Notes
    50                    10                   Can go to 22 us interval, Motor1QuickNominalSpeed = 55
    500                   50                   Can go to 20 us interval, Motor1QuickNominalSpeed = 65
