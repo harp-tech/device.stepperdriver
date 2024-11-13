@@ -297,7 +297,8 @@ bool m1_update_internal_variables (void)
 	m1_timer_limit = (uint16_t)(1000000.0/m1_speed_limit) >> 1; // Shift right 1 position because timer is 2us resolution
 	
 	if (m1_timer_limit < (MINIMUM_US_BETWEEN_PULSES >> 1))
-		m1_timer_limit = MINIMUM_US_BETWEEN_PULSES >> 1;	// Make sure time between pulses don't go below the minimum acceptable
+		// m1_timer_limit = MINIMUM_US_BETWEEN_PULSES >> 1;	// Make sure time between pulses don't go below the minimum acceptable
+		return false;
 	
 	m1_speed = m1_speed_start;
 	m1_delay = 0;
