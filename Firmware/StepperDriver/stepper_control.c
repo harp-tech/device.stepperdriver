@@ -2,6 +2,8 @@
 #include "app_ios_and_regs.h"
 #include "hwbp_core.h"
 
+#include <stdlib.h>
+
 
 /************************************************************************/
 /* User mandatory definitions                                           */
@@ -46,6 +48,16 @@ bool decreasing_speed[MOTORS_QUANTITY];
 int32_t user_requested_steps[MOTORS_QUANTITY];
 
 bool send_motor_stopped_notification[MOTORS_QUANTITY];
+
+/************************************************************************/
+/* Quick movement globals                                               */
+/************************************************************************/
+extern uint8_t m1_quick_count_down;
+extern uint8_t m2_quick_count_down;
+
+extern uint16_t m1_quick_relative_steps;
+extern uint16_t m2_quick_relative_steps;
+
 
 /************************************************************************/
 /* Update global electrical pulse parameters                            */
@@ -161,6 +173,9 @@ void stop_rotation (uint8_t motor_index)
 {
  	timer_type0_stop(motor_peripherals_timer[motor_index]);
  	motor_is_running[motor_index] = false;
+	 
+ 	if (motor_index == 1) m1_quick_count_down = 0;
+ 	if (motor_index == 2) m2_quick_count_down = 0;
 	
 	motor_peripherals_led_port[motor_index]->OUTCLR = (1<<motor_peripherals_led_pin_index[motor_index]);
 }
@@ -394,24 +409,6 @@ ISR(TCC0_CCA_vect/*, ISR_NAKED*/)
 	timer_cca_routine(0);
 }
 
-ISR(TCD0_OVF_vect/*, ISR_NAKED*/)
-{
-	timer_ovf_routine(1);
-}
-ISR(TCD0_CCA_vect/*, ISR_NAKED*/)
-{
-	timer_cca_routine(1);
-}
-
-ISR(TCE0_OVF_vect/*, ISR_NAKED*/)
-{
-	timer_ovf_routine(2);
-}
-ISR(TCE0_CCA_vect/*, ISR_NAKED*/)
-{
-	timer_cca_routine(2);
-}
-
 ISR(TCF0_OVF_vect/*, ISR_NAKED*/)
 {
 	timer_ovf_routine(3);
@@ -419,4 +416,729 @@ ISR(TCF0_OVF_vect/*, ISR_NAKED*/)
 ISR(TCF0_CCA_vect/*, ISR_NAKED*/)
 {
 	timer_cca_routine(3);
+}
+
+// Old way
+extern uint16_t m1_quick_timer_per;
+extern uint8_t m1_quick_state_ctrl;
+extern uint16_t m1_quick_stop_decreasing_interval;
+extern uint16_t m1_quick_start_increasing_interval;
+
+extern uint16_t m1_quick_acc_interval;
+extern uint16_t m1_quick_step_interval;
+
+extern uint16_t m2_quick_timer_per;
+extern uint8_t m2_quick_state_ctrl;
+extern uint16_t m2_quick_stop_decreasing_interval;
+extern uint16_t m2_quick_start_increasing_interval;
+
+extern uint16_t m2_quick_acc_interval;
+extern uint16_t m2_quick_step_interval;
+
+// New way
+extern uint32_t m1_speed_start;
+extern uint32_t m1_speed_limit;
+extern uint16_t m1_acc;
+extern uint16_t m1_move_pulses;
+
+extern uint32_t m2_speed_start;
+extern uint32_t m2_speed_limit;
+extern uint16_t m2_acc;
+extern uint16_t m2_move_pulses;
+
+extern uint32_t m1_speed;
+extern uint32_t m1_delay;
+extern bool m1_accelerating;
+extern uint16_t m1_pulses_to_accelerate;
+extern uint16_t m1_short_move_pulses;
+
+extern uint32_t m2_speed;
+extern uint32_t m2_delay;
+extern bool m2_accelerating;
+extern uint16_t m2_pulses_to_accelerate;
+extern uint16_t m2_short_move_pulses;
+
+extern uint32_t m1_timer_limit;
+extern uint32_t m2_timer_limit;
+
+extern uint8_t m1_exec_ctrl;
+extern uint8_t m2_exec_ctrl;
+
+uint32_t m1_speed_temp;
+uint32_t m1_delay_temp;
+extern bool m1_use_steps;
+extern bool m1_use_single_step;
+
+uint32_t m2_speed_temp;
+uint32_t m2_delay_temp;
+extern bool m2_use_steps;
+extern bool m2_use_single_step;
+
+uint16_t m1_single_step_per;
+uint16_t m2_single_step_per;
+
+// Do nothing is 7.5 us max
+// The minimum period between pulses is given by: (A + A/B*2 + C) / 2 = (A + A/8*2 + C) / 2 = (A + A/4 + C) / 2
+//  A = maximum time of the slowest step
+//  B = 8 = time in us needed to send or receive a byte
+//  C = 4 = margin in us
+//  The periods of all the other steps must be bellow the minimum time between pulses minus 4 us
+
+#define STEPS_N 8
+#define STEPS_N_SINGLE_STEP 128
+
+#define STEPS_SPEED_CALC_1OF2 7
+#define STEPS_SPEED_CALC_2OF2 6
+#define STEPS_SPEED_CALC_3OF2 5
+#define STEPS_DELAY_CALC 2
+#define STEPS_UPDATE_TIMER 0
+
+#define MOVE_TO_STEPS_PERIOD 50 // 500 // 50 // Equal to 30 is too low, it fails.
+#define MOVE_TO_SINGLE_STEP 5 // 10 // This solution doesn't seem to work well, keep low value to not be used
+/* MOVE_TO_STEPS_PERIOD  MOVE_TO_SINGLE_STEP  Notes
+   50                    10                   Can go to 22 us interval, Motor1QuickNominalSpeed = 55
+   500                   50                   Can go to 20 us interval, Motor1QuickNominalSpeed = 65
+   */
+   
+   
+ISR(TCD0_OVF_vect/*, ISR_NAKED*/)
+{	
+	//if (m1_exec_ctrl == 5)
+		//set_STEP_M2;
+	
+	if (m1_quick_count_down)
+	{
+		/* Run time is 2 us for the entire interrupt */
+		if (read_DIR_M1 > 0)
+		{
+			app_regs.REG_ACCUMULATED_STEPS[1]++;
+		}
+		else
+		{
+			app_regs.REG_ACCUMULATED_STEPS[1]--;
+		}		
+
+		// Old way
+		/*
+		if (m1_quick_state_ctrl)
+		{
+			if (m1_quick_relative_steps <= m1_quick_start_increasing_interval)
+			{
+				m1_quick_timer_per += m1_quick_acc_interval;
+				TCD0_PER = (m1_quick_timer_per - 1) >> 1;
+			}
+		}
+		else
+		{			
+			if (m1_quick_relative_steps == m1_quick_stop_decreasing_interval)
+			{
+				m1_quick_timer_per = m1_quick_step_interval;
+				TCD0_PER = (m1_quick_timer_per - 1) >> 1;
+				m1_quick_state_ctrl++;
+			}
+			else
+			{
+				m1_quick_timer_per -= m1_quick_acc_interval;
+				TCD0_PER = (m1_quick_timer_per - 1) >> 1;
+			}
+		}
+		
+		m1_quick_relative_steps--; // old way
+		*/
+		
+		// New way
+		
+		m1_move_pulses--; // new way	
+		if (m1_use_single_step)
+		{
+			m1_exec_ctrl--;
+		
+			if (m1_accelerating)
+			{
+				if (TCD0_PER > m1_timer_limit)
+				{
+					// Accelerate
+					if (m1_exec_ctrl == STEPS_UPDATE_TIMER)
+					{
+						m1_single_step_per = TCD0_PER - 1;
+					}
+					
+					m1_pulses_to_accelerate++;
+				}
+				else
+				{
+					m1_single_step_per = m1_timer_limit;
+				}
+			}
+			else
+			{
+				// Decelerate
+				if (m1_exec_ctrl == STEPS_UPDATE_TIMER)
+				{
+					m1_single_step_per = TCD0_PER + 1;
+				}
+			}
+		
+			if (m1_accelerating)
+			{
+				if ((m1_move_pulses == m1_pulses_to_accelerate + 10) || (m1_short_move_pulses == m1_pulses_to_accelerate + 2*8))
+				{
+					m1_accelerating = false;
+				}
+			}
+		
+			if (m1_exec_ctrl == STEPS_UPDATE_TIMER)
+			{
+				TCD0_PER = m1_single_step_per;
+			
+				if (TCD0_PER >= m1_delay)
+				{
+					m1_use_single_step = false;
+					m1_exec_ctrl = STEPS_N + 1;
+				}
+			}
+			
+			if (m1_exec_ctrl == 0)
+			{
+				m1_exec_ctrl = STEPS_N_SINGLE_STEP + 1;
+			}
+		
+			if (0)//m1_exec_ctrl == 4)
+			{
+				//if (m1_delay < 6000 && m1_delay > 20)
+				{
+					app_regs.REG_MOTOR2_QUICK_DISTANCE = m1_delay;
+					core_func_send_event(ADD_REG_MOTOR2_QUICK_DISTANCE, true);
+				}
+			}
+		}		
+		else if (m1_use_steps)
+		{
+			m1_exec_ctrl--;
+		
+			if (m1_accelerating)
+			{
+				if (m1_speed < m1_speed_limit)
+				{
+					// Accelerate
+					//set_STEP_M2;
+				
+					//m1_speed = m1_speed + (uint32_t)((m1_acc * m1_delay) / 1000.0);	// 21.2 us
+					//m1_speed = m1_speed + (uint32_t)(((uint32_t)(m1_acc * m1_delay)) / 1024);	// 4.8 us
+				
+					//m1_speed = m1_speed + (uint32_t)((m1_acc * (uint16_t)m1_delay) / 1000.0);	// 19.0 us
+					//m1_speed = m1_speed + (uint32_t)((m1_acc * (uint16_t)m1_delay));	// 1.2 us
+					//m1_speed = m1_speed + (uint32_t)((m1_acc * m1_delay));			// 2.6 us
+					//m1_speed = m1_speed + div(m1_delay, 1000);	// 21.2 us
+				
+					//div_t a;							//
+					//a = div(m1_acc * m1_delay, 1000);	//
+					//m1_speed = m1_speed + a.quot;		// 9 us
+				
+					if (1)//!m1_use_single_step)
+					{
+						if (m1_exec_ctrl == STEPS_SPEED_CALC_1OF2)
+							m1_speed_temp = m1_acc * m1_delay;
+						if (m1_exec_ctrl == STEPS_SPEED_CALC_2OF2)
+							m1_speed_temp = m1_speed + m1_speed_temp / 1024;
+						if (m1_exec_ctrl == STEPS_SPEED_CALC_3OF2)
+							m1_speed = m1_speed_temp;
+					}
+				
+					//clr_STEP_M2;
+					m1_pulses_to_accelerate++;
+				}
+				else
+				{
+					m1_speed = m1_speed_limit;
+				}
+			}
+			else
+			{
+				// Decelerate
+				if (m1_speed > m1_speed_start)
+				{
+					//m1_speed = m1_speed - (uint32_t)((m1_acc * m1_delay) / 1024);
+					if (m1_exec_ctrl == STEPS_SPEED_CALC_1OF2)
+						m1_speed_temp = m1_acc * m1_delay;
+					if (m1_exec_ctrl == STEPS_SPEED_CALC_2OF2)
+						m1_speed_temp = m1_speed - m1_speed_temp / 1024;
+					if (m1_exec_ctrl == STEPS_SPEED_CALC_3OF2)
+						m1_speed = m1_speed_temp;
+				
+				}
+				else
+				{
+					m1_speed = m1_speed_start; // Shouldn't be necessary?
+				}
+			}
+		
+			if (m1_accelerating)
+			{
+				if ((m1_move_pulses == m1_pulses_to_accelerate + 10) || (m1_short_move_pulses == m1_pulses_to_accelerate + 2*8))
+				{
+					m1_accelerating = false;
+				}
+			}
+		
+		
+			//m1_delay = (uint16_t)(1000000.0/m1_speed);	// 18.8us
+			//m1_delay = (uint16_t)(1000000/m1_speed);	// 19.2us
+			//m1_delay_temp = 1000000.0/m1_speed;	// 28.4us max
+		
+			if (m1_exec_ctrl == STEPS_DELAY_CALC)
+				//m1_delay_temp = 1000000/m1_speed;	// 27.6us max
+				m1_delay_temp = (uint16_t)(1000000.0/m1_speed);
+		
+			if (m1_exec_ctrl == STEPS_UPDATE_TIMER)
+			{
+				m1_delay = m1_delay_temp;
+		
+				//clr_STEP_M2;
+				TCD0_PER = (m1_delay >> 1) - 1;
+			
+				if (m1_delay >= MOVE_TO_STEPS_PERIOD)
+				{
+					m1_use_steps = false;
+				}
+				
+				if (m1_delay <= MOVE_TO_SINGLE_STEP)
+				{
+					m1_use_single_step = true;
+					m1_exec_ctrl = STEPS_N_SINGLE_STEP + 1;
+				}
+			}
+			
+			if (m1_exec_ctrl == 0)
+			{
+				m1_exec_ctrl = STEPS_N + 1;
+			}
+		
+			if (0)//m1_exec_ctrl == 4)
+			{
+				//if (m1_delay < 6000 && m1_delay > 20)
+				{
+					app_regs.REG_MOTOR2_QUICK_DISTANCE = m1_delay;
+					core_func_send_event(ADD_REG_MOTOR2_QUICK_DISTANCE, true);
+				}
+			}
+		}
+		else
+		{
+			if (m1_accelerating)
+			{
+				if (m1_speed < m1_speed_limit)
+				{
+					// Accelerate
+					
+				
+					//m1_speed = m1_speed + (uint32_t)((m1_acc * m1_delay) / 1000.0);	// 21.2 us
+					m1_speed = m1_speed + (uint32_t)(((uint32_t)(m1_acc * m1_delay)) / 1024);	// 4.8 us
+				
+					//m1_speed = m1_speed + (uint32_t)((m1_acc * (uint16_t)m1_delay) / 1000.0);	// 19.0 us
+					//m1_speed = m1_speed + (uint32_t)((m1_acc * (uint16_t)m1_delay));	// 1.2 us
+					//m1_speed = m1_speed + (uint32_t)((m1_acc * m1_delay));			// 2.6 us
+					//m1_speed = m1_speed + div(m1_delay, 1000);	// 21.2 us
+				
+					//div_t a;							//
+					//a = div(m1_acc * m1_delay, 1000);	//
+					//m1_speed = m1_speed + a.quot;		// 9 us
+				
+					//clr_STEP_M2;
+					m1_pulses_to_accelerate++;
+				}
+				else
+				{
+					m1_speed = m1_speed_limit;
+				}
+			}
+			else
+			{
+				// Decelerate
+				if (m1_speed > m1_speed_start)
+				{
+					m1_speed = m1_speed - (uint32_t)((m1_acc * m1_delay) / 1024);				
+				}
+				else
+				{
+					m1_speed = m1_speed_start; // Shouldn't be necessary?
+				}
+			}
+		
+			if (m1_accelerating)
+			{
+				if ((m1_move_pulses == m1_pulses_to_accelerate+10) || (m1_short_move_pulses == m1_pulses_to_accelerate))
+				{
+					m1_accelerating = false;
+				}
+			}
+		
+		
+			m1_delay = (uint16_t)(1000000.0/m1_speed);	// 18.8us
+			//m1_delay = (uint16_t)(1000000/m1_speed);	// 19.2us
+			//m1_delay_temp = 1000000.0/m1_speed;	// 28.4us max
+		
+			
+			TCD0_PER = (m1_delay >> 1) - 1;
+			
+			if (m1_delay <= MOVE_TO_STEPS_PERIOD)
+			{
+				m1_use_steps = true;
+				m1_exec_ctrl = STEPS_N + 1;
+			}
+			
+			if (0)//m1_delay < 6000 && m1_delay > 20)
+			{
+				app_regs.REG_MOTOR2_QUICK_DISTANCE = m1_delay;
+				core_func_send_event(ADD_REG_MOTOR2_QUICK_DISTANCE, true);
+			}
+		}
+		
+	}
+	else
+	{
+		timer_ovf_routine(1);	
+	}
+	
+	//clr_STEP_M2;
+}
+ISR(TCD0_CCA_vect/*, ISR_NAKED*/)
+{	
+	if (m1_quick_count_down)
+	{
+		/* Run time is 500 ns for the entire interrupt */
+		if (m1_move_pulses == 0)
+		{			
+			/* Stop motor */
+			stop_rotation(1);
+			
+			/* Since this is used at MID level interrupts, send an event from here can happen in the middle of other event */
+			send_motor_stopped_notification[1] = true;
+		}
+	}
+	else
+	{
+		timer_cca_routine(1);
+	}
+}
+
+ISR(TCE0_OVF_vect/*, ISR_NAKED*/)
+{	
+	//if (m2_exec_ctrl == 5)
+		//set_STEP_M2;
+	
+	if (m2_quick_count_down)
+	{
+		/* Run time is 2 us for the entire interrupt */
+		if (read_DIR_M2 > 0)
+		{
+			app_regs.REG_ACCUMULATED_STEPS[2]++;
+		}
+		else
+		{
+			app_regs.REG_ACCUMULATED_STEPS[2]--;
+		}		
+
+		// Old way
+		/*
+		if (m2_quick_state_ctrl)
+		{
+			if (m2_quick_relative_steps <= m2_quick_start_increasing_interval)
+			{
+				m2_quick_timer_per += m2_quick_acc_interval;
+				TCE0_PER = (m2_quick_timer_per - 1) >> 1;
+			}
+		}
+		else
+		{			
+			if (m2_quick_relative_steps == m2_quick_stop_decreasing_interval)
+			{
+				m2_quick_timer_per = m2_quick_step_interval;
+				TCE0_PER = (m2_quick_timer_per - 1) >> 1;
+				m2_quick_state_ctrl++;
+			}
+			else
+			{
+				m2_quick_timer_per -= m2_quick_acc_interval;
+				TCE0_PER = (m2_quick_timer_per - 1) >> 1;
+			}
+		}
+		
+		m2_quick_relative_steps--; // old way
+		*/
+		
+		// New way
+		
+		m2_move_pulses--; // new way	
+		if (m2_use_single_step)
+		{
+			m2_exec_ctrl--;
+		
+			if (m2_accelerating)
+			{
+				if (TCE0_PER > m2_timer_limit)
+				{
+					// Accelerate
+					if (m2_exec_ctrl == STEPS_UPDATE_TIMER)
+					{
+						m2_single_step_per = TCE0_PER - 1;
+					}
+					
+					m2_pulses_to_accelerate++;
+				}
+				else
+				{
+					m2_single_step_per = m2_timer_limit;
+				}
+			}
+			else
+			{
+				// Decelerate
+				if (m2_exec_ctrl == STEPS_UPDATE_TIMER)
+				{
+					m2_single_step_per = TCE0_PER + 1;
+				}
+			}
+		
+			if (m2_accelerating)
+			{
+				if ((m2_move_pulses == m2_pulses_to_accelerate + 10) || (m2_short_move_pulses == m2_pulses_to_accelerate + 2*8))
+				{
+					m2_accelerating = false;
+				}
+			}
+		
+			if (m2_exec_ctrl == STEPS_UPDATE_TIMER)
+			{
+				TCE0_PER = m2_single_step_per;
+			
+				if (TCD0_PER >= m2_delay)
+				{
+					m2_use_single_step = false;
+					m2_exec_ctrl = STEPS_N + 1;
+				}
+			}
+			
+			if (m2_exec_ctrl == 0)
+			{
+				m2_exec_ctrl = STEPS_N_SINGLE_STEP + 1;
+			}
+		
+			if (0)//m2_exec_ctrl == 4)
+			{
+				//if (m2_delay < 6000 && m2_delay > 20)
+				{
+					app_regs.REG_MOTOR2_QUICK_DISTANCE = m2_delay;
+					core_func_send_event(ADD_REG_MOTOR2_QUICK_DISTANCE, true);
+				}
+			}
+		}		
+		else if (m2_use_steps)
+		{
+			m2_exec_ctrl--;
+		
+			if (m2_accelerating)
+			{
+				if (m2_speed < m2_speed_limit)
+				{
+					// Accelerate
+					//set_STEP_M2;
+				
+					//m1_speed = m1_speed + (uint32_t)((m1_acc * m1_delay) / 1000.0);	// 21.2 us
+					//m1_speed = m1_speed + (uint32_t)(((uint32_t)(m1_acc * m1_delay)) / 1024);	// 4.8 us
+				
+					//m1_speed = m1_speed + (uint32_t)((m1_acc * (uint16_t)m1_delay) / 1000.0);	// 19.0 us
+					//m1_speed = m1_speed + (uint32_t)((m1_acc * (uint16_t)m1_delay));	// 1.2 us
+					//m1_speed = m1_speed + (uint32_t)((m1_acc * m1_delay));			// 2.6 us
+					//m1_speed = m1_speed + div(m1_delay, 1000);	// 21.2 us
+				
+					//div_t a;							//
+					//a = div(m1_acc * m1_delay, 1000);	//
+					//m1_speed = m1_speed + a.quot;		// 9 us
+				
+					if (1)//!m1_use_single_step)
+					{
+						if (m2_exec_ctrl == STEPS_SPEED_CALC_1OF2)
+							m2_speed_temp = m2_acc * m2_delay;
+						if (m2_exec_ctrl == STEPS_SPEED_CALC_2OF2)
+							m2_speed_temp = m2_speed + m2_speed_temp / 1024;
+						if (m2_exec_ctrl == STEPS_SPEED_CALC_3OF2)
+							m2_speed = m2_speed_temp;
+					}
+				
+					//clr_STEP_M2;
+					m2_pulses_to_accelerate++;
+				}
+				else
+				{
+					m2_speed = m2_speed_limit;
+				}
+			}
+			else
+			{
+				// Decelerate
+				if (m2_speed > m2_speed_start)
+				{
+					//m2_speed = m2_speed - (uint32_t)((m2_acc * m2_delay) / 1024);
+					if (m2_exec_ctrl == STEPS_SPEED_CALC_1OF2)
+						m2_speed_temp = m2_acc * m2_delay;
+					if (m2_exec_ctrl == STEPS_SPEED_CALC_2OF2)
+						m2_speed_temp = m2_speed - m2_speed_temp / 1024;
+					if (m2_exec_ctrl == STEPS_SPEED_CALC_3OF2)
+						m2_speed = m2_speed_temp;
+				
+				}
+				else
+				{
+					m2_speed = m2_speed_start; // Shouldn't be necessary?
+				}
+			}
+		
+			if (m2_accelerating)
+			{
+				if ((m2_move_pulses == m2_pulses_to_accelerate + 10) || (m2_short_move_pulses == m2_pulses_to_accelerate + 2*8))
+				{
+					m2_accelerating = false;
+				}
+			}
+		
+		
+			//m1_delay = (uint16_t)(1000000.0/m1_speed);	// 18.8us
+			//m1_delay = (uint16_t)(1000000/m1_speed);	// 19.2us
+			//m1_delay_temp = 1000000.0/m1_speed;	// 28.4us max
+		
+			if (m2_exec_ctrl == STEPS_DELAY_CALC)
+				//m2_delay_temp = 1000000/m2_speed;	// 27.6us max
+				m2_delay_temp = (uint16_t)(1000000.0/m2_speed);
+		
+			if (m2_exec_ctrl == STEPS_UPDATE_TIMER)
+			{
+				m2_delay = m2_delay_temp;
+		
+				//clr_STEP_M2;
+				TCE0_PER = (m2_delay >> 1) - 1;
+			
+				if (m2_delay >= MOVE_TO_STEPS_PERIOD)
+				{
+					m2_use_steps = false;
+				}
+				
+				if (m2_delay <= MOVE_TO_SINGLE_STEP)
+				{
+					m2_use_single_step = true;
+					m2_exec_ctrl = STEPS_N_SINGLE_STEP + 1;
+				}
+			}
+			
+			if (m2_exec_ctrl == 0)
+			{
+				m2_exec_ctrl = STEPS_N + 1;
+			}
+		
+			if (0)//m2_exec_ctrl == 4)
+			{
+				//if (m2_delay < 6000 && m2_delay > 20)
+				{
+					app_regs.REG_MOTOR2_QUICK_DISTANCE = m2_delay;
+					core_func_send_event(ADD_REG_MOTOR2_QUICK_DISTANCE, true);
+				}
+			}
+		}
+		else
+		{
+			if (m2_accelerating)
+			{
+				if (m2_speed < m2_speed_limit)
+				{
+					// Accelerate
+					
+				
+					//m1_speed = m1_speed + (uint32_t)((m1_acc * m1_delay) / 1000.0);	// 21.2 us
+					m2_speed = m2_speed + (uint32_t)(((uint32_t)(m2_acc * m2_delay)) / 1024);	// 4.8 us
+				
+					//m1_speed = m1_speed + (uint32_t)((m1_acc * (uint16_t)m1_delay) / 1000.0);	// 19.0 us
+					//m1_speed = m1_speed + (uint32_t)((m1_acc * (uint16_t)m1_delay));	// 1.2 us
+					//m1_speed = m1_speed + (uint32_t)((m1_acc * m1_delay));			// 2.6 us
+					//m1_speed = m1_speed + div(m1_delay, 1000);	// 21.2 us
+				
+					//div_t a;							//
+					//a = div(m1_acc * m1_delay, 1000);	//
+					//m1_speed = m1_speed + a.quot;		// 9 us
+				
+					//clr_STEP_M2;
+					m2_pulses_to_accelerate++;
+				}
+				else
+				{
+					m2_speed = m2_speed_limit;
+				}
+			}
+			else
+			{
+				// Decelerate
+				if (m2_speed > m2_speed_start)
+				{
+					m2_speed = m2_speed - (uint32_t)((m2_acc * m2_delay) / 1024);				
+				}
+				else
+				{
+					m2_speed = m2_speed_start; // Shouldn't be necessary?
+				}
+			}
+		
+			if (m2_accelerating)
+			{
+				if ((m2_move_pulses == m2_pulses_to_accelerate+10) || (m2_short_move_pulses == m2_pulses_to_accelerate))
+				{
+					m2_accelerating = false;
+				}
+			}
+		
+		
+			m2_delay = (uint16_t)(1000000.0/m2_speed);	// 18.8us
+			//m1_delay = (uint16_t)(1000000/m1_speed);	// 19.2us
+			//m1_delay_temp = 1000000.0/m1_speed;	// 28.4us max
+		
+			
+			TCE0_PER = (m2_delay >> 1) - 1;
+			
+			if (m2_delay <= MOVE_TO_STEPS_PERIOD)
+			{
+				m2_use_steps = true;
+				m2_exec_ctrl = STEPS_N + 1;
+			}
+			
+			if (0)//m2_delay < 6000 && m2_delay > 20)
+			{
+				app_regs.REG_MOTOR2_QUICK_DISTANCE = m2_delay;
+				core_func_send_event(ADD_REG_MOTOR2_QUICK_DISTANCE, true);
+			}
+		}
+		
+	}
+	else
+	{
+		timer_ovf_routine(2);
+	}
+	
+	//clr_STEP_M2;
+}
+ISR(TCE0_CCA_vect/*, ISR_NAKED*/)
+{	
+	if (m2_quick_count_down)
+	{
+		/* Run time is 500 ns for the entire interrupt */
+		if (m2_move_pulses == 0)
+		{			
+			/* Stop motor */
+			stop_rotation(2);
+			
+			/* Since this is used at MID level interrupts, send an event from here can happen in the middle of other event */
+			send_motor_stopped_notification[2] = true;
+		}
+	}
+	else
+	{
+		timer_cca_routine(2);
+	}
 }
