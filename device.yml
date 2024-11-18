@@ -6,11 +6,9 @@ whoAmI: 1130
 firmwareVersion: "0.7"
 hardwareTargets: "1.0"
 registers:
-
-
-##################################
-# Enable and disable
-##################################
+  ##################################
+  # Enable and disable
+  ##################################
   EnableDriver:
     address: 32
     type: U8
@@ -48,9 +46,9 @@ registers:
     maskType: DigitalInputs
     description: Specifies a set of digital inputs to disable in the device.
 
-##################################
-# Configuration
-##################################
+  ##################################
+  # Configuration
+  ##################################
   Motor0OperationMode: &opmode
     address: 38
     type: U8
@@ -74,7 +72,7 @@ registers:
     type: U8
     access: Write
     maskType: MicrostepResolution
-    description: Configures the microstep resolution for motor 0.  
+    description: Configures the microstep resolution for motor 0.
   Motor1MicrostepResolution:
     <<: *microstep_resolution
     address: 43
@@ -108,7 +106,7 @@ registers:
     <<: *maxcurrent
     address: 49
     description: Configures the maximum run RMS current per phase for motor 3.
-  
+
   Motor0HoldCurrentReduction: &currentreduction
     address: 50
     type: U8
@@ -236,11 +234,10 @@ registers:
     access: Write
     maskType: AccumulatedStepsSamplingRateConfig
     description: Configures the dispatch rate of the accumulated steps event.
-  
 
-##################################
-# Events
-##################################
+  ##################################
+  # Events
+  ##################################
   MotorStopped:
     address: 74
     type: U8
@@ -291,9 +288,9 @@ registers:
     maskType: DeviceStateMode
     description: Contains the state of the device.
 
-##################################
-# Movement control
-##################################
+  ##################################
+  # Movement control
+  ##################################
 
   MoveRelative:
     address: 80
@@ -319,7 +316,7 @@ registers:
     address: 81
     type: S32
     access: Write
-    description: Moves motor 0 by the number of steps written in this register and set the direction according to the value's signal.    
+    description: Moves motor 0 by the number of steps written in this register and set the direction according to the value's signal.
   Motor1MoveRelative:
     <<: *motorsteps
     address: 82
@@ -407,8 +404,8 @@ registers:
   Mortor3AccumulatedSteps:
     <<: *motorsaccumulatedsteps
     address: 94
-    description: Contains the accumulated number of steps of motor 3. Write a value to set the current number of accumulated steps.  
-  
+    description: Contains the accumulated number of steps of motor 3. Write a value to set the current number of accumulated steps.
+
   MaxPosition:
     address: 95
     type: S32
@@ -523,9 +520,9 @@ registers:
     address: 109
     description: Starts the movement of motor 3 with the step interval defined by this register, disregarding the acceleration protocol. The sign of the value specifies the direction.
 
-##################################
-# Actions
-##################################
+  ##################################
+  # Actions
+  ##################################
   StopMotors:
     address: 110
     type: U8
@@ -539,7 +536,6 @@ registers:
     visibility: private
     maskType: StepperMotors
     description: Resets the internal motor driver which also clears any eventual error (not implemented).
-
   ResetEncoders:
     address: 112
     type: U8
@@ -547,9 +543,9 @@ registers:
     maskType: QuadratureEncoders
     description: Resets the encoder.
 
-##################################
-# Reserved
-##################################
+  ##################################
+  # Reserved
+  ##################################
   Reserved0: &reserved
     address: 113
     type: U8
@@ -568,7 +564,6 @@ registers:
     <<: *reserved
     address: 116
     description: Contains the CFG configuration pins of the TMC2210 driver that controls motor 3.
-
   Reserved4:
     <<: *reserved
     address: 117
@@ -590,115 +585,94 @@ registers:
     visibility: private
     description: Contains the raw data of the digital potentiometer that controls current limit of motor 3.
 
-##################################
-# Quick movement
-##################################
-  Reserved8:
-    <<: *reserved
+  ##################################
+  # Reserved block
+  ##################################
+  Reserved8: &reserved_unused
     address: 121
     visibility: private
-    description: Reserved register. Do not write.  
+    type: U8
+    access: Read
+    description: Reserved register.
   Reserved9:
-      <<: *reserved
-      address: 122
-      visibility: private
-      description: Reserved register. Do not write.    
+    <<: *reserved_unused
+    address: 122
   Reserved10:
-    <<: *reserved
+    <<: *reserved_unused
     address: 123
-    visibility: private
-    description: Reserved register. Do not write.  
   Reserved11:
-      <<: *reserved
-      address: 124
-      visibility: private
-      description: Reserved register. Do not write.    
+    <<: *reserved_unused
+    address: 124
   Reserved12:
-    <<: *reserved
+    <<: *reserved_unused
     address: 125
-    visibility: private
-    description: Reserved register. Do not write.  
   Reserved13:
-      <<: *reserved
-      address: 126
-      visibility: private
-      description: Reserved register. Do not write.    
+    <<: *reserved_unused
+    address: 126
   Reserved14:
-    <<: *reserved
+    <<: *reserved_unused
     address: 127
-    visibility: private
-    description: Reserved register. Do not write.  
   Reserved15:
-      <<: *reserved
-      address: 128
-      visibility: private
-      description: Reserved register. Do not write.    
+    <<: *reserved_unused
+    address: 128
   Reserved16:
-    <<: *reserved
+    <<: *reserved_unused
     address: 129
-    visibility: private
-    description: Reserved register. Do not write.    
 
-##################################
-# Quick movement
-##################################
+  ##################################
+  # Quick movement
+  ##################################
   TriggerQuickMovement:
     address: 130
     type: U8
     access: Write
     maskType: StepperMotors
-    description: Triggers the quick movement in the correspondent motor.
-  
-  Motor1PulseDistance:
+    description: Triggers the quick movement in the correspondent motor with the currently configured settings.
+  Motor1QuickMovementPulseDistance: &quickmovement_pulsedistance
     address: 131
     type: Float
     access: Write
-    description: Sets the single pulse distance in millimeters for the Motor 1.
-  Motor2PulseDistance:
+    description: Sets the single pulse distance for a quick movement, in millimeters, for the Motor 1.
+  Motor2QuickMovementPulseDistance:
+    <<: *quickmovement_pulsedistance
     address: 132
-    type: Float
-    access: Write
-    description: Sets the single pulse distance in millimeters for the Motor 2.
-  Motor1NominalSpeed:
+    description: Sets the single pulse distance for a quick movement, in millimeters, for the Motor 2.
+  Motor1QuickMovementNominalSpeed: &quickmovement_nominalspeed
     address: 133
     type: Float
     access: Write
-    description: Sets the target speed in millimeters per second for the Motor 1.
-  Motor2NominalSpeed:
+    description: Sets the target speed for a quick movement, in millimeters per second, for the Motor 1.
+  Motor2QuickMovementNominalSpeed:
+    <<: *quickmovement_nominalspeed
     address: 134
-    type: Float
-    access: Write
-    description: Sets the target speed in millimeters per second for the Motor 2.
-  Motor1InitialSpeed:
+    description: Sets the target speed for a quick movement, in millimeters per second, for the Motor 2.
+  Motor1QuickMovementInitialSpeed: &quickmovement_initialspeed
     address: 135
     type: Float
     access: Write
-    description: Sets the start speed in millimeters per second for the Motor 1.
-  Motor2InitialSpeed:
+    description: Sets the initial speed for a quick movement, in millimeters per second, for the Motor 1.
+  Motor2QuickMovementInitialSpeed:
+    <<: *quickmovement_initialspeed
     address: 136
-    type: Float
-    access: Write
-    description: Sets the start speed in millimeters per second for the Motor 2.
-  Motor1Acceleration:
+    description: Sets the initial speed for a quick movement, in millimeters per second, for the Motor 2.
+  Motor1QuickMovementAcceleration: &quickmovement_acceleration
     address: 137
     type: Float
     access: Write
-    description: Sets the acceleration in millimeters per second^2 for the Motor 1.
-  Motor2Acceleration:
+    description: Sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 1.
+  Motor2QuickMovementAcceleration:
+    <<: *quickmovement_acceleration
     address: 138
-    type: Float
-    access: Write
-    description: Sets the acceleration in millimeters per second^2 for the Motor 2.
-  Motor1Distance:
+    description: Sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 2.
+  Motor1QuickMovementDistance: &quickmovement_distance
     address: 139
     type: Float
     access: Write
-    description: Sets the travel distance in millimeters for the Motor 1.
-  Motor2Distance:
+    description: Sets the travel distance of a quick movement, in millimeters, for the Motor 1.
+  Motor2QuickMovementDistance:
+    <<: *quickmovement_distance
     address: 140
-    type: Float
-    access: Write
-    description: Sets the travel distance in millimeters for the Motor 2.
+    description: Sets the travel distance of a quick movement, in millimeters, for the Motor 1.
 
 ##################################
 # Bit masks
@@ -815,8 +789,3 @@ groupMasks:
     values:
       Disabled: 0
       Enabled: 1
-  ArmQuickMovementsConfig:
-    description: Specifies the quick movement configuration.
-    values:
-      Default: 0
-      Arm: 1
