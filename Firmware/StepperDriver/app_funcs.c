@@ -175,15 +175,15 @@ void (*app_func_rd_pointer[])(void) = {
 	&app_read_REG_RESERVED5,
 	&app_read_REG_RESERVED6,
 	&app_read_REG_RESERVED7,
-	&app_read_REG_MOTOR1_QUICK_NOMINAL_STEP_INTERVAL,
-	&app_read_REG_MOTOR2_QUICK_NOMINAL_STEP_INTERVAL,
-	&app_read_REG_MOTOR1_QUICK_MAXIMUM_STEP_INTERVAL,
-	&app_read_REG_MOTOR2_QUICK_MAXIMUM_STEP_INTERVAL,
-	&app_read_REG_MOTOR1_QUICK_STEP_ACCELERATION_INTERVAL,
-	&app_read_REG_MOTOR2_QUICK_STEP_ACCELERATION_INTERVAL,
-	&app_read_REG_MOTOR1_QUICK_STEPS,
-	&app_read_REG_MOTOR2_QUICK_STEPS,
-	&app_read_REG_LOAD_QUICK_MOVEMENT,
+	&app_read_REG_RESERVED8,
+	&app_read_REG_RESERVED9,
+	&app_read_REG_RESERVED10,
+	&app_read_REG_RESERVED11,
+	&app_read_REG_RESERVED12,
+	&app_read_REG_RESERVED13,
+	&app_read_REG_RESERVED14,
+	&app_read_REG_RESERVED15,
+	&app_read_REG_RESERVED16,
 	&app_read_REG_START_QUICK_MOVEMENT,
 	&app_read_REG_MOTOR1_QUICK_PULSE_DISTANCE,
 	&app_read_REG_MOTOR2_QUICK_PULSE_DISTANCE,
@@ -287,15 +287,15 @@ bool (*app_func_wr_pointer[])(void*) = {
 	&app_write_REG_RESERVED5,
 	&app_write_REG_RESERVED6,
 	&app_write_REG_RESERVED7,
-	&app_write_REG_MOTOR1_QUICK_NOMINAL_STEP_INTERVAL,
-	&app_write_REG_MOTOR2_QUICK_NOMINAL_STEP_INTERVAL,
-	&app_write_REG_MOTOR1_QUICK_MAXIMUM_STEP_INTERVAL,
-	&app_write_REG_MOTOR2_QUICK_MAXIMUM_STEP_INTERVAL,
-	&app_write_REG_MOTOR1_QUICK_STEP_ACCELERATION_INTERVAL,
-	&app_write_REG_MOTOR2_QUICK_STEP_ACCELERATION_INTERVAL,
-	&app_write_REG_MOTOR1_QUICK_STEPS,
-	&app_write_REG_MOTOR2_QUICK_STEPS,
-	&app_write_REG_LOAD_QUICK_MOVEMENT,
+	&app_write_REG_RESERVED8,
+	&app_write_REG_RESERVED9,
+	&app_write_REG_RESERVED10,
+	&app_write_REG_RESERVED11,
+	&app_write_REG_RESERVED12,
+	&app_write_REG_RESERVED13,
+	&app_write_REG_RESERVED14,
+	&app_write_REG_RESERVED15,
+	&app_write_REG_RESERVED16,
 	&app_write_REG_START_QUICK_MOVEMENT,
 	&app_write_REG_MOTOR1_QUICK_PULSE_DISTANCE,
 	&app_write_REG_MOTOR2_QUICK_PULSE_DISTANCE,
@@ -2346,145 +2346,118 @@ bool app_write_REG_RESERVED7(void *a)
 
 
 /************************************************************************/
-/* REG_MOTOR1_QUICK_NOMINAL_STEP_INTERVAL                               */
+/* REG_RESERVED8                                                        */
 /************************************************************************/
-void app_read_REG_MOTOR1_QUICK_NOMINAL_STEP_INTERVAL(void) {}
-bool app_write_REG_MOTOR1_QUICK_NOMINAL_STEP_INTERVAL(void *a)
+void app_read_REG_RESERVED8(void) {}
+bool app_write_REG_RESERVED8(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
-	
-	if (reg < 10) return false;
 
-	app_regs.REG_MOTOR1_QUICK_NOMINAL_STEP_INTERVAL = reg;
+	app_regs.REG_RESERVED8 = reg;
 	return true;
 }
 
 
 /************************************************************************/
-/* REG_MOTOR2_QUICK_NOMINAL_STEP_INTERVAL                               */
+/* REG_RESERVED9                                                        */
 /************************************************************************/
-void app_read_REG_MOTOR2_QUICK_NOMINAL_STEP_INTERVAL(void) {}
-bool app_write_REG_MOTOR2_QUICK_NOMINAL_STEP_INTERVAL(void *a)
+void app_read_REG_RESERVED9(void) {}
+bool app_write_REG_RESERVED9(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
-	
-	if (reg < 10) return false;
 
-	app_regs.REG_MOTOR2_QUICK_NOMINAL_STEP_INTERVAL = reg;
+	app_regs.REG_RESERVED9 = reg;
 	return true;
 }
 
 
 /************************************************************************/
-/* REG_MOTOR1_QUICK_MAXIMUM_STEP_INTERVAL                               */
+/* REG_RESERVED10                                                       */
 /************************************************************************/
-void app_read_REG_MOTOR1_QUICK_MAXIMUM_STEP_INTERVAL(void) {}
-bool app_write_REG_MOTOR1_QUICK_MAXIMUM_STEP_INTERVAL(void *a)
+void app_read_REG_RESERVED10(void) {}
+bool app_write_REG_RESERVED10(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
-	
-	if (reg < 12) return false;
 
-	app_regs.REG_MOTOR1_QUICK_MAXIMUM_STEP_INTERVAL = reg;
+	app_regs.REG_RESERVED10 = reg;
 	return true;
 }
 
 
 /************************************************************************/
-/* REG_MOTOR2_QUICK_MAXIMUM_STEP_INTERVAL                               */
+/* REG_RESERVED11                                                       */
 /************************************************************************/
-void app_read_REG_MOTOR2_QUICK_MAXIMUM_STEP_INTERVAL(void) {}
-bool app_write_REG_MOTOR2_QUICK_MAXIMUM_STEP_INTERVAL(void *a)
+void app_read_REG_RESERVED11(void) {}
+bool app_write_REG_RESERVED11(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
-	
-	if (reg < 12) return false;
 
-	app_regs.REG_MOTOR2_QUICK_MAXIMUM_STEP_INTERVAL = reg;
+	app_regs.REG_RESERVED11 = reg;
 	return true;
 }
 
 
 /************************************************************************/
-/* REG_MOTOR1_QUICK_STEP_ACCELERATION_INTERVAL                          */
+/* REG_RESERVED12                                                       */
 /************************************************************************/
-void app_read_REG_MOTOR1_QUICK_STEP_ACCELERATION_INTERVAL(void) {}
-bool app_write_REG_MOTOR1_QUICK_STEP_ACCELERATION_INTERVAL(void *a)
+void app_read_REG_RESERVED12(void) {}
+bool app_write_REG_RESERVED12(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
-	
-	if (reg < 2) return false;
 
-	app_regs.REG_MOTOR1_QUICK_STEP_ACCELERATION_INTERVAL = reg;
+	app_regs.REG_RESERVED12 = reg;
 	return true;
 }
 
 
 /************************************************************************/
-/* REG_MOTOR2_QUICK_STEP_ACCELERATION_INTERVAL                          */
+/* REG_RESERVED13                                                       */
 /************************************************************************/
-void app_read_REG_MOTOR2_QUICK_STEP_ACCELERATION_INTERVAL(void) {}
-bool app_write_REG_MOTOR2_QUICK_STEP_ACCELERATION_INTERVAL(void *a)
+void app_read_REG_RESERVED13(void) {}
+bool app_write_REG_RESERVED13(void *a)
 {
 	uint16_t reg = *((uint16_t*)a);
-	
-	if (reg < 2) return false;
 
-	app_regs.REG_MOTOR2_QUICK_STEP_ACCELERATION_INTERVAL = reg;
+	app_regs.REG_RESERVED13 = reg;
 	return true;
 }
 
 
 /************************************************************************/
-/* REG_MOTOR1_QUICK_STEPS                                               */
+/* REG_RESERVED14                                                       */
 /************************************************************************/
-void app_read_REG_MOTOR1_QUICK_STEPS(void) {}
-bool app_write_REG_MOTOR1_QUICK_STEPS(void *a)
+void app_read_REG_RESERVED14(void) {}
+bool app_write_REG_RESERVED14(void *a)
 {
 	int16_t reg = *((int16_t*)a);
 
-	app_regs.REG_MOTOR1_QUICK_STEPS = reg;
+	app_regs.REG_RESERVED14 = reg;
 	return true;
 }
 
 
 /************************************************************************/
-/* REG_MOTOR2_QUICK_STEPS                                               */
+/* REG_RESERVED15                                                       */
 /************************************************************************/
-void app_read_REG_MOTOR2_QUICK_STEPS(void) {}
-bool app_write_REG_MOTOR2_QUICK_STEPS(void *a)
+void app_read_REG_RESERVED15(void) {}
+bool app_write_REG_RESERVED15(void *a)
 {
 	int16_t reg = *((int16_t*)a);
 
-	app_regs.REG_MOTOR2_QUICK_STEPS = reg;
+	app_regs.REG_RESERVED15 = reg;
 	return true;
 }
 
 
 /************************************************************************/
-/* REG_LOAD_QUICK_MOVEMENT                                              */
+/* REG_RESERVED16                                                       */
 /************************************************************************/
-void app_read_REG_LOAD_QUICK_MOVEMENT(void)
-{
-	app_regs.REG_LOAD_QUICK_MOVEMENT = 0;
-}
-
-bool app_write_REG_LOAD_QUICK_MOVEMENT(void *a)
+void app_read_REG_RESERVED16(void) {}
+bool app_write_REG_RESERVED16(void *a)
 {
 	uint8_t reg = *((uint8_t*)a);
-	
-	bool ok = m1_quick_load_parameters();
-	if (ok)
-	{
-		ok = m2_quick_load_parameters();
-	}
-	
-	if (!ok)
-	{
-		return false;
-	}
 
-	app_regs.REG_LOAD_QUICK_MOVEMENT = reg;
+	app_regs.REG_RESERVED16 = reg;
 	return true;
 }
 

@@ -42,33 +42,33 @@ uint16_t m2_quick_step_interval;
 /************************************************************************/
 bool m1_quick_load_parameters (void)
 {
-	uint16_t motor1_positive_steps = (uint16_t)((app_regs.REG_MOTOR1_QUICK_STEPS > 0) ? app_regs.REG_MOTOR1_QUICK_STEPS : -app_regs.REG_MOTOR1_QUICK_STEPS);
+	uint16_t motor1_positive_steps = (uint16_t)((app_regs.REG_RESERVED14 > 0) ? app_regs.REG_RESERVED14 : -app_regs.REG_RESERVED14);
 
 	m1_quick_parameters_loaded = true;
 	
-	float m1_acc_number_of_steps_float = (float)(app_regs.REG_MOTOR1_QUICK_MAXIMUM_STEP_INTERVAL - app_regs.REG_MOTOR1_QUICK_NOMINAL_STEP_INTERVAL) / (float)app_regs.REG_MOTOR1_QUICK_STEP_ACCELERATION_INTERVAL;
+	float m1_acc_number_of_steps_float = (float)(app_regs.REG_RESERVED10 - app_regs.REG_RESERVED8) / (float)app_regs.REG_RESERVED12;
 	
 	m1_acc_number_of_steps = m1_acc_number_of_steps_float - ((uint16_t)m1_acc_number_of_steps_float) > 0 ? (uint16_t)m1_acc_number_of_steps_float + 1 : (uint16_t)m1_acc_number_of_steps_float;
 	
-	m1_quick_timer_per = app_regs.REG_MOTOR1_QUICK_MAXIMUM_STEP_INTERVAL + app_regs.REG_MOTOR1_QUICK_STEP_ACCELERATION_INTERVAL;
-	m1_quick_step_interval = app_regs.REG_MOTOR1_QUICK_NOMINAL_STEP_INTERVAL;
+	m1_quick_timer_per = app_regs.REG_RESERVED10 + app_regs.REG_RESERVED12;
+	m1_quick_step_interval = app_regs.REG_RESERVED8;
 	m1_quick_state_ctrl = 0;
-	m1_quick_stop_decreasing_interval = abs(app_regs.REG_MOTOR1_QUICK_STEPS) - m1_acc_number_of_steps;
+	m1_quick_stop_decreasing_interval = abs(app_regs.REG_RESERVED14) - m1_acc_number_of_steps;
 	m1_quick_start_increasing_interval = m1_acc_number_of_steps;
 	
-	m1_quick_acc_interval = app_regs.REG_MOTOR1_QUICK_STEP_ACCELERATION_INTERVAL;
+	m1_quick_acc_interval = app_regs.REG_RESERVED12;
 	
 	if (m1_acc_number_of_steps <= 2)
 	{
 		return false;
 	}
 	
-	if (m1_acc_number_of_steps * 2 < abs(app_regs.REG_MOTOR1_QUICK_STEPS))
+	if (m1_acc_number_of_steps * 2 < abs(app_regs.REG_RESERVED14))
 	{
 		//return false;
 	}
 	
-	if (app_regs.REG_MOTOR1_QUICK_STEP_ACCELERATION_INTERVAL < app_regs.REG_MOTOR1_QUICK_NOMINAL_STEP_INTERVAL)
+	if (app_regs.REG_RESERVED12 < app_regs.REG_RESERVED8)
 	{
 		//return false;
 	}
@@ -78,33 +78,33 @@ bool m1_quick_load_parameters (void)
 
 bool m2_quick_load_parameters (void)
 {
-	uint16_t motor2_positive_steps = (uint16_t)((app_regs.REG_MOTOR2_QUICK_STEPS > 0) ? app_regs.REG_MOTOR2_QUICK_STEPS : -app_regs.REG_MOTOR2_QUICK_STEPS);
+	uint16_t motor2_positive_steps = (uint16_t)((app_regs.REG_RESERVED15 > 0) ? app_regs.REG_RESERVED15 : -app_regs.REG_RESERVED15);
 
 	m2_quick_parameters_loaded = true;
 	
-	float m2_acc_number_of_steps_float = (float)(app_regs.REG_MOTOR2_QUICK_MAXIMUM_STEP_INTERVAL - app_regs.REG_MOTOR2_QUICK_NOMINAL_STEP_INTERVAL) / (float)app_regs.REG_MOTOR2_QUICK_STEP_ACCELERATION_INTERVAL;
+	float m2_acc_number_of_steps_float = (float)(app_regs.REG_RESERVED11 - app_regs.REG_RESERVED9) / (float)app_regs.REG_RESERVED13;
 	
 	m2_acc_number_of_steps = m2_acc_number_of_steps_float - ((uint16_t)m2_acc_number_of_steps_float) > 0 ? (uint16_t)m2_acc_number_of_steps_float + 1 : (uint16_t)m2_acc_number_of_steps_float;
 	
-	m2_quick_timer_per = app_regs.REG_MOTOR2_QUICK_MAXIMUM_STEP_INTERVAL + app_regs.REG_MOTOR2_QUICK_STEP_ACCELERATION_INTERVAL;
-	m2_quick_step_interval = app_regs.REG_MOTOR2_QUICK_NOMINAL_STEP_INTERVAL;
+	m2_quick_timer_per = app_regs.REG_RESERVED11 + app_regs.REG_RESERVED13;
+	m2_quick_step_interval = app_regs.REG_RESERVED9;
 	m2_quick_state_ctrl = 0;
-	m2_quick_stop_decreasing_interval = abs(app_regs.REG_MOTOR2_QUICK_STEPS) - m2_acc_number_of_steps;
+	m2_quick_stop_decreasing_interval = abs(app_regs.REG_RESERVED15) - m2_acc_number_of_steps;
 	m2_quick_start_increasing_interval = m2_acc_number_of_steps;
 	
-	m2_quick_acc_interval = app_regs.REG_MOTOR2_QUICK_STEP_ACCELERATION_INTERVAL;
+	m2_quick_acc_interval = app_regs.REG_RESERVED13;
 	
 	if (m2_acc_number_of_steps <= 2)
 	{
 		return false;
 	}
 	
-	if (m2_acc_number_of_steps * 2 < abs(app_regs.REG_MOTOR2_QUICK_STEPS))
+	if (m2_acc_number_of_steps * 2 < abs(app_regs.REG_RESERVED15))
 	{
 		//return false;
 	}
 	
-	if (app_regs.REG_MOTOR2_QUICK_STEP_ACCELERATION_INTERVAL < app_regs.REG_MOTOR2_QUICK_NOMINAL_STEP_INTERVAL)
+	if (app_regs.REG_RESERVED13 < app_regs.REG_RESERVED9)
 	{
 		//return false;
 	}
@@ -124,13 +124,13 @@ bool m1_quick_launch_movement (void)
 		return false;
 	}
 	
-	m1_quick_timer_per = app_regs.REG_MOTOR1_QUICK_MAXIMUM_STEP_INTERVAL + app_regs.REG_MOTOR1_QUICK_STEP_ACCELERATION_INTERVAL;
+	m1_quick_timer_per = app_regs.REG_RESERVED10 + app_regs.REG_RESERVED12;
 	m1_quick_state_ctrl = 0;
 	
 	/* Only executes the movement if the motor is stopped */
 	if_moving_stop_rotation(1);	
 	
-	if (app_regs.REG_MOTOR1_QUICK_STEPS > 0)
+	if (app_regs.REG_RESERVED14 > 0)
 	{
 		set_DIR_M1;
 	}
@@ -146,7 +146,7 @@ bool m1_quick_launch_movement (void)
 	// 0 Stopped
 	m1_quick_count_down = 4;
 	
-	m1_quick_relative_steps = abs(app_regs.REG_MOTOR1_QUICK_STEPS);
+	m1_quick_relative_steps = abs(app_regs.REG_RESERVED14);
 	
 	return true;
 }
@@ -163,13 +163,13 @@ bool m2_quick_launch_movement (void)
 		return false;
 	}
 	
-	m2_quick_timer_per = app_regs.REG_MOTOR2_QUICK_MAXIMUM_STEP_INTERVAL + app_regs.REG_MOTOR2_QUICK_STEP_ACCELERATION_INTERVAL;
+	m2_quick_timer_per = app_regs.REG_RESERVED11 + app_regs.REG_RESERVED13;
 	m2_quick_state_ctrl = 0;
 	
 	/* Only executes the movement if the motor is stopped */
 	if_moving_stop_rotation(2);
 	
-	if (app_regs.REG_MOTOR2_QUICK_STEPS > 0)
+	if (app_regs.REG_RESERVED15 > 0)
 	{
 		set_DIR_M2;
 	}
@@ -185,7 +185,7 @@ bool m2_quick_launch_movement (void)
 	// 0 Stopped
 	m2_quick_count_down = 4;
 	
-	m2_quick_relative_steps = abs(app_regs.REG_MOTOR2_QUICK_STEPS);
+	m2_quick_relative_steps = abs(app_regs.REG_RESERVED15);
 	
 	return true;
 }
@@ -198,7 +198,7 @@ void m1_start_quick_movement (void)
 	}
 	
 	/* Start the generation of pulses */
-	timer_type0_pwm(&TCD0, TIMER_PRESCALER_DIV64, (app_regs.REG_MOTOR1_QUICK_MAXIMUM_STEP_INTERVAL - 1) >> 1, 2 >> 1, INT_LEVEL_MED, INT_LEVEL_MED);
+	timer_type0_pwm(&TCD0, TIMER_PRESCALER_DIV64, (app_regs.REG_RESERVED10 - 1) >> 1, 2 >> 1, INT_LEVEL_MED, INT_LEVEL_MED);
 	
 	motor_is_running[1] = true;
 	
@@ -217,7 +217,7 @@ void m2_start_quick_movement (void)
 	}
 	
 	/* Start the generation of pulses */
-	timer_type0_pwm(&TCE0, TIMER_PRESCALER_DIV64, (app_regs.REG_MOTOR2_QUICK_MAXIMUM_STEP_INTERVAL - 1) >> 1, 2 >> 1, INT_LEVEL_MED, INT_LEVEL_MED);
+	timer_type0_pwm(&TCE0, TIMER_PRESCALER_DIV64, (app_regs.REG_RESERVED11 - 1) >> 1, 2 >> 1, INT_LEVEL_MED, INT_LEVEL_MED);
 	
 	motor_is_running[2] = true;
 	
@@ -383,7 +383,7 @@ bool m1_launch_quick_movement (void)
 		return false;
 	}
 	
-	m1_quick_timer_per = app_regs.REG_MOTOR1_QUICK_MAXIMUM_STEP_INTERVAL + app_regs.REG_MOTOR1_QUICK_STEP_ACCELERATION_INTERVAL;
+	m1_quick_timer_per = app_regs.REG_RESERVED10 + app_regs.REG_RESERVED12;
 	m1_quick_state_ctrl = 0;
 	
 	/* Only executes the movement if the motor is stopped */
@@ -422,7 +422,7 @@ bool m2_launch_quick_movement (void)
 		return false;
 	}
 	
-	m2_quick_timer_per = app_regs.REG_MOTOR2_QUICK_MAXIMUM_STEP_INTERVAL + app_regs.REG_MOTOR2_QUICK_STEP_ACCELERATION_INTERVAL;
+	m2_quick_timer_per = app_regs.REG_RESERVED11 + app_regs.REG_RESERVED13;
 	m2_quick_state_ctrl = 0;
 	
 	/* Only executes the movement if the motor is stopped */
