@@ -1,0 +1,624 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WorkflowBuilder Version="2.8.5"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns:wie="clr-namespace:Bonsai.Windows.Input;assembly=Bonsai.Windows.Input"
+                 xmlns:harp="clr-namespace:Bonsai.Harp;assembly=Bonsai.Harp"
+                 xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
+                 xmlns:p1="clr-namespace:Harp.StepperDriver;assembly=Harp.StepperDriver"
+                 xmlns="https://bonsai-rx.org/2018/workflow">
+  <Workflow>
+    <Nodes>
+      <Expression xsi:type="GroupWorkflow">
+        <Name>KeyDownToStart</Name>
+        <Description>1 - Start motion on motor 1
+2 - Start motion on motor 2</Description>
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="wie:KeyDown">
+                <wie:Filter>D1</wie:Filter>
+                <wie:SuppressRepetitions>false</wie:SuppressRepetitions>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="harp:CreateMessage">
+              <harp:MessageType>Write</harp:MessageType>
+              <harp:Payload xsi:type="harp:CreateMessagePayload">
+                <harp:Address>130</harp:Address>
+                <harp:PayloadType>U8</harp:PayloadType>
+                <harp:Value>2</harp:Value>
+              </harp:Payload>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="wie:KeyDown">
+                <wie:Filter>D2</wie:Filter>
+                <wie:SuppressRepetitions>false</wie:SuppressRepetitions>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="harp:CreateMessage">
+              <harp:MessageType>Write</harp:MessageType>
+              <harp:Payload xsi:type="harp:CreateMessagePayload">
+                <harp:Address>130</harp:Address>
+                <harp:PayloadType>U8</harp:PayloadType>
+                <harp:Value>4</harp:Value>
+              </harp:Payload>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:Merge" />
+            </Expression>
+            <Expression xsi:type="WorkflowOutput" />
+          </Nodes>
+          <Edges>
+            <Edge From="0" To="1" Label="Source1" />
+            <Edge From="1" To="4" Label="Source1" />
+            <Edge From="2" To="3" Label="Source1" />
+            <Edge From="3" To="4" Label="Source2" />
+            <Edge From="4" To="5" Label="Source1" />
+          </Edges>
+        </Workflow>
+      </Expression>
+      <Expression xsi:type="GroupWorkflow">
+        <Name>EnableMotors</Name>
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="IntProperty">
+                <Value>6</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="harp:Format">
+              <harp:MessageType>Write</harp:MessageType>
+              <harp:Register xsi:type="harp:FormatMessagePayload">
+                <harp:Address>32</harp:Address>
+                <harp:PayloadType>U8</harp:PayloadType>
+              </harp:Register>
+            </Expression>
+            <Expression xsi:type="WorkflowOutput" />
+          </Nodes>
+          <Edges>
+            <Edge From="0" To="1" Label="Source1" />
+            <Edge From="1" To="2" Label="Source1" />
+          </Edges>
+        </Workflow>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:Timer">
+          <rx:DueTime>PT0.5S</rx:DueTime>
+          <rx:Period>PT0S</rx:Period>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="rx:SelectMany">
+        <Name>SetupM1</Name>
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="WorkflowInput">
+              <Name>Source1</Name>
+            </Expression>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="EnableDriver" />
+            </Expression>
+            <Expression xsi:type="p1:CreateMessage">
+              <harp:MessageType>Write</harp:MessageType>
+              <harp:Payload xsi:type="p1:CreateEnableDriverPayload">
+                <p1:EnableDriver>Motor1 Motor2</p1:EnableDriver>
+              </harp:Payload>
+            </Expression>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="Motor1MicrostepResolution" />
+            </Expression>
+            <Expression xsi:type="p1:CreateMessage">
+              <harp:MessageType>Write</harp:MessageType>
+              <harp:Payload xsi:type="p1:CreateMotor1MicrostepResolutionPayload">
+                <p1:Motor1MicrostepResolution>Microstep8</p1:Motor1MicrostepResolution>
+              </harp:Payload>
+            </Expression>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="Motor1MaximumRunCurrent" />
+            </Expression>
+            <Expression xsi:type="p1:CreateMessage">
+              <harp:MessageType>Write</harp:MessageType>
+              <harp:Payload xsi:type="p1:CreateMotor1MaximumRunCurrentPayload">
+                <p1:Motor1MaximumRunCurrent>1</p1:Motor1MaximumRunCurrent>
+              </harp:Payload>
+            </Expression>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="Motor1HoldCurrentReduction" />
+            </Expression>
+            <Expression xsi:type="p1:CreateMessage">
+              <harp:MessageType>Write</harp:MessageType>
+              <harp:Payload xsi:type="p1:CreateMotor1HoldCurrentReductionPayload">
+                <p1:Motor1HoldCurrentReduction>ReductionTo12Percent</p1:Motor1HoldCurrentReduction>
+              </harp:Payload>
+            </Expression>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="Motor1OperationMode" />
+            </Expression>
+            <Expression xsi:type="p1:CreateMessage">
+              <harp:MessageType>Write</harp:MessageType>
+              <harp:Payload xsi:type="p1:CreateMotor1OperationModePayload">
+                <p1:Motor1OperationMode>DynamicMovements</p1:Motor1OperationMode>
+              </harp:Payload>
+            </Expression>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="DisableDriver" />
+            </Expression>
+            <Expression xsi:type="p1:CreateMessage">
+              <harp:MessageType>Write</harp:MessageType>
+              <harp:Payload xsi:type="p1:CreateDisableDriverPayload">
+                <p1:DisableDriver>Motor0 Motor3</p1:DisableDriver>
+              </harp:Payload>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:Merge" />
+            </Expression>
+            <Expression xsi:type="WorkflowOutput" />
+          </Nodes>
+          <Edges>
+            <Edge From="0" To="2" Label="Source1" />
+            <Edge From="0" To="4" Label="Source1" />
+            <Edge From="0" To="6" Label="Source1" />
+            <Edge From="0" To="8" Label="Source1" />
+            <Edge From="0" To="10" Label="Source1" />
+            <Edge From="0" To="12" Label="Source1" />
+            <Edge From="1" To="2" Label="Source2" />
+            <Edge From="2" To="13" Label="Source1" />
+            <Edge From="3" To="4" Label="Source2" />
+            <Edge From="4" To="13" Label="Source2" />
+            <Edge From="5" To="6" Label="Source2" />
+            <Edge From="6" To="13" Label="Source3" />
+            <Edge From="7" To="8" Label="Source2" />
+            <Edge From="8" To="13" Label="Source4" />
+            <Edge From="9" To="10" Label="Source2" />
+            <Edge From="10" To="13" Label="Source5" />
+            <Edge From="11" To="12" Label="Source2" />
+            <Edge From="12" To="13" Label="Source6" />
+            <Edge From="13" To="14" Label="Source1" />
+          </Edges>
+        </Workflow>
+      </Expression>
+      <Expression xsi:type="rx:SelectMany">
+        <Name>SetupM2</Name>
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="WorkflowInput">
+              <Name>Source1</Name>
+            </Expression>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="EnableDriver" />
+            </Expression>
+            <Expression xsi:type="p1:CreateMessage">
+              <harp:MessageType>Write</harp:MessageType>
+              <harp:Payload xsi:type="p1:CreateEnableDriverPayload">
+                <p1:EnableDriver>Motor1 Motor2</p1:EnableDriver>
+              </harp:Payload>
+            </Expression>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="Motor2MicrostepResolution" />
+            </Expression>
+            <Expression xsi:type="p1:CreateMessage">
+              <harp:MessageType>Write</harp:MessageType>
+              <harp:Payload xsi:type="p1:CreateMotor2MicrostepResolutionPayload">
+                <p1:Motor2MicrostepResolution>Microstep8</p1:Motor2MicrostepResolution>
+              </harp:Payload>
+            </Expression>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="Motor2MaximumRunCurrent" />
+            </Expression>
+            <Expression xsi:type="p1:CreateMessage">
+              <harp:MessageType>Write</harp:MessageType>
+              <harp:Payload xsi:type="p1:CreateMotor2MaximumRunCurrentPayload">
+                <p1:Motor2MaximumRunCurrent>1</p1:Motor2MaximumRunCurrent>
+              </harp:Payload>
+            </Expression>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="Motor2HoldCurrentReduction" />
+            </Expression>
+            <Expression xsi:type="p1:CreateMessage">
+              <harp:MessageType>Write</harp:MessageType>
+              <harp:Payload xsi:type="p1:CreateMotor2HoldCurrentReductionPayload">
+                <p1:Motor2HoldCurrentReduction>ReductionTo12Percent</p1:Motor2HoldCurrentReduction>
+              </harp:Payload>
+            </Expression>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="Motor2OperationMode" />
+            </Expression>
+            <Expression xsi:type="p1:CreateMessage">
+              <harp:MessageType>Write</harp:MessageType>
+              <harp:Payload xsi:type="p1:CreateMotor2OperationModePayload">
+                <p1:Motor2OperationMode>DynamicMovements</p1:Motor2OperationMode>
+              </harp:Payload>
+            </Expression>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="DisableDriver" />
+            </Expression>
+            <Expression xsi:type="p1:CreateMessage">
+              <harp:MessageType>Write</harp:MessageType>
+              <harp:Payload xsi:type="p1:CreateDisableDriverPayload">
+                <p1:DisableDriver>Motor0 Motor3</p1:DisableDriver>
+              </harp:Payload>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:Merge" />
+            </Expression>
+            <Expression xsi:type="WorkflowOutput" />
+          </Nodes>
+          <Edges>
+            <Edge From="0" To="2" Label="Source1" />
+            <Edge From="0" To="4" Label="Source1" />
+            <Edge From="0" To="6" Label="Source1" />
+            <Edge From="0" To="8" Label="Source1" />
+            <Edge From="0" To="10" Label="Source1" />
+            <Edge From="0" To="12" Label="Source1" />
+            <Edge From="1" To="2" Label="Source2" />
+            <Edge From="2" To="13" Label="Source1" />
+            <Edge From="3" To="4" Label="Source2" />
+            <Edge From="4" To="13" Label="Source2" />
+            <Edge From="5" To="6" Label="Source2" />
+            <Edge From="6" To="13" Label="Source3" />
+            <Edge From="7" To="8" Label="Source2" />
+            <Edge From="8" To="13" Label="Source4" />
+            <Edge From="9" To="10" Label="Source2" />
+            <Edge From="10" To="13" Label="Source5" />
+            <Edge From="11" To="12" Label="Source2" />
+            <Edge From="12" To="13" Label="Source6" />
+            <Edge From="13" To="14" Label="Source1" />
+          </Edges>
+        </Workflow>
+      </Expression>
+      <Expression xsi:type="rx:SelectMany">
+        <Name>Configure inputs</Name>
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="WorkflowInput">
+              <Name>Source1</Name>
+            </Expression>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="Value" DisplayName="Input0OpMode" />
+            </Expression>
+            <Expression xsi:type="harp:CreateMessage">
+              <harp:MessageType>Write</harp:MessageType>
+              <harp:Payload xsi:type="harp:CreateMessagePayload">
+                <harp:Address>68</harp:Address>
+                <harp:PayloadType>U8</harp:PayloadType>
+                <harp:Value>32</harp:Value>
+              </harp:Payload>
+            </Expression>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="Value" DisplayName="Input1OpMode" />
+            </Expression>
+            <Expression xsi:type="harp:CreateMessage">
+              <harp:MessageType>Write</harp:MessageType>
+              <harp:Payload xsi:type="harp:CreateMessagePayload">
+                <harp:Address>69</harp:Address>
+                <harp:PayloadType>U8</harp:PayloadType>
+                <harp:Value>33</harp:Value>
+              </harp:Payload>
+            </Expression>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="Value" DisplayName="Input2OpMode" />
+            </Expression>
+            <Expression xsi:type="harp:CreateMessage">
+              <harp:MessageType>Write</harp:MessageType>
+              <harp:Payload xsi:type="harp:CreateMessagePayload">
+                <harp:Address>70</harp:Address>
+                <harp:PayloadType>U8</harp:PayloadType>
+                <harp:Value>34</harp:Value>
+              </harp:Payload>
+            </Expression>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="Value" DisplayName="Input3OpMode" />
+            </Expression>
+            <Expression xsi:type="harp:CreateMessage">
+              <harp:MessageType>Write</harp:MessageType>
+              <harp:Payload xsi:type="harp:CreateMessagePayload">
+                <harp:Address>71</harp:Address>
+                <harp:PayloadType>U8</harp:PayloadType>
+                <harp:Value>35</harp:Value>
+              </harp:Payload>
+            </Expression>
+            <Expression xsi:type="harp:CreateMessage">
+              <harp:MessageType>Write</harp:MessageType>
+              <harp:Payload xsi:type="harp:CreateMessagePayload">
+                <harp:Address>36</harp:Address>
+                <harp:PayloadType>U8</harp:PayloadType>
+                <harp:Value>15</harp:Value>
+              </harp:Payload>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:Merge" />
+            </Expression>
+            <Expression xsi:type="WorkflowOutput" />
+          </Nodes>
+          <Edges>
+            <Edge From="0" To="2" Label="Source1" />
+            <Edge From="0" To="4" Label="Source1" />
+            <Edge From="0" To="6" Label="Source1" />
+            <Edge From="0" To="8" Label="Source1" />
+            <Edge From="0" To="9" Label="Source1" />
+            <Edge From="1" To="2" Label="Source2" />
+            <Edge From="2" To="10" Label="Source1" />
+            <Edge From="3" To="4" Label="Source2" />
+            <Edge From="4" To="10" Label="Source2" />
+            <Edge From="5" To="6" Label="Source2" />
+            <Edge From="6" To="10" Label="Source3" />
+            <Edge From="7" To="8" Label="Source2" />
+            <Edge From="8" To="10" Label="Source4" />
+            <Edge From="9" To="10" Label="Source5" />
+            <Edge From="10" To="11" Label="Source1" />
+          </Edges>
+        </Workflow>
+      </Expression>
+      <Expression xsi:type="GroupWorkflow">
+        <Name>EnableAccumulatedSteps100Hz</Name>
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="IntProperty">
+                <Value>3</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="harp:Format">
+              <harp:MessageType>Write</harp:MessageType>
+              <harp:Register xsi:type="harp:FormatMessagePayload">
+                <harp:Address>73</harp:Address>
+                <harp:PayloadType>U8</harp:PayloadType>
+              </harp:Register>
+            </Expression>
+            <Expression xsi:type="WorkflowOutput" />
+          </Nodes>
+          <Edges>
+            <Edge From="0" To="1" Label="Source1" />
+            <Edge From="1" To="2" Label="Source1" />
+          </Edges>
+        </Workflow>
+      </Expression>
+      <Expression xsi:type="GroupWorkflow">
+        <Name>QuickRetractConfiguration</Name>
+        <Description />
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="Value" DisplayName="Motor1QuickPulseDistance" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="FloatProperty">
+                <Value>1.25</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="harp:Format">
+              <harp:MessageType>Write</harp:MessageType>
+              <harp:Register xsi:type="harp:FormatMessagePayload">
+                <harp:Address>131</harp:Address>
+                <harp:PayloadType>Float</harp:PayloadType>
+              </harp:Register>
+            </Expression>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="Value" DisplayName="Motor2QuickPulseDistance" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="FloatProperty">
+                <Value>1.25</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="harp:Format">
+              <harp:MessageType>Write</harp:MessageType>
+              <harp:Register xsi:type="harp:FormatMessagePayload">
+                <harp:Address>132</harp:Address>
+                <harp:PayloadType>Float</harp:PayloadType>
+              </harp:Register>
+            </Expression>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="Value" DisplayName="Motor1QuickNominalSpeed" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="FloatProperty">
+                <Value>60</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="harp:Format">
+              <harp:MessageType>Write</harp:MessageType>
+              <harp:Register xsi:type="harp:FormatMessagePayload">
+                <harp:Address>133</harp:Address>
+                <harp:PayloadType>Float</harp:PayloadType>
+              </harp:Register>
+            </Expression>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="Value" DisplayName="Motor2QuickNominalSpeed" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="FloatProperty">
+                <Value>60</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="harp:Format">
+              <harp:MessageType>Write</harp:MessageType>
+              <harp:Register xsi:type="harp:FormatMessagePayload">
+                <harp:Address>134</harp:Address>
+                <harp:PayloadType>Float</harp:PayloadType>
+              </harp:Register>
+            </Expression>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="Value" DisplayName="Motor1QuickInitialSpeed" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="FloatProperty">
+                <Value>2</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="harp:Format">
+              <harp:MessageType>Write</harp:MessageType>
+              <harp:Register xsi:type="harp:FormatMessagePayload">
+                <harp:Address>135</harp:Address>
+                <harp:PayloadType>Float</harp:PayloadType>
+              </harp:Register>
+            </Expression>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="Value" DisplayName="Motor2QuickInitialSpeed" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="FloatProperty">
+                <Value>2</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="harp:Format">
+              <harp:MessageType>Write</harp:MessageType>
+              <harp:Register xsi:type="harp:FormatMessagePayload">
+                <harp:Address>136</harp:Address>
+                <harp:PayloadType>Float</harp:PayloadType>
+              </harp:Register>
+            </Expression>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="Value" DisplayName="Motor1QuickDistance" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="FloatProperty">
+                <Value>5</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="harp:Format">
+              <harp:MessageType>Write</harp:MessageType>
+              <harp:Register xsi:type="harp:FormatMessagePayload">
+                <harp:Address>139</harp:Address>
+                <harp:PayloadType>Float</harp:PayloadType>
+              </harp:Register>
+            </Expression>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="Value" DisplayName="Motor2QuickDistance" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="FloatProperty">
+                <Value>-10</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="harp:Format">
+              <harp:MessageType>Write</harp:MessageType>
+              <harp:Register xsi:type="harp:FormatMessagePayload">
+                <harp:Address>140</harp:Address>
+                <harp:PayloadType>Float</harp:PayloadType>
+              </harp:Register>
+            </Expression>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="Value" DisplayName="Motor1QuickAcceleration" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="FloatProperty">
+                <Value>2.5</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="harp:Format">
+              <harp:MessageType>Write</harp:MessageType>
+              <harp:Register xsi:type="harp:FormatMessagePayload">
+                <harp:Address>137</harp:Address>
+                <harp:PayloadType>Float</harp:PayloadType>
+              </harp:Register>
+            </Expression>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="Value" DisplayName="Motor2QuickAcceleration" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="FloatProperty">
+                <Value>2.5</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="harp:Format">
+              <harp:MessageType>Write</harp:MessageType>
+              <harp:Register xsi:type="harp:FormatMessagePayload">
+                <harp:Address>138</harp:Address>
+                <harp:PayloadType>Float</harp:PayloadType>
+              </harp:Register>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:Merge" />
+            </Expression>
+            <Expression xsi:type="WorkflowOutput" />
+          </Nodes>
+          <Edges>
+            <Edge From="0" To="1" Label="Source1" />
+            <Edge From="1" To="2" Label="Source1" />
+            <Edge From="2" To="30" Label="Source1" />
+            <Edge From="3" To="4" Label="Source1" />
+            <Edge From="4" To="5" Label="Source1" />
+            <Edge From="5" To="30" Label="Source2" />
+            <Edge From="6" To="7" Label="Source1" />
+            <Edge From="7" To="8" Label="Source1" />
+            <Edge From="8" To="30" Label="Source3" />
+            <Edge From="9" To="10" Label="Source1" />
+            <Edge From="10" To="11" Label="Source1" />
+            <Edge From="11" To="30" Label="Source4" />
+            <Edge From="12" To="13" Label="Source1" />
+            <Edge From="13" To="14" Label="Source1" />
+            <Edge From="14" To="30" Label="Source5" />
+            <Edge From="15" To="16" Label="Source1" />
+            <Edge From="16" To="17" Label="Source1" />
+            <Edge From="17" To="30" Label="Source6" />
+            <Edge From="18" To="19" Label="Source1" />
+            <Edge From="19" To="20" Label="Source1" />
+            <Edge From="20" To="30" Label="Source7" />
+            <Edge From="21" To="22" Label="Source1" />
+            <Edge From="22" To="23" Label="Source1" />
+            <Edge From="23" To="30" Label="Source8" />
+            <Edge From="24" To="25" Label="Source1" />
+            <Edge From="25" To="26" Label="Source1" />
+            <Edge From="26" To="30" Label="Source9" />
+            <Edge From="27" To="28" Label="Source1" />
+            <Edge From="28" To="29" Label="Source1" />
+            <Edge From="29" To="30" Label="Source10" />
+            <Edge From="30" To="31" Label="Source1" />
+          </Edges>
+        </Workflow>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:Merge" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="harp:Device">
+          <harp:OperationMode>Active</harp:OperationMode>
+          <harp:OperationLed>On</harp:OperationLed>
+          <harp:DumpRegisters>true</harp:DumpRegisters>
+          <harp:VisualIndicators>On</harp:VisualIndicators>
+          <harp:Heartbeat>Disabled</harp:Heartbeat>
+          <harp:IgnoreErrors>false</harp:IgnoreErrors>
+          <harp:PortName>COM3</harp:PortName>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="harp:FilterRegister">
+        <harp:FilterType>Include</harp:FilterType>
+        <harp:Register xsi:type="harp:FilterRegisterAddress">
+          <harp:Address>90</harp:Address>
+        </harp:Register>
+      </Expression>
+      <Expression xsi:type="harp:Parse">
+        <harp:Register xsi:type="harp:ParseMessagePayload">
+          <harp:PayloadType>S32</harp:PayloadType>
+          <harp:IsArray>true</harp:IsArray>
+        </harp:Register>
+      </Expression>
+      <Expression xsi:type="Index">
+        <Operand xsi:type="IntProperty">
+          <Value>1</Value>
+        </Operand>
+      </Expression>
+      <Expression xsi:type="Index">
+        <Operand xsi:type="IntProperty">
+          <Value>2</Value>
+        </Operand>
+      </Expression>
+    </Nodes>
+    <Edges>
+      <Edge From="0" To="8" Label="Source1" />
+      <Edge From="1" To="8" Label="Source2" />
+      <Edge From="2" To="3" Label="Source1" />
+      <Edge From="2" To="4" Label="Source1" />
+      <Edge From="2" To="5" Label="Source1" />
+      <Edge From="3" To="8" Label="Source3" />
+      <Edge From="4" To="8" Label="Source4" />
+      <Edge From="5" To="8" Label="Source5" />
+      <Edge From="6" To="8" Label="Source6" />
+      <Edge From="7" To="8" Label="Source7" />
+      <Edge From="8" To="9" Label="Source1" />
+      <Edge From="9" To="10" Label="Source1" />
+      <Edge From="10" To="11" Label="Source1" />
+      <Edge From="11" To="12" Label="Source1" />
+      <Edge From="11" To="13" Label="Source1" />
+    </Edges>
+  </Workflow>
+</WorkflowBuilder>
