@@ -593,59 +593,55 @@ registers:
 ##################################
 # Quick movement
 ##################################
-  Motor1QuickStepInterval: &quickstepinterval
+  Reserved8:
+    <<: *reserved
     address: 121
-    minValue: 10
-    defaultValue: 50
-    type: U16
-    access: Write
-    description: Configures the time between step motor pulses (us) when running at nominal speed for motor 1 for the quick mode.
-  Motor2QuickStepInterval:
-    <<: *quickstepinterval
-    address: 122
-    description: Configures the time between step motor pulses (us) when running at nominal speed for motor 2 for the quick mode.
-
-  Motor1QuickMaximumStepInterval: &quickmaxstepinterval
+    visibility: private
+    description: Reserved register. Do not write.  
+  Reserved9:
+      <<: *reserved
+      address: 122
+      visibility: private
+      description: Reserved register. Do not write.    
+  Reserved10:
+    <<: *reserved
     address: 123
-    minValue: 12
-    defaultValue: 2000
-    type: U16
-    access: Write
-    description: Configures the time between step motor pulses (us) used when starting or stopping a movement for motor 1 for the quick mode.    
-  Motor2QuickMaximumStepInterval:
-    <<: *quickmaxstepinterval
-    address: 124
-    description: Configures the time between step motor pulses (us) used when starting or stopping a movement for motor 2 for the quick mode.
-
-  Motor1QuickStepAccelerationInterval: &quickmaxstepinterval
+    visibility: private
+    description: Reserved register. Do not write.  
+  Reserved11:
+      <<: *reserved
+      address: 124
+      visibility: private
+      description: Reserved register. Do not write.    
+  Reserved12:
+    <<: *reserved
     address: 125
-    minValue: 2
-    defaultValue: 10
-    type: U16
-    access: Write
-    description: Configures the acceleration for motor 1 for the quick mode. The time between step pulses is decreased by this value when accelerating and increased when decelerating.
-  Motor2QuickStepAccelerationInterval:
-    <<: *quickmaxstepinterval
-    address: 126
-    description: Configures the acceleration for motor 2 for the quick mode. The time between step pulses is decreased by this value when accelerating and increased when decelerating.
-
-  Motor1QuickMoveRelative: &quickmoverelative
+    visibility: private
+    description: Reserved register. Do not write.  
+  Reserved13:
+      <<: *reserved
+      address: 126
+      visibility: private
+      description: Reserved register. Do not write.    
+  Reserved14:
+    <<: *reserved
     address: 127
-    type: S16
-    access: Write
-    description: Moves motor 1 by the number of steps written in this register and set the direction according to the value's signal for the quick mode.
-  Motor2QuickMoveRelative:
-    <<: *quickmoverelative
-    address: 128
-    description: Moves motor 2 by the number of steps written in this register and set the direction according to the value's signal for the quick mode.
-
-  ArmQuickMovements:
+    visibility: private
+    description: Reserved register. Do not write.  
+  Reserved15:
+      <<: *reserved
+      address: 128
+      visibility: private
+      description: Reserved register. Do not write.    
+  Reserved16:
+    <<: *reserved
     address: 129
-    type: U8
-    access: Write
-    maskType: ArmQuickMovementsConfig
-    description: Enabling this register will arm any quick movement with the currently loaded settings.
+    visibility: private
+    description: Reserved register. Do not write.    
 
+##################################
+# Quick movement
+##################################
   TriggerQuickMovement:
     address: 130
     type: U8
