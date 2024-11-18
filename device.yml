@@ -3,7 +3,7 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/harp-tech/reflex-generator/main/schema/device.json
 device: StepperDriver
 whoAmI: 1130
-firmwareVersion: "0.6"
+firmwareVersion: "0.7"
 hardwareTargets: "1.0"
 registers:
 
@@ -593,7 +593,7 @@ registers:
 ##################################
 # Quick movement
 ##################################
-  Motor1QuickStepInterval:
+  Motor1QuickStepInterval: &quickstepinterval
     address: 121
     minValue: 10
     defaultValue: 50
@@ -601,14 +601,11 @@ registers:
     access: Write
     description: Configures the time between step motor pulses (us) when running at nominal speed for motor 1 for the quick mode.
   Motor2QuickStepInterval:
+    <<: *quickstepinterval
     address: 122
-    minValue: 10
-    defaultValue: 50
-    type: U16
-    access: Write
     description: Configures the time between step motor pulses (us) when running at nominal speed for motor 2 for the quick mode.
- 
-  Motor1QuickMaximumStepInterval:
+
+  Motor1QuickMaximumStepInterval: &quickmaxstepinterval
     address: 123
     minValue: 12
     defaultValue: 2000
@@ -616,14 +613,11 @@ registers:
     access: Write
     description: Configures the time between step motor pulses (us) used when starting or stopping a movement for motor 1 for the quick mode.    
   Motor2QuickMaximumStepInterval:
+    <<: *quickmaxstepinterval
     address: 124
-    minValue: 12
-    defaultValue: 2000
-    type: U16
-    access: Write
     description: Configures the time between step motor pulses (us) used when starting or stopping a movement for motor 2 for the quick mode.
 
-  Motor1QuickStepAccelerationInterval:
+  Motor1QuickStepAccelerationInterval: &quickmaxstepinterval
     address: 125
     minValue: 2
     defaultValue: 10
@@ -631,31 +625,28 @@ registers:
     access: Write
     description: Configures the acceleration for motor 1 for the quick mode. The time between step pulses is decreased by this value when accelerating and increased when decelerating.
   Motor2QuickStepAccelerationInterval:
+    <<: *quickmaxstepinterval
     address: 126
-    minValue: 2
-    defaultValue: 10
-    type: U16
-    access: Write
     description: Configures the acceleration for motor 2 for the quick mode. The time between step pulses is decreased by this value when accelerating and increased when decelerating.
 
-  Motor1QuickMoveRelative:
+  Motor1QuickMoveRelative: &quickmoverelative
     address: 127
     type: S16
     access: Write
     description: Moves motor 1 by the number of steps written in this register and set the direction according to the value's signal for the quick mode.
   Motor2QuickMoveRelative:
+    <<: *quickmoverelative
     address: 128
-    type: S16
-    access: Write
     description: Moves motor 2 by the number of steps written in this register and set the direction according to the value's signal for the quick mode.
-  
-  LoadQuickMovementParameters:
+
+  ArmQuickMovements:
     address: 129
     type: U8
     access: Write
-    description: Writing any value to this register will load the motors' current configuration memory for quicker start.
+    maskType: ArmQuickMovementsConfig
+    description: Enabling this register will arm any quick movement with the currently loaded settings.
 
-  StartQuickMovement:
+  TriggerQuickMovement:
     address: 130
     type: U8
     access: Write
@@ -777,3 +768,8 @@ groupMasks:
     values:
       Disabled: 0
       Enabled: 1
+  ArmQuickMovementsConfig:
+    description: Specifies the quick movement configuration.
+    values:
+      Default: 0
+      Arm: 1
