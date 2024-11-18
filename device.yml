@@ -652,6 +652,57 @@ registers:
     access: Write
     maskType: StepperMotors
     description: Triggers the quick movement in the correspondent motor.
+  
+  Motor1PulseDistance:
+    address: 131
+    type: Float
+    access: Write
+    description: Sets the single pulse distance in millimeters for the Motor 1.
+  Motor2PulseDistance:
+    address: 132
+    type: Float
+    access: Write
+    description: Sets the single pulse distance in millimeters for the Motor 2.
+  Motor1NominalSpeed:
+    address: 133
+    type: Float
+    access: Write
+    description: Sets the target speed in millimeters per second for the Motor 1.
+  Motor2NominalSpeed:
+    address: 134
+    type: Float
+    access: Write
+    description: Sets the target speed in millimeters per second for the Motor 2.
+  Motor1InitialSpeed:
+    address: 135
+    type: Float
+    access: Write
+    description: Sets the start speed in millimeters per second for the Motor 1.
+  Motor2InitialSpeed:
+    address: 136
+    type: Float
+    access: Write
+    description: Sets the start speed in millimeters per second for the Motor 2.
+  Motor1Acceleration:
+    address: 137
+    type: Float
+    access: Write
+    description: Sets the acceleration in millimeters per second^2 for the Motor 1.
+  Motor2Acceleration:
+    address: 138
+    type: Float
+    access: Write
+    description: Sets the acceleration in millimeters per second^2 for the Motor 2.
+  Motor1Distance:
+    address: 139
+    type: Float
+    access: Write
+    description: Sets the travel distance in millimeters for the Motor 1.
+  Motor2Distance:
+    address: 140
+    type: Float
+    access: Write
+    description: Sets the travel distance in millimeters for the Motor 2.
 
 ##################################
 # Bit masks
