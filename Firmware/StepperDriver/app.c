@@ -11,6 +11,7 @@
 
 #include "i2c.h"
 #include "stepper_control.h"
+#include "quick_movement.h"
 
 /************************************************************************/
 /* Declare application registers                                        */
@@ -30,10 +31,10 @@ static const uint8_t default_device_name[] = "StepperDriver";
 void hwbp_app_initialize(void)
 {
     /* Define versions */
-    uint8_t hwH = 0;
-    uint8_t hwL = 2;
+    uint8_t hwH = 1;
+    uint8_t hwL = 0;
     uint8_t fwH = 0;
-    uint8_t fwL = 4;
+    uint8_t fwL = 7;
     uint8_t ass = 0;
     
    	/* Start core */
@@ -94,7 +95,7 @@ void core_callback_catastrophic_error_detected(void)
 /************************************************************************/
 void core_callback_define_clock_default(void) {}
 
-#define T_STARTUP_ON  50
+#define T_STARTUP_ON  0/*50*/
 #define T_STARTUP_OFF 0
 
 extern i2c_dev_t digi_pot_M0_M1;
@@ -248,6 +249,9 @@ extern bool send_motor_stopped_notification[];
 
 extern uint8_t encoders_enabled_mask;
 
+extern uint8_t m1_quick_count_down;
+extern uint8_t m2_quick_count_down;
+
 void core_callback_t_before_exec(void)
 {
 	acquisition_counter++;
@@ -396,22 +400,66 @@ void core_callback_t_1ms(void)
 		PMIC_CTRL = PMIC_RREN_bm | PMIC_LOLVLEN_bm | PMIC_MEDLVLEN_bm | PMIC_HILVLEN_bm;
 	}
 	
-	if (user_requested_steps[1] != 0)
+	if (m1_quick_count_down == 0)
 	{
-		PMIC_CTRL = PMIC_RREN_bm | PMIC_LOLVLEN_bm;
+		if (user_requested_steps[1] != 0)
+		{
+			PMIC_CTRL = PMIC_RREN_bm | PMIC_LOLVLEN_bm;
 		
-		user_requested_steps[1] = user_sent_request(user_requested_steps[1], 1);
+			user_requested_steps[1] = user_sent_request(user_requested_steps[1], 1);
 		
-		PMIC_CTRL = PMIC_RREN_bm | PMIC_LOLVLEN_bm | PMIC_MEDLVLEN_bm | PMIC_HILVLEN_bm;
+			PMIC_CTRL = PMIC_RREN_bm | PMIC_LOLVLEN_bm | PMIC_MEDLVLEN_bm | PMIC_HILVLEN_bm;
+		}
+	}
+	else
+	{		
+		if (m1_quick_count_down == 1)
+		{
+			// Means that motor is moving
+		}
+		else
+		{	
+			m1_quick_count_down--;
+			
+			if (m1_quick_count_down == 2)
+			{
+				m1_quick_count_down--;
+				
+				//m1_start_quick_movement(); // old way
+				m1_initiate_quick_movement(); // new way
+			}
+		}		
 	}
 	
-	if (user_requested_steps[2] != 0)
+	if (m2_quick_count_down == 0)
 	{
-		PMIC_CTRL = PMIC_RREN_bm | PMIC_LOLVLEN_bm;
-		
-		user_requested_steps[2] = user_sent_request(user_requested_steps[2], 2);
-		
-		PMIC_CTRL = PMIC_RREN_bm | PMIC_LOLVLEN_bm | PMIC_MEDLVLEN_bm | PMIC_HILVLEN_bm;
+		if (user_requested_steps[2] != 0)
+		{
+			PMIC_CTRL = PMIC_RREN_bm | PMIC_LOLVLEN_bm;
+			
+			user_requested_steps[2] = user_sent_request(user_requested_steps[2], 2);
+			
+			PMIC_CTRL = PMIC_RREN_bm | PMIC_LOLVLEN_bm | PMIC_MEDLVLEN_bm | PMIC_HILVLEN_bm;
+		}
+	}
+	else
+	{
+		if (m2_quick_count_down == 1)
+		{
+			// Means that motor is moving
+		}
+		else
+		{
+			m2_quick_count_down--;
+			
+			if (m2_quick_count_down == 2)
+			{
+				m2_quick_count_down--;
+				
+				//m2_start_quick_movement(); // old way
+				m2_initiate_quick_movement(); // new way
+			}
+		}
 	}
 	
 	if (user_requested_steps[3] != 0)

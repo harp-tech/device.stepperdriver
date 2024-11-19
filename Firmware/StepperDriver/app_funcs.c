@@ -4,8 +4,9 @@
 
 #include "i2c.h"
 #include "stepper_control.h"
+#include "quick_movement.h"
 
-#define PERIOD_LIMIT 10
+#define PERIOD_LIMIT 100
 
 /************************************************************************/
 /* Create pointers to functions                                         */
@@ -142,7 +143,7 @@ void (*app_func_rd_pointer[])(void) = {
 	&app_read_REG_MOTOR0_ABSOLUTE_STEPS,
 	&app_read_REG_MOTOR1_ABSOLUTE_STEPS,
 	&app_read_REG_MOTOR2_ABSOLUTE_STEPS,
-	&app_read_REG_MOTOR3_ABSOLUTE_STEPS,	
+	&app_read_REG_MOTOR3_ABSOLUTE_STEPS,
 	&app_read_REG_ACCUMULATED_STEPS,
 	&app_read_REG_MOTOR0_ACCUMULATED_STEPS,
 	&app_read_REG_MOTOR1_ACCUMULATED_STEPS,
@@ -173,7 +174,27 @@ void (*app_func_rd_pointer[])(void) = {
 	&app_read_REG_RESERVED4,
 	&app_read_REG_RESERVED5,
 	&app_read_REG_RESERVED6,
-	&app_read_REG_RESERVED7
+	&app_read_REG_RESERVED7,
+	&app_read_REG_RESERVED8,
+	&app_read_REG_RESERVED9,
+	&app_read_REG_RESERVED10,
+	&app_read_REG_RESERVED11,
+	&app_read_REG_RESERVED12,
+	&app_read_REG_RESERVED13,
+	&app_read_REG_RESERVED14,
+	&app_read_REG_RESERVED15,
+	&app_read_REG_RESERVED16,
+	&app_read_REG_START_QUICK_MOVEMENT,
+	&app_read_REG_MOTOR1_QUICK_PULSE_DISTANCE,
+	&app_read_REG_MOTOR2_QUICK_PULSE_DISTANCE,
+	&app_read_REG_MOTOR1_QUICK_NOMINAL_SPEED,
+	&app_read_REG_MOTOR2_QUICK_NOMINAL_SPEED,
+	&app_read_REG_MOTOR1_QUICK_START_SPEED,
+	&app_read_REG_MOTOR2_QUICK_START_SPEED,
+	&app_read_REG_MOTOR1_QUICK_ACCELERATION,
+	&app_read_REG_MOTOR2_QUICK_ACCELERATION,
+	&app_read_REG_MOTOR1_QUICK_DISTANCE,
+	&app_read_REG_MOTOR2_QUICK_DISTANCE
 };
 
 bool (*app_func_wr_pointer[])(void*) = {
@@ -265,8 +286,29 @@ bool (*app_func_wr_pointer[])(void*) = {
 	&app_write_REG_RESERVED4,
 	&app_write_REG_RESERVED5,
 	&app_write_REG_RESERVED6,
-	&app_write_REG_RESERVED7
+	&app_write_REG_RESERVED7,
+	&app_write_REG_RESERVED8,
+	&app_write_REG_RESERVED9,
+	&app_write_REG_RESERVED10,
+	&app_write_REG_RESERVED11,
+	&app_write_REG_RESERVED12,
+	&app_write_REG_RESERVED13,
+	&app_write_REG_RESERVED14,
+	&app_write_REG_RESERVED15,
+	&app_write_REG_RESERVED16,
+	&app_write_REG_START_QUICK_MOVEMENT,
+	&app_write_REG_MOTOR1_QUICK_PULSE_DISTANCE,
+	&app_write_REG_MOTOR2_QUICK_PULSE_DISTANCE,
+	&app_write_REG_MOTOR1_QUICK_NOMINAL_SPEED,
+	&app_write_REG_MOTOR2_QUICK_NOMINAL_SPEED,
+	&app_write_REG_MOTOR1_QUICK_START_SPEED,
+	&app_write_REG_MOTOR2_QUICK_START_SPEED,
+	&app_write_REG_MOTOR1_QUICK_ACCELERATION,
+	&app_write_REG_MOTOR2_QUICK_ACCELERATION,
+	&app_write_REG_MOTOR1_QUICK_DISTANCE,
+	&app_write_REG_MOTOR2_QUICK_DISTANCE
 };
+
 
 
 /************************************************************************/
@@ -2147,7 +2189,7 @@ void app_read_REG_RESERVED1(void)
 
 bool app_write_REG_RESERVED1(void *a)
 {
-	uint8_t reg = *((uint8_t*)a);
+ 	uint8_t reg = *((uint8_t*)a);
 	
 	if (reg & 1)   set_CFG0_M1; else clr_CFG0_M1;
 	if (reg & 2)   set_CFG1_M1; else set_CFG1_M1;
@@ -2155,7 +2197,7 @@ bool app_write_REG_RESERVED1(void *a)
 	if (reg & 8)   set_CFG3_M1; else set_CFG3_M1;
 	if (reg & 32)  set_CFG5_M1; else set_CFG5_M1;
 	if (reg & 64)  set_CFG6_M1; else set_CFG6_M1;
-	if (reg & 128) set_CFG7_M1; else set_CFG7_M1;	
+	if (reg & 128) set_CFG7_M1; else set_CFG7_M1;
 
 	app_regs.REG_RESERVED1 = reg;
 	return true;
@@ -2300,4 +2342,324 @@ bool app_write_REG_RESERVED7(void *a)
 
 	app_regs.REG_RESERVED7 = reg;
 	return ok;
+}
+
+
+/************************************************************************/
+/* REG_RESERVED8                                                        */
+/************************************************************************/
+void app_read_REG_RESERVED8(void) {}
+bool app_write_REG_RESERVED8(void *a)
+{
+	uint16_t reg = *((uint16_t*)a);
+
+	app_regs.REG_RESERVED8 = reg;
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_RESERVED9                                                        */
+/************************************************************************/
+void app_read_REG_RESERVED9(void) {}
+bool app_write_REG_RESERVED9(void *a)
+{
+	uint16_t reg = *((uint16_t*)a);
+
+	app_regs.REG_RESERVED9 = reg;
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_RESERVED10                                                       */
+/************************************************************************/
+void app_read_REG_RESERVED10(void) {}
+bool app_write_REG_RESERVED10(void *a)
+{
+	uint16_t reg = *((uint16_t*)a);
+
+	app_regs.REG_RESERVED10 = reg;
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_RESERVED11                                                       */
+/************************************************************************/
+void app_read_REG_RESERVED11(void) {}
+bool app_write_REG_RESERVED11(void *a)
+{
+	uint16_t reg = *((uint16_t*)a);
+
+	app_regs.REG_RESERVED11 = reg;
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_RESERVED12                                                       */
+/************************************************************************/
+void app_read_REG_RESERVED12(void) {}
+bool app_write_REG_RESERVED12(void *a)
+{
+	uint16_t reg = *((uint16_t*)a);
+
+	app_regs.REG_RESERVED12 = reg;
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_RESERVED13                                                       */
+/************************************************************************/
+void app_read_REG_RESERVED13(void) {}
+bool app_write_REG_RESERVED13(void *a)
+{
+	uint16_t reg = *((uint16_t*)a);
+
+	app_regs.REG_RESERVED13 = reg;
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_RESERVED14                                                       */
+/************************************************************************/
+void app_read_REG_RESERVED14(void) {}
+bool app_write_REG_RESERVED14(void *a)
+{
+	int16_t reg = *((int16_t*)a);
+
+	app_regs.REG_RESERVED14 = reg;
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_RESERVED15                                                       */
+/************************************************************************/
+void app_read_REG_RESERVED15(void) {}
+bool app_write_REG_RESERVED15(void *a)
+{
+	int16_t reg = *((int16_t*)a);
+
+	app_regs.REG_RESERVED15 = reg;
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_RESERVED16                                                       */
+/************************************************************************/
+void app_read_REG_RESERVED16(void) {}
+bool app_write_REG_RESERVED16(void *a)
+{
+	uint8_t reg = *((uint8_t*)a);
+
+	app_regs.REG_RESERVED16 = reg;
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_START_QUICK_MOVEMENT                                             */
+/************************************************************************/
+void app_read_REG_START_QUICK_MOVEMENT(void)
+{
+	app_regs.REG_START_QUICK_MOVEMENT = 0;
+}
+
+bool app_write_REG_START_QUICK_MOVEMENT(void *a)
+{
+	uint8_t reg = *((uint8_t*)a);
+	
+	bool ok = true;
+	
+	if (reg & B_MOTOR1)
+	{
+		//ok = m1_quick_launch_movement(); // old way
+		ok = m1_recalc_internal_paramenters(); // new way
+		if (ok)
+			ok = m1_launch_quick_movement(); // new way
+	}
+	
+	if (ok)
+	{
+		if (reg & B_MOTOR2)
+		{			
+			//ok = m2_quick_launch_movement(); // old way
+			ok = m2_recalc_internal_paramenters(); // new way
+			if (ok)
+			ok = m2_launch_quick_movement(); // new way
+		}
+	}
+	
+	if (!ok)
+	{
+		return false;
+	}
+
+	app_regs.REG_START_QUICK_MOVEMENT = reg;
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_MOTOR1_QUICK_PULSE_DISTANCE                                      */
+/************************************************************************/
+void app_read_REG_MOTOR1_QUICK_PULSE_DISTANCE(void) {}
+bool app_write_REG_MOTOR1_QUICK_PULSE_DISTANCE(void *a)
+{
+	float reg = *((float*)a);
+
+	app_regs.REG_MOTOR1_QUICK_PULSE_DISTANCE = reg;
+	
+	//m1_recalc_internal_paramenters();
+	
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_MOTOR2_QUICK_PULSE_DISTANCE                                      */
+/************************************************************************/
+void app_read_REG_MOTOR2_QUICK_PULSE_DISTANCE(void) {}
+bool app_write_REG_MOTOR2_QUICK_PULSE_DISTANCE(void *a)
+{
+	float reg = *((float*)a);
+
+	app_regs.REG_MOTOR2_QUICK_PULSE_DISTANCE = reg;
+	
+	//m2_recalc_internal_paramenters();
+	
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_MOTOR1_QUICK_NOMINAL_SPEED                                       */
+/************************************************************************/
+void app_read_REG_MOTOR1_QUICK_NOMINAL_SPEED(void) {}
+bool app_write_REG_MOTOR1_QUICK_NOMINAL_SPEED(void *a)
+{
+	float reg = *((float*)a);
+
+	app_regs.REG_MOTOR1_QUICK_NOMINAL_SPEED = reg;
+	
+	//m1_recalc_internal_paramenters();
+	
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_MOTOR2_QUICK_NOMINAL_SPEED                                       */
+/************************************************************************/
+void app_read_REG_MOTOR2_QUICK_NOMINAL_SPEED(void) {}
+bool app_write_REG_MOTOR2_QUICK_NOMINAL_SPEED(void *a)
+{
+	float reg = *((float*)a);
+
+	app_regs.REG_MOTOR2_QUICK_NOMINAL_SPEED = reg;
+	
+	//m2_recalc_internal_paramenters();
+	
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_MOTOR1_QUICK_START_SPEED                                         */
+/************************************************************************/
+void app_read_REG_MOTOR1_QUICK_START_SPEED(void) {}
+bool app_write_REG_MOTOR1_QUICK_START_SPEED(void *a)
+{
+	float reg = *((float*)a);
+
+	app_regs.REG_MOTOR1_QUICK_START_SPEED = reg;
+	
+	//m1_recalc_internal_paramenters();
+	
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_MOTOR2_QUICK_START_SPEED                                         */
+/************************************************************************/
+void app_read_REG_MOTOR2_QUICK_START_SPEED(void) {}
+bool app_write_REG_MOTOR2_QUICK_START_SPEED(void *a)
+{
+	float reg = *((float*)a);
+
+	app_regs.REG_MOTOR2_QUICK_START_SPEED = reg;
+	
+	//m2_recalc_internal_paramenters();
+	
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_MOTOR1_QUICK_ACCELERATION                                        */
+/************************************************************************/
+void app_read_REG_MOTOR1_QUICK_ACCELERATION(void) {}
+bool app_write_REG_MOTOR1_QUICK_ACCELERATION(void *a)
+{
+	float reg = *((float*)a);
+
+	app_regs.REG_MOTOR1_QUICK_ACCELERATION = reg;
+	
+	//m1_recalc_internal_paramenters();
+	
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_MOTOR2_QUICK_ACCELERATION                                        */
+/************************************************************************/
+void app_read_REG_MOTOR2_QUICK_ACCELERATION(void) {}
+bool app_write_REG_MOTOR2_QUICK_ACCELERATION(void *a)
+{
+	float reg = *((float*)a);
+
+	app_regs.REG_MOTOR2_QUICK_ACCELERATION = reg;
+	
+	//m2_recalc_internal_paramenters();
+	
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_MOTOR1_QUICK_DISTANCE                                            */
+/************************************************************************/
+void app_read_REG_MOTOR1_QUICK_DISTANCE(void) {}
+bool app_write_REG_MOTOR1_QUICK_DISTANCE(void *a)
+{
+	float reg = *((float*)a);
+
+	app_regs.REG_MOTOR1_QUICK_DISTANCE = reg;
+	
+	//m1_recalc_internal_paramenters();
+	
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_MOTOR2_QUICK_DISTANCE                                            */
+/************************************************************************/
+void app_read_REG_MOTOR2_QUICK_DISTANCE(void) {}
+bool app_write_REG_MOTOR2_QUICK_DISTANCE(void *a)
+{
+	float reg = *((float*)a);
+
+	app_regs.REG_MOTOR2_QUICK_DISTANCE = reg;
+	
+	//m1_recalc_internal_paramenters();
+	
+	return true;
 }

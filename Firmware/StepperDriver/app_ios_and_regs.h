@@ -459,6 +459,26 @@ typedef struct
 	uint8_t REG_RESERVED5;
 	uint8_t REG_RESERVED6;
 	uint8_t REG_RESERVED7;
+	uint16_t REG_RESERVED8;
+	uint16_t REG_RESERVED9;
+	uint16_t REG_RESERVED10;
+	uint16_t REG_RESERVED11;
+	uint16_t REG_RESERVED12;
+	uint16_t REG_RESERVED13;
+	int16_t REG_RESERVED14;
+	int16_t REG_RESERVED15;
+	uint8_t REG_RESERVED16;
+	uint8_t REG_START_QUICK_MOVEMENT;
+	float REG_MOTOR1_QUICK_PULSE_DISTANCE;
+	float REG_MOTOR2_QUICK_PULSE_DISTANCE;
+	float REG_MOTOR1_QUICK_NOMINAL_SPEED;
+	float REG_MOTOR2_QUICK_NOMINAL_SPEED;
+	float REG_MOTOR1_QUICK_START_SPEED;
+	float REG_MOTOR2_QUICK_START_SPEED;
+	float REG_MOTOR1_QUICK_ACCELERATION;
+	float REG_MOTOR2_QUICK_ACCELERATION;
+	float REG_MOTOR1_QUICK_DISTANCE;
+	float REG_MOTOR2_QUICK_DISTANCE;
 } AppRegs;
 
 /************************************************************************/
@@ -533,18 +553,18 @@ typedef struct
 #define ADD_REG_MOTOR1_MAX_STEPS_INTEGRATION 97 // I32    Defines the limit of the accumulated steps for the positive movement of motor 1. The device will not let the motor move further than this value.
 #define ADD_REG_MOTOR2_MAX_STEPS_INTEGRATION 98 // I32    Defines the limit of the accumulated steps for the positive movement of motor 2. The device will not let the motor move further than this value.
 #define ADD_REG_MOTOR3_MAX_STEPS_INTEGRATION 99 // I32    Defines the limit of the accumulated steps for the positive movement of motor 3. The device will not let the motor move further than this value.
-#define ADD_REG_MOTORS_MIN_STEPS_INTEGRATION100 // I32    Defines the limit of the accumulated steps for the negative movement of all motors. The device will not let the motors move further than this value.
-#define ADD_REG_MOTOR0_MIN_STEPS_INTEGRATION101 // I32    Defines the limit of the accumulated steps for the negative movement of motor 0. The device will not let the motor move further than this value.
-#define ADD_REG_MOTOR1_MIN_STEPS_INTEGRATION102 // I32    Defines the limit of the accumulated steps for the negative movement of motor 1. The device will not let the motor move further than this value.
-#define ADD_REG_MOTOR2_MIN_STEPS_INTEGRATION103 // I32    Defines the limit of the accumulated steps for the negative movement of motor 2. The device will not let the motor move further than this value.
-#define ADD_REG_MOTOR3_MIN_STEPS_INTEGRATION104 // I32    Defines the limit of the accumulated steps for the negative movement of motor 3. The device will not let the motor move further than this value.
+#define ADD_REG_MOTORS_MIN_STEPS_INTEGRATION 100 // I32    Defines the limit of the accumulated steps for the negative movement of all motors. The device will not let the motors move further than this value.
+#define ADD_REG_MOTOR0_MIN_STEPS_INTEGRATION 101 // I32    Defines the limit of the accumulated steps for the negative movement of motor 0. The device will not let the motor move further than this value.
+#define ADD_REG_MOTOR1_MIN_STEPS_INTEGRATION 102 // I32    Defines the limit of the accumulated steps for the negative movement of motor 1. The device will not let the motor move further than this value.
+#define ADD_REG_MOTOR2_MIN_STEPS_INTEGRATION 103 // I32    Defines the limit of the accumulated steps for the negative movement of motor 2. The device will not let the motor move further than this value.
+#define ADD_REG_MOTOR3_MIN_STEPS_INTEGRATION 104 // I32    Defines the limit of the accumulated steps for the negative movement of motor 3. The device will not let the motor move further than this value.
 #define ADD_REG_MOTORS_IMMEDIATE_STEPS     105 // I32    Starts the movement of all motors with the step interval defined by this array. The value's signal defines the direction.
 #define ADD_REG_MOTOR0_IMMEDIATE_STEPS     106 // I32    Starts the movement of motor 0 with the step interval defined by this register. The value's signal defines the direction.
 #define ADD_REG_MOTOR1_IMMEDIATE_STEPS     107 // I32    Starts the movement of motor 1 with the step interval defined by this register. The value's signal defines the direction.
 #define ADD_REG_MOTOR2_IMMEDIATE_STEPS     108 // I32    Starts the movement of motor 2 with the step interval defined by this register. The value's signal defines the direction.
 #define ADD_REG_MOTOR3_IMMEDIATE_STEPS     109 // I32    Starts the movement of motor 3 with the step interval defined by this register. The value's signal defines the direction.
 #define ADD_REG_STOP_MOTORS_SUDENTLY       110 // U8     Stops the motors immediately.
-#define ADD_REG_RESET_MOTORS_ERROR_DETECTION111 // U8     Disables the current error and enables the driver.
+#define ADD_REG_RESET_MOTORS_ERROR_DETECTION 111 // U8     Disables the current error and enables the driver.
 #define ADD_REG_RESET_ENCODERS             112 // U8     Resets the encoder.
 #define ADD_REG_RESERVED0                  113 // U8     Contains the CFG configuration pins of the TMC2210 driver that controls motor 0.
 #define ADD_REG_RESERVED1                  114 // U8     Contains the CFG configuration pins of the TMC2210 driver that controls motor 1.
@@ -554,6 +574,26 @@ typedef struct
 #define ADD_REG_RESERVED5                  118 // U8     Contains the raw data of the digital potentiometer that controls current limit of motor 1.
 #define ADD_REG_RESERVED6                  119 // U8     Contains the raw data of the digital potentiometer that controls current limit of motor 2.
 #define ADD_REG_RESERVED7                  120 // U8     Contains the raw data of the digital potentiometer that controls current limit of motor 3.
+#define ADD_REG_RESERVED8                  121 // U16    Configures the motor's step interval when running at nominal speed for motor 1 for the quick mode.
+#define ADD_REG_RESERVED9                  122 // U16    Configures the motor's step interval when running at nominal speed for motor 2 for the quick mode.
+#define ADD_REG_RESERVED10                 123 // U16    Configures the motor's maximum step interval for motor 1, used as the first and last steo interval of a movement for the quick mode.
+#define ADD_REG_RESERVED11                 124 // U16    Configures the motor's maximum step interval for motor 2, used as the first and last steo interval of a movement for the quick mode.
+#define ADD_REG_RESERVED12                 125 // U16    Configures the acceleration for motor 1. The step's interval is decreased by this value when accelerating and increased when decelerating for the quick mode.
+#define ADD_REG_RESERVED13                 126 // U16    Configures the acceleration for motor . The step's interval is decreased by this value when accelerating and increased when decelerating for the quick mode.
+#define ADD_REG_RESERVED14                 127 // I16    Moves motor 1 by the number of steps written in this register and set the direction according to the value's signal for the quick mode.
+#define ADD_REG_RESERVED15                 128 // I16    Moves motor 2 by the number of steps written in this register and set the direction according to the value's signal for the quick mode.
+#define ADD_REG_RESERVED16                 129 // U8     Writing any value to this register will load the motors' current configuration memory for quicker start.
+#define ADD_REG_START_QUICK_MOVEMENT       130 // U8     Triggers the quick movement in the correspondent motor.
+#define ADD_REG_MOTOR1_QUICK_PULSE_DISTANCE 131 // FLOAT  Configures the motor's step distance in µm for motor 1.
+#define ADD_REG_MOTOR2_QUICK_PULSE_DISTANCE 132 // FLOAT  Configures the motor's step distance in µm for motor 2.
+#define ADD_REG_MOTOR1_QUICK_NOMINAL_SPEED 133 // FLOAT  Configures the motor's nominal speed in mm/s for motor 1.
+#define ADD_REG_MOTOR2_QUICK_NOMINAL_SPEED 134 // FLOAT  Configures the motor's nominal speed in mm/s for motor 2.
+#define ADD_REG_MOTOR1_QUICK_START_SPEED   135 // FLOAT  Configures the motor's starting speed in mm/s for motor 1.
+#define ADD_REG_MOTOR2_QUICK_START_SPEED   136 // FLOAT  Configures the motor's starting speed in mm/s for motor 2.
+#define ADD_REG_MOTOR1_QUICK_ACCELERATION  137 // FLOAT  Configures the motor's acceleration in m/s2 for motor 1.
+#define ADD_REG_MOTOR2_QUICK_ACCELERATION  138 // FLOAT  Configures the motor's acceleration in m/s2 for motor 2.
+#define ADD_REG_MOTOR1_QUICK_DISTANCE      139 // FLOAT  Configures the motor's travel distance in mm for motor 1.
+#define ADD_REG_MOTOR2_QUICK_DISTANCE      140 // FLOAT  Configures the motor's travel distance in mm for motor 2.
 
 /************************************************************************/
 /* PWM Generator registers' memory limits                               */
@@ -563,8 +603,8 @@ typedef struct
 /************************************************************************/
 /* Memory limits */
 #define APP_REGS_ADD_MIN                    0x20
-#define APP_REGS_ADD_MAX                    0x78
-#define APP_NBYTES_OF_REG_BANK              280
+#define APP_REGS_ADD_MAX                    0x8C
+#define APP_NBYTES_OF_REG_BANK              338
 
 /************************************************************************/
 /* Registers' bits                                                      */

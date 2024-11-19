@@ -125,7 +125,27 @@ namespace Harp.StepperDriver
             { 117, typeof(Reserved4) },
             { 118, typeof(Reserved5) },
             { 119, typeof(Reserved6) },
-            { 120, typeof(Reserved7) }
+            { 120, typeof(Reserved7) },
+            { 121, typeof(Reserved8) },
+            { 122, typeof(Reserved9) },
+            { 123, typeof(Reserved10) },
+            { 124, typeof(Reserved11) },
+            { 125, typeof(Reserved12) },
+            { 126, typeof(Reserved13) },
+            { 127, typeof(Reserved14) },
+            { 128, typeof(Reserved15) },
+            { 129, typeof(Reserved16) },
+            { 130, typeof(TriggerQuickMovement) },
+            { 131, typeof(Motor1QuickMovementPulseDistance) },
+            { 132, typeof(Motor2QuickMovementPulseDistance) },
+            { 133, typeof(Motor1QuickMovementNominalSpeed) },
+            { 134, typeof(Motor2QuickMovementNominalSpeed) },
+            { 135, typeof(Motor1QuickMovementInitialSpeed) },
+            { 136, typeof(Motor2QuickMovementInitialSpeed) },
+            { 137, typeof(Motor1QuickMovementAcceleration) },
+            { 138, typeof(Motor2QuickMovementAcceleration) },
+            { 139, typeof(Motor1QuickMovementDistance) },
+            { 140, typeof(Motor2QuickMovementDistance) }
         };
 
         /// <summary>
@@ -269,6 +289,17 @@ namespace Harp.StepperDriver
     /// <seealso cref="Motor3StepRelative"/>
     /// <seealso cref="StopMotors"/>
     /// <seealso cref="ResetEncoders"/>
+    /// <seealso cref="TriggerQuickMovement"/>
+    /// <seealso cref="Motor1QuickMovementPulseDistance"/>
+    /// <seealso cref="Motor2QuickMovementPulseDistance"/>
+    /// <seealso cref="Motor1QuickMovementNominalSpeed"/>
+    /// <seealso cref="Motor2QuickMovementNominalSpeed"/>
+    /// <seealso cref="Motor1QuickMovementInitialSpeed"/>
+    /// <seealso cref="Motor2QuickMovementInitialSpeed"/>
+    /// <seealso cref="Motor1QuickMovementAcceleration"/>
+    /// <seealso cref="Motor2QuickMovementAcceleration"/>
+    /// <seealso cref="Motor1QuickMovementDistance"/>
+    /// <seealso cref="Motor2QuickMovementDistance"/>
     [XmlInclude(typeof(EnableDriver))]
     [XmlInclude(typeof(DisableDriver))]
     [XmlInclude(typeof(EnableEncoders))]
@@ -349,6 +380,17 @@ namespace Harp.StepperDriver
     [XmlInclude(typeof(Motor3StepRelative))]
     [XmlInclude(typeof(StopMotors))]
     [XmlInclude(typeof(ResetEncoders))]
+    [XmlInclude(typeof(TriggerQuickMovement))]
+    [XmlInclude(typeof(Motor1QuickMovementPulseDistance))]
+    [XmlInclude(typeof(Motor2QuickMovementPulseDistance))]
+    [XmlInclude(typeof(Motor1QuickMovementNominalSpeed))]
+    [XmlInclude(typeof(Motor2QuickMovementNominalSpeed))]
+    [XmlInclude(typeof(Motor1QuickMovementInitialSpeed))]
+    [XmlInclude(typeof(Motor2QuickMovementInitialSpeed))]
+    [XmlInclude(typeof(Motor1QuickMovementAcceleration))]
+    [XmlInclude(typeof(Motor2QuickMovementAcceleration))]
+    [XmlInclude(typeof(Motor1QuickMovementDistance))]
+    [XmlInclude(typeof(Motor2QuickMovementDistance))]
     [Description("Filters register-specific messages reported by the StepperDriver device.")]
     public class FilterRegister : FilterRegisterBuilder, INamedElement
     {
@@ -450,6 +492,17 @@ namespace Harp.StepperDriver
     /// <seealso cref="Motor3StepRelative"/>
     /// <seealso cref="StopMotors"/>
     /// <seealso cref="ResetEncoders"/>
+    /// <seealso cref="TriggerQuickMovement"/>
+    /// <seealso cref="Motor1QuickMovementPulseDistance"/>
+    /// <seealso cref="Motor2QuickMovementPulseDistance"/>
+    /// <seealso cref="Motor1QuickMovementNominalSpeed"/>
+    /// <seealso cref="Motor2QuickMovementNominalSpeed"/>
+    /// <seealso cref="Motor1QuickMovementInitialSpeed"/>
+    /// <seealso cref="Motor2QuickMovementInitialSpeed"/>
+    /// <seealso cref="Motor1QuickMovementAcceleration"/>
+    /// <seealso cref="Motor2QuickMovementAcceleration"/>
+    /// <seealso cref="Motor1QuickMovementDistance"/>
+    /// <seealso cref="Motor2QuickMovementDistance"/>
     [XmlInclude(typeof(EnableDriver))]
     [XmlInclude(typeof(DisableDriver))]
     [XmlInclude(typeof(EnableEncoders))]
@@ -530,6 +583,17 @@ namespace Harp.StepperDriver
     [XmlInclude(typeof(Motor3StepRelative))]
     [XmlInclude(typeof(StopMotors))]
     [XmlInclude(typeof(ResetEncoders))]
+    [XmlInclude(typeof(TriggerQuickMovement))]
+    [XmlInclude(typeof(Motor1QuickMovementPulseDistance))]
+    [XmlInclude(typeof(Motor2QuickMovementPulseDistance))]
+    [XmlInclude(typeof(Motor1QuickMovementNominalSpeed))]
+    [XmlInclude(typeof(Motor2QuickMovementNominalSpeed))]
+    [XmlInclude(typeof(Motor1QuickMovementInitialSpeed))]
+    [XmlInclude(typeof(Motor2QuickMovementInitialSpeed))]
+    [XmlInclude(typeof(Motor1QuickMovementAcceleration))]
+    [XmlInclude(typeof(Motor2QuickMovementAcceleration))]
+    [XmlInclude(typeof(Motor1QuickMovementDistance))]
+    [XmlInclude(typeof(Motor2QuickMovementDistance))]
     [XmlInclude(typeof(TimestampedEnableDriver))]
     [XmlInclude(typeof(TimestampedDisableDriver))]
     [XmlInclude(typeof(TimestampedEnableEncoders))]
@@ -610,6 +674,17 @@ namespace Harp.StepperDriver
     [XmlInclude(typeof(TimestampedMotor3StepRelative))]
     [XmlInclude(typeof(TimestampedStopMotors))]
     [XmlInclude(typeof(TimestampedResetEncoders))]
+    [XmlInclude(typeof(TimestampedTriggerQuickMovement))]
+    [XmlInclude(typeof(TimestampedMotor1QuickMovementPulseDistance))]
+    [XmlInclude(typeof(TimestampedMotor2QuickMovementPulseDistance))]
+    [XmlInclude(typeof(TimestampedMotor1QuickMovementNominalSpeed))]
+    [XmlInclude(typeof(TimestampedMotor2QuickMovementNominalSpeed))]
+    [XmlInclude(typeof(TimestampedMotor1QuickMovementInitialSpeed))]
+    [XmlInclude(typeof(TimestampedMotor2QuickMovementInitialSpeed))]
+    [XmlInclude(typeof(TimestampedMotor1QuickMovementAcceleration))]
+    [XmlInclude(typeof(TimestampedMotor2QuickMovementAcceleration))]
+    [XmlInclude(typeof(TimestampedMotor1QuickMovementDistance))]
+    [XmlInclude(typeof(TimestampedMotor2QuickMovementDistance))]
     [Description("Filters and selects specific messages reported by the StepperDriver device.")]
     public partial class Parse : ParseBuilder, INamedElement
     {
@@ -708,6 +783,17 @@ namespace Harp.StepperDriver
     /// <seealso cref="Motor3StepRelative"/>
     /// <seealso cref="StopMotors"/>
     /// <seealso cref="ResetEncoders"/>
+    /// <seealso cref="TriggerQuickMovement"/>
+    /// <seealso cref="Motor1QuickMovementPulseDistance"/>
+    /// <seealso cref="Motor2QuickMovementPulseDistance"/>
+    /// <seealso cref="Motor1QuickMovementNominalSpeed"/>
+    /// <seealso cref="Motor2QuickMovementNominalSpeed"/>
+    /// <seealso cref="Motor1QuickMovementInitialSpeed"/>
+    /// <seealso cref="Motor2QuickMovementInitialSpeed"/>
+    /// <seealso cref="Motor1QuickMovementAcceleration"/>
+    /// <seealso cref="Motor2QuickMovementAcceleration"/>
+    /// <seealso cref="Motor1QuickMovementDistance"/>
+    /// <seealso cref="Motor2QuickMovementDistance"/>
     [XmlInclude(typeof(EnableDriver))]
     [XmlInclude(typeof(DisableDriver))]
     [XmlInclude(typeof(EnableEncoders))]
@@ -788,6 +874,17 @@ namespace Harp.StepperDriver
     [XmlInclude(typeof(Motor3StepRelative))]
     [XmlInclude(typeof(StopMotors))]
     [XmlInclude(typeof(ResetEncoders))]
+    [XmlInclude(typeof(TriggerQuickMovement))]
+    [XmlInclude(typeof(Motor1QuickMovementPulseDistance))]
+    [XmlInclude(typeof(Motor2QuickMovementPulseDistance))]
+    [XmlInclude(typeof(Motor1QuickMovementNominalSpeed))]
+    [XmlInclude(typeof(Motor2QuickMovementNominalSpeed))]
+    [XmlInclude(typeof(Motor1QuickMovementInitialSpeed))]
+    [XmlInclude(typeof(Motor2QuickMovementInitialSpeed))]
+    [XmlInclude(typeof(Motor1QuickMovementAcceleration))]
+    [XmlInclude(typeof(Motor2QuickMovementAcceleration))]
+    [XmlInclude(typeof(Motor1QuickMovementDistance))]
+    [XmlInclude(typeof(Motor2QuickMovementDistance))]
     [Description("Formats a sequence of values as specific StepperDriver register messages.")]
     public partial class Format : FormatBuilder, INamedElement
     {
@@ -8882,6 +8979,1261 @@ namespace Harp.StepperDriver
     }
 
     /// <summary>
+    /// Represents a register that reserved register.
+    /// </summary>
+    [Description("Reserved register.")]
+    internal partial class Reserved8
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Reserved8"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 121;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Reserved8"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U8;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Reserved8"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+    }
+
+    /// <summary>
+    /// Represents a register that reserved register.
+    /// </summary>
+    [Description("Reserved register.")]
+    internal partial class Reserved9
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Reserved9"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 122;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Reserved9"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U8;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Reserved9"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+    }
+
+    /// <summary>
+    /// Represents a register that reserved register.
+    /// </summary>
+    [Description("Reserved register.")]
+    internal partial class Reserved10
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Reserved10"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 123;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Reserved10"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U8;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Reserved10"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+    }
+
+    /// <summary>
+    /// Represents a register that reserved register.
+    /// </summary>
+    [Description("Reserved register.")]
+    internal partial class Reserved11
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Reserved11"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 124;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Reserved11"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U8;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Reserved11"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+    }
+
+    /// <summary>
+    /// Represents a register that reserved register.
+    /// </summary>
+    [Description("Reserved register.")]
+    internal partial class Reserved12
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Reserved12"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 125;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Reserved12"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U8;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Reserved12"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+    }
+
+    /// <summary>
+    /// Represents a register that reserved register.
+    /// </summary>
+    [Description("Reserved register.")]
+    internal partial class Reserved13
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Reserved13"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 126;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Reserved13"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U8;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Reserved13"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+    }
+
+    /// <summary>
+    /// Represents a register that reserved register.
+    /// </summary>
+    [Description("Reserved register.")]
+    internal partial class Reserved14
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Reserved14"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 127;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Reserved14"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U8;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Reserved14"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+    }
+
+    /// <summary>
+    /// Represents a register that reserved register.
+    /// </summary>
+    [Description("Reserved register.")]
+    internal partial class Reserved15
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Reserved15"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 128;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Reserved15"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U8;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Reserved15"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+    }
+
+    /// <summary>
+    /// Represents a register that reserved register.
+    /// </summary>
+    [Description("Reserved register.")]
+    internal partial class Reserved16
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Reserved16"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 129;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Reserved16"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U8;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Reserved16"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+    }
+
+    /// <summary>
+    /// Represents a register that triggers the quick movement in the correspondent motor with the currently configured settings.
+    /// </summary>
+    [Description("Triggers the quick movement in the correspondent motor with the currently configured settings.")]
+    public partial class TriggerQuickMovement
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="TriggerQuickMovement"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 130;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="TriggerQuickMovement"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U8;
+
+        /// <summary>
+        /// Represents the length of the <see cref="TriggerQuickMovement"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+
+        /// <summary>
+        /// Returns the payload data for <see cref="TriggerQuickMovement"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the message payload.</returns>
+        public static StepperMotors GetPayload(HarpMessage message)
+        {
+            return (StepperMotors)message.GetPayloadByte();
+        }
+
+        /// <summary>
+        /// Returns the timestamped payload data for <see cref="TriggerQuickMovement"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<StepperMotors> GetTimestampedPayload(HarpMessage message)
+        {
+            var payload = message.GetTimestampedPayloadByte();
+            return Timestamped.Create((StepperMotors)payload.Value, payload.Seconds);
+        }
+
+        /// <summary>
+        /// Returns a Harp message for the <see cref="TriggerQuickMovement"/> register.
+        /// </summary>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="TriggerQuickMovement"/> register
+        /// with the specified message type and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(MessageType messageType, StepperMotors value)
+        {
+            return HarpMessage.FromByte(Address, messageType, (byte)value);
+        }
+
+        /// <summary>
+        /// Returns a timestamped Harp message for the <see cref="TriggerQuickMovement"/>
+        /// register.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="TriggerQuickMovement"/> register
+        /// with the specified message type, timestamp, and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, StepperMotors value)
+        {
+            return HarpMessage.FromByte(Address, timestamp, messageType, (byte)value);
+        }
+    }
+
+    /// <summary>
+    /// Provides methods for manipulating timestamped messages from the
+    /// TriggerQuickMovement register.
+    /// </summary>
+    /// <seealso cref="TriggerQuickMovement"/>
+    [Description("Filters and selects timestamped messages from the TriggerQuickMovement register.")]
+    public partial class TimestampedTriggerQuickMovement
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="TriggerQuickMovement"/> register. This field is constant.
+        /// </summary>
+        public const int Address = TriggerQuickMovement.Address;
+
+        /// <summary>
+        /// Returns timestamped payload data for <see cref="TriggerQuickMovement"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<StepperMotors> GetPayload(HarpMessage message)
+        {
+            return TriggerQuickMovement.GetTimestampedPayload(message);
+        }
+    }
+
+    /// <summary>
+    /// Represents a register that sets the single pulse distance for a quick movement, in millimeters, for the Motor 1.
+    /// </summary>
+    [Description("Sets the single pulse distance for a quick movement, in millimeters, for the Motor 1.")]
+    public partial class Motor1QuickMovementPulseDistance
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Motor1QuickMovementPulseDistance"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 131;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Motor1QuickMovementPulseDistance"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.Float;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Motor1QuickMovementPulseDistance"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+
+        /// <summary>
+        /// Returns the payload data for <see cref="Motor1QuickMovementPulseDistance"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the message payload.</returns>
+        public static float GetPayload(HarpMessage message)
+        {
+            return message.GetPayloadSingle();
+        }
+
+        /// <summary>
+        /// Returns the timestamped payload data for <see cref="Motor1QuickMovementPulseDistance"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<float> GetTimestampedPayload(HarpMessage message)
+        {
+            return message.GetTimestampedPayloadSingle();
+        }
+
+        /// <summary>
+        /// Returns a Harp message for the <see cref="Motor1QuickMovementPulseDistance"/> register.
+        /// </summary>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="Motor1QuickMovementPulseDistance"/> register
+        /// with the specified message type and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(MessageType messageType, float value)
+        {
+            return HarpMessage.FromSingle(Address, messageType, value);
+        }
+
+        /// <summary>
+        /// Returns a timestamped Harp message for the <see cref="Motor1QuickMovementPulseDistance"/>
+        /// register.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="Motor1QuickMovementPulseDistance"/> register
+        /// with the specified message type, timestamp, and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, float value)
+        {
+            return HarpMessage.FromSingle(Address, timestamp, messageType, value);
+        }
+    }
+
+    /// <summary>
+    /// Provides methods for manipulating timestamped messages from the
+    /// Motor1QuickMovementPulseDistance register.
+    /// </summary>
+    /// <seealso cref="Motor1QuickMovementPulseDistance"/>
+    [Description("Filters and selects timestamped messages from the Motor1QuickMovementPulseDistance register.")]
+    public partial class TimestampedMotor1QuickMovementPulseDistance
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Motor1QuickMovementPulseDistance"/> register. This field is constant.
+        /// </summary>
+        public const int Address = Motor1QuickMovementPulseDistance.Address;
+
+        /// <summary>
+        /// Returns timestamped payload data for <see cref="Motor1QuickMovementPulseDistance"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<float> GetPayload(HarpMessage message)
+        {
+            return Motor1QuickMovementPulseDistance.GetTimestampedPayload(message);
+        }
+    }
+
+    /// <summary>
+    /// Represents a register that sets the single pulse distance for a quick movement, in millimeters, for the Motor 2.
+    /// </summary>
+    [Description("Sets the single pulse distance for a quick movement, in millimeters, for the Motor 2.")]
+    public partial class Motor2QuickMovementPulseDistance
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Motor2QuickMovementPulseDistance"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 132;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Motor2QuickMovementPulseDistance"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.Float;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Motor2QuickMovementPulseDistance"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+
+        /// <summary>
+        /// Returns the payload data for <see cref="Motor2QuickMovementPulseDistance"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the message payload.</returns>
+        public static float GetPayload(HarpMessage message)
+        {
+            return message.GetPayloadSingle();
+        }
+
+        /// <summary>
+        /// Returns the timestamped payload data for <see cref="Motor2QuickMovementPulseDistance"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<float> GetTimestampedPayload(HarpMessage message)
+        {
+            return message.GetTimestampedPayloadSingle();
+        }
+
+        /// <summary>
+        /// Returns a Harp message for the <see cref="Motor2QuickMovementPulseDistance"/> register.
+        /// </summary>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="Motor2QuickMovementPulseDistance"/> register
+        /// with the specified message type and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(MessageType messageType, float value)
+        {
+            return HarpMessage.FromSingle(Address, messageType, value);
+        }
+
+        /// <summary>
+        /// Returns a timestamped Harp message for the <see cref="Motor2QuickMovementPulseDistance"/>
+        /// register.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="Motor2QuickMovementPulseDistance"/> register
+        /// with the specified message type, timestamp, and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, float value)
+        {
+            return HarpMessage.FromSingle(Address, timestamp, messageType, value);
+        }
+    }
+
+    /// <summary>
+    /// Provides methods for manipulating timestamped messages from the
+    /// Motor2QuickMovementPulseDistance register.
+    /// </summary>
+    /// <seealso cref="Motor2QuickMovementPulseDistance"/>
+    [Description("Filters and selects timestamped messages from the Motor2QuickMovementPulseDistance register.")]
+    public partial class TimestampedMotor2QuickMovementPulseDistance
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Motor2QuickMovementPulseDistance"/> register. This field is constant.
+        /// </summary>
+        public const int Address = Motor2QuickMovementPulseDistance.Address;
+
+        /// <summary>
+        /// Returns timestamped payload data for <see cref="Motor2QuickMovementPulseDistance"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<float> GetPayload(HarpMessage message)
+        {
+            return Motor2QuickMovementPulseDistance.GetTimestampedPayload(message);
+        }
+    }
+
+    /// <summary>
+    /// Represents a register that sets the target speed for a quick movement, in millimeters per second, for the Motor 1.
+    /// </summary>
+    [Description("Sets the target speed for a quick movement, in millimeters per second, for the Motor 1.")]
+    public partial class Motor1QuickMovementNominalSpeed
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Motor1QuickMovementNominalSpeed"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 133;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Motor1QuickMovementNominalSpeed"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.Float;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Motor1QuickMovementNominalSpeed"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+
+        /// <summary>
+        /// Returns the payload data for <see cref="Motor1QuickMovementNominalSpeed"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the message payload.</returns>
+        public static float GetPayload(HarpMessage message)
+        {
+            return message.GetPayloadSingle();
+        }
+
+        /// <summary>
+        /// Returns the timestamped payload data for <see cref="Motor1QuickMovementNominalSpeed"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<float> GetTimestampedPayload(HarpMessage message)
+        {
+            return message.GetTimestampedPayloadSingle();
+        }
+
+        /// <summary>
+        /// Returns a Harp message for the <see cref="Motor1QuickMovementNominalSpeed"/> register.
+        /// </summary>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="Motor1QuickMovementNominalSpeed"/> register
+        /// with the specified message type and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(MessageType messageType, float value)
+        {
+            return HarpMessage.FromSingle(Address, messageType, value);
+        }
+
+        /// <summary>
+        /// Returns a timestamped Harp message for the <see cref="Motor1QuickMovementNominalSpeed"/>
+        /// register.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="Motor1QuickMovementNominalSpeed"/> register
+        /// with the specified message type, timestamp, and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, float value)
+        {
+            return HarpMessage.FromSingle(Address, timestamp, messageType, value);
+        }
+    }
+
+    /// <summary>
+    /// Provides methods for manipulating timestamped messages from the
+    /// Motor1QuickMovementNominalSpeed register.
+    /// </summary>
+    /// <seealso cref="Motor1QuickMovementNominalSpeed"/>
+    [Description("Filters and selects timestamped messages from the Motor1QuickMovementNominalSpeed register.")]
+    public partial class TimestampedMotor1QuickMovementNominalSpeed
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Motor1QuickMovementNominalSpeed"/> register. This field is constant.
+        /// </summary>
+        public const int Address = Motor1QuickMovementNominalSpeed.Address;
+
+        /// <summary>
+        /// Returns timestamped payload data for <see cref="Motor1QuickMovementNominalSpeed"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<float> GetPayload(HarpMessage message)
+        {
+            return Motor1QuickMovementNominalSpeed.GetTimestampedPayload(message);
+        }
+    }
+
+    /// <summary>
+    /// Represents a register that sets the target speed for a quick movement, in millimeters per second, for the Motor 2.
+    /// </summary>
+    [Description("Sets the target speed for a quick movement, in millimeters per second, for the Motor 2.")]
+    public partial class Motor2QuickMovementNominalSpeed
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Motor2QuickMovementNominalSpeed"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 134;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Motor2QuickMovementNominalSpeed"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.Float;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Motor2QuickMovementNominalSpeed"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+
+        /// <summary>
+        /// Returns the payload data for <see cref="Motor2QuickMovementNominalSpeed"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the message payload.</returns>
+        public static float GetPayload(HarpMessage message)
+        {
+            return message.GetPayloadSingle();
+        }
+
+        /// <summary>
+        /// Returns the timestamped payload data for <see cref="Motor2QuickMovementNominalSpeed"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<float> GetTimestampedPayload(HarpMessage message)
+        {
+            return message.GetTimestampedPayloadSingle();
+        }
+
+        /// <summary>
+        /// Returns a Harp message for the <see cref="Motor2QuickMovementNominalSpeed"/> register.
+        /// </summary>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="Motor2QuickMovementNominalSpeed"/> register
+        /// with the specified message type and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(MessageType messageType, float value)
+        {
+            return HarpMessage.FromSingle(Address, messageType, value);
+        }
+
+        /// <summary>
+        /// Returns a timestamped Harp message for the <see cref="Motor2QuickMovementNominalSpeed"/>
+        /// register.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="Motor2QuickMovementNominalSpeed"/> register
+        /// with the specified message type, timestamp, and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, float value)
+        {
+            return HarpMessage.FromSingle(Address, timestamp, messageType, value);
+        }
+    }
+
+    /// <summary>
+    /// Provides methods for manipulating timestamped messages from the
+    /// Motor2QuickMovementNominalSpeed register.
+    /// </summary>
+    /// <seealso cref="Motor2QuickMovementNominalSpeed"/>
+    [Description("Filters and selects timestamped messages from the Motor2QuickMovementNominalSpeed register.")]
+    public partial class TimestampedMotor2QuickMovementNominalSpeed
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Motor2QuickMovementNominalSpeed"/> register. This field is constant.
+        /// </summary>
+        public const int Address = Motor2QuickMovementNominalSpeed.Address;
+
+        /// <summary>
+        /// Returns timestamped payload data for <see cref="Motor2QuickMovementNominalSpeed"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<float> GetPayload(HarpMessage message)
+        {
+            return Motor2QuickMovementNominalSpeed.GetTimestampedPayload(message);
+        }
+    }
+
+    /// <summary>
+    /// Represents a register that sets the initial speed for a quick movement, in millimeters per second, for the Motor 1.
+    /// </summary>
+    [Description("Sets the initial speed for a quick movement, in millimeters per second, for the Motor 1.")]
+    public partial class Motor1QuickMovementInitialSpeed
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Motor1QuickMovementInitialSpeed"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 135;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Motor1QuickMovementInitialSpeed"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.Float;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Motor1QuickMovementInitialSpeed"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+
+        /// <summary>
+        /// Returns the payload data for <see cref="Motor1QuickMovementInitialSpeed"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the message payload.</returns>
+        public static float GetPayload(HarpMessage message)
+        {
+            return message.GetPayloadSingle();
+        }
+
+        /// <summary>
+        /// Returns the timestamped payload data for <see cref="Motor1QuickMovementInitialSpeed"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<float> GetTimestampedPayload(HarpMessage message)
+        {
+            return message.GetTimestampedPayloadSingle();
+        }
+
+        /// <summary>
+        /// Returns a Harp message for the <see cref="Motor1QuickMovementInitialSpeed"/> register.
+        /// </summary>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="Motor1QuickMovementInitialSpeed"/> register
+        /// with the specified message type and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(MessageType messageType, float value)
+        {
+            return HarpMessage.FromSingle(Address, messageType, value);
+        }
+
+        /// <summary>
+        /// Returns a timestamped Harp message for the <see cref="Motor1QuickMovementInitialSpeed"/>
+        /// register.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="Motor1QuickMovementInitialSpeed"/> register
+        /// with the specified message type, timestamp, and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, float value)
+        {
+            return HarpMessage.FromSingle(Address, timestamp, messageType, value);
+        }
+    }
+
+    /// <summary>
+    /// Provides methods for manipulating timestamped messages from the
+    /// Motor1QuickMovementInitialSpeed register.
+    /// </summary>
+    /// <seealso cref="Motor1QuickMovementInitialSpeed"/>
+    [Description("Filters and selects timestamped messages from the Motor1QuickMovementInitialSpeed register.")]
+    public partial class TimestampedMotor1QuickMovementInitialSpeed
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Motor1QuickMovementInitialSpeed"/> register. This field is constant.
+        /// </summary>
+        public const int Address = Motor1QuickMovementInitialSpeed.Address;
+
+        /// <summary>
+        /// Returns timestamped payload data for <see cref="Motor1QuickMovementInitialSpeed"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<float> GetPayload(HarpMessage message)
+        {
+            return Motor1QuickMovementInitialSpeed.GetTimestampedPayload(message);
+        }
+    }
+
+    /// <summary>
+    /// Represents a register that sets the initial speed for a quick movement, in millimeters per second, for the Motor 2.
+    /// </summary>
+    [Description("Sets the initial speed for a quick movement, in millimeters per second, for the Motor 2.")]
+    public partial class Motor2QuickMovementInitialSpeed
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Motor2QuickMovementInitialSpeed"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 136;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Motor2QuickMovementInitialSpeed"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.Float;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Motor2QuickMovementInitialSpeed"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+
+        /// <summary>
+        /// Returns the payload data for <see cref="Motor2QuickMovementInitialSpeed"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the message payload.</returns>
+        public static float GetPayload(HarpMessage message)
+        {
+            return message.GetPayloadSingle();
+        }
+
+        /// <summary>
+        /// Returns the timestamped payload data for <see cref="Motor2QuickMovementInitialSpeed"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<float> GetTimestampedPayload(HarpMessage message)
+        {
+            return message.GetTimestampedPayloadSingle();
+        }
+
+        /// <summary>
+        /// Returns a Harp message for the <see cref="Motor2QuickMovementInitialSpeed"/> register.
+        /// </summary>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="Motor2QuickMovementInitialSpeed"/> register
+        /// with the specified message type and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(MessageType messageType, float value)
+        {
+            return HarpMessage.FromSingle(Address, messageType, value);
+        }
+
+        /// <summary>
+        /// Returns a timestamped Harp message for the <see cref="Motor2QuickMovementInitialSpeed"/>
+        /// register.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="Motor2QuickMovementInitialSpeed"/> register
+        /// with the specified message type, timestamp, and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, float value)
+        {
+            return HarpMessage.FromSingle(Address, timestamp, messageType, value);
+        }
+    }
+
+    /// <summary>
+    /// Provides methods for manipulating timestamped messages from the
+    /// Motor2QuickMovementInitialSpeed register.
+    /// </summary>
+    /// <seealso cref="Motor2QuickMovementInitialSpeed"/>
+    [Description("Filters and selects timestamped messages from the Motor2QuickMovementInitialSpeed register.")]
+    public partial class TimestampedMotor2QuickMovementInitialSpeed
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Motor2QuickMovementInitialSpeed"/> register. This field is constant.
+        /// </summary>
+        public const int Address = Motor2QuickMovementInitialSpeed.Address;
+
+        /// <summary>
+        /// Returns timestamped payload data for <see cref="Motor2QuickMovementInitialSpeed"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<float> GetPayload(HarpMessage message)
+        {
+            return Motor2QuickMovementInitialSpeed.GetTimestampedPayload(message);
+        }
+    }
+
+    /// <summary>
+    /// Represents a register that sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 1.
+    /// </summary>
+    [Description("Sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 1.")]
+    public partial class Motor1QuickMovementAcceleration
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Motor1QuickMovementAcceleration"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 137;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Motor1QuickMovementAcceleration"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.Float;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Motor1QuickMovementAcceleration"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+
+        /// <summary>
+        /// Returns the payload data for <see cref="Motor1QuickMovementAcceleration"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the message payload.</returns>
+        public static float GetPayload(HarpMessage message)
+        {
+            return message.GetPayloadSingle();
+        }
+
+        /// <summary>
+        /// Returns the timestamped payload data for <see cref="Motor1QuickMovementAcceleration"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<float> GetTimestampedPayload(HarpMessage message)
+        {
+            return message.GetTimestampedPayloadSingle();
+        }
+
+        /// <summary>
+        /// Returns a Harp message for the <see cref="Motor1QuickMovementAcceleration"/> register.
+        /// </summary>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="Motor1QuickMovementAcceleration"/> register
+        /// with the specified message type and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(MessageType messageType, float value)
+        {
+            return HarpMessage.FromSingle(Address, messageType, value);
+        }
+
+        /// <summary>
+        /// Returns a timestamped Harp message for the <see cref="Motor1QuickMovementAcceleration"/>
+        /// register.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="Motor1QuickMovementAcceleration"/> register
+        /// with the specified message type, timestamp, and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, float value)
+        {
+            return HarpMessage.FromSingle(Address, timestamp, messageType, value);
+        }
+    }
+
+    /// <summary>
+    /// Provides methods for manipulating timestamped messages from the
+    /// Motor1QuickMovementAcceleration register.
+    /// </summary>
+    /// <seealso cref="Motor1QuickMovementAcceleration"/>
+    [Description("Filters and selects timestamped messages from the Motor1QuickMovementAcceleration register.")]
+    public partial class TimestampedMotor1QuickMovementAcceleration
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Motor1QuickMovementAcceleration"/> register. This field is constant.
+        /// </summary>
+        public const int Address = Motor1QuickMovementAcceleration.Address;
+
+        /// <summary>
+        /// Returns timestamped payload data for <see cref="Motor1QuickMovementAcceleration"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<float> GetPayload(HarpMessage message)
+        {
+            return Motor1QuickMovementAcceleration.GetTimestampedPayload(message);
+        }
+    }
+
+    /// <summary>
+    /// Represents a register that sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 2.
+    /// </summary>
+    [Description("Sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 2.")]
+    public partial class Motor2QuickMovementAcceleration
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Motor2QuickMovementAcceleration"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 138;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Motor2QuickMovementAcceleration"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.Float;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Motor2QuickMovementAcceleration"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+
+        /// <summary>
+        /// Returns the payload data for <see cref="Motor2QuickMovementAcceleration"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the message payload.</returns>
+        public static float GetPayload(HarpMessage message)
+        {
+            return message.GetPayloadSingle();
+        }
+
+        /// <summary>
+        /// Returns the timestamped payload data for <see cref="Motor2QuickMovementAcceleration"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<float> GetTimestampedPayload(HarpMessage message)
+        {
+            return message.GetTimestampedPayloadSingle();
+        }
+
+        /// <summary>
+        /// Returns a Harp message for the <see cref="Motor2QuickMovementAcceleration"/> register.
+        /// </summary>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="Motor2QuickMovementAcceleration"/> register
+        /// with the specified message type and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(MessageType messageType, float value)
+        {
+            return HarpMessage.FromSingle(Address, messageType, value);
+        }
+
+        /// <summary>
+        /// Returns a timestamped Harp message for the <see cref="Motor2QuickMovementAcceleration"/>
+        /// register.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="Motor2QuickMovementAcceleration"/> register
+        /// with the specified message type, timestamp, and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, float value)
+        {
+            return HarpMessage.FromSingle(Address, timestamp, messageType, value);
+        }
+    }
+
+    /// <summary>
+    /// Provides methods for manipulating timestamped messages from the
+    /// Motor2QuickMovementAcceleration register.
+    /// </summary>
+    /// <seealso cref="Motor2QuickMovementAcceleration"/>
+    [Description("Filters and selects timestamped messages from the Motor2QuickMovementAcceleration register.")]
+    public partial class TimestampedMotor2QuickMovementAcceleration
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Motor2QuickMovementAcceleration"/> register. This field is constant.
+        /// </summary>
+        public const int Address = Motor2QuickMovementAcceleration.Address;
+
+        /// <summary>
+        /// Returns timestamped payload data for <see cref="Motor2QuickMovementAcceleration"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<float> GetPayload(HarpMessage message)
+        {
+            return Motor2QuickMovementAcceleration.GetTimestampedPayload(message);
+        }
+    }
+
+    /// <summary>
+    /// Represents a register that sets the travel distance of a quick movement, in millimeters, for the Motor 1.
+    /// </summary>
+    [Description("Sets the travel distance of a quick movement, in millimeters, for the Motor 1.")]
+    public partial class Motor1QuickMovementDistance
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Motor1QuickMovementDistance"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 139;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Motor1QuickMovementDistance"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.Float;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Motor1QuickMovementDistance"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+
+        /// <summary>
+        /// Returns the payload data for <see cref="Motor1QuickMovementDistance"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the message payload.</returns>
+        public static float GetPayload(HarpMessage message)
+        {
+            return message.GetPayloadSingle();
+        }
+
+        /// <summary>
+        /// Returns the timestamped payload data for <see cref="Motor1QuickMovementDistance"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<float> GetTimestampedPayload(HarpMessage message)
+        {
+            return message.GetTimestampedPayloadSingle();
+        }
+
+        /// <summary>
+        /// Returns a Harp message for the <see cref="Motor1QuickMovementDistance"/> register.
+        /// </summary>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="Motor1QuickMovementDistance"/> register
+        /// with the specified message type and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(MessageType messageType, float value)
+        {
+            return HarpMessage.FromSingle(Address, messageType, value);
+        }
+
+        /// <summary>
+        /// Returns a timestamped Harp message for the <see cref="Motor1QuickMovementDistance"/>
+        /// register.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="Motor1QuickMovementDistance"/> register
+        /// with the specified message type, timestamp, and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, float value)
+        {
+            return HarpMessage.FromSingle(Address, timestamp, messageType, value);
+        }
+    }
+
+    /// <summary>
+    /// Provides methods for manipulating timestamped messages from the
+    /// Motor1QuickMovementDistance register.
+    /// </summary>
+    /// <seealso cref="Motor1QuickMovementDistance"/>
+    [Description("Filters and selects timestamped messages from the Motor1QuickMovementDistance register.")]
+    public partial class TimestampedMotor1QuickMovementDistance
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Motor1QuickMovementDistance"/> register. This field is constant.
+        /// </summary>
+        public const int Address = Motor1QuickMovementDistance.Address;
+
+        /// <summary>
+        /// Returns timestamped payload data for <see cref="Motor1QuickMovementDistance"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<float> GetPayload(HarpMessage message)
+        {
+            return Motor1QuickMovementDistance.GetTimestampedPayload(message);
+        }
+    }
+
+    /// <summary>
+    /// Represents a register that sets the travel distance of a quick movement, in millimeters, for the Motor 1.
+    /// </summary>
+    [Description("Sets the travel distance of a quick movement, in millimeters, for the Motor 1.")]
+    public partial class Motor2QuickMovementDistance
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Motor2QuickMovementDistance"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 140;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Motor2QuickMovementDistance"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.Float;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Motor2QuickMovementDistance"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+
+        /// <summary>
+        /// Returns the payload data for <see cref="Motor2QuickMovementDistance"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the message payload.</returns>
+        public static float GetPayload(HarpMessage message)
+        {
+            return message.GetPayloadSingle();
+        }
+
+        /// <summary>
+        /// Returns the timestamped payload data for <see cref="Motor2QuickMovementDistance"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<float> GetTimestampedPayload(HarpMessage message)
+        {
+            return message.GetTimestampedPayloadSingle();
+        }
+
+        /// <summary>
+        /// Returns a Harp message for the <see cref="Motor2QuickMovementDistance"/> register.
+        /// </summary>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="Motor2QuickMovementDistance"/> register
+        /// with the specified message type and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(MessageType messageType, float value)
+        {
+            return HarpMessage.FromSingle(Address, messageType, value);
+        }
+
+        /// <summary>
+        /// Returns a timestamped Harp message for the <see cref="Motor2QuickMovementDistance"/>
+        /// register.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="Motor2QuickMovementDistance"/> register
+        /// with the specified message type, timestamp, and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, float value)
+        {
+            return HarpMessage.FromSingle(Address, timestamp, messageType, value);
+        }
+    }
+
+    /// <summary>
+    /// Provides methods for manipulating timestamped messages from the
+    /// Motor2QuickMovementDistance register.
+    /// </summary>
+    /// <seealso cref="Motor2QuickMovementDistance"/>
+    [Description("Filters and selects timestamped messages from the Motor2QuickMovementDistance register.")]
+    public partial class TimestampedMotor2QuickMovementDistance
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Motor2QuickMovementDistance"/> register. This field is constant.
+        /// </summary>
+        public const int Address = Motor2QuickMovementDistance.Address;
+
+        /// <summary>
+        /// Returns timestamped payload data for <see cref="Motor2QuickMovementDistance"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<float> GetPayload(HarpMessage message)
+        {
+            return Motor2QuickMovementDistance.GetTimestampedPayload(message);
+        }
+    }
+
+    /// <summary>
     /// Represents an operator which creates standard message payloads for the
     /// StepperDriver device.
     /// </summary>
@@ -8965,6 +10317,17 @@ namespace Harp.StepperDriver
     /// <seealso cref="CreateMotor3StepRelativePayload"/>
     /// <seealso cref="CreateStopMotorsPayload"/>
     /// <seealso cref="CreateResetEncodersPayload"/>
+    /// <seealso cref="CreateTriggerQuickMovementPayload"/>
+    /// <seealso cref="CreateMotor1QuickMovementPulseDistancePayload"/>
+    /// <seealso cref="CreateMotor2QuickMovementPulseDistancePayload"/>
+    /// <seealso cref="CreateMotor1QuickMovementNominalSpeedPayload"/>
+    /// <seealso cref="CreateMotor2QuickMovementNominalSpeedPayload"/>
+    /// <seealso cref="CreateMotor1QuickMovementInitialSpeedPayload"/>
+    /// <seealso cref="CreateMotor2QuickMovementInitialSpeedPayload"/>
+    /// <seealso cref="CreateMotor1QuickMovementAccelerationPayload"/>
+    /// <seealso cref="CreateMotor2QuickMovementAccelerationPayload"/>
+    /// <seealso cref="CreateMotor1QuickMovementDistancePayload"/>
+    /// <seealso cref="CreateMotor2QuickMovementDistancePayload"/>
     [XmlInclude(typeof(CreateEnableDriverPayload))]
     [XmlInclude(typeof(CreateDisableDriverPayload))]
     [XmlInclude(typeof(CreateEnableEncodersPayload))]
@@ -9045,6 +10408,17 @@ namespace Harp.StepperDriver
     [XmlInclude(typeof(CreateMotor3StepRelativePayload))]
     [XmlInclude(typeof(CreateStopMotorsPayload))]
     [XmlInclude(typeof(CreateResetEncodersPayload))]
+    [XmlInclude(typeof(CreateTriggerQuickMovementPayload))]
+    [XmlInclude(typeof(CreateMotor1QuickMovementPulseDistancePayload))]
+    [XmlInclude(typeof(CreateMotor2QuickMovementPulseDistancePayload))]
+    [XmlInclude(typeof(CreateMotor1QuickMovementNominalSpeedPayload))]
+    [XmlInclude(typeof(CreateMotor2QuickMovementNominalSpeedPayload))]
+    [XmlInclude(typeof(CreateMotor1QuickMovementInitialSpeedPayload))]
+    [XmlInclude(typeof(CreateMotor2QuickMovementInitialSpeedPayload))]
+    [XmlInclude(typeof(CreateMotor1QuickMovementAccelerationPayload))]
+    [XmlInclude(typeof(CreateMotor2QuickMovementAccelerationPayload))]
+    [XmlInclude(typeof(CreateMotor1QuickMovementDistancePayload))]
+    [XmlInclude(typeof(CreateMotor2QuickMovementDistancePayload))]
     [XmlInclude(typeof(CreateTimestampedEnableDriverPayload))]
     [XmlInclude(typeof(CreateTimestampedDisableDriverPayload))]
     [XmlInclude(typeof(CreateTimestampedEnableEncodersPayload))]
@@ -9125,6 +10499,17 @@ namespace Harp.StepperDriver
     [XmlInclude(typeof(CreateTimestampedMotor3StepRelativePayload))]
     [XmlInclude(typeof(CreateTimestampedStopMotorsPayload))]
     [XmlInclude(typeof(CreateTimestampedResetEncodersPayload))]
+    [XmlInclude(typeof(CreateTimestampedTriggerQuickMovementPayload))]
+    [XmlInclude(typeof(CreateTimestampedMotor1QuickMovementPulseDistancePayload))]
+    [XmlInclude(typeof(CreateTimestampedMotor2QuickMovementPulseDistancePayload))]
+    [XmlInclude(typeof(CreateTimestampedMotor1QuickMovementNominalSpeedPayload))]
+    [XmlInclude(typeof(CreateTimestampedMotor2QuickMovementNominalSpeedPayload))]
+    [XmlInclude(typeof(CreateTimestampedMotor1QuickMovementInitialSpeedPayload))]
+    [XmlInclude(typeof(CreateTimestampedMotor2QuickMovementInitialSpeedPayload))]
+    [XmlInclude(typeof(CreateTimestampedMotor1QuickMovementAccelerationPayload))]
+    [XmlInclude(typeof(CreateTimestampedMotor2QuickMovementAccelerationPayload))]
+    [XmlInclude(typeof(CreateTimestampedMotor1QuickMovementDistancePayload))]
+    [XmlInclude(typeof(CreateTimestampedMotor2QuickMovementDistancePayload))]
     [Description("Creates standard message payloads for the StepperDriver device.")]
     public partial class CreateMessage : CreateMessageBuilder, INamedElement
     {
@@ -13651,6 +15036,600 @@ namespace Harp.StepperDriver
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
             return Harp.StepperDriver.ResetEncoders.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
+    /// that triggers the quick movement in the correspondent motor with the currently configured settings.
+    /// </summary>
+    [DisplayName("TriggerQuickMovementPayload")]
+    [Description("Creates a message payload that triggers the quick movement in the correspondent motor with the currently configured settings.")]
+    public partial class CreateTriggerQuickMovementPayload
+    {
+        /// <summary>
+        /// Gets or sets the value that triggers the quick movement in the correspondent motor with the currently configured settings.
+        /// </summary>
+        [Description("The value that triggers the quick movement in the correspondent motor with the currently configured settings.")]
+        public StepperMotors TriggerQuickMovement { get; set; }
+
+        /// <summary>
+        /// Creates a message payload for the TriggerQuickMovement register.
+        /// </summary>
+        /// <returns>The created message payload value.</returns>
+        public StepperMotors GetPayload()
+        {
+            return TriggerQuickMovement;
+        }
+
+        /// <summary>
+        /// Creates a message that triggers the quick movement in the correspondent motor with the currently configured settings.
+        /// </summary>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the TriggerQuickMovement register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
+        {
+            return Harp.StepperDriver.TriggerQuickMovement.FromPayload(messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a timestamped message payload
+    /// that triggers the quick movement in the correspondent motor with the currently configured settings.
+    /// </summary>
+    [DisplayName("TimestampedTriggerQuickMovementPayload")]
+    [Description("Creates a timestamped message payload that triggers the quick movement in the correspondent motor with the currently configured settings.")]
+    public partial class CreateTimestampedTriggerQuickMovementPayload : CreateTriggerQuickMovementPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that triggers the quick movement in the correspondent motor with the currently configured settings.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the TriggerQuickMovement register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.StepperDriver.TriggerQuickMovement.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
+    /// that sets the single pulse distance for a quick movement, in millimeters, for the Motor 1.
+    /// </summary>
+    [DisplayName("Motor1QuickMovementPulseDistancePayload")]
+    [Description("Creates a message payload that sets the single pulse distance for a quick movement, in millimeters, for the Motor 1.")]
+    public partial class CreateMotor1QuickMovementPulseDistancePayload
+    {
+        /// <summary>
+        /// Gets or sets the value that sets the single pulse distance for a quick movement, in millimeters, for the Motor 1.
+        /// </summary>
+        [Description("The value that sets the single pulse distance for a quick movement, in millimeters, for the Motor 1.")]
+        public float Motor1QuickMovementPulseDistance { get; set; }
+
+        /// <summary>
+        /// Creates a message payload for the Motor1QuickMovementPulseDistance register.
+        /// </summary>
+        /// <returns>The created message payload value.</returns>
+        public float GetPayload()
+        {
+            return Motor1QuickMovementPulseDistance;
+        }
+
+        /// <summary>
+        /// Creates a message that sets the single pulse distance for a quick movement, in millimeters, for the Motor 1.
+        /// </summary>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Motor1QuickMovementPulseDistance register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
+        {
+            return Harp.StepperDriver.Motor1QuickMovementPulseDistance.FromPayload(messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a timestamped message payload
+    /// that sets the single pulse distance for a quick movement, in millimeters, for the Motor 1.
+    /// </summary>
+    [DisplayName("TimestampedMotor1QuickMovementPulseDistancePayload")]
+    [Description("Creates a timestamped message payload that sets the single pulse distance for a quick movement, in millimeters, for the Motor 1.")]
+    public partial class CreateTimestampedMotor1QuickMovementPulseDistancePayload : CreateMotor1QuickMovementPulseDistancePayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that sets the single pulse distance for a quick movement, in millimeters, for the Motor 1.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Motor1QuickMovementPulseDistance register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.StepperDriver.Motor1QuickMovementPulseDistance.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
+    /// that sets the single pulse distance for a quick movement, in millimeters, for the Motor 2.
+    /// </summary>
+    [DisplayName("Motor2QuickMovementPulseDistancePayload")]
+    [Description("Creates a message payload that sets the single pulse distance for a quick movement, in millimeters, for the Motor 2.")]
+    public partial class CreateMotor2QuickMovementPulseDistancePayload
+    {
+        /// <summary>
+        /// Gets or sets the value that sets the single pulse distance for a quick movement, in millimeters, for the Motor 2.
+        /// </summary>
+        [Description("The value that sets the single pulse distance for a quick movement, in millimeters, for the Motor 2.")]
+        public float Motor2QuickMovementPulseDistance { get; set; }
+
+        /// <summary>
+        /// Creates a message payload for the Motor2QuickMovementPulseDistance register.
+        /// </summary>
+        /// <returns>The created message payload value.</returns>
+        public float GetPayload()
+        {
+            return Motor2QuickMovementPulseDistance;
+        }
+
+        /// <summary>
+        /// Creates a message that sets the single pulse distance for a quick movement, in millimeters, for the Motor 2.
+        /// </summary>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Motor2QuickMovementPulseDistance register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
+        {
+            return Harp.StepperDriver.Motor2QuickMovementPulseDistance.FromPayload(messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a timestamped message payload
+    /// that sets the single pulse distance for a quick movement, in millimeters, for the Motor 2.
+    /// </summary>
+    [DisplayName("TimestampedMotor2QuickMovementPulseDistancePayload")]
+    [Description("Creates a timestamped message payload that sets the single pulse distance for a quick movement, in millimeters, for the Motor 2.")]
+    public partial class CreateTimestampedMotor2QuickMovementPulseDistancePayload : CreateMotor2QuickMovementPulseDistancePayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that sets the single pulse distance for a quick movement, in millimeters, for the Motor 2.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Motor2QuickMovementPulseDistance register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.StepperDriver.Motor2QuickMovementPulseDistance.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
+    /// that sets the target speed for a quick movement, in millimeters per second, for the Motor 1.
+    /// </summary>
+    [DisplayName("Motor1QuickMovementNominalSpeedPayload")]
+    [Description("Creates a message payload that sets the target speed for a quick movement, in millimeters per second, for the Motor 1.")]
+    public partial class CreateMotor1QuickMovementNominalSpeedPayload
+    {
+        /// <summary>
+        /// Gets or sets the value that sets the target speed for a quick movement, in millimeters per second, for the Motor 1.
+        /// </summary>
+        [Description("The value that sets the target speed for a quick movement, in millimeters per second, for the Motor 1.")]
+        public float Motor1QuickMovementNominalSpeed { get; set; }
+
+        /// <summary>
+        /// Creates a message payload for the Motor1QuickMovementNominalSpeed register.
+        /// </summary>
+        /// <returns>The created message payload value.</returns>
+        public float GetPayload()
+        {
+            return Motor1QuickMovementNominalSpeed;
+        }
+
+        /// <summary>
+        /// Creates a message that sets the target speed for a quick movement, in millimeters per second, for the Motor 1.
+        /// </summary>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Motor1QuickMovementNominalSpeed register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
+        {
+            return Harp.StepperDriver.Motor1QuickMovementNominalSpeed.FromPayload(messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a timestamped message payload
+    /// that sets the target speed for a quick movement, in millimeters per second, for the Motor 1.
+    /// </summary>
+    [DisplayName("TimestampedMotor1QuickMovementNominalSpeedPayload")]
+    [Description("Creates a timestamped message payload that sets the target speed for a quick movement, in millimeters per second, for the Motor 1.")]
+    public partial class CreateTimestampedMotor1QuickMovementNominalSpeedPayload : CreateMotor1QuickMovementNominalSpeedPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that sets the target speed for a quick movement, in millimeters per second, for the Motor 1.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Motor1QuickMovementNominalSpeed register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.StepperDriver.Motor1QuickMovementNominalSpeed.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
+    /// that sets the target speed for a quick movement, in millimeters per second, for the Motor 2.
+    /// </summary>
+    [DisplayName("Motor2QuickMovementNominalSpeedPayload")]
+    [Description("Creates a message payload that sets the target speed for a quick movement, in millimeters per second, for the Motor 2.")]
+    public partial class CreateMotor2QuickMovementNominalSpeedPayload
+    {
+        /// <summary>
+        /// Gets or sets the value that sets the target speed for a quick movement, in millimeters per second, for the Motor 2.
+        /// </summary>
+        [Description("The value that sets the target speed for a quick movement, in millimeters per second, for the Motor 2.")]
+        public float Motor2QuickMovementNominalSpeed { get; set; }
+
+        /// <summary>
+        /// Creates a message payload for the Motor2QuickMovementNominalSpeed register.
+        /// </summary>
+        /// <returns>The created message payload value.</returns>
+        public float GetPayload()
+        {
+            return Motor2QuickMovementNominalSpeed;
+        }
+
+        /// <summary>
+        /// Creates a message that sets the target speed for a quick movement, in millimeters per second, for the Motor 2.
+        /// </summary>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Motor2QuickMovementNominalSpeed register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
+        {
+            return Harp.StepperDriver.Motor2QuickMovementNominalSpeed.FromPayload(messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a timestamped message payload
+    /// that sets the target speed for a quick movement, in millimeters per second, for the Motor 2.
+    /// </summary>
+    [DisplayName("TimestampedMotor2QuickMovementNominalSpeedPayload")]
+    [Description("Creates a timestamped message payload that sets the target speed for a quick movement, in millimeters per second, for the Motor 2.")]
+    public partial class CreateTimestampedMotor2QuickMovementNominalSpeedPayload : CreateMotor2QuickMovementNominalSpeedPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that sets the target speed for a quick movement, in millimeters per second, for the Motor 2.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Motor2QuickMovementNominalSpeed register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.StepperDriver.Motor2QuickMovementNominalSpeed.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
+    /// that sets the initial speed for a quick movement, in millimeters per second, for the Motor 1.
+    /// </summary>
+    [DisplayName("Motor1QuickMovementInitialSpeedPayload")]
+    [Description("Creates a message payload that sets the initial speed for a quick movement, in millimeters per second, for the Motor 1.")]
+    public partial class CreateMotor1QuickMovementInitialSpeedPayload
+    {
+        /// <summary>
+        /// Gets or sets the value that sets the initial speed for a quick movement, in millimeters per second, for the Motor 1.
+        /// </summary>
+        [Description("The value that sets the initial speed for a quick movement, in millimeters per second, for the Motor 1.")]
+        public float Motor1QuickMovementInitialSpeed { get; set; }
+
+        /// <summary>
+        /// Creates a message payload for the Motor1QuickMovementInitialSpeed register.
+        /// </summary>
+        /// <returns>The created message payload value.</returns>
+        public float GetPayload()
+        {
+            return Motor1QuickMovementInitialSpeed;
+        }
+
+        /// <summary>
+        /// Creates a message that sets the initial speed for a quick movement, in millimeters per second, for the Motor 1.
+        /// </summary>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Motor1QuickMovementInitialSpeed register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
+        {
+            return Harp.StepperDriver.Motor1QuickMovementInitialSpeed.FromPayload(messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a timestamped message payload
+    /// that sets the initial speed for a quick movement, in millimeters per second, for the Motor 1.
+    /// </summary>
+    [DisplayName("TimestampedMotor1QuickMovementInitialSpeedPayload")]
+    [Description("Creates a timestamped message payload that sets the initial speed for a quick movement, in millimeters per second, for the Motor 1.")]
+    public partial class CreateTimestampedMotor1QuickMovementInitialSpeedPayload : CreateMotor1QuickMovementInitialSpeedPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that sets the initial speed for a quick movement, in millimeters per second, for the Motor 1.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Motor1QuickMovementInitialSpeed register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.StepperDriver.Motor1QuickMovementInitialSpeed.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
+    /// that sets the initial speed for a quick movement, in millimeters per second, for the Motor 2.
+    /// </summary>
+    [DisplayName("Motor2QuickMovementInitialSpeedPayload")]
+    [Description("Creates a message payload that sets the initial speed for a quick movement, in millimeters per second, for the Motor 2.")]
+    public partial class CreateMotor2QuickMovementInitialSpeedPayload
+    {
+        /// <summary>
+        /// Gets or sets the value that sets the initial speed for a quick movement, in millimeters per second, for the Motor 2.
+        /// </summary>
+        [Description("The value that sets the initial speed for a quick movement, in millimeters per second, for the Motor 2.")]
+        public float Motor2QuickMovementInitialSpeed { get; set; }
+
+        /// <summary>
+        /// Creates a message payload for the Motor2QuickMovementInitialSpeed register.
+        /// </summary>
+        /// <returns>The created message payload value.</returns>
+        public float GetPayload()
+        {
+            return Motor2QuickMovementInitialSpeed;
+        }
+
+        /// <summary>
+        /// Creates a message that sets the initial speed for a quick movement, in millimeters per second, for the Motor 2.
+        /// </summary>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Motor2QuickMovementInitialSpeed register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
+        {
+            return Harp.StepperDriver.Motor2QuickMovementInitialSpeed.FromPayload(messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a timestamped message payload
+    /// that sets the initial speed for a quick movement, in millimeters per second, for the Motor 2.
+    /// </summary>
+    [DisplayName("TimestampedMotor2QuickMovementInitialSpeedPayload")]
+    [Description("Creates a timestamped message payload that sets the initial speed for a quick movement, in millimeters per second, for the Motor 2.")]
+    public partial class CreateTimestampedMotor2QuickMovementInitialSpeedPayload : CreateMotor2QuickMovementInitialSpeedPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that sets the initial speed for a quick movement, in millimeters per second, for the Motor 2.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Motor2QuickMovementInitialSpeed register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.StepperDriver.Motor2QuickMovementInitialSpeed.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
+    /// that sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 1.
+    /// </summary>
+    [DisplayName("Motor1QuickMovementAccelerationPayload")]
+    [Description("Creates a message payload that sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 1.")]
+    public partial class CreateMotor1QuickMovementAccelerationPayload
+    {
+        /// <summary>
+        /// Gets or sets the value that sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 1.
+        /// </summary>
+        [Description("The value that sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 1.")]
+        public float Motor1QuickMovementAcceleration { get; set; }
+
+        /// <summary>
+        /// Creates a message payload for the Motor1QuickMovementAcceleration register.
+        /// </summary>
+        /// <returns>The created message payload value.</returns>
+        public float GetPayload()
+        {
+            return Motor1QuickMovementAcceleration;
+        }
+
+        /// <summary>
+        /// Creates a message that sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 1.
+        /// </summary>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Motor1QuickMovementAcceleration register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
+        {
+            return Harp.StepperDriver.Motor1QuickMovementAcceleration.FromPayload(messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a timestamped message payload
+    /// that sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 1.
+    /// </summary>
+    [DisplayName("TimestampedMotor1QuickMovementAccelerationPayload")]
+    [Description("Creates a timestamped message payload that sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 1.")]
+    public partial class CreateTimestampedMotor1QuickMovementAccelerationPayload : CreateMotor1QuickMovementAccelerationPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 1.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Motor1QuickMovementAcceleration register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.StepperDriver.Motor1QuickMovementAcceleration.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
+    /// that sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 2.
+    /// </summary>
+    [DisplayName("Motor2QuickMovementAccelerationPayload")]
+    [Description("Creates a message payload that sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 2.")]
+    public partial class CreateMotor2QuickMovementAccelerationPayload
+    {
+        /// <summary>
+        /// Gets or sets the value that sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 2.
+        /// </summary>
+        [Description("The value that sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 2.")]
+        public float Motor2QuickMovementAcceleration { get; set; }
+
+        /// <summary>
+        /// Creates a message payload for the Motor2QuickMovementAcceleration register.
+        /// </summary>
+        /// <returns>The created message payload value.</returns>
+        public float GetPayload()
+        {
+            return Motor2QuickMovementAcceleration;
+        }
+
+        /// <summary>
+        /// Creates a message that sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 2.
+        /// </summary>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Motor2QuickMovementAcceleration register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
+        {
+            return Harp.StepperDriver.Motor2QuickMovementAcceleration.FromPayload(messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a timestamped message payload
+    /// that sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 2.
+    /// </summary>
+    [DisplayName("TimestampedMotor2QuickMovementAccelerationPayload")]
+    [Description("Creates a timestamped message payload that sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 2.")]
+    public partial class CreateTimestampedMotor2QuickMovementAccelerationPayload : CreateMotor2QuickMovementAccelerationPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 2.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Motor2QuickMovementAcceleration register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.StepperDriver.Motor2QuickMovementAcceleration.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
+    /// that sets the travel distance of a quick movement, in millimeters, for the Motor 1.
+    /// </summary>
+    [DisplayName("Motor1QuickMovementDistancePayload")]
+    [Description("Creates a message payload that sets the travel distance of a quick movement, in millimeters, for the Motor 1.")]
+    public partial class CreateMotor1QuickMovementDistancePayload
+    {
+        /// <summary>
+        /// Gets or sets the value that sets the travel distance of a quick movement, in millimeters, for the Motor 1.
+        /// </summary>
+        [Description("The value that sets the travel distance of a quick movement, in millimeters, for the Motor 1.")]
+        public float Motor1QuickMovementDistance { get; set; }
+
+        /// <summary>
+        /// Creates a message payload for the Motor1QuickMovementDistance register.
+        /// </summary>
+        /// <returns>The created message payload value.</returns>
+        public float GetPayload()
+        {
+            return Motor1QuickMovementDistance;
+        }
+
+        /// <summary>
+        /// Creates a message that sets the travel distance of a quick movement, in millimeters, for the Motor 1.
+        /// </summary>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Motor1QuickMovementDistance register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
+        {
+            return Harp.StepperDriver.Motor1QuickMovementDistance.FromPayload(messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a timestamped message payload
+    /// that sets the travel distance of a quick movement, in millimeters, for the Motor 1.
+    /// </summary>
+    [DisplayName("TimestampedMotor1QuickMovementDistancePayload")]
+    [Description("Creates a timestamped message payload that sets the travel distance of a quick movement, in millimeters, for the Motor 1.")]
+    public partial class CreateTimestampedMotor1QuickMovementDistancePayload : CreateMotor1QuickMovementDistancePayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that sets the travel distance of a quick movement, in millimeters, for the Motor 1.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Motor1QuickMovementDistance register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.StepperDriver.Motor1QuickMovementDistance.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
+    /// that sets the travel distance of a quick movement, in millimeters, for the Motor 1.
+    /// </summary>
+    [DisplayName("Motor2QuickMovementDistancePayload")]
+    [Description("Creates a message payload that sets the travel distance of a quick movement, in millimeters, for the Motor 1.")]
+    public partial class CreateMotor2QuickMovementDistancePayload
+    {
+        /// <summary>
+        /// Gets or sets the value that sets the travel distance of a quick movement, in millimeters, for the Motor 1.
+        /// </summary>
+        [Description("The value that sets the travel distance of a quick movement, in millimeters, for the Motor 1.")]
+        public float Motor2QuickMovementDistance { get; set; }
+
+        /// <summary>
+        /// Creates a message payload for the Motor2QuickMovementDistance register.
+        /// </summary>
+        /// <returns>The created message payload value.</returns>
+        public float GetPayload()
+        {
+            return Motor2QuickMovementDistance;
+        }
+
+        /// <summary>
+        /// Creates a message that sets the travel distance of a quick movement, in millimeters, for the Motor 1.
+        /// </summary>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Motor2QuickMovementDistance register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
+        {
+            return Harp.StepperDriver.Motor2QuickMovementDistance.FromPayload(messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a timestamped message payload
+    /// that sets the travel distance of a quick movement, in millimeters, for the Motor 1.
+    /// </summary>
+    [DisplayName("TimestampedMotor2QuickMovementDistancePayload")]
+    [Description("Creates a timestamped message payload that sets the travel distance of a quick movement, in millimeters, for the Motor 1.")]
+    public partial class CreateTimestampedMotor2QuickMovementDistancePayload : CreateMotor2QuickMovementDistancePayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that sets the travel distance of a quick movement, in millimeters, for the Motor 1.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Motor2QuickMovementDistance register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return Harp.StepperDriver.Motor2QuickMovementDistance.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
