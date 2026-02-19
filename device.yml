@@ -396,20 +396,20 @@ registers:
         offset: 3
         description: Contains the accumulated steps of motor 3.
 
-  Mortor0AccumulatedSteps: &motorsaccumulatedsteps
+  Motor0AccumulatedSteps: &motorsaccumulatedsteps
     address: 91
     type: S32
     access: Write
     description: Contains the accumulated number of steps of motor 0. Write a value to set the current number of accumulated steps.
-  Mortor1AccumulatedSteps:
+  Motor1AccumulatedSteps:
     <<: *motorsaccumulatedsteps
     address: 92
     description: Contains the accumulated number of steps of motor 1. Write a value to set the current number of accumulated steps.
-  Mortor2AccumulatedSteps:
+  Motor2AccumulatedSteps:
     <<: *motorsaccumulatedsteps
     address: 93
     description: Contains the accumulated number of steps of motor 2. Write a value to set the current number of accumulated steps.
-  Mortor3AccumulatedSteps:
+  Motor3AccumulatedSteps:
     <<: *motorsaccumulatedsteps
     address: 94
     description: Contains the accumulated number of steps of motor 3. Write a value to set the current number of accumulated steps.
