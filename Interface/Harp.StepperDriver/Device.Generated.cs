@@ -9424,9 +9424,9 @@ namespace Harp.StepperDriver
     }
 
     /// <summary>
-    /// Represents a register that sets the single pulse distance for a quick movement, in millimeters, for the Motor 1.
+    /// Represents a register that sets the single step pulse distance for a quick movement, in micrometers, for the Motor 1.
     /// </summary>
-    [Description("Sets the single pulse distance for a quick movement, in millimeters, for the Motor 1.")]
+    [Description("Sets the single step pulse distance for a quick movement, in micrometers, for the Motor 1.")]
     public partial class Motor1QuickMovementPulseDistance
     {
         /// <summary>
@@ -9520,9 +9520,9 @@ namespace Harp.StepperDriver
     }
 
     /// <summary>
-    /// Represents a register that sets the single pulse distance for a quick movement, in millimeters, for the Motor 2.
+    /// Represents a register that sets the single step pulse distance for a quick movement, in micrometers, for the Motor 2.
     /// </summary>
-    [Description("Sets the single pulse distance for a quick movement, in millimeters, for the Motor 2.")]
+    [Description("Sets the single step pulse distance for a quick movement, in micrometers, for the Motor 2.")]
     public partial class Motor2QuickMovementPulseDistance
     {
         /// <summary>
@@ -10000,9 +10000,9 @@ namespace Harp.StepperDriver
     }
 
     /// <summary>
-    /// Represents a register that sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 1.
+    /// Represents a register that sets the acceleration for a quick movement, in meters per second^2, for the Motor 1.
     /// </summary>
-    [Description("Sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 1.")]
+    [Description("Sets the acceleration for a quick movement, in meters per second^2, for the Motor 1.")]
     public partial class Motor1QuickMovementAcceleration
     {
         /// <summary>
@@ -10096,9 +10096,9 @@ namespace Harp.StepperDriver
     }
 
     /// <summary>
-    /// Represents a register that sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 2.
+    /// Represents a register that sets the acceleration for a quick movement, in meters per second^2, for the Motor 2.
     /// </summary>
-    [Description("Sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 2.")]
+    [Description("Sets the acceleration for a quick movement, in meters per second^2, for the Motor 2.")]
     public partial class Motor2QuickMovementAcceleration
     {
         /// <summary>
@@ -15245,16 +15245,16 @@ namespace Harp.StepperDriver
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that sets the single pulse distance for a quick movement, in millimeters, for the Motor 1.
+    /// that sets the single step pulse distance for a quick movement, in micrometers, for the Motor 1.
     /// </summary>
     [DisplayName("Motor1QuickMovementPulseDistancePayload")]
-    [Description("Creates a message payload that sets the single pulse distance for a quick movement, in millimeters, for the Motor 1.")]
+    [Description("Creates a message payload that sets the single step pulse distance for a quick movement, in micrometers, for the Motor 1.")]
     public partial class CreateMotor1QuickMovementPulseDistancePayload
     {
         /// <summary>
-        /// Gets or sets the value that sets the single pulse distance for a quick movement, in millimeters, for the Motor 1.
+        /// Gets or sets the value that sets the single step pulse distance for a quick movement, in micrometers, for the Motor 1.
         /// </summary>
-        [Description("The value that sets the single pulse distance for a quick movement, in millimeters, for the Motor 1.")]
+        [Description("The value that sets the single step pulse distance for a quick movement, in micrometers, for the Motor 1.")]
         public float Motor1QuickMovementPulseDistance { get; set; }
 
         /// <summary>
@@ -15267,7 +15267,7 @@ namespace Harp.StepperDriver
         }
 
         /// <summary>
-        /// Creates a message that sets the single pulse distance for a quick movement, in millimeters, for the Motor 1.
+        /// Creates a message that sets the single step pulse distance for a quick movement, in micrometers, for the Motor 1.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the Motor1QuickMovementPulseDistance register.</returns>
@@ -15279,14 +15279,14 @@ namespace Harp.StepperDriver
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that sets the single pulse distance for a quick movement, in millimeters, for the Motor 1.
+    /// that sets the single step pulse distance for a quick movement, in micrometers, for the Motor 1.
     /// </summary>
     [DisplayName("TimestampedMotor1QuickMovementPulseDistancePayload")]
-    [Description("Creates a timestamped message payload that sets the single pulse distance for a quick movement, in millimeters, for the Motor 1.")]
+    [Description("Creates a timestamped message payload that sets the single step pulse distance for a quick movement, in micrometers, for the Motor 1.")]
     public partial class CreateTimestampedMotor1QuickMovementPulseDistancePayload : CreateMotor1QuickMovementPulseDistancePayload
     {
         /// <summary>
-        /// Creates a timestamped message that sets the single pulse distance for a quick movement, in millimeters, for the Motor 1.
+        /// Creates a timestamped message that sets the single step pulse distance for a quick movement, in micrometers, for the Motor 1.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -15299,16 +15299,16 @@ namespace Harp.StepperDriver
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that sets the single pulse distance for a quick movement, in millimeters, for the Motor 2.
+    /// that sets the single step pulse distance for a quick movement, in micrometers, for the Motor 2.
     /// </summary>
     [DisplayName("Motor2QuickMovementPulseDistancePayload")]
-    [Description("Creates a message payload that sets the single pulse distance for a quick movement, in millimeters, for the Motor 2.")]
+    [Description("Creates a message payload that sets the single step pulse distance for a quick movement, in micrometers, for the Motor 2.")]
     public partial class CreateMotor2QuickMovementPulseDistancePayload
     {
         /// <summary>
-        /// Gets or sets the value that sets the single pulse distance for a quick movement, in millimeters, for the Motor 2.
+        /// Gets or sets the value that sets the single step pulse distance for a quick movement, in micrometers, for the Motor 2.
         /// </summary>
-        [Description("The value that sets the single pulse distance for a quick movement, in millimeters, for the Motor 2.")]
+        [Description("The value that sets the single step pulse distance for a quick movement, in micrometers, for the Motor 2.")]
         public float Motor2QuickMovementPulseDistance { get; set; }
 
         /// <summary>
@@ -15321,7 +15321,7 @@ namespace Harp.StepperDriver
         }
 
         /// <summary>
-        /// Creates a message that sets the single pulse distance for a quick movement, in millimeters, for the Motor 2.
+        /// Creates a message that sets the single step pulse distance for a quick movement, in micrometers, for the Motor 2.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the Motor2QuickMovementPulseDistance register.</returns>
@@ -15333,14 +15333,14 @@ namespace Harp.StepperDriver
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that sets the single pulse distance for a quick movement, in millimeters, for the Motor 2.
+    /// that sets the single step pulse distance for a quick movement, in micrometers, for the Motor 2.
     /// </summary>
     [DisplayName("TimestampedMotor2QuickMovementPulseDistancePayload")]
-    [Description("Creates a timestamped message payload that sets the single pulse distance for a quick movement, in millimeters, for the Motor 2.")]
+    [Description("Creates a timestamped message payload that sets the single step pulse distance for a quick movement, in micrometers, for the Motor 2.")]
     public partial class CreateTimestampedMotor2QuickMovementPulseDistancePayload : CreateMotor2QuickMovementPulseDistancePayload
     {
         /// <summary>
-        /// Creates a timestamped message that sets the single pulse distance for a quick movement, in millimeters, for the Motor 2.
+        /// Creates a timestamped message that sets the single step pulse distance for a quick movement, in micrometers, for the Motor 2.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -15569,16 +15569,16 @@ namespace Harp.StepperDriver
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 1.
+    /// that sets the acceleration for a quick movement, in meters per second^2, for the Motor 1.
     /// </summary>
     [DisplayName("Motor1QuickMovementAccelerationPayload")]
-    [Description("Creates a message payload that sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 1.")]
+    [Description("Creates a message payload that sets the acceleration for a quick movement, in meters per second^2, for the Motor 1.")]
     public partial class CreateMotor1QuickMovementAccelerationPayload
     {
         /// <summary>
-        /// Gets or sets the value that sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 1.
+        /// Gets or sets the value that sets the acceleration for a quick movement, in meters per second^2, for the Motor 1.
         /// </summary>
-        [Description("The value that sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 1.")]
+        [Description("The value that sets the acceleration for a quick movement, in meters per second^2, for the Motor 1.")]
         public float Motor1QuickMovementAcceleration { get; set; }
 
         /// <summary>
@@ -15591,7 +15591,7 @@ namespace Harp.StepperDriver
         }
 
         /// <summary>
-        /// Creates a message that sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 1.
+        /// Creates a message that sets the acceleration for a quick movement, in meters per second^2, for the Motor 1.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the Motor1QuickMovementAcceleration register.</returns>
@@ -15603,14 +15603,14 @@ namespace Harp.StepperDriver
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 1.
+    /// that sets the acceleration for a quick movement, in meters per second^2, for the Motor 1.
     /// </summary>
     [DisplayName("TimestampedMotor1QuickMovementAccelerationPayload")]
-    [Description("Creates a timestamped message payload that sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 1.")]
+    [Description("Creates a timestamped message payload that sets the acceleration for a quick movement, in meters per second^2, for the Motor 1.")]
     public partial class CreateTimestampedMotor1QuickMovementAccelerationPayload : CreateMotor1QuickMovementAccelerationPayload
     {
         /// <summary>
-        /// Creates a timestamped message that sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 1.
+        /// Creates a timestamped message that sets the acceleration for a quick movement, in meters per second^2, for the Motor 1.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -15623,16 +15623,16 @@ namespace Harp.StepperDriver
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 2.
+    /// that sets the acceleration for a quick movement, in meters per second^2, for the Motor 2.
     /// </summary>
     [DisplayName("Motor2QuickMovementAccelerationPayload")]
-    [Description("Creates a message payload that sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 2.")]
+    [Description("Creates a message payload that sets the acceleration for a quick movement, in meters per second^2, for the Motor 2.")]
     public partial class CreateMotor2QuickMovementAccelerationPayload
     {
         /// <summary>
-        /// Gets or sets the value that sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 2.
+        /// Gets or sets the value that sets the acceleration for a quick movement, in meters per second^2, for the Motor 2.
         /// </summary>
-        [Description("The value that sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 2.")]
+        [Description("The value that sets the acceleration for a quick movement, in meters per second^2, for the Motor 2.")]
         public float Motor2QuickMovementAcceleration { get; set; }
 
         /// <summary>
@@ -15645,7 +15645,7 @@ namespace Harp.StepperDriver
         }
 
         /// <summary>
-        /// Creates a message that sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 2.
+        /// Creates a message that sets the acceleration for a quick movement, in meters per second^2, for the Motor 2.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the Motor2QuickMovementAcceleration register.</returns>
@@ -15657,14 +15657,14 @@ namespace Harp.StepperDriver
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 2.
+    /// that sets the acceleration for a quick movement, in meters per second^2, for the Motor 2.
     /// </summary>
     [DisplayName("TimestampedMotor2QuickMovementAccelerationPayload")]
-    [Description("Creates a timestamped message payload that sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 2.")]
+    [Description("Creates a timestamped message payload that sets the acceleration for a quick movement, in meters per second^2, for the Motor 2.")]
     public partial class CreateTimestampedMotor2QuickMovementAccelerationPayload : CreateMotor2QuickMovementAccelerationPayload
     {
         /// <summary>
-        /// Creates a timestamped message that sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 2.
+        /// Creates a timestamped message that sets the acceleration for a quick movement, in meters per second^2, for the Motor 2.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>

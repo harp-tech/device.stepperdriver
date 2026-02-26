@@ -640,11 +640,11 @@ registers:
     address: 131
     type: Float
     access: Write
-    description: Sets the single pulse distance for a quick movement, in millimeters, for the Motor 1.
+    description: Sets the single step pulse distance for a quick movement, in micrometers, for the Motor 1.
   Motor2QuickMovementPulseDistance:
     <<: *quickmovement_pulsedistance
     address: 132
-    description: Sets the single pulse distance for a quick movement, in millimeters, for the Motor 2.
+    description: Sets the single step pulse distance for a quick movement, in micrometers, for the Motor 2.
   Motor1QuickMovementNominalSpeed: &quickmovement_nominalspeed
     address: 133
     type: Float
@@ -667,11 +667,11 @@ registers:
     address: 137
     type: Float
     access: Write
-    description: Sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 1.
+    description: Sets the acceleration for a quick movement, in meters per second^2, for the Motor 1.
   Motor2QuickMovementAcceleration:
     <<: *quickmovement_acceleration
     address: 138
-    description: Sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 2.
+    description: Sets the acceleration for a quick movement, in meters per second^2, for the Motor 2.
   Motor1QuickMovementDistance: &quickmovement_distance
     address: 139
     type: Float
