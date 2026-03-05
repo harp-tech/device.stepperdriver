@@ -396,20 +396,20 @@ registers:
         offset: 3
         description: Contains the accumulated steps of motor 3.
 
-  Mortor0AccumulatedSteps: &motorsaccumulatedsteps
+  Motor0AccumulatedSteps: &motorsaccumulatedsteps
     address: 91
     type: S32
     access: Write
     description: Contains the accumulated number of steps of motor 0. Write a value to set the current number of accumulated steps.
-  Mortor1AccumulatedSteps:
+  Motor1AccumulatedSteps:
     <<: *motorsaccumulatedsteps
     address: 92
     description: Contains the accumulated number of steps of motor 1. Write a value to set the current number of accumulated steps.
-  Mortor2AccumulatedSteps:
+  Motor2AccumulatedSteps:
     <<: *motorsaccumulatedsteps
     address: 93
     description: Contains the accumulated number of steps of motor 2. Write a value to set the current number of accumulated steps.
-  Mortor3AccumulatedSteps:
+  Motor3AccumulatedSteps:
     <<: *motorsaccumulatedsteps
     address: 94
     description: Contains the accumulated number of steps of motor 3. Write a value to set the current number of accumulated steps.
@@ -640,11 +640,11 @@ registers:
     address: 131
     type: Float
     access: Write
-    description: Sets the single pulse distance for a quick movement, in millimeters, for the Motor 1.
+    description: Sets the single step pulse distance for a quick movement, in micrometers, for the Motor 1.
   Motor2QuickMovementPulseDistance:
     <<: *quickmovement_pulsedistance
     address: 132
-    description: Sets the single pulse distance for a quick movement, in millimeters, for the Motor 2.
+    description: Sets the single step pulse distance for a quick movement, in micrometers, for the Motor 2.
   Motor1QuickMovementNominalSpeed: &quickmovement_nominalspeed
     address: 133
     type: Float
@@ -667,11 +667,11 @@ registers:
     address: 137
     type: Float
     access: Write
-    description: Sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 1.
+    description: Sets the acceleration for a quick movement, in meters per second^2, for the Motor 1.
   Motor2QuickMovementAcceleration:
     <<: *quickmovement_acceleration
     address: 138
-    description: Sets the acceleration for a quick movement, in millimeters per second^2, for the Motor 2.
+    description: Sets the acceleration for a quick movement, in meters per second^2, for the Motor 2.
   Motor1QuickMovementDistance: &quickmovement_distance
     address: 139
     type: Float
