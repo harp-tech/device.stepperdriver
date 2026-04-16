@@ -566,23 +566,23 @@ typedef struct
 #define ADD_REG_STOP_MOTORS_SUDENTLY       110 // U8     Stops the motors immediately.
 #define ADD_REG_RESET_MOTORS_ERROR_DETECTION 111 // U8     Disables the current error and enables the driver.
 #define ADD_REG_RESET_ENCODERS             112 // U8     Resets the encoder.
-#define ADD_REG_RESERVED0                  113 // U8     Contains the CFG configuration pins of the TMC2210 driver that controls motor 0.
-#define ADD_REG_RESERVED1                  114 // U8     Contains the CFG configuration pins of the TMC2210 driver that controls motor 1.
-#define ADD_REG_RESERVED2                  115 // U8     Contains the CFG configuration pins of the TMC2210 driver that controls motor 2.
-#define ADD_REG_RESERVED3                  116 // U8     Contains the CFG configuration pins of the TMC2210 driver that controls motor 3.
-#define ADD_REG_RESERVED4                  117 // U8     Contains the raw data of the digital potentiometer that controls current limit of motor 0.
-#define ADD_REG_RESERVED5                  118 // U8     Contains the raw data of the digital potentiometer that controls current limit of motor 1.
-#define ADD_REG_RESERVED6                  119 // U8     Contains the raw data of the digital potentiometer that controls current limit of motor 2.
-#define ADD_REG_RESERVED7                  120 // U8     Contains the raw data of the digital potentiometer that controls current limit of motor 3.
-#define ADD_REG_RESERVED8                  121 // U16    Configures the motor's step interval when running at nominal speed for motor 1 for the quick mode.
-#define ADD_REG_RESERVED9                  122 // U16    Configures the motor's step interval when running at nominal speed for motor 2 for the quick mode.
-#define ADD_REG_RESERVED10                 123 // U16    Configures the motor's maximum step interval for motor 1, used as the first and last steo interval of a movement for the quick mode.
-#define ADD_REG_RESERVED11                 124 // U16    Configures the motor's maximum step interval for motor 2, used as the first and last steo interval of a movement for the quick mode.
-#define ADD_REG_RESERVED12                 125 // U16    Configures the acceleration for motor 1. The step's interval is decreased by this value when accelerating and increased when decelerating for the quick mode.
-#define ADD_REG_RESERVED13                 126 // U16    Configures the acceleration for motor . The step's interval is decreased by this value when accelerating and increased when decelerating for the quick mode.
-#define ADD_REG_RESERVED14                 127 // I16    Moves motor 1 by the number of steps written in this register and set the direction according to the value's signal for the quick mode.
-#define ADD_REG_RESERVED15                 128 // I16    Moves motor 2 by the number of steps written in this register and set the direction according to the value's signal for the quick mode.
-#define ADD_REG_RESERVED16                 129 // U8     Writing any value to this register will load the motors' current configuration memory for quicker start.
+#define ADD_REG_RESERVED0                  113 // U8     Reserved.
+#define ADD_REG_RESERVED1                  114 // U8     Reserved.
+#define ADD_REG_RESERVED2                  115 // U8     Reserved.
+#define ADD_REG_RESERVED3                  116 // U8     Reserved.
+#define ADD_REG_RESERVED4                  117 // U8     Reserved.
+#define ADD_REG_RESERVED5                  118 // U8     Reserved.
+#define ADD_REG_RESERVED6                  119 // U8     Reserved.
+#define ADD_REG_RESERVED7                  120 // U8     Reserved.
+#define ADD_REG_RESERVED8                  121 // U16    Reserved.
+#define ADD_REG_RESERVED9                  122 // U16    Reserved.
+#define ADD_REG_RESERVED10                 123 // U16    Reserved.
+#define ADD_REG_RESERVED11                 124 // U16    Reserved.
+#define ADD_REG_RESERVED12                 125 // U16    Reserved.
+#define ADD_REG_RESERVED13                 126 // U16    Reserved.
+#define ADD_REG_RESERVED14                 127 // I16    Reserved.
+#define ADD_REG_RESERVED15                 128 // I16    Reserved.
+#define ADD_REG_RESERVED16                 129 // U8     Reserved.
 #define ADD_REG_START_QUICK_MOVEMENT       130 // U8     Triggers the quick movement in the correspondent motor.
 #define ADD_REG_MOTOR1_QUICK_PULSE_DISTANCE 131 // FLOAT  Configures the motor's step distance in µm for motor 1.
 #define ADD_REG_MOTOR2_QUICK_PULSE_DISTANCE 132 // FLOAT  Configures the motor's step distance in µm for motor 2.

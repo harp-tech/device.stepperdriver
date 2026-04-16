@@ -3,8 +3,8 @@
 # yaml-language-server: $schema=https://harp-tech.org/draft-02/schema/device.json
 device: StepperDriver
 whoAmI: 1130
-firmwareVersion: "0.8"
-hardwareTargets: "1.0"
+firmwareVersion: "0.9"
+hardwareTargets: "1.1" # Also compatible with version 1.0
 registers:
   ##################################
   # Enable and disable
