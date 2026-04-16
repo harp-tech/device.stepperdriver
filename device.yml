@@ -4,7 +4,7 @@
 device: StepperDriver
 whoAmI: 1130
 firmwareVersion: "0.9"
-hardwareTargets: "1.1" # Also compatible with version 0.7 and 1.0
+hardwareTargets: "1.1" # Also compatible with version 1.0
 registers:
   ##################################
   # Enable and disable
