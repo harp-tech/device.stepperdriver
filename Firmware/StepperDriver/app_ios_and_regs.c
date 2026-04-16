@@ -21,7 +21,7 @@ void init_ios(void)
 	io_pin2in(&PORTD, 2, PULL_IO_UP, SENSE_IO_EDGE_FALLING);             // ERROR_M1
 	io_pin2in(&PORTE, 2, PULL_IO_UP, SENSE_IO_EDGE_FALLING);             // ERROR_M2
 	io_pin2in(&PORTJ, 5, PULL_IO_UP, SENSE_IO_EDGE_FALLING);             // ERROR_M3
-	io_pin2in(&PORTQ, 0, PULL_IO_UP, SENSE_IO_EDGES_BOTH);               // EMERGENCY
+	io_pin2in(&PORTQ, 0, PULL_IO_TRISTATE, SENSE_IO_EDGES_BOTH);         // EMERGENCY
 
 	/* Configure input interrupts */
 	io_set_int(&PORTK, INT_LEVEL_LOW, 0, (1<<5), false);                 // INPUT0
