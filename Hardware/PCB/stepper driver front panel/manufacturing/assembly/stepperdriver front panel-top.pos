@@ -1,0 +1,10 @@
+### Footprint positions - created on 2026-04-16T11:08:26+0100 ###
+### Printed by KiCad version 9.0.7
+## Unit = mm, Angle = deg.
+## Side : top
+# Ref     Val       Package                 PosX       PosY       Rot  Side
+U$4       3M_1x4    3M_372_1X4_TYPE_A   119.7489  -126.0000    0.0000  top
+U$5       3M_1x4    3M_372_1X4_TYPE_A   112.2745  -126.0000    0.0000  top
+U$6       3M_1x4    3M_372_1X4_TYPE_A   104.8000  -126.0000    0.0000  top
+U$8       3M_4x3    3M_3712-62B3-003    195.9000  -124.9964    0.0000  top
+## End
