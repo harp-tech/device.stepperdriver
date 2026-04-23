@@ -1,0 +1,24 @@
+### Footprint positions - created on 2026-04-16T11:08:26+0100 ###
+### Printed by KiCad version 9.0.7
+## Unit = mm, Angle = deg.
+## Side : bottom
+# Ref     Val              Package                                             PosX       PosY       Rot  Side
+J1        24_pins          Omron_XF2M-2615-1A_1x26-1MP_P0.5mm_Horizontal   208.6000  -136.0500    0.0000  bottom
+LED1      XZMDKCBDDG45S-9  SunLED_XZMDK45WT-9                              197.6226  -111.5000  180.0000  bottom
+LED2      XZMDKCBDDG45S-9  SunLED_XZMDK45WT-9                              132.8000  -113.3000  180.0000  bottom
+LED3      XZMDKCBDDG45S-9  SunLED_XZMDK45WT-9                              149.3800  -113.3200  180.0000  bottom
+LED4      XZMDKCBDDG45S-9  SunLED_XZMDK45WT-9                              165.9400  -113.3200  180.0000  bottom
+LED5      XZMDKCBDDG45S-9  SunLED_XZMDK45WT-9                              182.6000  -113.3000  180.0000  bottom
+LED6      XZMDKCBDDG45S-9  SunLED_XZMDK45WT-9                              209.1940  -111.5000  180.0000  bottom
+R1        0R               R_0603_1608Metric                               206.3500  -129.6000  -90.0000  bottom
+R2        PDown_DNI        R_0402_1005Metric                               198.1500  -121.5500  -90.0000  bottom
+R3        0R               R_0603_1608Metric                               202.6500  -129.6500  -90.0000  bottom
+R4        0R               R_0603_1608Metric                               204.5000  -129.6500  -90.0000  bottom
+R5        PDown_DNI        R_0402_1005Metric                               212.9000  -121.5500  -90.0000  bottom
+R6        PDown_DNI        R_0402_1005Metric                               206.1500  -121.5500  -90.0000  bottom
+R7        PDown_DNI        R_0402_1005Metric                               200.2000  -121.5500  -90.0000  bottom
+R8        PUp_DNI          R_0402_1005Metric                               198.1500  -124.5000  -90.0000  bottom
+R9        PUp_DNI          R_0402_1005Metric                               200.2000  -124.5000  -90.0000  bottom
+R10       PUp_DNI          R_0402_1005Metric                               206.1500  -124.5000  -90.0000  bottom
+R11       PUp_DNI          R_0402_1005Metric                               212.9000  -124.5000  -90.0000  bottom
+## End
