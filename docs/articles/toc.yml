@@ -1,3 +1,8 @@
 - name: Introduction
 - name: StepperDriver
   href: ../index.md
+- name: Bonsai Workflows
+- href: stepperdriver-setup.md
+- href: stepperdriver-configuration.md
+- href: stepperdriver-controlmotor.md
+- href: stepperdriver-quickmovement.md 

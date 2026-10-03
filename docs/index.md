@@ -1,8 +1,6 @@
 ## Harp Stepper Driver
 
-![Harp Stepper Driver PCB](images/pcb.png)
-A stepper motor controller device for four motors including individual quadrature encoders..
-
+A stepper motor controller device for four motors including individual quadrature encoders.
 
 ### Key Features ###
 
