@@ -4,3 +4,8 @@
 .nuget
 bin
 obj
+# Bonsai environment and build artifacts
+.bonsai/Bonsai.exe*
+.bonsai/Packages/
+.bonsai/Settings/
+/artifacts/
